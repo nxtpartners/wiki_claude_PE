@@ -1,0 +1,118 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+const { headings } = Astro.props;
+
+// Only show h2/h3 in the rail.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  toc.length > 0 && (
+    <nav class="toc" aria-label="On this page">
+      <p class="toc-label">On this page</p>
+      <ul class="toc-list">
+        {toc.map((h) => (
+          <li class:list={['toc-item', { sub: h.depth === 3 }]}>
+            <a href={`#${h.slug}`} class="toc-link" data-toc-link={h.slug}>
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  .toc {
+    width: var(--toc-w);
+    flex: 0 0 var(--toc-w);
+  }
+  nav.toc {
+    position: sticky;
+    top: var(--header-h);
+    align-self: flex-start;
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    padding: var(--space-8) 0 var(--space-12) var(--space-6);
+    border-left: 1px solid var(--line);
+  }
+  .toc-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 var(--space-3);
+  }
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .toc-item {
+    margin: 0;
+  }
+  .toc-item.sub {
+    padding-left: var(--space-4);
+  }
+  .toc-link {
+    display: block;
+    padding: 4px 0;
+    font-size: 0.86rem;
+    line-height: 1.4;
+    color: var(--ink-muted);
+    border-left: 2px solid transparent;
+    margin-left: -2px;
+    padding-left: var(--space-3);
+    transition: color 0.15s ease;
+  }
+  .toc-link:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .toc-link.active {
+    color: var(--kpmg-blue);
+    font-weight: 600;
+    border-left-color: var(--kpmg-blue);
+  }
+
+  @media (max-width: 1240px) {
+    .toc {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  // Highlight the active heading on scroll via IntersectionObserver.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]'));
+  if (links.length) {
+    const map = new Map(links.map((l) => [l.dataset.tocLink, l]));
+    const headings = links
+      .map((l) => document.getElementById(l.dataset.tocLink || ''))
+      .filter((el): el is HTMLElement => Boolean(el));
+
+    let activeId = '';
+    const setActive = (id: string) => {
+      if (id === activeId) return;
+      activeId = id;
+      links.forEach((l) => l.classList.toggle('active', l.dataset.tocLink === id));
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: '-72px 0px -70% 0px', threshold: 0 }
+    );
+    headings.forEach((h) => observer.observe(h));
+  }
+</script>

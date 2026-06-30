@@ -1,0 +1,68 @@
+---
+// Clean wrapper for comparison / pros-cons tables.
+// Use by slotting a normal markdown/HTML <table>, or any tabular content.
+
+interface Props {
+  title?: string;
+  caption?: string;
+}
+const { title, caption } = Astro.props;
+---
+
+<div class="comparison">
+  {title && <p class="comparison-title">{title}</p>}
+  <div class="comparison-scroll">
+    <slot />
+  </div>
+  {caption && <p class="comparison-caption">{caption}</p>}
+</div>
+
+<style>
+  .comparison {
+    margin: var(--space-6) 0;
+  }
+  .comparison-title {
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 var(--space-3);
+  }
+  .comparison-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+  }
+  .comparison-scroll :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 0.94rem;
+  }
+  .comparison-scroll :global(th),
+  .comparison-scroll :global(td) {
+    text-align: left;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  .comparison-scroll :global(thead th) {
+    background: var(--bg-soft);
+    font-weight: 650;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .comparison-scroll :global(tbody tr:last-child td) {
+    border-bottom: none;
+  }
+  .comparison-scroll :global(tbody tr:hover) {
+    background: var(--bg-soft);
+  }
+  .comparison-caption {
+    margin: var(--space-3) 0 0;
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+  }
+</style>

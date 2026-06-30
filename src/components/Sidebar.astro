@@ -1,0 +1,148 @@
+---
+import { getCollection } from 'astro:content';
+import { nav } from '../config/nav';
+
+interface Props {
+  currentSlug?: string;
+}
+const { currentSlug } = Astro.props;
+
+// Resolve which slugs have a real content file so we never link to a 404.
+const docs = await getCollection('docs', ({ data }) => data.draft !== true);
+const existing = new Set(docs.map((d) => d.id));
+---
+
+<nav class="sidebar" aria-label="Wiki navigation">
+  <div class="sidebar-scroll">
+    {
+      nav.map((section) => (
+        <div class="nav-section">
+          <p class="nav-label">{section.label}</p>
+          <ul class="nav-list">
+            {section.items.map((item) => {
+              const isActive = item.slug === currentSlug;
+              const exists = existing.has(item.slug);
+              return (
+                <li>
+                  {exists ? (
+                    <a
+                      href={`/${item.slug}`}
+                      class:list={['nav-link', { active: isActive }]}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      <span class="nav-indicator" aria-hidden="true" />
+                      <span class="nav-text">{item.title}</span>
+                    </a>
+                  ) : (
+                    <span class="nav-link nav-soon" title="Coming soon">
+                      <span class="nav-indicator" aria-hidden="true" />
+                      <span class="nav-text">{item.title}</span>
+                      <span class="soon-tag">soon</span>
+                    </span>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  .sidebar {
+    width: var(--sidebar-w);
+    flex: 0 0 var(--sidebar-w);
+  }
+  .sidebar-scroll {
+    position: sticky;
+    top: var(--header-h);
+    max-height: calc(100vh - var(--header-h));
+    overflow-y: auto;
+    padding: var(--space-8) var(--space-6) var(--space-12) 0;
+    scrollbar-width: thin;
+  }
+
+  .nav-section + .nav-section {
+    margin-top: var(--space-6);
+  }
+  .nav-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 0 0 var(--space-2);
+    padding-left: var(--space-3);
+  }
+  .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-list li {
+    margin: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--ink-muted);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
+  }
+  a.nav-link:hover {
+    color: var(--ink);
+    background: var(--bg-soft);
+    text-decoration: none;
+  }
+  .nav-indicator {
+    width: 2px;
+    height: 15px;
+    border-radius: 2px;
+    background: transparent;
+    flex: 0 0 2px;
+    transition: background 0.15s ease;
+  }
+  .nav-link.active {
+    color: var(--kpmg-blue);
+    font-weight: 650;
+    background: rgba(0, 51, 141, 0.05);
+  }
+  .nav-link.active .nav-indicator {
+    background: var(--kpmg-blue);
+  }
+  a.nav-link:hover .nav-indicator {
+    background: var(--line);
+  }
+
+  .nav-soon {
+    color: #9aa6b6;
+    cursor: default;
+  }
+  .soon-tag {
+    margin-left: auto;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #aeb8c6;
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 1px 5px;
+  }
+
+  @media (max-width: 1080px) {
+    .sidebar {
+      display: none;
+    }
+  }
+</style>

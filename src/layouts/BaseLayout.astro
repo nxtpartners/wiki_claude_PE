@@ -1,0 +1,51 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Claude.ai for KPMG Private Equity professionals: from basics to confident daily use.' } =
+  Astro.props;
+
+const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT Partners AI' : `${title} · Claude for PE`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#00338D" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <slot />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -48px;
+    z-index: 1000;
+    background: var(--kpmg-blue);
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    transition: top 0.18s ease;
+  }
+  .skip-link:focus {
+    top: 16px;
+    text-decoration: none;
+  }
+</style>

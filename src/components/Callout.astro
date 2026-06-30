@@ -1,0 +1,142 @@
+---
+type Variant = 'tip' | 'note' | 'warning' | 'confidential';
+
+interface Props {
+  type?: Variant;
+  title?: string;
+}
+const { type = 'note', title } = Astro.props;
+
+const defaults: Record<Variant, string> = {
+  tip: 'Tip',
+  note: 'Note',
+  warning: 'Warning',
+  confidential: 'Confidential data',
+};
+const heading = title ?? defaults[type];
+---
+
+<aside class:list={['callout', `callout-${type}`]} role="note">
+  <span class="callout-icon" aria-hidden="true">
+    {
+      type === 'tip' && (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path
+            d="M9 18h6m-5 3h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0 0 12 2Z"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      )
+    }
+    {
+      type === 'note' && (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" />
+          <path d="M12 11v5m0-8.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      )
+    }
+    {
+      type === 'warning' && (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <path
+            d="M12 3 2.5 20h19L12 3Z"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linejoin="round"
+          />
+          <path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      )
+    }
+    {
+      type === 'confidential' && (
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+          <rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.8" />
+          <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="1.8" />
+          <circle cx="12" cy="15.5" r="1.4" fill="currentColor" />
+        </svg>
+      )
+    }
+  </span>
+  <div class="callout-body">
+    <p class="callout-title">{heading}</p>
+    <div class="callout-content"><slot /></div>
+  </div>
+</aside>
+
+<style>
+  .callout {
+    display: flex;
+    gap: var(--space-4);
+    margin: var(--space-6) 0;
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    border-left-width: 4px;
+    background: var(--bg-soft);
+  }
+  .callout-icon {
+    flex: 0 0 auto;
+    margin-top: 1px;
+  }
+  .callout-title {
+    margin: 0 0 var(--space-1);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .callout-content {
+    color: var(--ink);
+  }
+  .callout-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .callout-content :global(p) {
+    margin-bottom: var(--space-3);
+  }
+
+  .callout-tip {
+    border-color: color-mix(in srgb, var(--tip) 32%, var(--line));
+    border-left-color: var(--tip);
+    background: var(--tip-bg);
+  }
+  .callout-tip .callout-icon,
+  .callout-tip .callout-title {
+    color: var(--tip);
+  }
+
+  .callout-note {
+    border-color: color-mix(in srgb, var(--note) 28%, var(--line));
+    border-left-color: var(--note);
+    background: var(--note-bg);
+  }
+  .callout-note .callout-icon,
+  .callout-note .callout-title {
+    color: var(--note);
+  }
+
+  .callout-warning {
+    border-color: color-mix(in srgb, var(--warning) 32%, var(--line));
+    border-left-color: var(--warning);
+    background: var(--warning-bg);
+  }
+  .callout-warning .callout-icon,
+  .callout-warning .callout-title {
+    color: var(--warning);
+  }
+
+  .callout-confidential {
+    border-color: color-mix(in srgb, var(--confidential) 36%, var(--line));
+    border-left-color: var(--confidential);
+    background: var(--confidential-bg);
+  }
+  .callout-confidential .callout-icon,
+  .callout-confidential .callout-title {
+    color: var(--confidential);
+  }
+</style>

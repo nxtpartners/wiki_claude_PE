@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import { flatNav } from '../config/nav';
+
+interface Props {
+  currentSlug: string;
+}
+const { currentSlug } = Astro.props;
+
+// Only consider pages that actually exist, in nav order.
+const docs = await getCollection('docs', ({ data }) => data.draft !== true);
+const existing = new Set(docs.map((d) => d.id));
+const available = flatNav.filter((n) => existing.has(n.slug));
+
+const idx = available.findIndex((n) => n.slug === currentSlug);
+const prev = idx > 0 ? available[idx - 1] : null;
+const next = idx >= 0 && idx < available.length - 1 ? available[idx + 1] : null;
+---
+
+{
+  (prev || next) && (
+    <nav class="prevnext" aria-label="Previous and next pages">
+      {prev ? (
+        <a href={`/${prev.slug}`} class="pn-card pn-prev">
+          <span class="pn-dir">← Previous</span>
+          <span class="pn-title">{prev.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next ? (
+        <a href={`/${next.slug}`} class="pn-card pn-next">
+          <span class="pn-dir">Next →</span>
+          <span class="pn-title">{next.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+    </nav>
+  )
+}
+
+<style>
+  .prevnext {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--line);
+  }
+  .pn-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.18s ease;
+  }
+  .pn-card:hover {
+    border-color: var(--kpmg-cobalt);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+  .pn-next {
+    text-align: right;
+  }
+  .pn-dir {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--kpmg-cobalt);
+  }
+  .pn-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  @media (max-width: 600px) {
+    .prevnext {
+      grid-template-columns: 1fr;
+    }
+    .pn-next {
+      text-align: left;
+    }
+  }
+</style>

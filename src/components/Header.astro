@@ -1,0 +1,311 @@
+---
+// Top bar: wordmark lockup (left) + search trigger & attribution (right).
+// Sticky, translucent, subtle bottom border.
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="wordmark" aria-label="Claude for Private Equity, home">
+      {/* ---- KPMG LOGO PLACEHOLDER ---- */}
+      {/* Drop the official KPMG logo <img/> or inline SVG here later.        */}
+      {/* It should sit before the "× Claude" text and align baseline-center. */}
+      <span class="mark-claude">Claude</span>
+      <span class="mark-sub">for Private Equity</span>
+    </a>
+
+    <div class="header-right">
+      <span class="confidential-badge" title="This material is confidential and not for external distribution.">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2" />
+        </svg>
+        Confidential
+      </span>
+      <button type="button" class="search-trigger" id="search-trigger" aria-label="Search the wiki">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2" />
+          <path d="m20 20-3.2-3.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="search-label">Search</span>
+        <kbd class="search-kbd">/</kbd>
+      </button>
+      <span class="attribution"
+        >Built by
+        <a href="https://pe.nxtpartners.ai" target="_blank" rel="noopener noreferrer"
+          ><strong>NXT&nbsp;Partners&nbsp;AI</strong></a
+        ></span
+      >
+    </div>
+  </div>
+
+  <!-- Reading-progress bar (GSAP-driven on doc pages; harmless elsewhere). -->
+  <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+</header>
+
+<!-- Search dialog (Pagefind UI mounted lazily) -->
+<div class="search-modal" id="search-modal" role="dialog" aria-modal="true" aria-label="Search" hidden>
+  <div class="search-backdrop" id="search-backdrop"></div>
+  <div class="search-panel">
+    <div class="search-panel-head">
+      <span class="eyebrow" style="margin:0">Search</span>
+      <button type="button" class="search-close" id="search-close" aria-label="Close search">Esc</button>
+    </div>
+    <div id="pagefind-search"></div>
+  </div>
+</div>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-inner {
+    height: var(--header-h);
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--space-8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--ink);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .wordmark:hover {
+    text-decoration: none;
+  }
+  .mark-kpmg {
+    color: var(--kpmg-blue);
+    font-weight: 800;
+    font-size: 1.18rem;
+    letter-spacing: 0.01em;
+  }
+  .mark-x {
+    color: var(--ink-muted);
+    font-size: 0.95rem;
+  }
+  .mark-claude {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .mark-sub {
+    color: var(--ink-muted);
+    font-weight: 500;
+    font-size: 0.92rem;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      border-color 0.18s ease,
+      color 0.18s ease,
+      background 0.18s ease;
+  }
+  .search-trigger:hover {
+    border-color: var(--kpmg-cobalt);
+    color: var(--ink);
+  }
+  .search-kbd {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1px 6px;
+    color: var(--ink-muted);
+  }
+  .confidential-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9a3030;
+    background: #fbecec;
+    border: 1px solid #f1d4d4;
+    border-radius: 999px;
+    padding: 3px 9px;
+    white-space: nowrap;
+  }
+  .attribution {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+  }
+  .attribution strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .attribution a {
+    color: inherit;
+    transition: color 0.15s ease;
+  }
+  .attribution a:hover {
+    text-decoration: none;
+  }
+  .attribution a:hover strong {
+    color: var(--kpmg-blue);
+  }
+
+  .reading-progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    background: linear-gradient(90deg, var(--kpmg-blue), var(--kpmg-cobalt));
+  }
+
+  /* Search modal */
+  .search-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 10vh;
+  }
+  .search-modal[hidden] {
+    display: none;
+  }
+  .search-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 27, 51, 0.42);
+    backdrop-filter: blur(2px);
+  }
+  .search-panel {
+    position: relative;
+    width: min(640px, 92vw);
+    max-height: 74vh;
+    overflow: auto;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-6);
+  }
+  .search-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--space-4);
+  }
+  .search-close {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 2px 8px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 720px) {
+    .mark-sub,
+    .search-label,
+    .search-kbd,
+    .attribution {
+      display: none;
+    }
+    .header-inner {
+      padding-inline: var(--space-4);
+    }
+  }
+</style>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<script>
+  // ---- Pagefind search modal wiring ----
+  const trigger = document.getElementById('search-trigger');
+  const modal = document.getElementById('search-modal');
+  const backdrop = document.getElementById('search-backdrop');
+  const closeBtn = document.getElementById('search-close');
+  let pagefindLoaded = false;
+
+  function loadPagefind() {
+    if (pagefindLoaded) return;
+    pagefindLoaded = true;
+    // pagefind-ui.js is emitted to /pagefind during the production build.
+    // Inject it as a plain <script> at runtime so the bundler never tries to
+    // resolve it (it does not exist until `pagefind` runs post-build).
+    const init = () => {
+      try {
+        // @ts-ignore - runtime global from the injected script
+        new window.PagefindUI({ element: '#pagefind-search', showSubResults: true, showImages: false });
+      } catch {
+        const el = document.getElementById('pagefind-search');
+        if (el) el.innerHTML = '<p style="color:var(--ink-muted)">Search is available in the production build.</p>';
+      }
+    };
+    // @ts-ignore
+    if (window.PagefindUI) return init();
+    const s = document.createElement('script');
+    s.src = '/pagefind/pagefind-ui.js';
+    s.onload = init;
+    s.onerror = () => {
+      const el = document.getElementById('pagefind-search');
+      if (el) el.innerHTML = '<p style="color:var(--ink-muted)">Search is available in the production build.</p>';
+    };
+    document.head.appendChild(s);
+  }
+
+  function openSearch() {
+    if (!modal) return;
+    modal.hidden = false;
+    loadPagefind();
+    requestAnimationFrame(() => {
+      const input = modal.querySelector('input');
+      if (input instanceof HTMLInputElement) input.focus();
+    });
+  }
+  function closeSearch() {
+    if (modal) modal.hidden = true;
+  }
+
+  trigger?.addEventListener('click', openSearch);
+  backdrop?.addEventListener('click', closeSearch);
+  closeBtn?.addEventListener('click', closeSearch);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === '/' && !modal?.contains(document.activeElement) && document.activeElement?.tagName !== 'INPUT') {
+      e.preventDefault();
+      openSearch();
+    }
+    if (e.key === 'Escape') closeSearch();
+  });
+</script>

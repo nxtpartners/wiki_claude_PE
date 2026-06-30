@@ -1,0 +1,683 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+// Resolve link targets against real content so we never render a broken link.
+// Mirrors the pattern used by Sidebar.astro and Footer.astro.
+const docs = await getCollection('docs', ({ data }) => data.draft !== true);
+const existing = new Set(docs.map((d) => d.id));
+
+// Return the slug if a page exists, otherwise fall back to /welcome.
+const resolve = (slug: string) => (existing.has(slug) ? `/${slug}` : '/welcome');
+
+// The six-module curriculum, in deliberate order.
+const curriculum = [
+  {
+    index: '01',
+    name: 'Foundations',
+    href: resolve('foundations/what-claude-is'),
+    outcome: 'Understand what Claude can and cannot be trusted with.',
+  },
+  {
+    index: '02',
+    name: 'Context',
+    href: resolve('context/why-context'),
+    outcome: 'Brief Claude so it answers as if it has been on the deal for weeks.',
+  },
+  {
+    index: '03',
+    name: 'Projects',
+    href: resolve('projects/what-projects-are'),
+    outcome: 'Stand up a clean, confidential workspace for each deal or function.',
+  },
+  {
+    index: '04',
+    name: 'PE Playbooks',
+    href: resolve('playbooks/cim-analysis'),
+    outcome: 'Run CIMs, due diligence, IC memos, and model reviews step by step.',
+  },
+  {
+    index: '05',
+    name: 'Power Features',
+    href: resolve('power-features/connectors'),
+    outcome: 'Use connectors, data analysis, artifacts, and web search with judgment.',
+  },
+  {
+    index: '06',
+    name: 'Best Practices',
+    href: resolve('best-practices/verify-everything'),
+    outcome: 'Verify everything and keep confidential data where it belongs.',
+  },
+];
+---
+
+<BaseLayout title="Home">
+  <Header />
+
+  <main id="main">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-rule" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <!-- Left: the pitch -->
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title" data-hero="2">
+            Use Claude with confidence on private equity work.
+          </h1>
+          <p class="hero-sub" data-hero="3">
+            This guide takes KPMG private equity teams from the basics to confident daily use.
+            Confidential by design, written for the work you do, with no prior AI experience assumed.
+          </p>
+          <div class="hero-actions" data-hero="4">
+            <a href="/welcome" class="btn btn-primary">Start Here</a>
+            <a href="/first-15-minutes" class="btn btn-secondary">First 15 Minutes</a>
+          </div>
+          <p class="hero-meta mono-meta" data-hero="5">
+            For Claude Enterprise &amp; Team · Self-paced · No prior AI experience required
+          </p>
+        </div>
+
+        <!-- Right: the signature element, a live deal conversation -->
+        <div class="hero-demo" data-hero="6">
+          <div class="chat" role="img"
+            aria-label="Illustration of a Claude conversation analysing a confidential information memorandum.">
+            <div class="chat-chrome">
+              <span class="chat-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="chat-url mono-meta">claude.ai</span>
+              <span class="chat-tag mono-meta">live deal</span>
+            </div>
+
+            <div class="chat-body">
+              <!-- User turn -->
+              <div class="msg msg-user" data-chat="1">
+                <span class="msg-who mono-meta">You</span>
+                <div class="bubble bubble-user">
+                  <span class="file-chip">
+                    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                      <path d="M6 2h8l4 4v16H6z" fill="none" stroke="currentColor" stroke-width="1.6" />
+                      <path d="M14 2v4h4" fill="none" stroke="currentColor" stroke-width="1.6" />
+                    </svg>
+                    Project_Atlas_CIM.pdf
+                  </span>
+                  <p>Summarise this CIM for an initial screen: thesis, financials, and the three biggest risks.</p>
+                </div>
+              </div>
+
+              <!-- Claude turn -->
+              <div class="msg msg-claude" data-chat="2">
+                <span class="msg-who mono-meta">Claude</span>
+                <div class="bubble bubble-claude">
+                  <dl class="answer">
+                    <div class="answer-row">
+                      <dt>Business</dt>
+                      <dd>B2B field-service software for mid-market contractors, recurring SaaS revenue.</dd>
+                    </div>
+                    <div class="answer-row">
+                      <dt>Financials</dt>
+                      <dd>Roughly 60m revenue, mid-20s percent growth, gross margin in the low 70s.</dd>
+                    </div>
+                    <div class="answer-row">
+                      <dt>Thesis</dt>
+                      <dd>Consolidate a fragmented market, raise net retention, expand into adjacent trades.</dd>
+                    </div>
+                    <div class="answer-row">
+                      <dt>Key risks</dt>
+                      <dd>Customer concentration, founder dependence, and thin disclosure on churn.</dd>
+                    </div>
+                  </dl>
+                  <p class="verify-chip">
+                    <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+                      <path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                    Verify figures against the source
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="demo-caption mono-meta" aria-hidden="true">Illustrative. Your data stays in your workspace.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CURRICULUM PATH ===================== -->
+    <section class="section container curriculum" aria-labelledby="curriculum-title">
+      <div class="curriculum-head" data-reveal>
+        <p class="mono-eyebrow">The path</p>
+        <h2 id="curriculum-title" class="block-title">Six modules, in deliberate order.</h2>
+        <p class="block-sub">
+          Start with the fundamentals, master context, then move into the playbooks you will use every week.
+        </p>
+      </div>
+
+      <ol class="syllabus">
+        {
+          curriculum.map((m) => (
+            <li class="step" data-reveal>
+              <a class="step-link" href={m.href}>
+                <span class="step-index" aria-hidden="true">{m.index}</span>
+                <span class="step-body">
+                  <span class="step-name">{m.name}</span>
+                  <span class="step-outcome">{m.outcome}</span>
+                  <span class="step-go mono-meta" aria-hidden="true">Open</span>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <!-- ===================== CONFIDENTIALITY BAND ===================== -->
+    <section class="confidential" aria-labelledby="confidential-title" data-reveal>
+      <div class="container confidential-grid">
+        <p class="mono-eyebrow confidential-eyebrow">Confidential by design</p>
+        <h2 id="confidential-title" class="confidential-statement">
+          On Claude Enterprise &amp; Team, your prompts and uploads are not used to train models.
+        </h2>
+        <p class="confidential-sub">
+          Throughout this guide we show exactly how to keep deal data private and handle NDAs the right way.
+        </p>
+        <a href="/foundations/what-claude-is" class="confidential-link">How it works</a>
+      </div>
+    </section>
+
+    <!-- ===================== CLOSING CTA ===================== -->
+    <section class="section container closing" aria-labelledby="closing-title" data-reveal>
+      <p class="mono-eyebrow closing-eyebrow">Begin</p>
+      <h2 id="closing-title" class="closing-title">Start with a fifteen-minute win.</h2>
+      <p class="closing-sub">
+        Open Claude, bring one real document, and walk away with something useful. The rest of the guide builds from
+        there.
+      </p>
+      <div class="closing-actions">
+        <a href="/first-15-minutes" class="btn btn-primary">First 15 Minutes</a>
+        <a href="/welcome" class="btn btn-secondary">Read the Welcome</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  /* ---------- Shared institutional accents ---------- */
+  .mono-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+    margin: 0 0 var(--space-4);
+  }
+  .mono-meta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+  }
+  .block-title {
+    margin: 0 0 var(--space-3);
+    font-size: clamp(1.7rem, 1.35rem + 1.4vw, 2.4rem);
+    letter-spacing: -0.025em;
+  }
+  .block-sub {
+    margin: 0;
+    font-size: 1.08rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    max-width: 58ch;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    background:
+      radial-gradient(ellipse 60% 70% at 88% 0%, rgba(30, 73, 226, 0.06), transparent 60%),
+      var(--bg);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .hero-rule {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(to right, rgba(0, 51, 141, 0.035) 1px, transparent 1px);
+    background-size: 96px 100%;
+    pointer-events: none;
+  }
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: var(--space-16);
+    align-items: center;
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-24);
+  }
+  .hero-copy {
+    max-width: 36rem;
+  }
+  .hero-title {
+    margin: 0 0 var(--space-6);
+    font-size: clamp(2.4rem, 1.6rem + 2.8vw, 3.7rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.038em;
+    color: var(--ink);
+  }
+  .hero-sub {
+    margin: 0 0 var(--space-8);
+    font-size: clamp(1.05rem, 1rem + 0.35vw, 1.22rem);
+    line-height: 1.62;
+    color: var(--ink-muted);
+    max-width: 40ch;
+  }
+  .hero-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .hero-meta {
+    margin: var(--space-8) 0 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---- Conversation card ---- */
+  .hero-demo {
+    position: relative;
+  }
+  .chat {
+    background: #faf9f5;
+    border: 1px solid #eae7dc;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    transform: rotate(-0.4deg);
+  }
+  .chat-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: #f0eee6;
+    border-bottom: 1px solid #eae7dc;
+  }
+  .chat-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .chat-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #d8d3c4;
+  }
+  .chat-url {
+    margin-inline: auto;
+    color: #8a8475;
+  }
+  .chat-tag {
+    color: #be5d3a;
+    background: #f4e8e1;
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+  .chat-body {
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    background: linear-gradient(180deg, #faf9f5 0%, #f5f4ee 100%);
+  }
+  .msg {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .msg-user {
+    align-items: flex-end;
+  }
+  .msg-who {
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+  .bubble {
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-4);
+    font-size: 0.9rem;
+    line-height: 1.55;
+    max-width: 92%;
+  }
+  .bubble p {
+    margin: 0;
+  }
+  .bubble-user {
+    background: #f0eee6;
+    color: #3d3b36;
+    border: 1px solid #e7e3d7;
+    border-bottom-right-radius: 4px;
+  }
+  .bubble-claude {
+    background: transparent;
+    border: none;
+    color: #3d3b36;
+    box-shadow: none;
+    padding: 0;
+    border-bottom-left-radius: 4px;
+    max-width: 100%;
+  }
+  .file-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #3d3b36;
+    background: #ffffff;
+    border: 1px solid #e0dccd;
+    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    margin-bottom: var(--space-3);
+  }
+  .answer {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .answer-row {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: var(--space-3);
+    align-items: baseline;
+  }
+  .answer dt {
+    margin: 0;
+    font-weight: 700;
+    font-size: 0.82rem;
+    color: #2a2722;
+  }
+  .answer dd {
+    margin: 0;
+    font-size: 0.86rem;
+    color: #3d3b36;
+  }
+  .verify-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: var(--space-4) 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px dashed #e0dccd;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: #be5d3a;
+  }
+  .demo-caption {
+    margin: var(--space-3) 0 0;
+    text-align: right;
+    font-size: 0.64rem;
+  }
+
+  /* ---------- Section rhythm ---------- */
+  .section {
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-12);
+  }
+
+  /* ---------- CURRICULUM ---------- */
+  .curriculum-head {
+    max-width: 60ch;
+    margin-bottom: var(--space-12);
+  }
+  .syllabus {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+  .step {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    transition:
+      border-color 0.18s ease,
+      box-shadow 0.18s ease,
+      transform 0.18s ease;
+  }
+  .step:hover {
+    border-color: var(--kpmg-cobalt);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .step-link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-5);
+    align-items: start;
+    padding: var(--space-6);
+    color: inherit;
+    height: 100%;
+  }
+  .step-link:hover {
+    text-decoration: none;
+  }
+  .step-index {
+    font-size: clamp(2rem, 1.5rem + 1.4vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--kpmg-blue);
+    font-variant-numeric: tabular-nums;
+  }
+  .step:hover .step-index {
+    color: var(--kpmg-cobalt);
+  }
+  .step-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .step-name {
+    font-size: 1.22rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .step-outcome {
+    font-size: 0.98rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+  .step-go {
+    margin-top: var(--space-3);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 0.18s ease,
+      transform 0.18s ease;
+    color: var(--kpmg-cobalt);
+  }
+  .step:hover .step-go {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ---------- CONFIDENTIALITY BAND ---------- */
+  .confidential {
+    margin: var(--space-24) 0;
+    background:
+      radial-gradient(ellipse 50% 120% at 100% 50%, rgba(172, 234, 255, 0.14), transparent 60%),
+      linear-gradient(135deg, #001f57 0%, var(--kpmg-blue) 70%);
+    color: #fff;
+    border-top: 3px solid var(--kpmg-sky);
+  }
+  .confidential-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'eyebrow eyebrow'
+      'statement link'
+      'sub link';
+    gap: var(--space-3) var(--space-8);
+    align-items: end;
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-16);
+  }
+  .confidential-eyebrow {
+    grid-area: eyebrow;
+    color: var(--kpmg-sky);
+    margin: 0;
+  }
+  .confidential-statement {
+    grid-area: statement;
+    margin: 0;
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    color: #fff;
+    max-width: 24ch;
+  }
+  .confidential-sub {
+    grid-area: sub;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 50ch;
+  }
+  .confidential-link {
+    grid-area: link;
+    align-self: center;
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--kpmg-sky);
+    font-weight: 600;
+    white-space: nowrap;
+    border: 1px solid rgba(172, 234, 255, 0.4);
+    border-radius: var(--radius-md);
+    padding: 0.7em 1.2em;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .confidential-link::after {
+    content: '\2192';
+  }
+  .confidential-link:hover {
+    text-decoration: none;
+    background: rgba(172, 234, 255, 0.12);
+    color: #fff;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing {
+    padding-bottom: var(--space-24);
+    text-align: center;
+  }
+  .closing-eyebrow {
+    color: var(--kpmg-cobalt);
+  }
+  .closing-title {
+    margin: 0 auto var(--space-4);
+    font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem);
+    letter-spacing: -0.03em;
+    max-width: 22ch;
+  }
+  .closing-sub {
+    margin: 0 auto var(--space-8);
+    max-width: 52ch;
+    color: var(--ink-muted);
+    font-size: 1.08rem;
+    line-height: 1.6;
+  }
+  .closing-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
+    }
+    .hero-copy {
+      max-width: none;
+    }
+    .chat {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .syllabus {
+      grid-template-columns: 1fr;
+    }
+    .step-link {
+      grid-template-columns: 56px 1fr;
+      gap: var(--space-4);
+      padding: var(--space-5);
+    }
+    .confidential-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'eyebrow'
+        'statement'
+        'sub'
+        'link';
+      gap: var(--space-4);
+      align-items: start;
+    }
+    .confidential-link {
+      justify-self: start;
+    }
+  }
+</style>
+
+<script>
+  import '../scripts/motion.ts';
+
+  // Scoped, restrained build-in for the conversation card. Respects reduced motion.
+  // The global motion system handles [data-hero] and [data-reveal]; this adds the
+  // chat bubbles staggering in after the hero settles.
+  (() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const bubbles = Array.from(document.querySelectorAll<HTMLElement>('[data-chat]'));
+    if (!bubbles.length) return;
+
+    if (reduce) {
+      bubbles.forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    bubbles
+      .sort((a, b) => Number(a.dataset.chat) - Number(b.dataset.chat))
+      .forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(14px)';
+        el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+        window.setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+        }, 620 + i * 220);
+      });
+  })();
+</script>

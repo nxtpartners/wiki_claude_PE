@@ -1,0 +1,80 @@
+---
+title: What Claude Is (and Isn't)
+description: A plain-English picture of what Claude.ai can do for deal work, and the limits to respect.
+section: Foundations
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+
+Before you use any tool on a live deal, you should understand what it actually does. Claude is genuinely useful for Private Equity work, but only when you know where its strengths end and your judgement begins.
+
+## What Claude is
+
+Claude.ai is an **AI assistant you talk to in plain English**. You give it context (a document, a question, an instruction) and it responds with written analysis, drafts, summaries, or answers. Think of it as an exceptionally fast, well-read analyst who has read everything you give it and never tires.
+
+For a private equity team, that translates into real, everyday leverage:
+
+- **Summarising long documents**: distil a 60-page CIM or teaser into the points that matter in minutes.
+- **Drafting**: produce a first cut of an investment memo section, an IC paper, or a management-meeting agenda.
+- **Research synthesis**: pull scattered notes, articles, and filings into one coherent market view.
+- **Data analysis**: interrogate a spreadsheet, sense-check figures, and surface trends worth a second look.
+
+<Callout type="tip" title="Where it shines first">
+The fastest wins are summarisation and first drafts. Hand Claude something you'd otherwise read line by line, ask a precise question, and you'll feel the time saving immediately.
+</Callout>
+
+Here's a starter prompt you can adapt for almost any document on your desk:
+
+<PromptCard title="Summarise a CIM or teaser">
+You are assisting a Private Equity associate. I've attached a teaser for a potential acquisition.
+
+Summarise it in one page using these headings:
+1. Business overview (what they do, how they make money)
+2. Financial highlights (revenue, EBITDA, growth, margins)
+3. Investment thesis (why this could be attractive)
+4. Key risks and open questions
+
+Use bullet points. Flag anything that looks unusual or that the document is vague about.
+</PromptCard>
+
+## What Claude isn't
+
+Claude is powerful, but it is not magic, and treating it as infallible is how mistakes reach the investment committee.
+
+<ComparisonTable title="Strengths vs. limits" caption="Use the left column with confidence; manage the right column deliberately.">
+
+| Claude is great at | Claude is **not** |
+| --- | --- |
+| Summarising and structuring documents you provide | A live database of current market prices or news (unless connected) |
+| Drafting and rewriting in a consistent tone | A replacement for your commercial judgement |
+| Synthesising research you give it | Guaranteed to be correct; it can be **confidently wrong** |
+| Analysing data inside an attached file | Aware of anything you haven't told it |
+
+</ComparisonTable>
+
+Three limits deserve special attention:
+
+- **It is not a live data feed.** Out of the box, Claude doesn't know today's share price or this morning's news. It works from what you give it (and, when enabled, from connectors or web search, covered later).
+- **It does not replace judgement.** Claude can structure an argument; deciding whether the deal is *good* is yours.
+- **It can be confidently wrong.** The output always reads fluently and authoritatively, even when a figure or fact is invented. This is the single most important thing to internalise.
+
+<Callout type="warning" title="Always verify against the source">
+Never lift a number, name, or claim from Claude into a deliverable without checking it against the original document. Fluent prose is not the same as correct prose. Verification is non-negotiable on investment work.
+</Callout>
+
+## A note on your data
+
+A reasonable first question for any deal professional is: *"Is it safe to put confidential material into this?"*
+
+On **Claude Enterprise and Team** (the plans KPMG provides) your conversations and uploaded files are **not used to train Anthropic's models**. That is a meaningful difference from consumer accounts and is precisely why these plans are appropriate for professional use. Even so, confidentiality is about *process*, not just plumbing: who has access, which workspace you use, and what's permitted under the specific deal's NDA all still matter.
+
+<Callout type="confidential" title="Handle deal data deliberately">
+Enterprise/Team means your data isn't used for training; it does **not** override an NDA or KPMG's data-handling rules. Before uploading anything tied to a live deal, confirm it's permitted, and keep each deal's material inside its own dedicated Project. The Confidentiality section walks through this in full.
+</Callout>
+
+## The takeaway
+
+Claude is a fast, capable partner for reading, drafting, and synthesising, used with the right context and verified against the source. Keep the judgement, and the final sign-off, firmly with you. Everything that follows in this guide is about doing exactly that, well.

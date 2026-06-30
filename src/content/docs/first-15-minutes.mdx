@@ -1,0 +1,71 @@
+---
+title: First 15 Minutes
+description: A guided first session. Open Claude, give it a real document, and walk away with something useful.
+section: Start Here
+order: 2
+---
+
+import Callout from '../../components/Callout.astro';
+import PromptCard from '../../components/PromptCard.astro';
+import Steps from '../../components/Steps.astro';
+import Step from '../../components/Step.astro';
+
+The fastest way to understand Claude is to use it on something real. In the next fifteen minutes you'll go from a blank screen to a one-page summary of an actual document from your desk, and you'll see exactly why this becomes a daily habit.
+
+<Callout type="tip" title="Pick a low-stakes document">
+For this first run, choose something useful but not highly sensitive: a public teaser, an industry report, or an old deck. You'll learn the workflow without worrying about confidentiality while you find your feet. The data rules come next, in Foundations.
+</Callout>
+
+## Your first session
+
+<Steps>
+  <Step title="Open Claude and start a new chat">
+    Go to <strong>claude.ai</strong> and sign in with your KPMG account. You'll land on a chat screen with a single message box. That box is the whole interface: you simply type, or attach a file, and press send.
+  </Step>
+  <Step title="Attach a document">
+    Click the attachment (paperclip) icon and upload a PDF, Word doc, or Excel file. Claude reads the entire file: a 60-page CIM is no problem. Wait for the file to finish attaching before you send.
+  </Step>
+  <Step title="Ask with clear instructions">
+    Don't just say "summarise this." Tell Claude who it's helping, what you want, and how to format it. Paste the prompt below; it works for almost any deal document.
+  </Step>
+  <Step title="Read, then push back">
+    Skim the output. Then ask follow-ups in the same chat: "Expand the risks section," "What's missing?", "Put the financials in a table." Claude remembers everything in the conversation, so each message builds on the last.
+  </Step>
+  <Step title="Verify before you use anything">
+    Check any figure or claim against the original document before it goes near a deliverable. Claude is fast and fluent, but it can be confidently wrong, so the source is always the final word.
+  </Step>
+</Steps>
+
+## The prompt to start with
+
+<PromptCard title="One-page summary of any deal document">
+You are assisting a Private Equity associate at KPMG. I've attached a document for a potential opportunity.
+
+Give me a one-page summary using these headings:
+1. Business overview: what they do and how they make money
+2. Financial highlights: revenue, EBITDA, growth, margins
+3. Why it could be attractive: the investment angle
+4. Key risks and open questions
+
+Use bullet points. Keep it concise. Flag anything the document is vague about or that looks unusual.
+</PromptCard>
+
+Notice what made that prompt work: it set a **role** ("assisting a PE associate"), gave a **clear task**, specified the **format** (headings, bullets), and asked Claude to **flag gaps**. That four-part shape (role, task, format, scrutiny) is the backbone of almost every good prompt, and the [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt) page breaks it down properly.
+
+## Try one more turn
+
+The real power shows up in the second message. With the summary on screen, try one of these:
+
+- *"Turn the financial highlights into a table with year-on-year growth."*
+- *"What are the three questions I should ask management first?"*
+- *"Rewrite the overview for a partner who has thirty seconds."*
+
+Each reply builds on the document and everything said so far, with no need to re-explain.
+
+<Callout type="confidential" title="Before you use a live deal document">
+You used a low-stakes file on purpose. Before putting confidential or NDA-bound material into Claude, read [Your Account & Confidential Data](/foundations/account-and-data) and the [Confidentiality Decision Tree](/best-practices/confidentiality). On KPMG's Enterprise/Team plan your data isn't used for training, but NDAs and internal rules still apply.
+</Callout>
+
+## What you just learned
+
+In one short session you've seen the entire core loop: **give context → ask precisely → refine → verify**. Everything else in this guide makes that loop faster and more powerful: better prompts, reusable Projects, and playbooks tuned to specific PE tasks. A natural next step is [What Claude Is (and Isn't)](/foundations/what-claude-is) to ground the fundamentals before you go deeper.
