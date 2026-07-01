@@ -1,11 +1,12 @@
 ---
 // Top bar: wordmark lockup (left) + search trigger & attribution (right).
 // Sticky, translucent, subtle bottom border.
+import { withBase } from '../utils/withBase';
 ---
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="wordmark" aria-label="Claude for Private Equity, home">
+    <a href={withBase('/')} class="wordmark" aria-label="Claude for Private Equity, home">
       {/* ---- KPMG LOGO PLACEHOLDER ---- */}
       {/* Drop the official KPMG logo <img/> or inline SVG here later.        */}
       {/* It should sit before the "× Claude" text and align baseline-center. */}
@@ -238,7 +239,7 @@
   }
 </style>
 
-<link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+<link href={withBase('/pagefind/pagefind-ui.css')} rel="stylesheet" />
 <script>
   // ---- Pagefind search modal wiring ----
   const trigger = document.getElementById('search-trigger');
@@ -256,7 +257,7 @@
     const init = () => {
       try {
         // @ts-ignore - runtime global from the injected script
-        new window.PagefindUI({ element: '#pagefind-search', showSubResults: true, showImages: false });
+        new window.PagefindUI({ element: '#pagefind-search', bundlePath: import.meta.env.BASE_URL + 'pagefind/', showSubResults: true, showImages: false });
       } catch {
         const el = document.getElementById('pagefind-search');
         if (el) el.innerHTML = '<p style="color:var(--ink-muted)">Search is available in the production build.</p>';
@@ -265,7 +266,7 @@
     // @ts-ignore
     if (window.PagefindUI) return init();
     const s = document.createElement('script');
-    s.src = '/pagefind/pagefind-ui.js';
+    s.src = import.meta.env.BASE_URL + 'pagefind/pagefind-ui.js';
     s.onload = init;
     s.onerror = () => {
       const el = document.getElementById('pagefind-search');

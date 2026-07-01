@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { nav } from '../config/nav';
+import { withBase } from '../utils/withBase';
 
 // Resolve which slugs have a real content file so we never link to a 404.
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
@@ -36,7 +37,7 @@ const year = new Date().getFullYear();
         {
           explore.map((item) =>
             existing.has(item.slug) ? (
-              <li><a href={`/${item.slug}`}>{item.title}</a></li>
+              <li><a href={withBase(item.slug)}>{item.title}</a></li>
             ) : (
               <li><span class="footer-soon">{item.title}<em>soon</em></span></li>
             )
@@ -51,7 +52,7 @@ const year = new Date().getFullYear();
         {
           resources.map((item) =>
             existing.has(item.slug) ? (
-              <li><a href={`/${item.slug}`}>{item.title}</a></li>
+              <li><a href={withBase(item.slug)}>{item.title}</a></li>
             ) : (
               <li><span class="footer-soon">{item.title}<em>soon</em></span></li>
             )

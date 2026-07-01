@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { nav, flatNav } from '../config/nav';
+import { withBase } from '../utils/withBase';
 
 interface Props {
   currentSlug?: string;
@@ -32,7 +33,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
                 <li>
                   {exists ? (
                     <a
-                      href={`/${item.slug}`}
+                      href={withBase(item.slug)}
                       class:list={['nav-link', { active: isActive }]}
                       aria-current={isActive ? 'page' : undefined}
                     >

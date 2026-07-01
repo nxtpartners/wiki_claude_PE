@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/withBase';
 
 // Resolve link targets against real content so we never render a broken link.
 // Mirrors the pattern used by Sidebar.astro and Footer.astro.
@@ -10,7 +11,8 @@ const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
 
 // Return the slug if a page exists, otherwise fall back to /welcome.
-const resolve = (slug: string) => (existing.has(slug) ? `/${slug}` : '/welcome');
+// Base-aware so every curriculum link resolves under the deploy base path.
+const resolve = (slug: string) => withBase(existing.has(slug) ? `/${slug}` : '/welcome');
 
 // The six-module curriculum, in deliberate order.
 const curriculum = [
@@ -71,8 +73,8 @@ const curriculum = [
             Confidential by design, written for the work you do, with no prior AI experience assumed.
           </p>
           <div class="hero-actions" data-hero="4">
-            <a href="/welcome" class="btn btn-primary">Start Here</a>
-            <a href="/first-15-minutes" class="btn btn-secondary">First 15 Minutes</a>
+            <a href={withBase('/welcome')} class="btn btn-primary">Start Here</a>
+            <a href={withBase('/first-15-minutes')} class="btn btn-secondary">First 15 Minutes</a>
           </div>
           <p class="hero-meta mono-meta" data-hero="5">
             For Claude Enterprise &amp; Team · Self-paced · No prior AI experience required
@@ -180,7 +182,7 @@ const curriculum = [
         <p class="confidential-sub">
           Throughout this guide we show exactly how to keep deal data private and handle NDAs the right way.
         </p>
-        <a href="/foundations/what-claude-is" class="confidential-link">How it works</a>
+        <a href={withBase('/foundations/what-claude-is')} class="confidential-link">How it works</a>
       </div>
     </section>
 
@@ -193,8 +195,8 @@ const curriculum = [
         there.
       </p>
       <div class="closing-actions">
-        <a href="/first-15-minutes" class="btn btn-primary">First 15 Minutes</a>
-        <a href="/welcome" class="btn btn-secondary">Read the Welcome</a>
+        <a href={withBase('/first-15-minutes')} class="btn btn-primary">First 15 Minutes</a>
+        <a href={withBase('/welcome')} class="btn btn-secondary">Read the Welcome</a>
       </div>
     </section>
   </main>

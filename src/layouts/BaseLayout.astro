@@ -17,6 +17,7 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT P
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
@@ -24,7 +25,7 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT P
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#00338D" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href={import.meta.env.BASE_URL + 'favicon.svg'} type="image/svg+xml" />
   </head>
   <body>
     <a href="#main" class="skip-link">Skip to content</a>

@@ -124,7 +124,17 @@ These standards keep the program consistent and on brand.
 
 ## Deployment
 
-The site is fully static, so `npm run build` produces a deployable `dist/`. The default target is GitHub Pages. A continuous deployment workflow and base-path configuration are added once the hosting destination is confirmed (GitHub Pages or KPMG internal infrastructure).
+The site is fully static, so `npm run build` produces a deployable `dist/`.
+
+- **Live URL:** https://nxtpartners.github.io/wiki_claude_PE/
+- **Env-driven base path.** The base defaults to `/wiki_claude_PE/` for GitHub Pages (a project subpath). To build for a root-served host such as Cloudflare or a custom domain, set `SITE_BASE=/` before the build:
+
+  ```bash
+  SITE_BASE=/ npm run build
+  ```
+
+  All internal links route through the `withBase` helper in `src/utils/withBase.ts`, so the site stays portable across hosts with no component changes.
+- **Continuous deployment.** Pushes to `main` trigger the GitHub Actions workflow in `.github/workflows/deploy.yml`, which builds the site and publishes it to GitHub Pages. In the repository settings, the Pages source must be set to "GitHub Actions".
 
 ---
 
