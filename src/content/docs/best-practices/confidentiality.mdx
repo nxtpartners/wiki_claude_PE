@@ -9,13 +9,14 @@ import Callout from '../../../components/Callout.astro';
 import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
-import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import confidentiality from '../../../assets/diagrams/confidentiality.png';
 
 The Enterprise and Team plan handles one risk well: your prompts and uploads are not used to train the model. That is covered in [Your Account & Confidential Data](/foundations/account-and-data), and it is genuinely important. But it is not the whole question. A document can be safe from training and still be one you should not put in, because of an NDA, a client restriction, or KPMG's own rules. This page gives you a single, repeatable way to make that call before you upload anything.
 
 The aim is not to make you nervous about every file. On a live mandate you might be handling a signed teaser, a data-room extract, and a public annual report in the same afternoon, and each carries a different answer. The gates below give you a fast, confident call most of the time, and a clear instinct to pause when the answer is not obvious.
 
-<DiagramPlaceholder title="Confidentiality decision tree" kind="tree" note="Can this document go into Claude? A yes/no walkthrough from NDA status to plan type." />
+<DiagramFigure image={confidentiality} alt="Confidentiality decision flow: five checks that must all be yes before a document can go into Claude, otherwise do not upload and ask first." caption="Work down the gates in order. The first no, or any doubt, stops you. Clear all five and it is safe to upload." maxWidth={560} />
 
 ## The decision, in order
 

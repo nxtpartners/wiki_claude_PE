@@ -66,9 +66,10 @@ Search is unavailable in development. The Pagefind index is generated only durin
 
 ```
 src/
-  components/        UI components (Callout, PromptCard, Steps, Hero,
+  assets/diagrams/   Diagram images, optimized by astro:assets at build
+  components/        UI components (Callout, PromptCard, Steps,
                      Header, Footer, Sidebar, TableOfContents, PrevNext,
-                     Card, CardGrid, ComparisonTable)
+                     Card, CardGrid, ComparisonTable, DiagramFigure)
   config/nav.ts      Single source of truth for navigation and page order
   content/docs/      MDX content pages (the wiki itself)
   content.config.ts  Content collection schema (frontmatter rules)
@@ -109,7 +110,7 @@ import Steps from '../../components/Steps.astro';
 import Step from '../../components/Step.astro';
 ```
 
-Components available to content: `Callout` (tip, note, warning, confidential), `PromptCard` (copy-to-clipboard prompt block), `Steps` with `Step`, `ComparisonTable`, and `Card` with `CardGrid`.
+Components available to content: `Callout` (tip, note, warning, confidential), `PromptCard` (copy-to-clipboard prompt block), `Steps` with `Step`, `ComparisonTable`, `Card` with `CardGrid`, and `DiagramFigure` (an optimized diagram image with caption). Structural diagrams are generated from the image prompts in `diagrams/diagrams_prompts/`, exported to `diagrams/`, and imported from `src/assets/diagrams/`.
 
 ## Editorial and design standards
 

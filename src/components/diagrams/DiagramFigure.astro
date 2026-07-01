@@ -1,0 +1,51 @@
+---
+// DiagramFigure: a reusable figure wrapper for optimized diagram images.
+// Runs the source PNG through astro:assets Image, frames it with a subtle
+// border and soft shadow, and renders an optional caption below.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  caption?: string;
+  maxWidth?: number;
+}
+
+const { image, alt, caption, maxWidth = 720 } = Astro.props;
+---
+
+<figure class="dgm" style={`--dgm-max: ${maxWidth}px`}>
+  <Image src={image} alt={alt} class="dgm-img" />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .dgm {
+    display: block;
+    margin: var(--space-12) 0;
+    text-align: center;
+  }
+  .dgm-img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    max-width: var(--dgm-max);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
+    background: var(--bg);
+  }
+  figcaption {
+    font-family: var(--font-sans);
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-top: var(--space-4);
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+</style>

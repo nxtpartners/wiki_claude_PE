@@ -8,7 +8,8 @@ order: 1
 import Callout from '../../../components/Callout.astro';
 import PromptCard from '../../../components/PromptCard.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
-import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import coreLoop from '../../../assets/diagrams/core_loop.png';
 
 There is one idea that sits underneath everything else in this guide: Claude only knows what you tell it. It has no access to your live deal, your firm's house view, or the document open on your other screen unless you put that material in front of it. The quality of what you get back tracks, almost exactly, the quality of the context you give. Master that and the rest is technique.
 
@@ -26,7 +27,7 @@ You cannot control how Claude was trained, but you fully control what you put in
 
 Good work with Claude is not a single perfect prompt. It is a short, repeatable loop that you run until the output is right. Four moves, in order, again and again.
 
-<DiagramPlaceholder title="The core loop: context, ask, refine, verify" kind="loop" note="A circular flow from giving context, to asking, to refining, back to verifying against the source." />
+<DiagramFigure image={coreLoop} alt="The core working loop: give context, ask precisely, refine, then verify, repeated 2 to 3 times until the output is right." caption="The core loop. Most people stop after the first answer; the value shows up on the second and third turn." maxWidth={640} />
 
 - **Give context.** Attach the document, paste the figures, or state the situation. Tell Claude who it is helping and what it is working on.
 - **Ask precisely.** State the task, the constraints, and the format you want. Precision in equals precision out.

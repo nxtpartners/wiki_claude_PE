@@ -7,13 +7,14 @@ order: 2
 
 import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
-import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import twoLayer from '../../../assets/diagrams/two-layer-system.png';
 
 Your screening method never changes; the opportunities running through it change constantly. That single distinction is the most important idea in how you organize work in Claude. Once it clicks, every decision about where a file goes and where a chat belongs becomes obvious. The principle is simple: you run **two layers** of Projects, and they have very different lifespans and purposes.
 
 ## The two layers
 
-<DiagramPlaceholder title="The two-layer project system" kind="layers" note="Top layer: reusable function projects (Screening, Market Research). Bottom layer: one deal project per live opportunity, each siloed." />
+<DiagramFigure image={twoLayer} alt="Two layers of projects: permanent reusable function projects (screening, market research, deal sourcing) above many temporary, siloed deal projects, one per live deal." caption="Two layers of Projects. The top layer is your standing method; the bottom layer is one siloed Project per live deal." maxWidth={860} />
 
 ### Layer one: reusable function projects
 
