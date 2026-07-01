@@ -1,5 +1,17 @@
 # Handover — KPMG × Claude for PE Wiki
 
+## [2026-07-01] LIVE on GitHub Pages (this session)
+- **The wiki is deployed and live at https://nxtpartners.github.io/wiki_claude_PE/** (served from a project subpath). Build + deploy workflow is green.
+- **Hosting decision RESOLVED:** GitHub Pages, project subpath (not a custom domain). Public repo, so a `noindex, nofollow` meta was added as a confidentiality precaution.
+- **Base path is env-driven for portability.** `astro.config.mjs`: `base: process.env.SITE_BASE ?? '/wiki_claude_PE/'`. Defaults to the subpath for GitHub Pages; set `SITE_BASE=/` at build time to serve from root on Cloudflare / a custom domain later. No code changes needed to move hosts.
+- **New helper `src/utils/withBase.ts`** is the single source of truth for base-aware internal URLs (external/mailto/tel/anchor URLs pass through untouched). Every internal link now routes through it: `Card.astro`, `Sidebar.astro`, `Footer.astro`, `PrevNext.astro`, `Header.astro` (home/logo), `index.astro` (hero + closing links, and the six curriculum links via a base-aware `resolve()`).
+- **Assets made base-aware:** favicon (`import.meta.env.BASE_URL + 'favicon.svg'`), Pagefind CSS/JS, and `PagefindUI({ bundlePath: import.meta.env.BASE_URL + 'pagefind/' })` so search finds its index under the subpath. Diagram images via `astro:assets` need no change (Astro auto-prefixes the base).
+- **CI: `.github/workflows/deploy.yml`** (official `withastro/action@v3` + `actions/deploy-pages@v4`) runs on push to `main` and via `workflow_dispatch`. `astro-pagefind` indexes during `astro build`, so no extra Pagefind step.
+- **GOTCHA fixed:** the first CI run failed because `withastro/action@v3` defaults to Node 20, but Astro 6 requires Node >=22.12.0 (EBADENGINE). Fix: pin the action to Node 22 with `with: { node-version: 22 }`. Second run went green.
+- **Commits this session (pushed to origin/main):** `0e08144` feat: deployable to GitHub Pages at project subpath; `bcae8f4` fix(ci): build on Node 22.
+- **Workflow division of labor (user preference):** I push code only. The USER configures Pages (Settings > Pages > Source = "GitHub Actions") and triggers deploys. Do NOT run `gh workflow run`, `gh api ... pages`, or change Pages settings. Reading run logs (`gh run view/list/watch`) is fine.
+- **Verified:** local `npm run build` green (37 routes, Pagefind indexed 37); grep guard shows zero root-absolute internal `href="/`; preview under `/wiki_claude_PE/` returns 200 on home/deep/favicon/pagefind, root paths correctly 404; headless screenshots of home + a deep page render correctly; live `deploy` job green.
+
 ## [2026-06-30] Diagrams shipped as generated PNGs + dev fixes + dead-code cleanup (this session)
 - **The three structural diagrams are now real, generated PNG images (no longer placeholders/SVG stubs).** Replaced the inline-SVG `CoreLoopDiagram` / `TwoLayerDiagram` / `ConfidentialityTree` (an earlier attempt the user disliked as too "card-like" and "AI-looking") with polished generated PNGs.
   - **New reusable component `src/components/diagrams/DiagramFigure.astro`**: takes `image` (ImageMetadata), `alt`, optional `caption`, optional `maxWidth` (default 720); renders a framed `<figure>` (subtle `--line` border + `--shadow-md`, `--radius-lg`) with the caption below. Runs the PNG through `astro:assets` `<Image>` — each ~1MB source PNG is optimized to ~50 to 60KB WebP at build.
@@ -75,7 +87,7 @@
 - **Sidebar:** numbering comes from `flatNav` order in `nav.ts`. Adding/reordering nav items renumbers everything automatically (and shifts every page's "X of N"). That is intended.
 
 ## Open questions
-- Hosting: GitHub Pages vs KPMG internal.
+- Hosting: RESOLVED [2026-07-01] — live on GitHub Pages at a project subpath. Base is env-driven, so moving to Cloudflare / a custom domain later is a one-line `SITE_BASE=/` build change.
 - Grant Chrome access for mockup/screenshot accuracy (planned for next session).
 
 ## Files that matter
