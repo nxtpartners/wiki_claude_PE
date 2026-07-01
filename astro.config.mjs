@@ -6,7 +6,8 @@ import pagefind from 'astro-pagefind';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nxtpartners.github.io',
-  // NOTE: `base` deliberately not set yet — deploy config comes later.
+  // NOTE: `base` deliberately not set yet, deploy config comes later.
+  devToolbar: { enabled: false },
   integrations: [mdx(), pagefind()],
   markdown: {
     shikiConfig: {
