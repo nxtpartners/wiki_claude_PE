@@ -1,0 +1,93 @@
+---
+title: Connectors
+description: "How connectors let Claude pull files straight from sources like Google Drive, and the confidentiality rules to apply before you switch one on."
+section: Power Features
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+import Hotspot from '../../../components/claude-ui/Hotspot.astro';
+
+Most of the time you bring a document to Claude by uploading it from your computer. Connectors offer a second route: they let Claude reach into an approved source, such as a shared drive, and pull a file in directly. It saves the download-then-upload shuffle and keeps you working from the live version of a document.
+
+## Where connectors appear
+
+Connectors live behind the same plus button you use to attach a file. Open the attach menu and, alongside "Upload from computer", you will see the sources your KPMG workspace has switched on, for example Google Drive.
+
+<ClaudeWindow caption="The attach menu lists every source you can pull a file from, not just your computer.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Pull the latest Project Beacon financial model and summarise the revenue build."
+      menu={true}
+      model="Claude Opus"
+      effort="High"
+    />
+    <Hotspot n={1} x="20%" y="9%" label="Upload from computer" />
+    <Hotspot n={2} x="20%" y="22%" label="Add from a connector" />
+  </div>
+</ClaudeWindow>
+
+1. **Upload from computer** is the everyday route, and it always works.
+2. **A connector**, here a shared drive, lets you search that source and add a file without leaving Claude.
+
+<Callout type="note" title="Your administrator decides what is available">
+Which connectors appear is controlled by your KPMG workspace, not by you. If you do not see a source you expected, it has not been enabled for the organisation, and that is by design.
+</Callout>
+
+## What a connector is good for
+
+A connector earns its place when a file already lives in an approved source and you would otherwise download it just to upload it again.
+
+- **Pulling from a shared drive.** Reach the current version of a model or deck without saving a local copy.
+- **Working from the live document.** You always get the latest file, so there is no risk of analysing a stale download.
+- **Fewer files on your laptop.** Sensitive material stays in its managed home rather than scattering across your downloads folder.
+
+## Using a connector, step by step
+
+<Steps>
+  <Step title="Open the attach menu">
+    Click the plus button in the message box. The menu lists your computer and any connectors your workspace has enabled.
+  </Step>
+  <Step title="Choose your source">
+    Select the connector, for example the shared drive. You can then search within it by file name.
+  </Step>
+  <Step title="Pick the file">
+    Choose the document you need. It attaches to your message just like an upload, shown as a file chip above the text.
+  </Step>
+  <Step title="Ask your question">
+    Brief Claude exactly as you would with an uploaded file: set the role, the task, and the format you want back.
+  </Step>
+</Steps>
+
+Once attached, a connected file behaves like any other. The chip sits above your prompt, and you can mix it with files from other sources in the same message.
+
+<ClaudeWindow caption="A file pulled from a connector attaches just like an upload, ready to question.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Summarise the revenue build and flag any assumption that looks aggressive."
+      model="Claude Opus"
+      effort="High"
+    >
+      <FileChip slot="files" name="Project_Beacon_model.xlsx" kind="xls" meta="from Drive" />
+    </ClaudeComposer>
+  </div>
+</ClaudeWindow>
+
+## The confidentiality question to ask first
+
+A connector is a convenience, not a change to the rules. The same discipline that governs which documents you put into Claude governs which ones you pull through a connector.
+
+<Callout type="confidential" title="A connector does not relax your NDA">
+Pulling a file through a connector is the same act as uploading it: the document goes into Claude. On KPMG's Enterprise or Team plan your data is not used for model training, but NDA terms and internal data rules still apply in full. Before you pull a confidential file, run the same check you would for an upload, in the [Confidentiality Decision Tree](/best-practices/confidentiality).
+</Callout>
+
+One extra habit is worth keeping. Because a connector can reach a whole drive, pause to confirm you are pulling the specific file you intend, not a broader folder of material that should stay where it is. Precision here is part of good confidentiality practice, covered in [Your Account & Confidential Data](/foundations/account-and-data).
+
+## What to take from this
+
+Connectors save you a download-then-upload step by letting Claude pull a file straight from an approved source like a shared drive. They are a convenience layered on top of the normal attach flow, and the file behaves identically once attached. Treat a connected file exactly as you would an upload: brief Claude well, and apply the same confidentiality judgement before the document ever reaches the message box.

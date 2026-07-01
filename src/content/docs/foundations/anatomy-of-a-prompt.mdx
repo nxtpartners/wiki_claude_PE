@@ -1,0 +1,118 @@
+---
+title: Anatomy of a Good Prompt
+description: The repeatable four-part shape that turns a vague request into reliable, usable output.
+section: Foundations
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+
+A good prompt is not a clever trick; it is a clear brief. The same instinct that makes you good at handing work to an analyst makes you good at prompting Claude: say who they are, what you need, how you want it back, and what to watch for. That four-part shape (**Role, Task, Format, Scrutiny**) is the backbone of almost every strong prompt, and once you have it, the quality of your output stops being a matter of luck.
+
+## The four parts
+
+Each part does a distinct job. Skip one and you feel the gap in the answer.
+
+### Role
+
+Tell Claude who it is helping and from what perspective. This sets the tone, the assumptions, and the level of detail. "You are assisting a KPMG private equity associate" produces a different, sharper answer than no framing at all, because it tells Claude what matters and what can be taken as read.
+
+> *"You are assisting a KPMG private equity associate screening a potential acquisition."*
+
+### Task
+
+State plainly what you want done. Be specific about the *thing*: summarise, compare, draft, sense-check, list. Vague verbs produce vague output. "Have a look at this" is not a task; "summarise this teaser for an initial screen" is.
+
+> *"Summarise the attached teaser so I can decide whether it is worth a first call."*
+
+### Format
+
+Tell Claude how to hand the work back. Headings, bullets, a table, a one-paragraph answer, a maximum length. Format is what makes output usable without reshaping it yourself, and it is the part people most often forget.
+
+> *"Use these four headings, bullet points under each, and keep it to one page."*
+
+### Scrutiny
+
+Ask Claude to be honest about the limits of what it produced. Tell it to flag gaps, note anything the document is vague about, and mark anything unusual. This single habit is what turns Claude from a confident writer into a useful analyst, because it surfaces what you would otherwise have to catch yourself.
+
+> *"Flag anything the document leaves unclear, and call out anything that looks unusual."*
+
+<Callout type="tip" title="Scrutiny is the part that protects you">
+Role, Task, and Format make the answer tidy. Scrutiny makes it trustworthy. Always ask Claude to flag gaps and oddities, then verify those flags against the source. Fluent output can still be confidently wrong, so the instruction to point at its own weak spots is the cheapest insurance you have.
+</Callout>
+
+## Weak versus strong
+
+The difference is rarely effort; it is structure. The same question, asked two ways, gives you two very different mornings.
+
+<ComparisonTable title="The same request, two ways" caption="The strong version is barely longer. It just says who, what, how, and what to watch for.">
+
+| Weak prompt | Strong prompt |
+| --- | --- |
+| "Summarise this." | "You are assisting a KPMG private equity associate. Summarise the attached teaser for an initial screen, using four headings (business, financials, thesis, risks) with bullets under each. Flag anything the teaser is vague about." |
+| Gives an unstructured wall of text you have to reshape | Gives a one-page screen you can use as-is, with gaps already marked |
+| No role, no format, no scrutiny | Role, task, format, and scrutiny all present |
+
+</ComparisonTable>
+
+Notice the strong prompt is only a sentence or two longer. The cost of a good brief is small; the cost of a bad one is the time you spend fixing the answer.
+
+## A full prompt, assembled
+
+Here is the four-part shape put together as one prompt you can paste and adapt. Read it and you can see each part doing its job.
+
+<PromptCard title="One-page screen of an attached teaser">
+You are assisting a KPMG private equity associate. I've attached a teaser for a potential acquisition (Project Atlas, a mid-market field-service software business).
+
+Summarise it for an initial screen using these headings:
+1. Business overview: what they do and how they make money
+2. Financial highlights: revenue, EBITDA, growth, margins
+3. Investment thesis: why this could be attractive
+4. Key risks and open questions
+
+Use bullet points under each heading and keep it to one page. Flag anything the teaser is vague about, and call out anything that looks unusual or that I should press management on.
+</PromptCard>
+
+This is what that prompt looks like in the message box, ready to send with the teaser attached:
+
+<ClaudeWindow caption="The assembled prompt in the composer, with the teaser attached.">
+  <div style={{ padding: '20px 12px 28px' }}>
+    <ClaudeComposer
+      value="You are assisting a KPMG private equity associate. Summarise the attached Project Atlas teaser for an initial screen, using four headings with bullets. Flag anything vague or unusual."
+      model="Claude Opus"
+      effort="High"
+    />
+  </div>
+</ClaudeWindow>
+
+## Building one from scratch
+
+When you face a new task, do not reach for a template you half-remember. Build the prompt in order, one part at a time.
+
+<Steps>
+  <Step title="Set the role">
+    Begin with who Claude is helping and the lens to use. One line is enough: "You are assisting a KPMG private equity associate."
+  </Step>
+  <Step title="State the task">
+    Say exactly what you want done, with a specific verb: summarise, compare, draft, sense-check. If you would struggle to grade the result, the task is still too vague.
+  </Step>
+  <Step title="Specify the format">
+    Describe the shape of the answer: headings, bullets, a table, a word or page limit. This is what lets you use the output without rebuilding it.
+  </Step>
+  <Step title="Add the scrutiny instruction">
+    Ask Claude to flag gaps, note anything unclear, and mark anything unusual. Make this a standing habit on every analytical prompt.
+  </Step>
+  <Step title="Attach, send, then verify">
+    Add the relevant file, send, and check Claude's flagged points (and any figures) against the source before the output goes near a deliverable.
+  </Step>
+</Steps>
+
+## What to take from this
+
+Strong prompting is not a special skill reserved for the technically minded; it is good delegation written down. Set the **role**, state the **task**, specify the **format**, and demand **scrutiny**, and you will get reliable, usable work back the first time far more often. To go deeper on phrasing and standing instructions, read [Writing Effective Instructions](/context/writing-instructions), and to understand why the context you provide matters as much as the wording, see [Why Context Is Everything](/context/why-context).

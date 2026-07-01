@@ -1,0 +1,81 @@
+---
+title: Setting Up a Deal Project
+description: Stand up a siloed project for one live opportunity, with NDA checks before upload and archiving on close, using Project Atlas as the worked example.
+section: Projects
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+
+A deal project is the workbench layer from the [two-layer system](/projects/two-layer-system): one project, one live opportunity, fully siloed. This page walks through standing one up properly, using **Project Atlas**, a mid-market field-service software target, as the worked example. The discipline here matters more than anywhere else in this guide, because this is where confidential material lives.
+
+## Standing up the Atlas project
+
+<Steps>
+  <Step title="Create one dedicated project for the opportunity">
+    Open <strong>Projects</strong>, choose <strong>New project</strong>, and name it for this opportunity alone, for example <strong>Project Atlas</strong>. One opportunity, one project. Never reuse an existing deal project for a different target, and never combine two opportunities in one place.
+  </Step>
+  <Step title="Confirm what is permitted before anything goes in">
+    Before uploading a single file, check what the opportunity's NDA and KPMG's data-handling rules allow into a tool like this. This is a confirmation step, not a formality. If a document is not cleared, it does not go in. Work this out first, while the project is still empty.
+  </Step>
+  <Step title="Add the cleared data room files">
+    Upload the permitted materials into the project's knowledge base: the CIM, the financials, the management deck, and any cleared diligence documents. These become the shared context every chat in the project can read, so you never re-attach them.
+  </Step>
+  <Step title="Write deal-specific instructions">
+    Set custom instructions tailored to this opportunity: name the target, state the stage you are at, and reinforce the rules that matter on live material (cite sources, do not invent figures, flag gaps). The template below is a ready-to-paste starting point.
+  </Step>
+  <Step title="Keep everything inside this project">
+    All Atlas work happens in the Atlas project. Do not paste Atlas figures into a chat in another project, and do not pull another opportunity's files in here. The silo only holds if you respect it in daily use.
+  </Step>
+  <Step title="Archive or delete on close">
+    When the opportunity closes, completes, or dies, archive or delete the project according to KPMG's retention rules. A deal project is temporary by design: it should not linger with live confidential data once the work is done.
+  </Step>
+</Steps>
+
+## What the finished project looks like
+
+<ClaudeWindow caption="A deal project is siloed: one opportunity's cleared data room, and nothing from any other." url="claude.ai · Projects">
+  <ClaudeProject name="Project Atlas" kind="Deal project" capacity="22% of knowledge used" capacityPct={22}>
+    <p slot="instructions">You are assisting a KPMG private equity team on Project Atlas, a mid-market field-service software target, at the diligence stage. Work only from the files in this project. Cite the source document and page for every figure, never invent numbers, and flag anything the data room leaves unclear.</p>
+    <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" />
+    <FileChip name="Atlas_financials.xlsx" kind="xls" />
+    <FileChip name="Management_deck.pdf" kind="pdf" />
+    <FileChip name="Atlas_diligence_QA.docx" kind="doc" />
+  </ClaudeProject>
+</ClaudeWindow>
+
+<Callout type="confidential" title="The silo and the NDA check are non-negotiable">
+Two rules protect every live opportunity. First, the silo: Atlas materials stay in the Atlas project and nothing from another opportunity ever enters it, so one opportunity's information can never surface in another's work. Second, the NDA check: confirm a document is permitted before it is uploaded, every time, with no exceptions. Enterprise and Team plans keep your data out of model training, but that does not override an NDA or KPMG's data-handling rules. When in doubt, do not upload, and check first.
+</Callout>
+
+## The custom instructions to start with
+
+Paste this into the Atlas project's custom instructions and adapt the target name and stage to your opportunity.
+
+<PromptCard title="Custom instructions for a deal project">
+You are assisting a KPMG private equity team working on Project Atlas, a mid-market field-service software target. We are currently at the diligence stage.
+
+Scope:
+- Work only from the documents in this project's knowledge base. These are the cleared data room materials for Atlas.
+- Do not bring in outside assumptions or figures from any other opportunity.
+
+How to answer:
+- Cite the source document (and page where visible) for every figure or claim you report.
+- Never invent or estimate a number. If something is not in the data room, say so explicitly.
+- Flag clearly anything the materials leave unclear, contradict, or omit.
+- When you draft (memo sections, question lists, summaries), keep the tone precise and investment-grade.
+
+Reminder: this is live, confidential material. Treat every figure as something I will verify against the source before it reaches the investment committee.
+</PromptCard>
+
+## After the opportunity closes
+
+A deal project is not meant to outlive its opportunity. Once Atlas closes or is passed on, archive or delete the project in line with KPMG's retention policy. The methodology you used lives safely in your reusable function projects, so nothing of lasting value is lost by clearing down the confidential workbench.
+
+For the wider rules on what may go in and how to handle sensitive material, see the [Confidentiality Decision Tree](/best-practices/confidentiality) and [Your Account & Confidential Data](/foundations/account-and-data).

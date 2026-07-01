@@ -1,0 +1,92 @@
+---
+title: Due Diligence Review
+description: "Work through a data room with Claude: extract, cross-check, and surface the issues that matter before they surprise you."
+section: PE Playbooks
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Diligence is where the real reading lives: contracts, accounts, customer data, employment terms, a Q&A log that grows by the day. The risk is not that you miss the headline issue; it is that you miss the quiet one buried on page nine of a supply agreement. Claude helps by reading carefully and consistently across documents, pulling out the terms that matter, and cross-checking claims against the numbers. It does not replace the diligence; it makes you faster and harder to surprise.
+
+## When to use this
+
+Use this once a target is past the screen and into confirmatory or commercial diligence, when you have a data room to work through and a finite amount of time to do it. Claude is most valuable on the document-heavy, pattern-finding parts: reviewing a stack of customer contracts for unusual terms, reconciling a management claim against the accounts, or distilling a long Q&A thread into open items.
+
+## The workflow
+
+<Steps>
+  <Step title="Keep everything inside the deal Project">
+    Upload data-room documents into the [deal Project](/projects/deal-setup) for this target. Keeping diligence material siloed in one Project, separate from every other live deal, is both good practice and good housekeeping.
+  </Step>
+  <Step title="Review one document type at a time">
+    Do not ask Claude to "review the data room". Work in focused passes: customer contracts in one conversation, the financial statements in another, employment terms in a third. Each pass gets a precise prompt and a clean answer.
+  </Step>
+  <Step title="Extract into a consistent structure">
+    For repetitive documents (a folder of customer contracts, for example), ask Claude to extract the same fields from each into a single table. Consistency is exactly what manual review struggles to maintain across thirty agreements.
+  </Step>
+  <Step title="Cross-check claims against evidence">
+    When management asserts something ("no customer is more than 10 percent of revenue"), ask Claude to test that claim against the supporting schedule and report whether it holds, with the figures.
+  </Step>
+  <Step title="Maintain a running issues list">
+    Ask Claude to keep a list of red and amber flags as you go, each tied to the document that raised it. This becomes the spine of your diligence findings and your follow-up questions to the seller.
+  </Step>
+</Steps>
+
+## Reviewing a stack of contracts
+
+This is the prompt that earns its keep most often: turning a folder of contracts into a single, comparable table with the unusual terms already flagged.
+
+<PromptCard title="Extract and flag terms across a contract set">
+You are assisting a KPMG private equity associate in confirmatory diligence on Project Atlas, a mid-market B2B field-service software target. I have attached the company's customer contracts.
+
+Task: review every contract and extract the key terms into one comparison table.
+
+Constraints: rely only on the attached documents. Cite the contract name (and clause or page) for each entry. Do not assume a market-standard term where the contract is silent.
+
+Format: one row per customer, with columns for: contract term and renewal, notice period, pricing or escalation mechanism, termination rights (either side), change-of-control or assignment clause, and any unusual or off-market term.
+
+After the table: list, in priority order, the clauses that would concern a buyer (for example, easy termination, change-of-control consent, uncapped liability), each tied to its contract. If a contract is missing a clause I would expect, say so explicitly.
+</PromptCard>
+
+## Cross-checking a management claim
+
+The second high-value move in diligence is testing assertions against the underlying numbers rather than taking them on trust.
+
+<PromptCard title="Test a management claim against the evidence">
+Management has stated that no single customer represents more than 10 percent of revenue, and that the top ten customers are below 40 percent combined.
+
+Using only the attached revenue-by-customer schedule, test both claims. For each claim, state whether it holds, and show the figures you relied on (the relevant percentages and the source rows).
+
+If the schedule does not let you test a claim fully, say exactly what is missing rather than estimating. Flag any customer concentration that a buyer should be aware of, even if it does not breach the stated thresholds.
+</PromptCard>
+
+<Callout type="warning" title="Claude reviews; it does not opine">
+Claude can extract terms, spot patterns, and flag what looks off, but it does not give legal, tax, or accounting opinions, and its read of a clause is a prompt for your judgement, not a substitute for it. Treat every flag as a lead to verify against the source and, where it matters, with the relevant specialist. The findings that reach the investment committee must be ones you have checked yourself.
+</Callout>
+
+## Where Claude fits in a diligence pass
+
+<ComparisonTable title="The division of labour" caption="Claude handles the volume and the consistency. You handle the judgement and the sign-off.">
+
+| Claude is well suited to | Keep this with you |
+| --- | --- |
+| Extracting the same fields across many similar documents | The materiality call on each finding |
+| Reconciling a stated claim against a supporting schedule | Any legal, tax, or accounting opinion |
+| Summarising a long Q&A or vendor report into open items | The decision on what goes into the IC pack |
+| Flagging clauses and figures that look unusual | Final verification of every flagged figure |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices" />
+  <Card title="Investment Memo Drafting" href="/playbooks/investment-memo" eyebrow="PE Playbooks" />
+</CardGrid>

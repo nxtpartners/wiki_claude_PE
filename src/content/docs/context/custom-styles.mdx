@@ -1,0 +1,65 @@
+---
+title: Custom Styles & Tone
+description: Get consistent house tone across memos and emails by specifying voice in a prompt or saving it for reuse.
+section: Context
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+
+Claude can write in almost any register, which is useful and also a trap. Left to its own defaults it tends toward the enthusiastic and the wordy, neither of which belongs in an investment committee paper. The fix is to tell Claude how to sound, and then to make that instruction reusable so every output lands in the same voice. This page covers both.
+
+## Tone is an instruction, not a hope
+
+If you do not specify a voice, Claude picks one, and its default leans warmer and more promotional than partner-ready prose. So state the tone explicitly, the same way you state the task and the format. A few words is usually enough: "concise, neutral, no superlatives, UK English" reshapes an answer completely.
+
+<ComparisonTable title="Default voice versus specified voice" caption="The same content, reshaped by a single line of tone instruction.">
+
+| Claude's default tends to be | A specified house voice asks for |
+| --- | --- |
+| Enthusiastic, with superlatives | Measured and neutral |
+| Wordy, with throat-clearing intros | Concise, straight to the point |
+| Generic business register | Partner-ready, suited to an IC audience |
+| Mixed spelling conventions | Consistent, for example UK English |
+
+</ComparisonTable>
+
+## Specify the voice in a prompt
+
+The simplest way to control tone is to name it inside the request. Put the voice instruction alongside the task and it applies to that answer immediately.
+
+<PromptCard title="A house-voice instruction">
+You are drafting for a KPMG private equity audience. Write in our house voice throughout:
+
+- Concise and partner-ready: no filler, no throat-clearing introductions.
+- Neutral and measured: state findings plainly, avoid superlatives and hype.
+- Precise: prefer specific figures and clear caveats over vague positives.
+- UK English spelling and conventions.
+
+Now draft a three-paragraph summary of Project Atlas suitable for an initial investment committee read.
+</PromptCard>
+
+The same block works whether you are writing a memo section, a management-meeting agenda, or an internal email. It is the tone half of every good prompt, sitting next to the role, task, and format you already specify.
+
+## Make the voice reusable
+
+Pasting a tone block into every chat works, but it is repetitive and easy to vary by accident. For anything you do regularly, capture the voice once so it applies automatically.
+
+There are two clean ways to do this:
+
+- **A saved Style.** Claude lets you capture a writing style and apply it to a conversation, so you select your house voice rather than retyping it. This is ideal for a personal, consistent register across one-off chats.
+- **Standing instructions in a Project.** A Project holds instructions that apply to every conversation inside it. Put your house-voice block in the Project instructions and every memo, email, and summary you draft in that Project inherits the same tone without a single extra line. This is the better route for sustained deal work, because the voice and the deal context live together. The [Projects](/projects/what-projects-are) section covers the setup, and [Instruction Templates](/projects/templates) gives you reusable starting points.
+
+<Callout type="note" title="Consistency is the real prize">
+An IC paper assembled from several Claude sessions reads badly if each section has a different voice: one breezy, one stiff, one littered with superlatives. Capturing the house voice once, in a Style or a Project, means every section sounds like it came from the same hand. That coherence is what makes a document feel partner-ready.
+</Callout>
+
+## A note on tone and accuracy
+
+Specifying a measured, caveat-friendly voice does more than make prose look professional. A voice that prefers "the document states" over "this is a fantastic business" naturally surfaces the evidence and the gaps, which makes the output easier to verify. Hype hides uncertainty; a neutral register exposes it. The tone you ask for and the rigour you want tend to pull in the same direction.
+
+## The takeaway
+
+Do not leave Claude's voice to chance. Name the tone you want in the prompt, then capture it as a saved Style or as standing Project instructions so it applies every time without repetition. The payoff is a single consistent voice across everything you produce, which is exactly what an investment committee expects to read. To make the voice and the deal context travel together, set up a [Project](/projects/what-projects-are), and reach for [Instruction Templates](/projects/templates) when you want a head start.

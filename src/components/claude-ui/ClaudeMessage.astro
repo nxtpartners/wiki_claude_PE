@@ -1,0 +1,93 @@
+---
+// ClaudeMessage: one turn in a Claude conversation.
+//   - role="user"   right-aligned, panel bubble, "You" label
+//   - role="claude" left-aligned, clay sparkle avatar, plain text (no bubble)
+//
+// Slot the message body. User turns may include a <FileChip> above the text.
+
+interface Props {
+  role?: 'user' | 'claude';
+  name?: string;
+}
+const { role = 'user', name } = Astro.props;
+const who = name ?? (role === 'user' ? 'You' : 'Claude');
+---
+
+<div class:list={['cm', `cm--${role}`]}>
+  <span class="cm-who">
+    {
+      role === 'claude' && (
+        <span class="cm-spark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+            <path d="M12 2c.4 3.6 2.4 5.6 6 6-3.6.4-5.6 2.4-6 6-.4-3.6-2.4-5.6-6-6 3.6-.4 5.6-2.4 6-6Z" />
+          </svg>
+        </span>
+      )
+    }
+    {who}
+  </span>
+  <div class="cm-bubble">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .cm {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cm--user {
+    align-items: flex-end;
+  }
+  .cm-who {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .cm-spark {
+    color: var(--c-clay);
+    display: inline-flex;
+  }
+
+  .cm-bubble {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--c-text);
+  }
+  .cm--user .cm-bubble {
+    max-width: 92%;
+    padding: var(--space-4);
+    background: var(--c-panel);
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--radius-md);
+    border-bottom-right-radius: 4px;
+  }
+  .cm--claude .cm-bubble {
+    max-width: 100%;
+  }
+
+  /* Tidy spacing for slotted content */
+  .cm-bubble :global(p) {
+    margin: 0 0 var(--space-3);
+  }
+  .cm-bubble :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .cm-bubble :global(.fc) {
+    margin-bottom: var(--space-3);
+  }
+  .cm-bubble :global(ul),
+  .cm-bubble :global(ol) {
+    margin: 0 0 var(--space-3);
+    padding-left: 1.2em;
+  }
+  .cm-bubble :global(li) {
+    margin-bottom: 4px;
+  }
+</style>

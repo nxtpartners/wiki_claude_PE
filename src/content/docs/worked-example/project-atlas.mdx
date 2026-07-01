@@ -1,0 +1,213 @@
+---
+title: Project Atlas
+description: "A full end-to-end walkthrough: screening one fictional target with Claude, from setting up the deal Project to a draft IC memo section."
+section: Worked Example
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeSidebar from '../../../components/claude-ui/ClaudeSidebar.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
+import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+
+Everything in this guide comes together on a real task. This page follows one fictional target, **Project Atlas**, from the moment its CIM lands in your inbox to a drafted section of an investment committee memo. Nothing here is a new feature. It is the everyday loop, give context, ask precisely, refine, verify, applied end to end on a single deal so you can see the whole journey at once.
+
+<Callout type="note" title="A fictional target, on purpose">
+Project Atlas is invented. It is a mid-market field-service software business serving HVAC and plumbing contractors across the UK, sold on per-seat subscriptions: roughly £60m in revenue, growth in the mid-20s percent, gross margin in the low 70s. Every file, figure, and competitor on this page is made up so we can walk the workflow without touching real deal data.
+</Callout>
+
+## The task in front of you
+
+A teaser came in last week and the CIM has just arrived. A partner wants an initial screen by Friday: is Atlas worth a closer look, and if so, what are the questions that decide it? You have the CIM, a financial model, a management deck, and an NDA. That is the raw material. Here is how you turn it into a judged view.
+
+## Step 1: Set up the deal Project
+
+Resist the urge to drop the CIM into a fresh chat. A one-off question gets a one-off answer. A **Project** gives every conversation about Atlas the same standing context, so you never re-explain the deal, and it keeps Atlas's confidential material walled off from every other piece of work.
+
+<ClaudeWindow caption="The Atlas deal Project: standing instructions on the left, the knowledge base of files on the right." url="claude.ai · Projects">
+  <ClaudeProject name="Project Atlas" kind="Deal project" capacity="22% of knowledge used" capacityPct={22}>
+    <p slot="instructions">You are assisting a KPMG private equity team screening Project Atlas, a B2B field-service software target. Be precise and concise. Cite the source document and page for every figure. Distinguish clearly between what the materials state, what they imply, and what they leave unanswered. When something is unclear or missing, flag it rather than filling the gap.</p>
+    <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" meta="62 pages" />
+    <FileChip name="Atlas_financials.xlsx" kind="xls" meta="3 tabs" />
+    <FileChip name="Atlas_management_deck.pdf" kind="pdf" />
+    <FileChip name="Atlas_NDA_summary.docx" kind="doc" />
+  </ClaudeProject>
+</ClaudeWindow>
+
+Two things make this setup work. The **instructions** set Claude's standing behaviour for every chat in the Project: cite sources, separate fact from inference, flag gaps. The **knowledge base** holds the deal's documents in one place, so any question you ask is answered against all of them at once. The full method is in [Deal Setup](/projects/deal-setup); the thinking behind it is in [The Two-Layer System](/projects/two-layer-system).
+
+<Callout type="confidential" title="One deal, one Project, walled off">
+Keeping Atlas in its own Project is not just tidy, it is a confidentiality control. Atlas's materials never mingle with another target's, and on KPMG's Enterprise or Team plan none of it trains the model. Before loading NDA-bound files, the check in the [Confidentiality Decision Tree](/best-practices/confidentiality) still applies.
+</Callout>
+
+## Step 2: The first screen
+
+With the Project set up, the first real question is the classic one: what is this business, and is it worth more of my time? You ask it inside the Project, so the CIM and the standing instructions are already in play.
+
+<ClaudeWindow caption="The opening question, asked inside the Project so every file and instruction is already loaded.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Give me a one-page initial screen of Atlas: business and how it makes money, financial highlights, the investment angle, and the biggest risks. Cite pages."
+      model="Claude Opus"
+      effort="High"
+    />
+  </div>
+</ClaudeWindow>
+
+The reply is a structured screen, grounded in the documents and honest about their gaps.
+
+<ClaudeWindow caption="A first screen: structured, sourced, and clear about what the materials do not say.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <p>Give me a one-page initial screen of Atlas, citing pages.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p><strong>Business.</strong> Subscription software for mid-market field-service contractors: scheduling, dispatch, and invoicing. Revenue is recurring, billed annually (CIM p.6 to p.9).</p>
+      <p><strong>Financials.</strong> Revenue about £60m, growth in the mid-20s percent, gross margin low 70s (CIM p.21; financials, P&amp;L tab).</p>
+      <p><strong>Investment angle.</strong> Sticky recurring base in a fragmented market, with room to consolidate smaller tools (CIM p.30 to p.34).</p>
+      <p><strong>Biggest risks.</strong> Customer concentration in the top accounts, heavy reliance on the founder-led sales motion, and thin disclosure on churn. The CIM cites retention but never defines it (CIM p.24).</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+That last line is the tell of a good screen. Claude has not just summarised; it has noticed that a headline retention figure is quoted without a definition. That is the kind of gap that turns into a management question.
+
+## Step 3: Drill into the risks
+
+A screen surfaces risks. The next move is to make each one specific enough to act on. You stay in the same chat, so nothing needs re-explaining, and push on the three the screen raised.
+
+<PromptCard title="Pressure-test the risks">
+Take the three risks you flagged and make each one concrete.
+
+For each: state exactly what the materials do and do not tell us, why it would matter to an investor, and the single sharpest question I should put to management to resolve it.
+
+If the CIM contradicts the model or the management deck anywhere on these points, show me where.
+</PromptCard>
+
+<ClaudeWindow caption="Drilling in: each risk made concrete, with the one question that would resolve it.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="claude">
+      <p><strong>Customer concentration.</strong> The CIM says the top ten customers are "a meaningful share" of revenue but never gives a number (p.24). It matters because losing one could dent growth. Ask: what percent of revenue do the top ten customers represent, and how has that moved over three years?</p>
+      <p><strong>Founder dependence.</strong> The deck credits the founder with most enterprise wins (p.11), yet the CIM describes a "scaled sales team" (p.27). Those sit in tension. Ask: how many of last year's new logos closed without the founder directly involved?</p>
+      <p><strong>Churn disclosure.</strong> Retention is quoted as "high" (CIM p.24) with no definition. Ask: is that gross or net retention, by logo or by revenue, and what is the figure for each of the last three years?</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+This is the moment Claude earns its place. It caught a genuine tension, the founder-led narrative in the deck against the "scaled team" claim in the CIM, that is easy to miss reading the documents separately. The [Due Diligence](/playbooks/due-diligence) playbook turns this into a repeatable routine.
+
+<Callout type="warning" title="A flag is a lead, not a finding">
+Every contradiction Claude surfaces is a prompt to check the source, not a conclusion. Open the cited pages, confirm the wording, and only then carry the point forward. The discipline is set out in [Verify Everything](/best-practices/verify-everything).
+</Callout>
+
+## Step 4: Check the numbers properly
+
+The screen quoted growth and margin. Before any of those figures go near a memo, you want them computed, not estimated. You attach the model and ask for real calculation, which is where the [analysis tool](/power-features/analysis-tool) does the arithmetic for you.
+
+<ClaudeWindow caption="Numbers that will enter a memo are calculated from the model, with workings shown.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <FileChip name="Atlas_financials.xlsx" kind="xls" meta="P&L tab" />
+      <p>Calculate year-on-year revenue growth and gross margin for each of the last three years. Show the workings, and flag anything that doesn't reconcile.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p><strong>Revenue growth.</strong> Year 1 to 2: 27%. Year 2 to 3: 24%. The trend is softening.</p>
+      <p><strong>Gross margin.</strong> 71%, 72%, 73% across the three years: gently improving.</p>
+      <p><strong>Reconciliation note.</strong> The segment revenues on the summary tab sum to 0.4m more than the stated total. Small, but worth a question.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+Two useful outcomes. The growth and margin figures are now genuinely computed, so you can trust them in a deliverable. And Claude found a small reconciliation gap that becomes one more line on your management question list. The [Financial Review](/playbooks/financial-review) playbook goes deeper on this.
+
+## Step 5: Frame the market
+
+So far everything has come from inside the data room. To judge the investment angle, you need the outside-in view: how big is this market, who else plays in it, and what has moved lately. This is the one place you reach for [web search](/power-features/web-search), and the one place you must keep the deal's name and numbers out of your query.
+
+<Callout type="confidential" title="Search the category, never the deal">
+The market scan that follows names no target and quotes no figure from the CIM. You search the public landscape (field-service software, the named competitors, recent sector news) and keep Atlas's confidential detail in the Project. A web query is never the place for NDA-bound information.
+</Callout>
+
+<PromptCard title="Outside-in market scan">
+Using current web sources, scan the market for B2B field-service software aimed at mid-market contractors.
+
+1. Rough market size and recent direction of travel.
+2. The main competitors, grouped as incumbents, challengers, and adjacent entrants.
+3. Any notable funding, acquisition, or product news in this space in the last year.
+
+Cite a source for each significant claim, and flag where the public picture is thin. Do not reference any specific target.
+</PromptCard>
+
+The scan gives you a public map of the landscape. Read alongside the CIM's own market section, it lets you judge whether Atlas's "fragmented market to consolidate" story holds up against what the outside world actually says. The full method is in [Market Research](/playbooks/market-research).
+
+## Step 6: Draft the IC memo section
+
+Now you have everything a first memo section needs: a sourced screen, concrete risks, computed financials, and an outside-in market view, all in one conversation. You ask Claude to pull it into a clean draft, produced as an [artifact](/power-features/artifacts) so you can refine it in place.
+
+<ClaudeWindow caption="The pieces come together: a memo section drafted as a clean, editable document.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Draft the 'Investment Highlights and Key Risks' section of an IC memo for Atlas, using everything in this conversation. Cite sources, and produce it as a clean document I can keep editing."
+      model="Claude Opus"
+      effort="High"
+    />
+  </div>
+</ClaudeWindow>
+
+<ClaudeWindow caption="A first draft of the memo section: structured, sourced, and ready for your judgement.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="claude">
+      <p>I've drafted the section as a document. In short:</p>
+      <p><strong>Investment highlights.</strong> Recurring revenue (about £60m) growing in the mid-20s percent, gross margin improving from 71% to 73%, in a fragmented market with consolidation potential.</p>
+      <p><strong>Key risks.</strong> Undisclosed customer concentration, a founder-versus-team tension in the sales motion, and undefined churn, each with the management question that would resolve it.</p>
+      <p><strong>Open items.</strong> The 0.4m revenue reconciliation gap, and a retention definition the CIM never gives.</p>
+      <p>Tell me what to sharpen and I'll update the document in place.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+From here it is a conversation: "tighten the highlights for a partner," "add a row on the management team," "lead with the risks instead." The document updates each turn, and you stay in control of the judgement. The [Investment Memo](/playbooks/investment-memo) playbook covers the full memo, section by section.
+
+## Step 7: Verify before it leaves your desk
+
+You have a strong first draft in a fraction of the usual time. The final step is the one that never changes. Before this section carries the KPMG name, you check it.
+
+<Steps>
+  <Step title="Trace every figure to source">
+    Open each cited page and tab. Confirm the £60m, the growth rates, and the margins match the documents, not just the draft.
+  </Step>
+  <Step title="Confirm the flags are real">
+    Re-read the founder-versus-team passages and the churn wording yourself. A surfaced tension is a lead until you have seen it on the page.
+  </Step>
+  <Step title="Separate fact from inference">
+    Make sure the memo says what the materials state, marks what they imply, and names what they leave open. The reconciliation gap and the missing retention definition belong in the open items.
+  </Step>
+  <Step title="Apply your judgement">
+    Claude assembled the evidence. Whether Atlas is worth a closer look, and what to recommend, is yours to decide and yours to own.
+  </Step>
+</Steps>
+
+<Callout type="confidential" title="The work is fast; the responsibility is unchanged">
+Claude gave you a faster path to a high-quality first draft. It did not give you a verified deliverable, and it never removes your accountability for what goes to the committee. That is exactly the balance this guide is built around.
+</Callout>
+
+## The whole loop, on one deal
+
+Step back and the pattern is the same one from your very first session, just applied with rigour across a real screen: a Project for context, precise questions, calculation for the numbers, a market scan for the outside-in view, a drafted section, and verification at the end.
+
+<CardGrid columns={2}>
+  <Card title="Deal Setup" href="/projects/deal-setup" eyebrow="Projects">Build the siloed deal Project the way Atlas was set up here.</Card>
+  <Card title="CIM Analysis" href="/playbooks/cim-analysis" eyebrow="Playbook">The repeatable recipe behind the first screen.</Card>
+  <Card title="Due Diligence" href="/playbooks/due-diligence" eyebrow="Playbook">Turn surfaced risks into a structured diligence routine.</Card>
+  <Card title="Investment Memo" href="/playbooks/investment-memo" eyebrow="Playbook">Take the drafted section through to a full IC memo.</Card>
+</CardGrid>
+
+That is Project Atlas, end to end. The features did not change between steps; the discipline carried them. Give Claude the right context, ask it precisely, let it do the synthesis and the maths, and keep the judgement, and the final check, firmly your own.

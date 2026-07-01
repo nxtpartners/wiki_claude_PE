@@ -1,0 +1,97 @@
+---
+title: Investment Memo Drafting
+description: "Draft a structured, well-evidenced investment memo with Claude, keeping the thesis and the judgement yours."
+section: PE Playbooks
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+The investment memo is where everything you have learned about a target gets argued in one place. Drafting it from a blank page is slow, and the slow part is rarely the thinking: it is assembling the structure, pulling the evidence together, and getting a clean first version on the page. Claude is built for exactly that. It produces a strong first draft from the material you have gathered, so your time goes into sharpening the thesis rather than fighting the formatting.
+
+## When to use this
+
+Use this once diligence has given you enough to form a view, when you need to turn a pile of findings into a coherent memo for the investment committee. Claude is most useful on the first draft and on the section-by-section build. The argument, the conviction, and the recommendation are yours; Claude assembles the scaffolding and the supporting prose around them.
+
+## The workflow
+
+<Steps>
+  <Step title="Gather the source material into the deal Project">
+    Make sure the CIM, your diligence notes, the financial summary, and any market work are in the [deal Project](/projects/deal-setup). The memo is only as good as the material Claude is drafting from, so give it the real inputs rather than working from memory.
+  </Step>
+  <Step title="Agree the structure first">
+    Ask Claude for the memo structure before any prose. Confirm the headings match your firm's IC format, then draft section by section against that agreed skeleton. This keeps the whole memo coherent instead of drifting.
+  </Step>
+  <Step title="Draft one section at a time">
+    Work through the memo in focused passes: business overview, then market, then financials, then thesis, then risks. A tight prompt per section beats one sweeping request, and it lets you steer each part properly.
+  </Step>
+  <Step title="Feed it your view, not just the documents">
+    The thesis section needs your angle. Give Claude your actual investment logic in a sentence or two and ask it to structure and evidence the argument. Do not ask it to invent a thesis; ask it to articulate yours.
+  </Step>
+  <Step title="Run a devil's advocate pass">
+    Before the memo is final, ask Claude to challenge it: where is the argument thin, what would a sceptical IC member press on, what risk is underweighted. Better to find the soft spots yourself than have the committee find them for you.
+  </Step>
+</Steps>
+
+## Drafting a memo section
+
+This prompt drafts a single section properly, grounded in your uploaded material and honest about gaps. Reuse it section by section, changing only the section name and focus.
+
+<PromptCard title="Draft the financials section of an IC memo">
+You are assisting a KPMG private equity associate drafting an investment committee memo on Project Atlas, a mid-market B2B field-service software target. I have attached the CIM, the diligence financial summary, and my notes.
+
+Task: draft the "Financial performance and quality of earnings" section of the memo.
+
+Constraints: use only the attached material. Cite the source for every figure (document and page). Where a figure is not in the sources, write "to be confirmed" rather than estimating. Keep the tone neutral and partner-ready: concise, no superlatives, UK English.
+
+Format: open with a two-sentence summary of financial health, then cover revenue trajectory, margin profile, cash generation, and earnings quality (one-offs, adjustments, working-capital movements). Use short paragraphs with a supporting figure in each. Close with a short bullet list of the financial points the IC should weigh.
+
+When unsure: flag, do not fill. List anything the sources leave unresolved at the end as open items.
+</PromptCard>
+
+## Stress-testing the draft
+
+A memo that has only been written is half-finished. Have Claude attack it before the committee does.
+
+<PromptCard title="Devil's advocate review of the memo">
+You are now playing a sceptical investment committee member reviewing the attached draft memo on Project Atlas. Your job is to find the weak points, not to be reassured.
+
+Task: produce a structured critique.
+
+Format: three sections.
+1. Where the argument is thin: claims that are asserted rather than evidenced, and what evidence is missing.
+2. Underweighted risks: risks the memo mentions lightly or omits, and why each could matter.
+3. The five hardest questions the IC is likely to ask, with a note on whether the memo currently answers each.
+
+Be specific and tie each point to a part of the memo. Do not soften the critique to be polite.
+</PromptCard>
+
+<Callout type="note" title="The thesis is yours, the draft is Claude's">
+Claude is excellent at structuring an argument and at writing clean, neutral prose, but the investment view has to come from you. If you ask it to manufacture a thesis from the documents, you will get something plausible and generic. Give it your actual reasoning and let it do the assembly and the evidencing. The conviction in the memo should be yours, written down well.
+</Callout>
+
+## Drafting versus deciding
+
+<ComparisonTable title="What to hand over and what to hold" caption="Let Claude build the memo around your judgement, never in place of it.">
+
+| Hand to Claude | Hold for yourself |
+| --- | --- |
+| Structuring the memo to your IC format | The investment thesis and the recommendation |
+| Drafting each section from the source material | The weighting of competing risks and merits |
+| Tightening prose to a neutral, partner-ready tone | Sign-off that every cited figure is correct |
+| Stress-testing the draft for weak arguments | The final call the committee is asked to back |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Due Diligence Review" href="/playbooks/due-diligence" eyebrow="PE Playbooks" />
+  <Card title="Custom Styles & Tone" href="/context/custom-styles" eyebrow="Context" />
+</CardGrid>

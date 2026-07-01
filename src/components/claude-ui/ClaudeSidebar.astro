@@ -1,0 +1,218 @@
+---
+// ClaudeSidebar: the left rail of the Claude.ai app, styled to the real product.
+// Reads as Enterprise/Team via the workspace marker + "Team plan" footer.
+//
+// Props:
+//   - active:    highlight one primary item ('new' | 'chats' | 'projects' | 'artifacts')
+//   - workspace: org name shown at the top (default "KPMG")
+//   - recents:   optional list of recent chat titles (use fictional PE names only)
+//   - user:      footer name (default "KPMG user")
+
+interface Props {
+  active?: 'new' | 'chats' | 'projects' | 'artifacts';
+  workspace?: string;
+  recents?: string[];
+  user?: string;
+}
+const {
+  active = 'new',
+  workspace = 'KPMG',
+  recents = ['Project Atlas screen', 'Sector map: field services', 'IC memo draft'],
+  user = 'KPMG user',
+} = Astro.props;
+
+const nav = [
+  { id: 'new', label: 'New chat' },
+  { id: 'chats', label: 'Chats' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'artifacts', label: 'Artifacts' },
+] as const;
+---
+
+<nav class="cs" aria-label="Claude navigation (illustration)">
+  <div class="cs-top">
+    <span class="cs-spark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+        <path d="M12 2c.4 3.6 2.4 5.6 6 6-3.6.4-5.6 2.4-6 6-.4-3.6-2.4-5.6-6-6 3.6-.4 5.6-2.4 6-6Z" />
+      </svg>
+    </span>
+    <span class="cs-brand">Claude</span>
+    <span class="cs-ws" title="Workspace">{workspace}</span>
+  </div>
+
+  <ul class="cs-nav">
+    {
+      nav.map((item) => (
+        <li>
+          <span class:list={['cs-item', { 'is-active': active === item.id }]}>
+            <span class="cs-ico" aria-hidden="true">
+              {item.id === 'new' && (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                  <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+                </svg>
+              )}
+              {item.id === 'chats' && (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                  <path d="M4 5h16v10H9l-4 4V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                </svg>
+              )}
+              {item.id === 'projects' && (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6" />
+                  <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" stroke-width="1.6" />
+                </svg>
+              )}
+              {item.id === 'artifacts' && (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+                  <path d="M7 8a5 5 0 0 1 10 0c0 2-2 3-2 5H9c0-2-2-3-2-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                  <path d="M9 18h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                </svg>
+              )}
+            </span>
+            {item.label}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="cs-label">Recents</p>
+  <ul class="cs-recents">
+    {recents.map((r) => <li class="cs-recent">{r}</li>)}
+  </ul>
+
+  <div class="cs-foot">
+    <span class="cs-avatar" aria-hidden="true">K</span>
+    <span class="cs-foot-text">
+      <span class="cs-foot-name">{user}</span>
+      <span class="cs-foot-plan">Team plan</span>
+    </span>
+  </div>
+</nav>
+
+<style>
+  .cs {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--space-4) var(--space-3);
+    font-size: 0.84rem;
+    color: var(--c-text);
+  }
+  .cs-top {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 2px var(--space-2) var(--space-3);
+  }
+  .cs-spark {
+    color: var(--c-clay);
+    display: inline-flex;
+  }
+  .cs-brand {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--c-heading);
+    letter-spacing: -0.01em;
+  }
+  .cs-ws {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    border: 1px solid var(--c-border-strong);
+    border-radius: 999px;
+    padding: 2px 7px;
+  }
+
+  .cs-nav {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+  }
+  .cs-nav li {
+    margin: 0;
+  }
+  .cs-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--c-text);
+  }
+  .cs-item.is-active {
+    background: var(--c-panel);
+    color: var(--c-heading);
+    font-weight: 600;
+  }
+  .cs-ico {
+    color: var(--c-muted);
+    display: inline-flex;
+  }
+  .cs-item.is-active .cs-ico {
+    color: var(--c-clay);
+  }
+
+  .cs-label {
+    margin: 0 0 6px var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .cs-recents {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+  }
+  .cs-recent {
+    margin: 0;
+    padding: 6px var(--space-2);
+    border-radius: var(--radius-sm);
+    color: var(--c-text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.82rem;
+  }
+
+  .cs-foot {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: var(--space-3);
+    padding: var(--space-2);
+    border-top: 1px solid var(--c-border);
+  }
+  .cs-avatar {
+    flex: 0 0 26px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--kpmg-blue);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .cs-foot-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .cs-foot-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--c-heading);
+  }
+  .cs-foot-plan {
+    font-size: 0.66rem;
+    color: var(--c-muted);
+  }
+</style>

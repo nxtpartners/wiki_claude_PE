@@ -1,0 +1,87 @@
+---
+title: Analysis Tool
+description: "How Claude can run real calculations on your numbers for reliable figures, and how to read and verify the working it shows."
+section: Power Features
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+
+There is one thing language models are famously shaky at: arithmetic done in their heads. The analysis tool fixes this. When a task involves real calculation, Claude can run the numbers properly rather than estimating them, which matters a great deal when those numbers are heading into a memo.
+
+## The problem it solves
+
+Ask any AI to multiply two large numbers in prose and you may get a confident, wrong answer. For PE work, where a misplaced growth rate or a fumbled margin can mislead a whole screen, that is unacceptable. The analysis tool lets Claude step out of prose and actually compute, the same way a calculator gives you the real figure rather than a guess.
+
+<ComparisonTable title="Estimating versus computing" caption="The analysis tool moves calculation from approximate to exact.">
+
+| Without the analysis tool | With the analysis tool |
+| --- | --- |
+| Figures reasoned in prose, sometimes approximate | Figures genuinely calculated, then reported |
+| Hard to see how a number was reached | Working is shown and can be checked |
+| Risk of small arithmetic slips on big sums | Reliable arithmetic on large or many numbers |
+| Fine for rough order-of-magnitude sense | Right for figures that enter a deliverable |
+
+</ComparisonTable>
+
+## When it tends to kick in
+
+You do not switch the analysis tool on with a button. Claude reaches for it when a request clearly calls for calculation, particularly across an attached spreadsheet. It is most useful for:
+
+- **Growth and margin maths** across several years of a financial model.
+- **Reconciling totals** that should agree but do not, so you can find where they diverge.
+- **Cohort or churn calculations** from a table of raw figures.
+- **Quick sensitivities**, such as recasting revenue at a different assumed growth rate.
+
+<Callout type="tip" title="Ask for the calculation explicitly">
+If you want real computation rather than an estimate, say so. Phrases like "calculate the year-on-year growth" or "work out the blended margin from the attached figures" steer Claude toward running the numbers properly.
+</Callout>
+
+## What it looks like in practice
+
+Attach the figures, ask for the calculation, and Claude does the maths and reports the result. Crucially, it can show its working, so you are not asked to trust a number on faith.
+
+<ClaudeWindow caption="Attach the numbers, ask for a real calculation, and read back the result with its working.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <FileChip name="Project_Atlas_financials.xlsx" kind="xls" meta="3 tabs" />
+      <p>Calculate the year-on-year revenue growth and the gross margin for each of the last three years from the attached figures. Show the workings.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p><strong>Revenue growth.</strong> Year 1 to Year 2: 27%. Year 2 to Year 3: 24%.</p>
+      <p><strong>Gross margin.</strong> Year 1: 71%. Year 2: 72%. Year 3: 73%.</p>
+      <p>Each figure is computed from the Revenue and Cost of Sales rows on the P&amp;L tab. The growth softening from 27% to 24% is worth a question to management.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+## A prompt that puts it to work
+
+<PromptCard title="Reconcile and recompute from a model">
+You are assisting a Private Equity associate at KPMG. I've attached the target's financial model.
+
+1. Calculate year-on-year revenue growth and gross margin for each year shown. Show the workings for each.
+2. Check whether the revenue subtotals add up to the stated total, and flag any line that does not reconcile.
+3. Recast Year 3 revenue assuming growth holds at the Year 2 rate, and tell me the difference.
+
+Report figures in a table. Note any number the model leaves ambiguous.
+</PromptCard>
+
+## Reading and verifying the working
+
+The analysis tool makes Claude's arithmetic reliable, but it does not check that the source figures are right, or that you asked the right question. Two habits keep you safe.
+
+<Callout type="warning" title="Verify the inputs, not just the maths">
+The tool calculates correctly from whatever numbers it was given. If it read the wrong row, or the spreadsheet itself is wrong, the answer will be precisely wrong. Always confirm the figures it used match the cells you meant.
+</Callout>
+
+When Claude shows its working, read it. Confirm the inputs are the right cells, that the formula matches what you intended, and that the result is the sensible order of magnitude. This is the same discipline as the rest of your work with Claude, set out in [Verify Everything](/best-practices/verify-everything), and it is what lets you put a computed figure into a deliverable with confidence.
+
+## What to take from this
+
+The analysis tool turns Claude's weakest area, mental arithmetic, into a strength by letting it run real calculations on your numbers. Lean on it whenever figures will enter a deliverable: growth, margins, reconciliations, and quick sensitivities. Ask for the calculation explicitly, read the working it shows, and always confirm the inputs were the figures you meant. The tool guarantees the maths is right; you guarantee the right question was asked.

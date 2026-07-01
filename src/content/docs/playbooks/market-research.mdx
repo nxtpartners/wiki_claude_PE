@@ -1,0 +1,96 @@
+---
+title: Market & Competitor Research
+description: "Use Claude to map a target's market and competitors, and learn when to rely on its knowledge versus your own sources."
+section: PE Playbooks
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Before you back a target, you need a view of the market it sits in: how big it is, how fast it grows, who else is competing, and what could change the picture. Claude is a strong thinking partner for this. It can structure a market map, frame the competitive landscape, and pressure-test the assumptions in a CIM's "huge addressable market" slide. The important discipline is knowing which parts of this it can do from its own knowledge and which parts need a real source.
+
+## When to use this
+
+Use this early, when you are forming a view on whether a market is attractive enough to commit diligence time, and again later to sanity-check the market section of a CIM. Claude is best at the structuring and the framing: turning a vague sense of a sector into a clear map of segments, drivers, and competitors, and giving you sharp questions to take into expert calls or commercial diligence.
+
+## The workflow
+
+<Steps>
+  <Step title="Frame the market with a structured prompt">
+    Ask Claude to map the market around your target into segments, size, growth drivers, and headwinds. A structured frame is far more useful than an open "tell me about this market" request, and it gives you something to react to.
+  </Step>
+  <Step title="Map the competitive landscape">
+    Ask for the competitive set grouped by type (incumbents, challengers, adjacent threats), with the basis of competition spelled out. This tells you where your target actually sits and where the pressure comes from.
+  </Step>
+  <Step title="Pressure-test the CIM's market claims">
+    A CIM will present the most flattering market story. Upload the relevant pages and ask Claude to challenge the sizing logic and the growth assumptions, not just summarise them.
+  </Step>
+  <Step title="Turn the map into expert-call questions">
+    The output you want is not a finished market section; it is a set of sharp questions for the people who actually know the sector. Ask Claude to convert the gaps and assumptions into a call agenda.
+  </Step>
+  <Step title="Verify any specific figure against a real source">
+    Claude's general market framing is useful; its specific numbers are not a citation. Treat any market-size or growth figure it offers as a hypothesis to confirm against a named report or expert, never as a fact to quote.
+  </Step>
+</Steps>
+
+## Framing the market
+
+This prompt produces a structured market map you can react to and refine, rather than a vague essay.
+
+<PromptCard title="Structured market map for a target's sector">
+You are assisting a KPMG private equity associate assessing Project Atlas, a mid-market B2B field-service management software business serving small and mid-sized service contractors in the UK.
+
+Task: map the market this business operates in, so I can judge whether it is attractive enough to commit diligence time.
+
+Format: use these headings.
+1. Market definition and segments: how you would segment this market and where Project Atlas sits.
+2. Demand drivers: what is growing demand for this software, and how durable each driver is.
+3. Headwinds and risks: what could slow or shrink the market.
+4. Structure and competition: is this fragmented or consolidating, and what does that imply for a buyer.
+
+Be explicit about confidence: where you are reasoning from general sector knowledge rather than a specific source, say so. Do not present an estimated market size as if it were a cited figure. End with the three things I most need to validate with an external source or an expert call.
+</PromptCard>
+
+## Challenging the CIM's market story
+
+Sellers size markets generously. This prompt has Claude interrogate the logic rather than repeat it.
+
+<PromptCard title="Stress-test a CIM's market sizing">
+I have attached the market section of Project Atlas's CIM. It claims a large and fast-growing addressable market.
+
+Task: challenge the sizing and growth logic rather than summarising it.
+
+Cover: how the addressable market appears to have been defined and whether that definition is generous, which assumptions the growth rate depends on, and what a more conservative framing would look like.
+
+Use only the attached pages for what the CIM claims, and flag clearly where the CIM gives a number without showing how it was derived. End with the specific questions I should put to management or to a commercial diligence provider to test the market story.
+</PromptCard>
+
+<Callout type="warning" title="Claude is not a live market-data source">
+Claude reasons well about markets, but it does not have a live feed of market sizes, growth rates, or competitor revenues, and it should not be treated as a citable source for them. Use it to structure your thinking and to frame what to check, then confirm every specific figure against a named report, a data provider, or an expert. A market section built on unverified numbers is a liability, however fluent it reads.
+</Callout>
+
+## Reliable framing versus figures to verify
+
+<ComparisonTable title="What to trust and what to check" caption="Lean on Claude for the shape of the market. Source every hard number elsewhere.">
+
+| Rely on Claude for | Always verify elsewhere |
+| --- | --- |
+| Segmenting the market and placing the target within it | The actual market size and growth rate |
+| Identifying likely demand drivers and headwinds | Specific competitor revenues or market shares |
+| Framing the competitive structure and its implications | Any figure you intend to quote in the memo |
+| Drafting sharp questions for expert calls | Whether a named competitor still exists in that form |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Why Context Is Everything" href="/context/why-context" eyebrow="Context" />
+  <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices" />
+</CardGrid>

@@ -1,0 +1,155 @@
+---
+// ClaudeWindow: the outer frame for a recreated Claude.ai screen.
+// Looks like the real product (warm cream + clay), never KPMG blue.
+//
+// Modes:
+//   - default: a single pane (slot the conversation, composer, or project panel)
+//   - app:     two-pane layout with a "sidebar" named slot + main default slot
+//
+// Named slots:
+//   - "sidebar"  (optional) renders the left rail; triggers the app layout
+//   - "tag"      (optional) a small label in the top bar (e.g. "Live deal")
+//
+// Props:
+//   - caption: small line under the frame (default reminds data stays private)
+//   - flat:    remove the subtle tilt used on decorative placements
+//   - bare:    hide the browser bar (use when showing a cropped UI close-up)
+
+interface Props {
+  caption?: string;
+  flat?: boolean;
+  bare?: boolean;
+  url?: string;
+  ariaLabel?: string;
+}
+const {
+  caption = 'Illustration of the Claude interface. Your data stays in your workspace.',
+  flat = false,
+  bare = false,
+  url = 'claude.ai',
+  ariaLabel,
+} = Astro.props;
+
+const isApp = Astro.slots.has('sidebar');
+const hasTag = Astro.slots.has('tag');
+---
+
+<figure
+  class:list={['cw', { 'cw--flat': flat, 'cw--app': isApp }]}
+  role="img"
+  aria-label={ariaLabel ?? 'Recreated Claude interface for illustration.'}
+>
+  {
+    !bare && (
+      <div class="cw-bar" aria-hidden="true">
+        <span class="cw-dots"><i /><i /><i /></span>
+        <span class="cw-url">{url}</span>
+        {hasTag && (
+          <span class="cw-tag">
+            <slot name="tag" />
+          </span>
+        )}
+      </div>
+    )
+  }
+
+  <div class="cw-shell">
+    {
+      isApp && (
+        <div class="cw-rail">
+          <slot name="sidebar" />
+        </div>
+      )
+    }
+    <div class="cw-main">
+      <slot />
+    </div>
+  </div>
+</figure>
+
+{caption && <figcaption class="cw-caption" aria-hidden="true">{caption}</figcaption>}
+
+<style>
+  .cw {
+    margin: var(--space-8) 0 var(--space-4);
+    background: var(--c-bg);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .cw--flat {
+    box-shadow: var(--shadow-md);
+  }
+
+  .cw-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 10px var(--space-4);
+    background: var(--c-panel);
+    border-bottom: 1px solid var(--c-border);
+  }
+  .cw-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .cw-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #d8d3c4;
+  }
+  .cw-url {
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--c-muted);
+  }
+  .cw-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-clay);
+    background: var(--c-clay-soft);
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  .cw-shell {
+    display: block;
+  }
+  .cw--app .cw-shell {
+    display: grid;
+    grid-template-columns: 232px 1fr;
+    min-height: 420px;
+  }
+  .cw-rail {
+    border-right: 1px solid var(--c-border);
+    background: var(--c-bg);
+  }
+  .cw-main {
+    position: relative; /* anchor for <Hotspot> */
+    min-width: 0;
+  }
+
+  .cw-caption {
+    margin: var(--space-2) 0 0;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  @media (max-width: 640px) {
+    .cw--app .cw-shell {
+      grid-template-columns: 1fr;
+    }
+    .cw--app .cw-rail {
+      display: none; /* keep the teaching focus on the main pane on phones */
+    }
+  }
+</style>

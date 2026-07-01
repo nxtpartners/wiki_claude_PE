@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { nav } from '../config/nav';
+import { nav, flatNav } from '../config/nav';
 
 interface Props {
   currentSlug?: string;
@@ -10,6 +10,11 @@ const { currentSlug } = Astro.props;
 // Resolve which slugs have a real content file so we never link to a 404.
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
+
+// Global position (1-based) for each slug, so the sidebar number matches the
+// "X of N" shown in each page's header.
+const positionOf = new Map(flatNav.map((item, i) => [item.slug, i + 1]));
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
 <nav class="sidebar" aria-label="Wiki navigation">
@@ -22,6 +27,7 @@ const existing = new Set(docs.map((d) => d.id));
             {section.items.map((item) => {
               const isActive = item.slug === currentSlug;
               const exists = existing.has(item.slug);
+              const num = positionOf.get(item.slug);
               return (
                 <li>
                   {exists ? (
@@ -30,12 +36,12 @@ const existing = new Set(docs.map((d) => d.id));
                       class:list={['nav-link', { active: isActive }]}
                       aria-current={isActive ? 'page' : undefined}
                     >
-                      <span class="nav-indicator" aria-hidden="true" />
+                      <span class="nav-num" aria-hidden="true">{num ? pad(num) : ''}</span>
                       <span class="nav-text">{item.title}</span>
                     </a>
                   ) : (
                     <span class="nav-link nav-soon" title="Coming soon">
-                      <span class="nav-indicator" aria-hidden="true" />
+                      <span class="nav-num" aria-hidden="true">{num ? pad(num) : ''}</span>
                       <span class="nav-text">{item.title}</span>
                       <span class="soon-tag">soon</span>
                     </span>
@@ -103,29 +109,35 @@ const existing = new Set(docs.map((d) => d.id));
     background: var(--bg-soft);
     text-decoration: none;
   }
-  .nav-indicator {
-    width: 2px;
-    height: 15px;
-    border-radius: 2px;
-    background: transparent;
-    flex: 0 0 2px;
-    transition: background 0.15s ease;
+  .nav-num {
+    flex: 0 0 auto;
+    min-width: 18px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    color: #b4bdc9;
+    transition: color 0.15s ease;
   }
   .nav-link.active {
     color: var(--kpmg-blue);
     font-weight: 650;
     background: rgba(0, 51, 141, 0.05);
   }
-  .nav-link.active .nav-indicator {
-    background: var(--kpmg-blue);
+  .nav-link.active .nav-num {
+    color: var(--kpmg-blue);
   }
-  a.nav-link:hover .nav-indicator {
-    background: var(--line);
+  a.nav-link:hover .nav-num {
+    color: var(--ink-muted);
   }
 
   .nav-soon {
     color: #9aa6b6;
     cursor: default;
+  }
+  .nav-soon .nav-num {
+    color: #ccd3dd;
   }
   .soon-tag {
     margin-left: auto;

@@ -1,0 +1,91 @@
+---
+title: Prompt Patterns
+description: "A handful of reliable prompting shapes that go beyond the basics: refining, comparing, sense-checking, and structuring output."
+section: Best Practices
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+
+Once you have the four-part prompt shape (**Role, Task, Format, Scrutiny**) from [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt), you have what you need for most tasks. The patterns on this page are the next layer: a small set of repeatable moves that handle the situations that come up again and again in deal work. None of them is clever. They are just reliable, and knowing them saves you from reinventing the same prompt every week.
+
+Treat these as shapes to adapt, not scripts to obey. The wording is a starting point; the structure is the value.
+
+## Pattern: iterate, do not restart
+
+The most common mistake is treating each prompt as a fresh start. Claude holds the thread of a conversation, so the fastest route to a good answer is usually a decent first draft followed by precise corrections. You would not ask an analyst to redo a whole memo because one section is off; you would tell them what to change. Do the same here.
+
+<PromptCard title="Refine in place">
+Good start. Now make three changes: tighten the risks section to the five that actually matter for an initial screen, drop the generic market commentary, and add a one-line "so what" under each risk explaining why it would affect the thesis. Keep everything else as it is.
+</PromptCard>
+
+<Callout type="tip" title="Steer, don't scrap">
+If an answer is 80 percent right, fix the 20 percent with a follow-up rather than re-prompting from scratch. You keep the good material and the established context, and you spend your words only on what needs to change.
+</Callout>
+
+## Pattern: ask for the reasoning, not just the answer
+
+For anything analytical, the conclusion is less useful than the path to it. Asking Claude to lay out its reasoning does two things: it gives you something to check, and it tends to produce a more careful answer because the model has to justify itself rather than just assert.
+
+<PromptCard title="Show the working">
+Before you give your conclusion, walk through your reasoning step by step: what the document says, what you can infer from it, and where the gaps are. Then give your conclusion as a separate final paragraph, and note how confident you are in it and why.
+</PromptCard>
+
+This pairs naturally with the verification routine in [Verify Everything](/best-practices/verify-everything). Visible reasoning is far quicker to check than a bare verdict.
+
+## Pattern: structured comparison
+
+You constantly weigh things against each other: two targets, two structures, the case for and against a thesis. Left to its own devices, Claude may give you flowing prose when what you want is a grid. Ask for the structure explicitly, and give it the dimensions to compare on.
+
+<PromptCard title="Compare on fixed dimensions">
+Compare these two acquisition candidates as a table. Use these rows: business model, revenue scale, growth rate, margin profile, customer concentration, and the single biggest risk. Add a final row with your one-line read on which is the more attractive screen and why. If a document is silent on a dimension, write "not stated" rather than guessing.
+</PromptCard>
+
+The "not stated" instruction matters. Without it, a comparison table is exactly the kind of place a confident-looking but invented figure can slip in.
+
+## Pattern: the devil's advocate
+
+Claude is, by default, agreeable. Left unprompted it tends to support the direction you seem to be leaning. That is the opposite of what you want when you are pressure-testing a thesis. Ask it explicitly to argue against you.
+
+<PromptCard title="Argue the other side">
+I am inclined to pursue Project Atlas. Take the opposite view. Give me the strongest, most specific case against this investment: the risks I am most likely to be underweighting, the questions that would most worry an investment committee, and the single thing that, if true, would kill the deal. Be direct, not diplomatic.
+</PromptCard>
+
+<Callout type="note" title="Use it to find blind spots, not to decide">
+The devil's advocate pattern is a tool for surfacing what you have not considered. The arguments it raises still need checking against the source and weighing with your own judgement. It widens the search; it does not make the call.
+</Callout>
+
+## Pattern: constrain the output
+
+When you need output in a specific shape (a fixed word count, a particular set of headings, a tone, a template), say so up front and be concrete. Vague constraints produce vague compliance. "Keep it short" is weaker than "no more than 150 words". "Make it formal" is weaker than "written for an investment committee paper: measured, specific, no marketing language".
+
+<PromptCard title="Tight constraints">
+Draft the executive summary for an investment committee paper on Project Atlas. Hard constraints: no more than 200 words, three short paragraphs (thesis, value-creation angle, the main risk), measured and specific tone, no superlatives or marketing language. If you cannot fit something important in the word count, list it separately below the summary rather than cutting it silently.
+</PromptCard>
+
+## Pattern: name the format you cannot see
+
+Sometimes the failure is not the content but the shape it comes back in. If you want a table, a numbered list, or something you can paste straight into a document, describe it precisely. The clearer the target shape, the less reshaping you do afterwards. This is the **Format** part of the core prompt, used deliberately.
+
+<Steps>
+  <Step title="Decide the shape before you ask">
+    Know what you want back (a one-page summary, a five-row table, three bullet points) before you write the prompt. If you cannot picture the output, Claude cannot either.
+  </Step>
+  <Step title="Describe it concretely">
+    Name the headings, the row labels, the length, the order. Specificity here is what removes the reformatting step later.
+  </Step>
+  <Step title="Add the silent-gap guard">
+    Tell Claude what to do when a piece of information is missing: write "not stated", flag it, or list it separately. This stops a clean-looking output from hiding a hole.
+  </Step>
+</Steps>
+
+## Combining patterns
+
+These patterns stack. A strong real-world prompt might set the role, state the task, ask for visible reasoning, demand a fixed table format, and finish with a devil's-advocate pass, all in one message. You do not need every pattern every time. Reach for the one that fits the job, layer a second if it helps, and keep the scrutiny instruction running underneath all of them.
+
+## What to take from this
+
+The four-part shape gets you a good brief. These patterns handle the recurring situations on top of it: refine instead of restart, ask for the reasoning, force structured comparisons, invite the counter-argument, and constrain the output precisely. They are habits more than techniques. For ready-made prompts built on these shapes, see the [Prompt Library](/resources/prompt-library), and for the habits to avoid, read [What Not to Do](/best-practices/what-not-to-do).

@@ -1,0 +1,85 @@
+---
+title: Glossary
+description: "Plain-language definitions of the Claude terms you meet in this wiki, written for a private equity reader."
+section: Resources
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+
+This page explains, in plain English, the terms you will meet across this wiki and inside Claude itself. No jargon is left to guess at. If a word in another page is unclear, it is almost certainly defined here. The terms are grouped loosely by theme, but you can read them in any order.
+
+<Callout type="note" title="One reference, no assumptions">
+Nothing here assumes prior experience with AI tools. If a definition still leaves something open, the linked page goes deeper. The aim is to make every other page in the wiki readable without a pause.
+</Callout>
+
+## How Claude is organised
+
+**Project**
+: A dedicated workspace inside Claude for a particular piece of work, holding its own files, instructions, and conversations in one place. You use one for a live deal or for a function you repeat across deals, so context and confidentiality stay clean. See [What Projects Are](/projects/what-projects-are).
+
+**Custom Instructions**
+: Standing guidance you set once for a Project, telling Claude how to behave every time, such as who it is assisting, the tone to use, and the standards to apply. You write them once instead of repeating yourself in every prompt. See [Writing Effective Instructions](/context/writing-instructions).
+
+**Project Knowledge**
+: The documents and reference material you load into a Project so Claude can draw on them across every conversation in that space. For a deal, this is where the data-room material and your reference notes live. See [The Two-Layer System](/projects/two-layer-system).
+
+**Custom Style**
+: A saved way of writing that you can apply to Claude's output, so it consistently matches a tone or format you prefer (for example, the measured register of an investment committee paper) without re-explaining it each time. See [Custom Styles](/context/custom-styles).
+
+## What Claude is and how it thinks
+
+**Model**
+: The underlying engine that produces Claude's answers. KPMG's plan gives you access to capable models in the Claude family; **Opus** is the most capable, suited to complex reasoning and careful analytical work. You select it in the interface; you do not need to understand how it works internally.
+
+**Context**
+: Everything Claude can "see" for a given task: your prompt, the files you have attached, the Project knowledge, and the conversation so far. The quality of the context largely determines the quality of the answer. See [Why Context Is Everything](/context/why-context).
+
+**Context Window**
+: The practical limit on how much Claude can hold in mind at once, across all your documents and the running conversation. It is large, but not infinite. Very large or numerous documents can fill it, which is one reason to keep each Project focused on the work in hand.
+
+**Token**
+: The small unit of text that models read and write in, roughly a word or part of a word. You rarely need to think about tokens directly; the idea matters only because the context window is measured in them, which is why "how much can it hold" has a ceiling.
+
+**Extended Thinking / Effort**
+: A setting that lets Claude reason for longer before answering, trading a little speed for more careful, thorough analysis. Use higher effort for complex, high-stakes tasks and lower effort for quick, simple ones. See [Thinking & Effort](/power-features/thinking-effort).
+
+**Hallucination**
+: When Claude produces something that sounds confident and plausible but is not actually true or supported by the source. This is the central reason to verify output: fluent does not mean correct. See [Verify Everything](/best-practices/verify-everything).
+
+## Working with Claude
+
+**Prompt**
+: The instruction or question you give Claude. A good prompt is a clear brief: who Claude is helping, what you want, how you want it back, and what to watch for. See [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).
+
+**Artifact**
+: A self-contained piece of work that Claude produces in its own panel beside the conversation, such as a drafted document or a structured table, which you can read, refine, and reuse without it getting lost in the chat. See [Artifacts](/power-features/artifacts).
+
+**Analysis Tool**
+: A capability that lets Claude work through data and calculations more reliably than writing them out in prose, useful when you need it to handle figures carefully rather than describe them. You still verify the result. See [The Analysis Tool](/power-features/analysis-tool).
+
+**Connector**
+: A link that lets Claude reach an approved external source, such as a document store, so you do not have to upload everything by hand. Connectors are switched on or off centrally by KPMG IT, not by you. See [Connectors](/power-features/connectors).
+
+**Web Search**
+: A capability that lets Claude look up current, public information from the open web when a task needs it, rather than relying only on what it already knows. Treat what it finds as you would any web source: useful, but to be checked. See [Web Search](/power-features/web-search).
+
+## Your account and plan
+
+**Enterprise / Team plan**
+: The plans KPMG provides, and the appropriate place for professional work. Their defining property is that your prompts and uploaded files are not used to train the model, unlike consumer (Free and Pro) plans. This is what makes them suitable for sensitive deal work, within the NDA and KPMG's rules. See [Your Account & Confidential Data](/foundations/account-and-data).
+
+## A few terms used loosely elsewhere
+
+**Conversation (or chat)**
+: A single running thread with Claude. It remembers what has been said within it, which is why refining a draft inside one conversation works better than starting a new one each time.
+
+**Inference**
+: A conclusion Claude reasons to, rather than one stated directly in your source. Inferences can be valuable, but they are yours to accept or reject, not facts to repeat. Asking Claude to label its inferences is a good habit. See [Prompt Patterns](/best-practices/prompt-patterns).
+
+**Verification**
+: The discipline of checking Claude's output against the original source before relying on it: every figure, quote, and claim. It is the professional habit that makes everything else safe to use. See [Verify Everything](/best-practices/verify-everything).
+
+## Where to go next
+
+If a term sent you here from another page, head back and carry on. If you are browsing, the natural next stops are the [Prompt Library](/resources/prompt-library) for ready-made prompts and the [Cheat Sheet](/best-practices/cheat-sheet) for the whole approach on one page.

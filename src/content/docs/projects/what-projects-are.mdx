@@ -1,0 +1,69 @@
+---
+title: What Projects Are
+description: A Project pairs a knowledge base with standing instructions, so Claude already knows the context every time you open it.
+section: Projects
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+
+A single chat is perfect for a quick question. The moment you find yourself re-attaching the same files and re-explaining the same context every time you open Claude, you have outgrown the chat box. That is exactly what a Project is for.
+
+## What a Project is
+
+A **Project** is a dedicated workspace that holds two things together:
+
+- **A knowledge base**: a set of files Claude always has in view. Upload a target's documents once and every chat inside the Project can read them, with no re-attaching.
+- **Custom instructions**: a standing brief that tells Claude who it is helping, how to behave, and how to format its answers. You write it once and it applies to every conversation in that Project.
+
+Think of it as giving Claude a desk with the right files already laid out and a note pinned above it explaining the job. You walk up, ask your question, and it answers in context immediately.
+
+<ClaudeWindow caption="A Project pairs standing instructions with a knowledge base of files." url="claude.ai · Projects">
+  <ClaudeProject name="Project Atlas" kind="Deal project" capacity="18% of knowledge used" capacityPct={18}>
+    <p slot="instructions">You are assisting a KPMG private equity team screening Project Atlas, a mid-market field-service software target. Be precise, cite the source document for every figure, and flag anything the materials leave unclear.</p>
+    <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" />
+    <FileChip name="Atlas_financials.xlsx" kind="xls" />
+    <FileChip name="Management_deck.pdf" kind="pdf" />
+    <FileChip name="NDA_summary.docx" kind="doc" />
+  </ClaudeProject>
+</ClaudeWindow>
+
+## Why this beats re-attaching files each chat
+
+Working inside a Project is not just tidier. It changes the quality and the safety of the work in three concrete ways.
+
+### Persistent context
+
+In a plain chat, the file lives only in that one conversation. Start a new chat tomorrow and Claude has forgotten everything. In a Project, the knowledge base and the instructions persist. You can open the Project on Monday, ask three questions, close it, and pick up on Thursday exactly where the context left off. The materials are always loaded and the brief is always applied.
+
+### Consistency
+
+Because the custom instructions sit above every chat in the Project, Claude answers the same way each time. If your brief says "cite the source document for every figure" and "flag anything the materials leave unclear", it will do that in the first conversation and the fiftieth. You stop re-typing the same framing and you stop getting the wandering, inconsistent output that comes from briefing Claude slightly differently every session.
+
+### Confinement of data
+
+This is the one that matters most for Private Equity work. Each Project is a container. A live opportunity's documents go into that opportunity's Project and nowhere else. A chat in one Project cannot see the files in another. That separation is what lets you keep each opportunity siloed, which is the backbone of handling confidential material responsibly.
+
+<Callout type="note" title="Chats inherit the Project">
+Any chat you start from inside a Project automatically inherits its knowledge base and its custom instructions. You do not attach the files again or repeat the brief. You simply start typing, and Claude already knows the context. Start enough conversations and the Project becomes the single place all of that opportunity's work lives.
+</Callout>
+
+## When to use a Project (and when not to)
+
+You do not need a Project for a one-off task. If you want a quick read of a public teaser, a plain chat is faster. Reach for a Project when any of these are true:
+
+- You will return to the same material more than once.
+- You want consistent behaviour across many conversations (the same role, tone, and format).
+- The material is confidential and must stay separated from other work.
+- Several people on the team will work against the same shared knowledge base.
+
+Almost all serious deal work meets at least one of those tests, which is why Projects, not loose chats, are where it belongs.
+
+## A first picture, before the detail
+
+The example above is a single Project for a single live opportunity. That is one of two kinds of Project you will use, and the distinction between them is the most important idea in this whole section. Some Projects are reusable and persist across many opportunities (your methodology and templates). Others are one-time and exist only for one live opportunity (its data room, siloed and then archived).
+
+Getting that split right is what keeps your work both efficient and confidential. The next page lays it out in full: [Reusable vs Deal Projects](/projects/two-layer-system).

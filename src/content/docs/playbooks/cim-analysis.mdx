@@ -1,0 +1,96 @@
+---
+title: CIM & Teaser Analysis
+description: "Turn a dense CIM or teaser into a structured screen, with the seller's spin separated from the facts."
+section: PE Playbooks
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+A teaser or Confidential Information Memorandum is a sales document. It is written to make a business look attractive, so the work is not just to read it but to separate what is stated from what is implied, and to surface the questions a careful buyer would ask. Claude is genuinely good at this: it reads the whole document at once, holds the structure in view, and gives you a clean first screen far faster than working through forty pages by hand.
+
+## When to use this
+
+Reach for this workflow at the top of the funnel, when an adviser sends a teaser or a CIM lands in the data room and you need a fast, structured read to decide whether the opportunity is worth a first call or a proper diligence effort. It is for the initial screen, not the final verdict. The judgement on whether to proceed stays with you.
+
+## The workflow
+
+<Steps>
+  <Step title="Open a deal Project and upload the document">
+    Work inside a [deal Project](/projects/deal-setup) so the CIM, the teaser, and anything else for this target live in one siloed space. Upload the file to the Project knowledge so it is available to every conversation, then start a fresh chat for the screen itself.
+  </Step>
+  <Step title="Ask for a structured one-page screen">
+    Use the prompt below. The four-heading shape (business, financials, thesis, risks) gives you something you can paste into a screening note without reshaping it, and the scrutiny instruction makes Claude flag the soft spots rather than glossing over them.
+  </Step>
+  <Step title="Separate the spin from the facts">
+    A CIM blends hard numbers with adviser framing. Ask Claude explicitly to split the two, so you can see which claims rest on stated figures and which rest on the seller's narrative.
+  </Step>
+  <Step title="Build the management question list">
+    Ask Claude to turn every gap and vague claim into a numbered list of questions for management. This is often the most useful output of the whole exercise, and it costs one extra line in the prompt.
+  </Step>
+  <Step title="Verify the figures against the source">
+    Claude will cite page numbers if you ask it to. Check the headline figures (revenue, EBITDA, growth, margin) against the page it points to before any of it reaches a colleague. Fluent output can still be wrong.
+  </Step>
+</Steps>
+
+## The core prompt
+
+This is the prompt to keep. It has a role, a clear task, a fixed format, and a scrutiny instruction, and it produces a screen you can use as it stands.
+
+<PromptCard title="One-page screen of a CIM or teaser">
+You are assisting a KPMG private equity associate screening Project Atlas, a mid-market B2B field-service software target (around £60m revenue, mid-20s percent growth, low-70s percent gross margin). I have attached the CIM.
+
+Task: produce a one-page initial screen so I can decide whether this is worth a proper diligence effort.
+
+Constraints: rely only on the attached document. Cite the page number for every figure you quote. Do not pull in outside market data.
+
+Format: use these four headings, each with short bullets:
+1. Business overview: what they do, who they sell to, and how they make money
+2. Financial highlights: revenue, EBITDA, growth, gross and EBITDA margin, customer concentration
+3. Investment angle: why this could be attractive to a PE buyer
+4. Key risks and open questions
+
+When unsure: if the CIM does not state something, write "not stated" rather than estimating it. At the end, list every claim that rests on the seller's narrative rather than on a stated figure.
+</PromptCard>
+
+Once you have the screen, the natural follow-up is to harden it into a question list.
+
+<PromptCard title="Management question list from the gaps">
+Using the same CIM, turn every gap, vague claim, and "not stated" item from your screen into a numbered list of questions for management.
+
+Group the questions under three headings: commercial, financial, and operational. For each question, note in brackets the page or section that prompted it, or write "(not addressed)" if the CIM is silent on it.
+
+Keep each question tight enough to put straight into a first meeting agenda.
+</PromptCard>
+
+<Callout type="confidential" title="A CIM is covered by an NDA">
+A CIM is almost always shared under a non-disclosure agreement. Only upload it once you have confirmed the engagement is on your KPMG Enterprise or Team plan, where your files are not used to train the model, and follow the NDA terms exactly. If in doubt about whether a document can be uploaded, check before you do, not after. See [Confidentiality & Data Handling](/best-practices/confidentiality).
+</Callout>
+
+## What Claude does well, and what to check
+
+Claude is strong at the reading and structuring work and weaker at anything that needs a number to be exactly right. Treat the split below as your standing rule for this task.
+
+<ComparisonTable title="Claude's strengths versus your checks" caption="Lean on Claude for the synthesis. Keep the figures and the final call for yourself.">
+
+| Claude does this well | You verify this |
+| --- | --- |
+| Summarising a long CIM into a clean, structured screen | That the headline figures match the cited page |
+| Spotting where the narrative is doing the work of evidence | Whether a flagged risk is material or cosmetic |
+| Turning vague claims into a sharp management question list | The investment decision, which is yours alone |
+| Holding the whole document in view at once | That no relevant section was skipped or compressed away |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Set up a deal Project" href="/projects/deal-setup" eyebrow="Projects" />
+  <Card title="Due Diligence Review" href="/playbooks/due-diligence" eyebrow="PE Playbooks" />
+</CardGrid>

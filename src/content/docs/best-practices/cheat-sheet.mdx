@@ -1,0 +1,100 @@
+---
+title: Cheat Sheet
+description: "A dense one-page reference: the core loop, the prompt shape, the do's and don'ts, and the confidentiality rule in one line."
+section: Best Practices
+order: 5
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Everything that matters, on one page. Skim it before a task, keep it open while you work, and come back to it whenever a habit starts to slip. Each line points to a fuller page if you want the detail.
+
+## The core loop
+
+Good use of Claude is a short, repeatable cycle, not a one-shot command.
+
+1. **Set up** the right workspace and context (the KPMG account, the right Project, the relevant files).
+2. **Brief** Claude with a clear, four-part prompt.
+3. **Read** the answer for substance, not volume.
+4. **Refine** the parts that are off with a follow-up.
+5. **Verify** every figure, quote, and claim against the source before it leaves your desk.
+
+If you remember only one step, remember the last one.
+
+## The four-part prompt shape
+
+Every strong prompt says four things. Skip one and you feel the gap.
+
+<ComparisonTable title="Role, Task, Format, Scrutiny" caption="The backbone of almost every good prompt. See Anatomy of a Good Prompt for the full version.">
+
+| Part | What it does | Example |
+| --- | --- | --- |
+| **Role** | Sets the perspective | "You are assisting a KPMG private equity associate." |
+| **Task** | States the job, with a specific verb | "Summarise this teaser for an initial screen." |
+| **Format** | Names the shape of the answer | "Four headings, bullets under each, one page." |
+| **Scrutiny** | Demands honesty about limits | "Flag anything vague or unusual." |
+
+</ComparisonTable>
+
+## Do's and don'ts
+
+<ComparisonTable title="The short version" caption="The positive habits on the left, the traps on the right.">
+
+| Do | Don't |
+| --- | --- |
+| Verify every number against the source | Trust fluent output you have not checked |
+| Make the confidentiality call before uploading | Drag a document in and start working |
+| Brief precisely with role, task, format, scrutiny | Send a vague one-line request |
+| Keep each deal in its own Project | Mix several deals in one conversation |
+| Refine a good draft with a follow-up | Restart from scratch every time |
+| Keep the final judgement with you | Ask Claude to make the decision |
+
+</ComparisonTable>
+
+## When to use a Project
+
+A quick rule: if you will return to the same material more than once, use a Project rather than a loose chat.
+
+- **Use a Project** for a live deal (its own siloed space, its documents loaded once) and for a repeated function you do across deals (a standing setup with reusable instructions).
+- **Use a plain chat** for a quick, throwaway question that needs no saved context and no confidential files.
+- One engagement, one Project: it keeps context clean and confidentiality separated.
+
+See [What Projects Are](/projects/what-projects-are) and [Setting Up a Deal Project](/projects/deal-setup) for the detail.
+
+## Confidentiality, in one line
+
+<Callout type="confidential" title="The one-line rule">
+Confirm you are in the KPMG workspace, confirm the NDA and client rules permit the document, and when any part of that is unclear, do not upload: ask first. The full version is the [Confidentiality Decision Tree](/best-practices/confidentiality).
+</Callout>
+
+## Verification, in three checks
+
+Before anything reaches a deliverable:
+
+- **Numbers**: find every figure in the source, exactly, in context.
+- **Claims and quotes**: confirm the source actually says it.
+- **Gaps**: skim the source for anything material the answer left out.
+
+The fuller routine is in [Verify Everything](/best-practices/verify-everything).
+
+## Five prompt patterns worth knowing
+
+- **Refine, don't restart**: fix the wrong 20 percent with a follow-up.
+- **Show the working**: ask for reasoning before the conclusion.
+- **Structured comparison**: ask for a table with fixed rows and "not stated" for gaps.
+- **Devil's advocate**: tell Claude to argue against your thesis.
+- **Constrain the output**: name the length, headings, and tone precisely.
+
+Full versions in [Prompt Patterns](/best-practices/prompt-patterns).
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Prompt Library" href="/resources/prompt-library" eyebrow="Resources">Ready-made prompts for the tasks you do every week, grouped and copyable.</Card>
+  <Card title="Glossary" href="/resources/glossary" eyebrow="Resources">Plain-language definitions for every term in this wiki.</Card>
+  <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices">The full verification routine and why it matters.</Card>
+  <Card title="Confidentiality Decision Tree" href="/best-practices/confidentiality" eyebrow="Best Practices">The full walkthrough for deciding what can go in.</Card>
+</CardGrid>

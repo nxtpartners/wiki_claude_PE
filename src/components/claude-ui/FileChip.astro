@@ -1,0 +1,71 @@
+---
+// FileChip: an attached-file pill as it appears in Claude (composer or message).
+// Use fictional file names only, never real deal data.
+//
+// Props:
+//   - name: file name (e.g. "Project_Atlas_CIM.pdf")
+//   - kind: 'pdf' | 'xls' | 'doc' | 'generic' (sets the small label tint)
+//   - meta: optional small detail (e.g. "62 pages")
+
+interface Props {
+  name: string;
+  kind?: 'pdf' | 'xls' | 'doc' | 'generic';
+  meta?: string;
+}
+const { name, kind = 'generic', meta } = Astro.props;
+
+const tints: Record<string, string> = {
+  pdf: '#c4452f',
+  xls: '#1f7a4d',
+  doc: '#2b5fbf',
+  generic: '#8a8475',
+};
+const labels: Record<string, string> = {
+  pdf: 'PDF',
+  xls: 'XLS',
+  doc: 'DOC',
+  generic: 'FILE',
+};
+---
+
+<span class="fc">
+  <span class="fc-badge" style={`--fc-tint:${tints[kind]}`} aria-hidden="true">{labels[kind]}</span>
+  <span class="fc-name">{name}</span>
+  {meta && <span class="fc-meta">{meta}</span>}
+</span>
+
+<style>
+  .fc {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--c-text);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--radius-sm);
+    padding: 5px 9px;
+    vertical-align: middle;
+  }
+  .fc-badge {
+    flex: 0 0 auto;
+    font-size: 0.56rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: var(--fc-tint);
+    border-radius: 3px;
+    padding: 2px 4px;
+    line-height: 1;
+  }
+  .fc-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .fc-meta {
+    color: var(--c-muted);
+  }
+</style>

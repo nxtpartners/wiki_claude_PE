@@ -1,0 +1,68 @@
+---
+title: What Not to Do
+description: "The common mistakes that turn a capable assistant into a liability, and the simple habits that avoid each one."
+section: Best Practices
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+
+Most of this guide tells you what to do. This page does the opposite, because the fastest way to get good results is often to stop doing a few specific things. None of these mistakes is dramatic. They are quiet, easy habits that slowly erode the quality and safety of your work, and each one has a simple fix. Read this once, recognise yourself in a couple of them (everyone does), and adjust.
+
+## Do not trust output you have not checked
+
+This is the big one, and it earns its own page in [Verify Everything](/best-practices/verify-everything). The shorthand: fluent does not mean correct. A confident, well-formatted figure can be wrong, and you cannot tell from how it reads. Never let an unverified number, quote, or claim reach a deliverable. If you do nothing else differently, do this.
+
+<Callout type="warning" title="The mistake that costs the most">
+Pasting Claude's output straight into a memo, a model, or a client document without checking it against the source is the single most expensive habit you can form. Everything else on this page is minor by comparison.
+</Callout>
+
+## Do not upload before you have made the confidentiality call
+
+Speed is the enemy of good judgement here. It is tempting to drag a document in and start working, and that is exactly the moment a restricted file ends up somewhere it should not be. Make the call first, every time, using the [Confidentiality Decision Tree](/best-practices/confidentiality). Confirm you are in the KPMG workspace, confirm the NDA and client rules permit it, and only then upload. The few seconds this costs are the cheapest insurance in the whole process.
+
+## Do not give a vague brief and expect a sharp answer
+
+"Have a look at this and tell me what you think" is not a brief, it is a shrug. Claude will respond to it with an equally unfocused answer, and you will blame the tool for a problem you created. The fix is the four-part shape from [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt): say who Claude is helping, what you want done, how you want it back, and what to watch for. A precise question is most of a good answer.
+
+## Do not mix several deals in one conversation
+
+Pasting bits of two different targets into the same chat to "save time" does the opposite. The context blurs, Claude starts conflating one company's figures with another's, and your confidentiality separation quietly breaks down. Keep each engagement in its own Project, as covered in [Setting Up a Deal Project](/projects/deal-setup). One deal, one space.
+
+## Do not restart when you should refine
+
+Re-prompting from scratch every time an answer is slightly off wastes the context you have already built. If a draft is mostly right, correct the part that is wrong with a follow-up. This is the refine-in-place pattern from [Prompt Patterns](/best-practices/prompt-patterns), and it is faster and produces better results than starting over.
+
+## Do not ask Claude to make the decision
+
+Claude is a brilliant first-draft writer and a fast synthesiser. It is not an investment committee. Asking it to decide whether to pursue a deal, or treating its conclusion as the answer rather than an input, hands away the one thing that is irreducibly yours. Use it to assemble the case, surface the risks, and argue both sides. Then you decide.
+
+## Do not paste a personal-account answer into deal work
+
+If you have used Claude on a personal Free or Pro account, keep that work entirely separate. Content from a consumer plan should never flow into a KPMG deliverable, and confidential KPMG material should never go near a personal account. The two products are different in the ways that matter, as [Your Account & Confidential Data](/foundations/account-and-data) explains. Keep the wall between them solid.
+
+## Do not assume more words means more rigour
+
+A long, fluent answer can feel thorough and be hollow. Length is not a proxy for correctness or for judgement. A three-line answer that traces every claim to source is worth more than three pages of confident prose you have not checked. Read for substance, not volume.
+
+## The mistakes and their fixes, at a glance
+
+<ComparisonTable title="Common mistakes and the habit that fixes each" caption="Each fix is small. Together they are the difference between a liability and a capable partner.">
+
+| Mistake | The fix |
+| --- | --- |
+| Trusting unverified output | Check every figure, quote, and claim against the source |
+| Uploading before the confidentiality call | Run the decision tree first, every time |
+| Vague, one-line briefs | Use the four-part shape: role, task, format, scrutiny |
+| Mixing several deals in one chat | One Project per engagement, kept separate |
+| Restarting instead of refining | Correct the wrong part with a follow-up |
+| Letting Claude make the decision | Use it for the draft; keep the judgement |
+| Bleeding personal-account work into deal work | Keep consumer and KPMG accounts strictly apart |
+| Equating length with rigour | Read for substance and traceable claims, not volume |
+
+</ComparisonTable>
+
+## What to take from this
+
+Almost every failure with Claude traces back to one of these habits, and almost every fix is a small change in routine rather than a new skill. Verify before you trust, decide confidentiality before you upload, brief precisely, keep deals separate, refine rather than restart, and keep the judgement with you. For the positive version of all this on a single page, see the [Cheat Sheet](/best-practices/cheat-sheet).

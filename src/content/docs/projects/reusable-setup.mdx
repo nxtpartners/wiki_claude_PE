@@ -1,0 +1,83 @@
+---
+title: Setting Up a Reusable Project
+description: Build a reusable function project step by step, using Screening as the worked example, then run it across every target.
+section: Projects
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+
+A reusable function project is the toolkit layer from the [two-layer system](/projects/two-layer-system). You build it once and it pays you back on every opportunity that follows. This page walks through standing one up, using **Screening** as the worked example: the project you will open to run an initial screen on any new target.
+
+The key thing to hold in mind: this project holds *how you screen*, not any one target's data. It is generic, evergreen, and safe to share across the team.
+
+## Building the Screening project
+
+<Steps>
+  <Step title="Create a new project">
+    In the left menu, open <strong>Projects</strong> and choose <strong>New project</strong>. This gives you an empty workspace with two parts to fill: the custom instructions and the knowledge base.
+  </Step>
+  <Step title="Name it for the function, not a target">
+    Call it <strong>Screening</strong> (or "Initial Screen"). The name should describe the repeatable task, because you will use it across many different targets. Avoid any opportunity-specific name: this project is permanent and shared.
+  </Step>
+  <Step title="Write the custom instructions">
+    This is where the methodology lives. Set the role (a KPMG private equity analyst running an initial screen), the scope (work only from the attached document for the target in question), and the output format (the headings and structure you want every screen to follow). The template below is a ready-to-paste starting point.
+  </Step>
+  <Step title="Add evergreen knowledge">
+    Upload the reference material that applies to every screen, never a single target. Good candidates: your screening checklist, your investment committee criteria, and a sample memo structure that shows Claude the shape of a finished output. These files teach Claude your house style once, for good.
+  </Step>
+  <Step title="Use it across targets">
+    From now on, to screen a new target you open the Screening project, start a chat, and attach just that one target's teaser or CIM. The methodology and templates are already loaded, so you get a consistent screen every time without re-explaining how your team works.
+  </Step>
+</Steps>
+
+## What the finished project looks like
+
+<ClaudeWindow caption="A reusable function project holds methodology and templates, never one target's confidential data." url="claude.ai · Projects">
+  <ClaudeProject name="Screening" kind="Reusable project" capacity="9% of knowledge used" capacityPct={9}>
+    <p slot="instructions">You are a KPMG private equity analyst running an initial screen. Work only from the target document I attach in each chat. Produce the screen using our standard headings, cite the source for every figure, score the target against our investment committee criteria, and end with the three questions to ask management first.</p>
+    <FileChip name="Screening_checklist.pdf" kind="pdf" />
+    <FileChip name="IC_criteria.docx" kind="doc" />
+    <FileChip name="Sample_memo_structure.docx" kind="doc" />
+  </ClaudeProject>
+</ClaudeWindow>
+
+Notice what is *not* in the knowledge base: no CIM, no financial model, nothing tied to a live opportunity. The only opportunity-specific file enters later, attached to an individual chat, and even then the screen itself is generic enough that this remains a clean, shareable toolkit.
+
+## The custom instructions to start with
+
+Paste this into the project's custom instructions and adapt the headings and criteria to match your team's house style.
+
+<PromptCard title="Custom instructions for a Screening project">
+You are a KPMG private equity analyst running an initial screen on a potential acquisition. In each chat I will attach one target's document (a teaser, CIM, or deck). Work only from that attached document plus the checklists in this project's knowledge.
+
+For every target, produce the screen using these headings:
+1. Business overview: what they do and how they make money
+2. Financial highlights: revenue, EBITDA, growth, margins (in a table, with year-on-year change)
+3. Investment thesis: why this could be attractive
+4. Fit against IC criteria: score the target against each criterion in IC_criteria, with a one-line reason
+5. Key risks and open questions
+6. First three questions to ask management
+
+Rules:
+- Cite the source document (and page if visible) for every figure you report.
+- Flag clearly anything the document is vague about, omits, or that looks unusual.
+- Do not invent figures. If a number is not in the document, say so rather than estimating.
+- Keep it concise and skimmable. This is a screen, not a full diligence report.
+</PromptCard>
+
+<Callout type="tip" title="Refine the project, not just the chat">
+When a screen comes back slightly off (a heading you did not want, a level of detail that misses), do not just correct it in the chat. Update the project's custom instructions so the fix sticks for every future target. A function project improves over time: each adjustment you bank makes the next dozen screens better.
+</Callout>
+
+## Other function projects worth building
+
+Screening is the obvious first one, but the same recipe builds any reusable toolkit. A **Market Research** project holding your research framework and output format. An **Investment Memo** project holding your memo template and tone. Each follows the identical pattern: name it for the task, write the methodology into the instructions, add evergreen templates, keep all opportunity-specific data out.
+
+For ready-made starting points across several of these, see the [Instruction Templates](/projects/templates) library.

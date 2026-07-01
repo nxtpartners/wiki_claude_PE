@@ -1,0 +1,80 @@
+---
+title: Why Context Is Everything
+description: Claude only knows what you tell it, so the quality of your output tracks the quality of your context.
+section: Context
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+
+There is one idea that sits underneath everything else in this guide: Claude only knows what you tell it. It has no access to your live deal, your firm's house view, or the document open on your other screen unless you put that material in front of it. The quality of what you get back tracks, almost exactly, the quality of the context you give. Master that and the rest is technique.
+
+## Claude starts with a blank page
+
+When you open a new chat, Claude knows nothing about your work. It has broad general knowledge, but it cannot see your Project Atlas data room, it does not know which sector you are screening, and it has no idea what "the usual format" means to you. Every useful answer begins with you supplying the facts and the framing.
+
+This is liberating once you internalise it. You are not hoping Claude guesses what you meant; you are deciding what it should know. A vague question forces Claude to invent the missing context, and invented context is where confident, fluent, wrong answers come from. A well briefed question gives Claude solid ground to stand on.
+
+<Callout type="note" title="Context is the input you control">
+You cannot control how Claude was trained, but you fully control what you put in the message box. That is the single biggest lever you have over output quality. Treat every prompt as a short brief to a sharp new analyst who has read nothing yet.
+</Callout>
+
+## The core loop
+
+Good work with Claude is not a single perfect prompt. It is a short, repeatable loop that you run until the output is right. Four moves, in order, again and again.
+
+<DiagramPlaceholder title="The core loop: context, ask, refine, verify" kind="loop" note="A circular flow from giving context, to asking, to refining, back to verifying against the source." />
+
+- **Give context.** Attach the document, paste the figures, or state the situation. Tell Claude who it is helping and what it is working on.
+- **Ask precisely.** State the task, the constraints, and the format you want. Precision in equals precision out.
+- **Refine.** Read the first answer and push back in the same chat: expand a section, tighten the tone, challenge an assumption. The second turn is usually where the value appears.
+- **Verify.** Check every figure, name, and claim against the source before any of it reaches a deliverable. Fluent prose is not the same as correct prose.
+
+Most people stop after the first answer. The professionals run the loop two or three times, and the difference shows in the output.
+
+## Context-free versus well briefed
+
+The same underlying question produces wildly different answers depending on how much context comes with it. Compare these two openers on an identical document.
+
+<PromptCard title="Context-free (weak)">
+What do you think of this company?
+</PromptCard>
+
+Claude has no role, no task shape, no sense of what "good" looks like, and no idea what you will do with the answer. It will produce something generic and probably hedge in every direction.
+
+<PromptCard title="Well briefed (strong)">
+You are assisting a KPMG private equity associate screening Project Atlas, a mid-market field-service software target. I have attached the teaser.
+
+Assess it on three dimensions, in this order:
+1. Business quality (revenue model, growth, margins)
+2. The investment angle (why this could be attractive to a buyer)
+3. The three biggest risks or open questions
+
+Use short bullet points. Cite the page or figure for any number you quote, and flag anything the teaser is vague about.
+</PromptCard>
+
+The second prompt sets a role, names the target, defines the task, fixes the format, and tells Claude to flag gaps. Same document, far more useful answer.
+
+<ComparisonTable title="What context buys you" caption="The right column is what a few extra sentences of context produces.">
+
+| With thin context | With rich context |
+| --- | --- |
+| Generic, hedged commentary | A focused view aimed at your actual decision |
+| Claude guesses the format | Output arrives in the shape you can use |
+| Invented detail fills the gaps | Claude flags gaps instead of inventing |
+| You rewrite most of it | You refine the edges, not the whole thing |
+
+</ComparisonTable>
+
+## Context is cumulative within a chat
+
+Once you have briefed Claude in a conversation, that context stays live. You do not re-attach the file or restate the situation on every turn. You simply keep going: "Now put the financials in a table," or "Rewrite the overview for a partner with thirty seconds." Each message builds on everything said so far, which is why refining is cheap and why a single well briefed chat compounds in value the longer you work in it.
+
+The flip side matters too: because context accumulates, a chat that has drifted across three unrelated tasks becomes muddled ground for the fourth. Keep one chat to one job. The [Common Mistakes](/context/common-mistakes) page returns to this.
+
+## The takeaway
+
+Claude is a fast, capable partner, but it is only ever as good as the context you give it and only as trustworthy as your verification. Hold those two ends, rich context going in and disciplined checking coming out, and the loop in between does the work. The next step is the practical one: the concrete ways to supply context, covered in [Giving Claude Context](/context/giving-context). If you want to revisit how to shape the ask itself, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

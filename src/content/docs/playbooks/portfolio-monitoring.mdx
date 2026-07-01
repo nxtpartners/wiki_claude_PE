@@ -1,0 +1,98 @@
+---
+title: Portfolio Monitoring
+description: "Use Claude to digest board packs, track performance against thesis, and draft crisp portfolio updates."
+section: PE Playbooks
+order: 6
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Once a deal is done, the work shifts from winning conviction to keeping it. Every portfolio company sends board packs, monthly accounts, and KPI decks, and the discipline is to read them consistently, notice when a company drifts off the thesis, and report it clearly. Claude is well suited to this rhythm. It digests a long board pack quickly, tracks performance against the original plan, and drafts the kind of tight update an investor relations team or a partner actually wants to read.
+
+## When to use this
+
+Use this on the recurring cadence of ownership: when a board pack lands, when monthly numbers arrive, or when a quarterly LP update is due. Claude is most valuable on the repetitive synthesis: turning a forty-slide board deck into a one-page read, flagging where the company is tracking ahead or behind plan, and producing a consistent update format you can reuse every period.
+
+## The workflow
+
+<Steps>
+  <Step title="Keep each portfolio company in its own Project">
+    Give every portfolio company a dedicated [Project](/projects/what-projects-are) holding its plan, its thesis, and its reporting history. This keeps the context for each company clean and lets Claude compare the latest pack against what came before.
+  </Step>
+  <Step title="Digest the board pack into a one-page read">
+    Upload the board pack and ask for a structured summary: performance, key developments, risks, and decisions required. A consistent shape every month makes the trend easy to follow.
+  </Step>
+  <Step title="Track performance against the original thesis">
+    Give Claude the original investment thesis or the value-creation plan alongside the latest numbers and ask where the company is on track, ahead, or behind. This is the question that matters and the one easiest to lose sight of month to month.
+  </Step>
+  <Step title="Surface what changed since last period">
+    Ask Claude to compare this pack with the previous one and flag the meaningful movements, so you spend your attention on what is new rather than re-reading what is stable.
+  </Step>
+  <Step title="Draft the update for your audience">
+    Have Claude draft the partner note or LP update from the read, in the right tone and length, then refine it. The synthesis is the slow part; let Claude carry it.
+  </Step>
+</Steps>
+
+## Digesting a board pack
+
+This prompt turns a long pack into a consistent one-page read that you can produce every period without reshaping.
+
+<PromptCard title="One-page read of a board pack">
+You are assisting a KPMG private equity associate monitoring Project Atlas, a portfolio company (mid-market B2B field-service software). I have attached this month's board pack.
+
+Task: summarise it into a one-page read for the deal partner.
+
+Constraints: use only the attached pack. Cite the slide or page for each point. Where a KPI I would expect is missing, note it rather than inferring it.
+
+Format: use these headings, each with short bullets.
+1. Performance versus plan: revenue, EBITDA, cash, and the key operational KPIs, with the variance to budget.
+2. Key developments: wins, losses, hires, and customer or product news this period.
+3. Risks and watch items: what is deteriorating or uncertain.
+4. Decisions and asks: anything the board or the sponsor is being asked to decide or support.
+
+End with the two or three things the partner should focus on this month.
+</PromptCard>
+
+## Tracking against the thesis
+
+This prompt keeps the original investment logic in view, which is the point of monitoring in the first place.
+
+<PromptCard title="Performance against the original thesis">
+I have attached the original investment thesis and value-creation plan for Project Atlas, along with the latest board pack.
+
+Task: assess where the company stands against the thesis we underwrote.
+
+For each pillar of the original plan (for example, organic growth, margin improvement, a buy-and-build programme, a pricing initiative), state whether the company is ahead, on track, or behind, and give the evidence from the latest pack. Be specific: tie each judgement to a figure or development.
+
+Flag clearly any pillar where the evidence is now thin or where the original assumption looks harder to achieve than at underwriting. End with the value-creation questions worth raising at the next board meeting.
+</PromptCard>
+
+<Callout type="confidential" title="Portfolio data is sensitive too">
+Board packs and monthly accounts are confidential company information, not just deal material, and they deserve the same care. Keep each portfolio company's data in its own Project, work on your KPMG Enterprise or Team plan where uploads are not used for training, and do not let one company's information bleed into another's context. See [Confidentiality & Data Handling](/best-practices/confidentiality).
+</Callout>
+
+## Synthesis versus stewardship
+
+<ComparisonTable title="What Claude carries and what you own" caption="Claude does the reading and the drafting. The stewardship of the asset is yours.">
+
+| Lean on Claude for | Keep with the investor |
+| --- | --- |
+| Digesting a long board pack into a consistent read | The judgement on whether performance is acceptable |
+| Tracking the numbers against the original plan | The decision on how to intervene |
+| Spotting what changed since last period | The relationship with management and the board |
+| Drafting partner notes and LP updates | Final sign-off on anything sent to LPs |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="What Projects Are" href="/projects/what-projects-are" eyebrow="Projects" />
+  <Card title="Confidentiality & Data Handling" href="/best-practices/confidentiality" eyebrow="Best Practices" />
+</CardGrid>

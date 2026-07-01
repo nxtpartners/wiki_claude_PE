@@ -1,0 +1,227 @@
+---
+// ClaudeComposer: the Claude message box, recreated to match the real product.
+//   - "+" attach control bottom-left
+//   - model pill (name + effort + chevron), mic, and send arrow bottom-right
+//
+// Props:
+//   - placeholder: empty-state text (default "How can I help you today?")
+//   - value:       typed text to show (omit for an empty composer)
+//   - model:       model name in the pill (default "Claude Opus")
+//   - effort:      effort label next to the model (default "High")
+//   - menu:        show the "+" attach popover (teach "this is where files go")
+//
+// Named slot "files": file chips shown above the text (attached, not yet sent).
+
+interface Props {
+  placeholder?: string;
+  value?: string;
+  model?: string;
+  effort?: string;
+  menu?: boolean;
+}
+const {
+  placeholder = 'How can I help you today?',
+  value,
+  model = 'Claude Opus',
+  effort = 'High',
+  menu = false,
+} = Astro.props;
+
+const hasFiles = Astro.slots.has('files');
+const hasValue = Boolean(value);
+---
+
+<div class="cc">
+  {
+    menu && (
+      <div class="cc-menu" aria-hidden="true">
+        <span class="cc-menu-item">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none">
+            <path d="M14 4 6 12a3 3 0 0 0 4 4l8-8a4 4 0 0 0-6-6l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Upload from computer
+        </span>
+        <span class="cc-menu-item">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none">
+            <path d="m12 3 9 16H3l9-16Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+          </svg>
+          Add from Google Drive
+        </span>
+        <span class="cc-menu-item">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none">
+            <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.5" />
+            <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          Add from project knowledge
+        </span>
+      </div>
+    )
+  }
+
+  <div class="cc-box">
+    {hasFiles && <div class="cc-files"><slot name="files" /></div>}
+
+    <div class:list={['cc-text', { 'is-placeholder': !hasValue }]}>
+      {hasValue ? value : placeholder}{hasValue && <span class="cc-caret" aria-hidden="true"></span>}
+    </div>
+
+    <div class="cc-row">
+      <button type="button" class:list={['cc-plus', { 'is-open': menu }]} aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none">
+          <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+        </svg>
+      </button>
+
+      <div class="cc-right">
+        <span class="cc-model">
+          {model}<span class="cc-effort">{effort}</span>
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" aria-hidden="true">
+            <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="cc-mic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+            <rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="1.6" />
+            <path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class:list={['cc-send', { 'is-ready': hasValue }]} aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+            <path d="M12 19V5M6 11l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .cc {
+    position: relative;
+    margin: var(--space-4) auto;
+    max-width: 620px;
+  }
+  .cc-box {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-4) var(--space-4) 10px;
+  }
+
+  .cc-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: var(--space-3);
+  }
+
+  .cc-text {
+    min-height: 22px;
+    font-size: 0.94rem;
+    line-height: 1.5;
+    color: var(--c-text);
+    padding: 2px 2px var(--space-4);
+    white-space: pre-wrap;
+  }
+  .cc-text.is-placeholder {
+    color: var(--c-muted);
+  }
+  .cc-caret {
+    display: inline-block;
+    width: 1.5px;
+    height: 1.05em;
+    background: var(--c-clay);
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    transform: translateY(2px);
+  }
+
+  .cc-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cc-plus {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--c-border-strong);
+    background: var(--c-surface);
+    color: var(--c-text);
+    cursor: default;
+  }
+  .cc-plus.is-open {
+    background: var(--c-panel);
+    color: var(--c-clay);
+    border-color: var(--c-clay);
+  }
+
+  .cc-right {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--c-muted);
+  }
+  .cc-model {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--c-heading);
+  }
+  .cc-effort {
+    font-weight: 500;
+    color: var(--c-muted);
+  }
+  .cc-mic {
+    display: inline-flex;
+  }
+  .cc-send {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--c-border-strong);
+    color: var(--c-surface);
+  }
+  .cc-send.is-ready {
+    background: var(--c-clay);
+    color: #fff;
+  }
+
+  /* Attach popover */
+  .cc-menu {
+    position: absolute;
+    left: 8px;
+    bottom: calc(100% - 6px);
+    z-index: 2;
+    width: 232px;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 6px;
+  }
+  .cc-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    color: var(--c-text);
+  }
+  .cc-menu-item:first-child {
+    background: var(--c-panel);
+    color: var(--c-heading);
+  }
+  .cc-menu-item svg {
+    color: var(--c-clay);
+    flex: 0 0 auto;
+  }
+</style>

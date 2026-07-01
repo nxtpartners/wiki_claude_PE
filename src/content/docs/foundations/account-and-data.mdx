@@ -1,0 +1,72 @@
+---
+title: Your Account & Confidential Data
+description: What is safe to put into Claude on KPMG's Enterprise/Team plan, and the limits that still apply.
+section: Foundations
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+
+The first honest question any private equity professional asks is simple: *"Is it safe to put confidential material into this?"* You should know the answer before you upload a single page. This guidance is operational, not legal advice; KPMG's own policies and the specific deal's NDA always govern.
+
+## The Enterprise and Team guarantee
+
+KPMG provides Claude on the **Enterprise and Team** plans, and the most important property of those plans is this: **your prompts and uploaded files are not used to train Anthropic's models**. What you type and attach stays inside your organisation's workspace and is not absorbed into a future version of Claude.
+
+That is a genuine, meaningful difference from the consumer accounts (Free and Pro) most people have seen. On consumer plans, content can be used to improve the models unless you opt out. On Enterprise and Team, that training use is off by the design of the plan, which is precisely why these plans are the appropriate place for professional, sensitive work.
+
+<Callout type="note" title="You are working inside KPMG's workspace">
+On Enterprise and Team the top of the Claude menu shows your organisation. That workspace boundary is what keeps your prompts and uploads out of model training. If you ever sign in somewhere and do not see KPMG named, stop and check you are in the right account before uploading anything.
+</Callout>
+
+## Consumer plans are not the same
+
+If you have used Claude personally, it is worth being explicit about the gap. The two are different products in the ways that matter for deal work.
+
+<ComparisonTable title="Consumer vs. Enterprise/Team" caption="Use Enterprise/Team for any KPMG work. Consumer plans are for personal, non-confidential use only.">
+
+| | Consumer (Free / Pro) | Enterprise / Team |
+| --- | --- | --- |
+| Used to train models | Possible unless you opt out | **No, never** |
+| Workspace | Personal, individual | KPMG organisation workspace |
+| Admin controls | None (it is your own account) | Set centrally: members, retention, connectors |
+| Access management | Just you | Governed by KPMG IT |
+| Suitable for deal data | **No** | Yes, within NDA and KPMG rules |
+
+</ComparisonTable>
+
+The practical rule is short: do KPMG work in the KPMG workspace, and keep personal accounts for personal, non-confidential things.
+
+## Confidentiality is about process, not just plumbing
+
+The training guarantee handles one risk. It does not handle all of them. Confidentiality on a live deal is also about *who* can see the material and *where* it sits.
+
+- **Access.** Who is in your workspace, and who can open a given conversation or Project, still matters. The plan keeps your data out of training; it does not decide who at KPMG should see a particular deal.
+- **Workspace and Projects.** Keep each live deal's material inside its own dedicated Project. That separation is how you stop one engagement's documents from drifting into another, and it keeps context clean. The [Setting Up a Deal Project](/projects/deal-setup) page walks through doing this properly.
+- **What the NDA permits.** An NDA may restrict where material can be processed or who may view it. The plan's properties do not override those terms; you do.
+
+<Callout type="confidential" title="Enterprise/Team is not a substitute for an NDA">
+The plan means your data is not used for training. It does **not** override an NDA, a confidentiality agreement, or KPMG's data-handling rules. Before uploading anything tied to a live deal, confirm the document is permitted to be processed this way. When you are unsure, do not upload, and check first. The [Confidentiality Decision Tree](/best-practices/confidentiality) gives you a clear path through that judgement.
+</Callout>
+
+## Controls that are set above you
+
+Some things are not yours to switch on or off, and that is intentional. They are managed centrally so the whole organisation stays consistent and compliant.
+
+- **Connectors** (links to sources such as a document store or Google Drive) are enabled or disabled by **KPMG IT**. If a connector you expect is missing, that is a deliberate configuration, not a fault. Raise it through the normal IT channel rather than looking for a workaround.
+- **Data retention** (how long conversations are kept) is set at the **organisation level** by your administrators, not per user.
+- **Membership** (who is in the workspace and what they can do) is also managed centrally.
+
+You do not need to manage any of this yourself. The benefit of a managed plan is that these guardrails are decided once, by the right people, and apply to everyone.
+
+## What this means in practice
+
+Put the picture together and the working stance is straightforward:
+
+- On Enterprise/Team, your prompts and files are **not used for training**, so the plan is appropriate for professional work.
+- That guarantee does **not** replace an NDA or KPMG's data rules. Confirm a document is permitted before it goes in.
+- Keep each deal in its **own Project** so material stays separated and access stays clean.
+- Connectors, retention, and membership are handled by **KPMG IT and administrators**, not by you.
+
+Used this way, Claude is a safe and capable partner for confidential deal work. The remaining judgement, deciding whether a specific document belongs in a specific Project, is the one thing the technology cannot make for you. For that, work through the [Confidentiality Decision Tree](/best-practices/confidentiality), and when you are ready to start a live engagement, see [Setting Up a Deal Project](/projects/deal-setup).

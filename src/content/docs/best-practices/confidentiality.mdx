@@ -1,0 +1,76 @@
+---
+title: Confidentiality Decision Tree
+description: "A clear, repeatable way to decide whether a specific document is allowed to go into Claude before you upload it."
+section: Best Practices
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+
+The Enterprise and Team plan handles one risk well: your prompts and uploads are not used to train the model. That is covered in [Your Account & Confidential Data](/foundations/account-and-data), and it is genuinely important. But it is not the whole question. A document can be safe from training and still be one you should not put in, because of an NDA, a client restriction, or KPMG's own rules. This page gives you a single, repeatable way to make that call before you upload anything.
+
+The aim is not to make you nervous about every file. It is to give you a fast, confident answer most of the time, and a clear instinct to pause when the answer is not obvious.
+
+<DiagramPlaceholder title="Confidentiality decision tree" kind="tree" note="Can this document go into Claude? A yes/no walkthrough from NDA status to plan type." />
+
+## The decision, in order
+
+Work through these gates from the top. The first one that returns a "no" or an "ask first" stops you. Only a clean pass through all of them means the document can go in.
+
+<Steps>
+  <Step title="Are you in the KPMG workspace?">
+    Open Claude and confirm KPMG is named at the top of the menu. If you do not see KPMG, you may be in a personal account where uploads can be used for training. Stop, sign into the right account, and only then continue. No confidential document goes into a consumer plan, ever.
+  </Step>
+  <Step title="Is the document public?">
+    If the material is already public (a published annual report, a press release, a company's own marketing site, a regulator's filing), it is low-risk by nature and almost always fine to use. Public information stays public. If yes, you can proceed. If no, keep going down the tree.
+  </Step>
+  <Step title="Is it under an NDA, and what does that NDA permit?">
+    For anything tied to a live deal, the NDA governs. Some agreements restrict where material may be processed, which third-party tools are allowed, or who may see it. The plan's training guarantee does not override those terms. If the NDA permits processing in approved tools and Claude qualifies under KPMG's guidance, continue. If it restricts processing, or you genuinely do not know what it permits, do not upload: ask first.
+  </Step>
+  <Step title="Are there client-specific restrictions?">
+    Beyond the NDA, a client may have its own rules: named-individual access only, no cloud processing of certain categories, or specific data that must never leave a defined system. Honour those. They sit on top of everything else and are not yours to waive.
+  </Step>
+  <Step title="Does KPMG's own policy allow it?">
+    KPMG's data-handling and risk policies are the final gate and they always apply. If internal policy says a category of material cannot go into a tool like this, that decision stands regardless of what the NDA or the plan would otherwise allow.
+  </Step>
+  <Step title="Still unsure? Then the answer is no, for now.">
+    If you have reached this point and any gate is uncertain, treat the document as not-yet-permitted and check before uploading. "Ask first" is not a failure. It is the correct outcome whenever the answer is not clearly yes.
+  </Step>
+</Steps>
+
+<Callout type="confidential" title="When in doubt, do not upload">
+The cost of pausing to confirm is a few minutes. The cost of putting a restricted document somewhere it should not be can be a breached NDA or a damaged client relationship. If any gate above is unclear, keep the file out of Claude until you have a clear yes from the right person. Uncertainty is a reason to stop, not a reason to proceed carefully.
+</Callout>
+
+## A quick reference for common cases
+
+Most documents you meet fall into a small number of recognisable buckets. This table is not a substitute for the gates above, but it shows how they usually resolve.
+
+<ComparisonTable title="How the common cases usually land" caption="Always defer to the NDA, the client's restrictions, and KPMG policy. This shows the typical outcome, not a guarantee.">
+
+| Document | Typical outcome | Why |
+| --- | --- | --- |
+| A target's published annual report | Generally fine | Already public |
+| A press release or company marketing site | Generally fine | Already public |
+| A teaser or CIM under a signed NDA | Usually fine if the NDA permits it | Covered by the plan and the agreement |
+| A data-room document on a live deal | Check the NDA and client terms first | Restrictions may apply to where it is processed |
+| Personal data (named individuals, HR records) | Pause and confirm | Data-protection rules apply on top |
+| Anything you cannot place against an NDA | Do not upload, ask first | If you cannot trace the permission, assume there isn't one |
+
+</ComparisonTable>
+
+## Keep deals separated as you go
+
+Deciding a document is allowed is only half the discipline. Where it then sits matters too. Keep each live engagement's material inside its own dedicated Project so one deal's documents never drift into another's context. The [Setting Up a Deal Project](/projects/deal-setup) page walks through doing this cleanly, and it is the structural habit that makes the confidentiality decision easier to hold over a long mandate.
+
+<Callout type="note" title="This is operational guidance, not legal advice">
+This page helps you make a sensible, consistent first call. It does not replace the NDA, KPMG's policies, or a conversation with the right risk or legal contact when something is genuinely unclear. Those always govern.
+</Callout>
+
+## What to take from this
+
+Run the gates in order: right workspace, public or not, what the NDA permits, client restrictions, KPMG policy. A clean pass means proceed; any uncertainty means ask first. Keep each deal in its own Project once material is in. Do this every time and the judgement becomes quick, consistent, and defensible. For the everyday habits that sit alongside it, see [Verify Everything](/best-practices/verify-everything) and the [Cheat Sheet](/best-practices/cheat-sheet).

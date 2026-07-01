@@ -1,0 +1,113 @@
+---
+// DiagramPlaceholder: an on-brand stub where a structural diagram will go.
+// Keeps a page's layout and rhythm complete while the real SVG/CSS diagram
+// (core loop, two-layer projects, confidentiality tree, context layering) is
+// still to be hand-built. Uses wiki chrome colours (KPMG), not the Claude palette.
+//
+// Props:
+//   - title: what the finished diagram will show
+//   - kind:  'loop' | 'layers' | 'tree' | 'flow' (sets the icon)
+//   - note:  optional one-line description of the intended diagram
+
+interface Props {
+  title: string;
+  kind?: 'loop' | 'layers' | 'tree' | 'flow';
+  note?: string;
+}
+const { title, kind = 'flow', note } = Astro.props;
+---
+
+<figure class="dp" role="img" aria-label={`Diagram placeholder: ${title}`}>
+  <span class="dp-icon" aria-hidden="true">
+    {
+      kind === 'loop' && (
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+          <path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+          <path d="M17 3v4h-4M7 21v-4h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      )
+    }
+    {
+      kind === 'layers' && (
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+          <path d="m12 3 9 5-9 5-9-5 9-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          <path d="m3 13 9 5 9-5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+      )
+    }
+    {
+      kind === 'tree' && (
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+          <rect x="9" y="3" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6" />
+          <rect x="3" y="17" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6" />
+          <rect x="15" y="17" width="6" height="4" rx="1" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 7v4M6 17v-3h12v3" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+      )
+    }
+    {
+      kind === 'flow' && (
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+          <rect x="3" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+          <rect x="15" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.6" />
+          <path d="M9 12h6m0 0-2-2m2 2-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      )
+    }
+  </span>
+  <figcaption class="dp-body">
+    <span class="dp-tag">Diagram coming soon</span>
+    <span class="dp-title">{title}</span>
+    {note && <span class="dp-note">{note}</span>}
+  </figcaption>
+</figure>
+
+<style>
+  .dp {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin: var(--space-8) 0;
+    padding: var(--space-6);
+    background:
+      repeating-linear-gradient(135deg, rgba(0, 51, 141, 0.025) 0 10px, transparent 10px 20px),
+      var(--bg-soft);
+    border: 1.5px dashed color-mix(in srgb, var(--kpmg-blue) 32%, var(--line));
+    border-radius: var(--radius-lg);
+  }
+  .dp-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--kpmg-blue);
+  }
+  .dp-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .dp-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+  }
+  .dp-title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .dp-note {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+</style>

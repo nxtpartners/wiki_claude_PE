@@ -330,6 +330,23 @@ pre code {
   }
 }
 
+/* ---------- Claude.ai mockup palette ----------
+   These tokens recreate the REAL Claude product look (warm cream + clay).
+   They are used ONLY inside ClaudeUI mockup components, never for wiki chrome.
+   Rule: never put KPMG blue inside a Claude mockup. */
+:root {
+  --c-bg: #faf9f5; /* app background, cream */
+  --c-panel: #f0eee6; /* sidebar / user bubble */
+  --c-surface: #ffffff; /* composer card, chips, popovers */
+  --c-border: #eae7dc; /* hairline borders */
+  --c-border-strong: #e0dccd; /* stronger borders, chips */
+  --c-text: #3d3b36; /* body text */
+  --c-heading: #2a2722; /* headings */
+  --c-muted: #8a8475; /* secondary text, placeholder */
+  --c-clay: #be5d3a; /* Claude accent (send, sparkle) */
+  --c-clay-soft: #f4e8e1; /* clay tint background */
+}
+
 /* ---------- Pagefind UI theming ---------- */
 :root {
   --pagefind-ui-scale: 0.85;

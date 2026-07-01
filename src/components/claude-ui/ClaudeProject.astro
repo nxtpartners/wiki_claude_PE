@@ -1,0 +1,178 @@
+---
+// ClaudeProject: a recreated Claude "Project" view, the workspace that holds
+// custom instructions + a knowledge base of files. Used to teach the two-layer
+// project system (reusable function projects vs one-time deal projects).
+//
+// Props:
+//   - name:     project title (use fictional deal/function names only)
+//   - kind:     small tag, e.g. "Deal project" or "Reusable project"
+//   - capacity: knowledge-used label (e.g. "18% of knowledge used")
+//
+// Named slots:
+//   - "instructions": the custom instructions text
+//   - default:        the knowledge files (a list of <FileChip> elements)
+
+interface Props {
+  name: string;
+  kind?: string;
+  capacity?: string;
+  capacityPct?: number;
+}
+const { name, kind, capacity = '18% of knowledge used', capacityPct = 18 } = Astro.props;
+const hasInstructions = Astro.slots.has('instructions');
+---
+
+<div class="cp">
+  <div class="cp-head">
+    <span class="cp-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+        <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6" />
+        <path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7" stroke="currentColor" stroke-width="1.6" />
+      </svg>
+    </span>
+    <span class="cp-title">{name}</span>
+    {kind && <span class="cp-kind">{kind}</span>}
+  </div>
+
+  <div class="cp-grid">
+    {
+      hasInstructions && (
+        <section class="cp-card cp-instructions">
+          <p class="cp-card-label">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+              <path d="M5 5h14M5 10h14M5 15h9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+            </svg>
+            Instructions
+          </p>
+          <div class="cp-instructions-body">
+            <slot name="instructions" />
+          </div>
+        </section>
+      )
+    }
+
+    <section class="cp-card cp-knowledge">
+      <p class="cp-card-label">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+          <path d="M6 3h8l4 4v14H6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          <path d="M14 3v4h4" stroke="currentColor" stroke-width="1.6" />
+        </svg>
+        Project knowledge
+      </p>
+      <div class="cp-files">
+        <slot />
+      </div>
+      <div class="cp-capacity">
+        <span class="cp-bar" aria-hidden="true"><i style={`width:${capacityPct}%`}></i></span>
+        <span class="cp-capacity-text">{capacity}</span>
+        <span class="cp-add" aria-hidden="true">+ Add content</span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  .cp {
+    padding: var(--space-6);
+    color: var(--c-text);
+  }
+  .cp-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: var(--space-6);
+  }
+  .cp-icon {
+    color: var(--c-clay);
+    display: inline-flex;
+  }
+  .cp-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--c-heading);
+    letter-spacing: -0.01em;
+  }
+  .cp-kind {
+    margin-left: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-clay);
+    background: var(--c-clay-soft);
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+
+  .cp-grid {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .cp-card {
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4) var(--space-5);
+  }
+  .cp-card-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 0 var(--space-3);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+  .cp-card-label svg {
+    color: var(--c-clay);
+  }
+
+  .cp-instructions-body {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--c-text);
+  }
+  .cp-instructions-body :global(p) {
+    margin: 0 0 var(--space-2);
+  }
+  .cp-instructions-body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .cp-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: var(--space-4);
+  }
+  .cp-capacity {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+  .cp-bar {
+    flex: 1 1 120px;
+    height: 5px;
+    border-radius: 999px;
+    background: var(--c-panel);
+    overflow: hidden;
+  }
+  .cp-bar i {
+    display: block;
+    height: 100%;
+    background: var(--c-clay);
+    border-radius: 999px;
+  }
+  .cp-capacity-text {
+    font-size: 0.72rem;
+    color: var(--c-muted);
+  }
+  .cp-add {
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--c-clay);
+  }
+</style>

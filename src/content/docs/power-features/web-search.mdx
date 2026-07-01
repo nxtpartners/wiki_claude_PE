@@ -1,0 +1,87 @@
+---
+title: Web Search
+description: "How Claude can search the live web for current information, when that helps a screen, and the confidentiality rules that govern what you type."
+section: Power Features
+order: 5
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
+
+Claude's built-in knowledge has a cut-off date, so on its own it cannot tell you who closed a funding round last week or how a market has moved this quarter. Web search closes that gap. When a question needs current information, Claude can look it up on the live web and bring back what it finds, with sources you can follow.
+
+## What it adds
+
+Without web search, Claude reasons from what it learned during training, which is excellent for durable knowledge but blind to anything recent. With web search, it can reach today's information, which is what you want when a screen turns on a fresh fact.
+
+<ComparisonTable title="Built-in knowledge versus web search" caption="Use built-in knowledge for the durable, web search for the current.">
+
+| Built-in knowledge | Web search |
+| --- | --- |
+| Strong on concepts, frameworks, and history | Reaches recent events and announcements |
+| Fixed at a training cut-off | Pulls today's information from live sources |
+| No links to follow | Returns sources you can open and check |
+| Best for "explain" and "summarise" | Best for "what is the latest" and "find recent" |
+
+</ComparisonTable>
+
+## When it helps a screen
+
+Web search is most useful at the framing stage of a target, when you want to understand the landscape around it rather than the target's own confidential numbers.
+
+- **Sizing a market** and finding recent commentary on its direction.
+- **Mapping the competitive set**, the named players a target sits among.
+- **Recent events**, such as a competitor's funding round, acquisition, or product launch.
+- **Public context** on a sector's regulation, pricing trends, or consolidation.
+
+<Callout type="note" title="Public landscape, not the target's secrets">
+Web search shines on the outside-in view: the market, the comparables, the recent news. It cannot tell you anything about the target's private financials, which is exactly why you pair it with the CIM and model you have under NDA.
+</Callout>
+
+## What it looks like
+
+Ask a question that turns on current information, and Claude searches, reads what it finds, and answers with the sources attached so you can verify each claim.
+
+<ClaudeWindow caption="A question about the current market: Claude searches and answers with sources you can open.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <p>Who are the main players in B2B field-service software for mid-market contractors, and have any raised funding or been acquired in the last year? Give sources.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p>I searched current sources and grouped the landscape into established suites, fast-growing challengers, and adjacent platforms moving into the space.</p>
+      <p>Two challengers raised growth rounds in the past year, and one established player made a bolt-on acquisition. Each point links to its source so you can confirm the detail before it informs the screen.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+## A prompt for outside-in research
+
+<PromptCard title="Market and competitor scan with sources">
+You are assisting a Private Equity associate at KPMG. I'm screening a target in B2B field-service software for mid-market contractors.
+
+Using current web sources, give me:
+1. The market's rough size and recent direction of travel.
+2. The main competitors, grouped by type (incumbents, challengers, adjacent entrants).
+3. Any funding, acquisition, or notable product news in this space in the last year.
+
+Cite a source for each significant claim. Flag where the public information is thin or where sources disagree.
+</PromptCard>
+
+Notice what this prompt does not contain: the target's name, its financials, or anything from the CIM. That is deliberate, and it is the heart of using web search safely.
+
+## The confidentiality line
+
+Web search reads from the public internet, but a search begins with what you type, and what you type is a query. The rule is simple and strict.
+
+<Callout type="confidential" title="Never put confidential detail into a search">
+A web query is not the place for the target's name, its figures, or any NDA-bound fact. Search the public landscape (the market, the named competitors, the sector news) and keep the target's private information for the documents you have under NDA. Phrase searches generically, by category rather than by deal. The full reasoning is in the [Confidentiality Decision Tree](/best-practices/confidentiality) and [Your Account & Confidential Data](/foundations/account-and-data).
+</Callout>
+
+There is a second habit worth keeping. Web sources vary in quality, so treat what comes back as a lead, not a fact. Open the links, judge the source, and confirm anything material before it shapes a view, just as you would with any research, per [Verify Everything](/best-practices/verify-everything).
+
+## What to take from this
+
+Web search gives Claude reach into current information, which is what the outside-in part of a screen needs: market size, the competitive set, and recent events, all returned with sources you can open. Use it for the public landscape and keep the target's confidential detail out of your queries entirely. Pair the market picture it builds with the NDA-bound documents you hold, verify every source, and you have a fast, safe way to frame a target before you go deep.

@@ -1,0 +1,91 @@
+---
+title: Writing Effective Instructions
+description: "Instruct Claude precisely: state the role, the task, the constraints, the format, and what to do when unsure."
+section: Context
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+
+Supplying context gets the right material in front of Claude. Instructing well decides what Claude does with it. The gap between a mediocre answer and a partner-ready one is rarely the document; it is almost always the precision of the request. This page is the craft of that request.
+
+## Five parts of a good instruction
+
+Strong instructions tend to carry the same five elements. You do not need a rigid template, but if an answer disappoints, one of these is usually missing.
+
+- **Role.** Who is Claude helping, and from what seat? "You are assisting a KPMG private equity associate" sets the register and the depth.
+- **Task.** The single thing you want done, stated plainly. One clear job beats three vague ones.
+- **Constraints.** The boundaries: length, scope, what to include, what to leave out, which source to rely on.
+- **Format.** The shape of the output: headings, a table, bullet points, a one-paragraph summary. Decide it; do not leave it to chance.
+- **What to do when unsure.** The instruction most people forget. Tell Claude to ask, or to flag, rather than guess. This is what turns a confident-but-wrong machine into a careful one.
+
+<Callout type="tip" title="The fifth element earns its keep">
+"If the document does not state something, say so rather than estimating" is the single most valuable line you can add to a deal prompt. It converts silent guesses into visible gaps, which is exactly what you want to see before anything reaches the investment committee.
+</Callout>
+
+## Before and after
+
+The same task, instructed two ways. Notice that the second version is barely longer; it is just specific where the first is loose.
+
+<ComparisonTable title="Loose versus precise" caption="The precise version does not work harder. It just removes every guess.">
+
+| Loose instruction | Precise instruction |
+| --- | --- |
+| "Summarise this." | "In one page, summarise the attached CIM under four headings: business, financials, thesis, risks." |
+| "Is the growth good?" | "Assess the revenue growth against the stated market growth rate; cite both figures and the source page." |
+| "Make it sound better." | "Rewrite this paragraph for a partner: concise, neutral in tone, no superlatives, UK English." |
+| (no fallback) | "If a figure is not in the document, write 'not stated' rather than estimating it." |
+
+</ComparisonTable>
+
+## Building an instruction, step by step
+
+When a task matters, assemble the request deliberately rather than typing the first thing that comes to mind.
+
+<Steps>
+  <Step title="Name the seat">
+    Open with the role so Claude pitches at the right level: "You are assisting a KPMG private equity associate screening Project Atlas, a mid-market field-service software target."
+  </Step>
+  <Step title="State the one task">
+    Say the single thing you want, in plain words. If you have three jobs, consider three messages, or number them explicitly so none gets dropped.
+  </Step>
+  <Step title="Set the constraints">
+    Add the boundaries: how long, what to cover, what to ignore, and which source to trust. "Use only the attached files" keeps Claude from drifting into general knowledge.
+  </Step>
+  <Step title="Fix the format">
+    Choose the output shape: a table, four headings, five bullets, a single paragraph. A defined format is easier to read and far easier to verify.
+  </Step>
+  <Step title="Add the fallback">
+    Close with what to do when unsure: "Ask me if anything is ambiguous, and flag (do not fill) any gap in the source." Now Claude surfaces uncertainty instead of hiding it.
+  </Step>
+</Steps>
+
+## A worked example
+
+Here is the full shape assembled into one instruction you can adapt for almost any screening task.
+
+<PromptCard title="A precisely instructed screen">
+You are assisting a KPMG private equity associate screening Project Atlas, a mid-market field-service software target. I have attached the teaser.
+
+Task: produce a one-page initial screen.
+
+Constraints: rely only on the attached document. Keep it to a single page. Cite the page number for any figure you quote.
+
+Format: use these four headings, each with short bullets:
+1. Business overview
+2. Financial highlights
+3. Investment angle
+4. Key risks and open questions
+
+When unsure: if the teaser does not state something, write "not stated" rather than estimating, and list anything ambiguous at the end as questions for management.
+</PromptCard>
+
+Every part is doing a job: the role sets depth, the task is singular, the constraints fence the answer, the format makes it usable, and the fallback turns silent guesses into a clean list of questions.
+
+## The takeaway
+
+Precise instructions are not longer or more complex; they simply leave nothing for Claude to invent. Name the seat, state one task, set the constraints, fix the format, and say what to do when unsure. Once you can do this reliably, you can lock a consistent voice across everything you produce, which is the subject of [Custom Styles & Tone](/context/custom-styles). For the underlying anatomy of a prompt, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

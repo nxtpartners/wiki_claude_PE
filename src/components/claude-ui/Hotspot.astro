@@ -1,0 +1,62 @@
+---
+// Hotspot: a numbered annotation pin to point at an exact spot in a mockup.
+// Place inside a <ClaudeWindow> (its main pane is position: relative), then
+// list the matching numbers below the figure as an ordered legend.
+//
+// Props:
+//   - n:     the number shown in the pin
+//   - x, y:  position as CSS values (e.g. "22%", "70%") from top-left of the pane
+//   - label: optional short caption shown beside the pin
+
+interface Props {
+  n: number;
+  x: string;
+  y: string;
+  label?: string;
+}
+const { n, x, y, label } = Astro.props;
+---
+
+<span class="hs" style={`left:${x};top:${y}`}>
+  <span class="hs-pin">{n}</span>
+  {label && <span class="hs-label">{label}</span>}
+</span>
+
+<style>
+  .hs {
+    position: absolute;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hs-pin {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--c-clay);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    box-shadow: 0 0 0 4px rgba(190, 93, 58, 0.18), var(--shadow-sm);
+  }
+  .hs-label {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--c-heading);
+    background: var(--c-surface);
+    border: 1px solid var(--c-border-strong);
+    border-radius: 999px;
+    padding: 3px 9px;
+    white-space: nowrap;
+    box-shadow: var(--shadow-xs);
+  }
+</style>

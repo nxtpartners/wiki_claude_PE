@@ -1,0 +1,91 @@
+---
+title: Artifacts
+description: "How Claude builds standalone documents you can refine in place, such as a memo section or a comparison table, separate from the chat."
+section: Power Features
+order: 4
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
+
+Most of Claude's replies live in the flow of the conversation. Some outputs deserve their own home. An **artifact** is a standalone document Claude builds beside the chat: a memo section, a comparison table, a one-pager, the kind of thing you will keep editing rather than simply read once and scroll past.
+
+## A document, not just a reply
+
+When you ask Claude for something substantial and self-contained, it opens the result in a separate panel rather than burying it in the message thread. The chat stays on the left for your back-and-forth; the artifact sits on the right as a clean, focused document.
+
+The advantage is that you can refine the document in place. Instead of scrolling up through a long conversation to find the latest version of a memo, you keep one living document on screen and shape it turn by turn.
+
+<ClaudeWindow caption="Substantial, self-contained outputs open as an artifact: a document you keep refining.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <p>Draft the "Investment Highlights" section of an IC memo for Project Atlas, based on what we've discussed. Make it a clean document I can keep editing.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p>I've drafted the section as a document on the right. It covers the recurring revenue base, the growth profile, and the margin trajectory, with a closing note on the open question around churn disclosure.</p>
+      <p>Tell me what to change: tighten a paragraph, add a point on the management team, or recast it for a partner audience, and I'll update the document in place.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+<Callout type="note" title="One document, many revisions">
+Because the artifact updates in place, you are always looking at the current version. There is no hunting back through the chat for the latest draft, and no copy-paste shuffle between turns.
+</Callout>
+
+## What belongs in an artifact
+
+Reach for an artifact when the output is a deliverable in its own right, something you will shape and reuse rather than glance at once.
+
+- **Memo sections**, such as investment highlights, key risks, or a transaction overview.
+- **Structured tables**, like a competitor comparison or a financial summary.
+- **One-pagers**, for example a screen summary a partner can read in a minute.
+- **Reusable templates** you intend to apply across several targets.
+
+A quick answer, a definition, or a short list does not need an artifact. Those belong in the chat, where they are easiest to read in context.
+
+## Working with an artifact
+
+<Steps>
+  <Step title="Ask for a self-contained document">
+    Request the deliverable directly: "Draft the key risks section as a document," or "Build a comparison table I can keep refining." Claude opens it as an artifact.
+  </Step>
+  <Step title="Refine it by talking to the chat">
+    Keep giving instructions in the conversation: "Tighten the second paragraph," "Add a row for churn," "Make the tone more partner-ready." The document updates in place.
+  </Step>
+  <Step title="Read it in context">
+    The artifact reflects everything in the conversation, so the files and figures you discussed earlier inform the draft without you re-explaining them.
+  </Step>
+  <Step title="Verify, then take it out">
+    Check every figure and claim against the source before the document leaves Claude. The artifact is a polished first draft, not a finished deliverable.
+  </Step>
+</Steps>
+
+## A prompt that produces a clean artifact
+
+<PromptCard title="Draft a memo section as an editable document">
+You are assisting a Private Equity associate at KPMG, drafting for an investment committee.
+
+Using the analysis and documents in this conversation, draft the "Key Risks" section of an IC memo for the target.
+
+- Group risks under clear headings (commercial, financial, operational).
+- For each, state the risk in one line, then why it matters in one or two.
+- End with the three diligence questions that would most reduce uncertainty.
+
+Produce it as a clean, self-contained document I can keep editing. Flag anything the materials do not let you assess.
+</PromptCard>
+
+## Where artifacts collect
+
+Every artifact Claude builds is gathered in one place, the **Artifacts** entry in the left menu. That makes it easy to return to a memo section or a table you built earlier without digging through old chats. When you are working inside a deal [Project](/projects/what-projects-are), the artifacts you create stay associated with that workspace, which keeps each deal's documents together and separate.
+
+<Callout type="confidential" title="An artifact is still your work to check">
+A polished document can feel finished, which is exactly when a stray figure slips through. Treat every artifact as a first draft: verify it against the source, per [Verify Everything](/best-practices/verify-everything), before it carries the KPMG name.
+</Callout>
+
+## What to take from this
+
+Artifacts give substantial outputs their own home, a living document beside the chat that you refine in place rather than rebuild each turn. Use them for memo sections, tables, one-pagers, and templates: anything you will shape and reuse. Drive the edits through the conversation, find your past work under the Artifacts menu, and verify the result before it leaves your desk.

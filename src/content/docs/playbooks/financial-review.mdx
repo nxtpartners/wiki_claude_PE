@@ -1,0 +1,94 @@
+---
+title: Financial & Model Review
+description: "Interrogate accounts and a model with Claude: sense-check the numbers, surface the drivers, and pressure-test the assumptions."
+section: PE Playbooks
+order: 5
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+The numbers are where conviction is won or lost. Reviewing a set of accounts or a management model is partly arithmetic and partly judgement: spotting the trend that does not add up, the assumption that is doing too much work, the margin that improves a little too conveniently in the forecast years. Claude is a sharp second pair of eyes here. It can read financial statements, summarise the drivers, and interrogate the logic of a model. What it does not do is recompute your model for you, so the division of labour matters.
+
+## When to use this
+
+Use this when you have financial statements or a management model in front of you and need to understand what is really driving the numbers, where the soft spots are, and what to challenge. Claude is most valuable on the interpretation: explaining a movement, sense-checking whether a forecast is internally consistent, and listing the assumptions a buyer should test. Keep the actual modelling in your spreadsheet, where you can see and audit every cell.
+
+## The workflow
+
+<Steps>
+  <Step title="Upload the statements and ask for the story behind the numbers">
+    Give Claude the historical accounts and ask it to explain the trajectory: what is driving revenue, what is happening to margin, and how cash conversion is behaving. You are after the narrative, not a restatement of the figures.
+  </Step>
+  <Step title="Probe earnings quality">
+    Ask Claude to flag anything that flatters the earnings: one-off items, aggressive adjustments to arrive at an adjusted EBITDA, capitalised costs, or working-capital movements that release cash unsustainably. This is the work that protects your entry multiple.
+  </Step>
+  <Step title="Interrogate the forecast assumptions">
+    For a management model, paste or upload the assumption set and ask Claude to test it for internal consistency and realism. Does the margin expansion have a stated cause, does the growth need headcount the plan does not fund, does the model assume away churn.
+  </Step>
+  <Step title="Frame your own sensitivities">
+    Ask Claude which two or three assumptions the return is most exposed to, so you know where to focus your own sensitivity analysis in the spreadsheet.
+  </Step>
+  <Step title="Do the arithmetic yourself">
+    Use Claude's read to direct your work, then build and check the actual calculations in your own model. Claude points at where to look; your spreadsheet is where the numbers are confirmed.
+  </Step>
+</Steps>
+
+## Sense-checking the historicals
+
+This prompt turns a set of statements into a clear read on financial health and earnings quality, with the soft spots flagged.
+
+<PromptCard title="Read the historical accounts for quality of earnings">
+You are assisting a KPMG private equity associate reviewing Project Atlas, a mid-market B2B field-service software target (around £60m revenue, mid-20s percent growth, low-70s percent gross margin). I have attached three years of financial statements.
+
+Task: explain what the numbers are really telling me, with a focus on earnings quality.
+
+Constraints: use only the attached statements. Cite the figure and the year for every point. Where a number I would expect is not present, say so rather than inferring it.
+
+Format: cover revenue trajectory and its drivers, gross and EBITDA margin trend, cash conversion, and earnings quality. Under earnings quality, specifically flag: one-off or non-recurring items, any adjustments made to reach adjusted EBITDA, capitalised costs, and working-capital movements that affect cash.
+
+End with a ranked list of the financial points a buyer should be most concerned about, each tied to the figure that raised it.
+</PromptCard>
+
+## Pressure-testing the model assumptions
+
+This prompt has Claude interrogate a forecast for the assumptions that quietly carry the return.
+
+<PromptCard title="Challenge a management model's assumptions">
+I have attached the assumption set behind Project Atlas's management forecast. Treat me as a buyer who wants the optimism stripped out.
+
+Task: test the assumptions for internal consistency and realism.
+
+For each major assumption (revenue growth, margin trajectory, churn, headcount, capex, working capital), ask: is it consistent with the historical performance, does anything in the plan actually drive it, and would a conservative buyer accept it. Flag any assumption that improves markedly in the forecast years without a stated cause.
+
+Then tell me the two or three assumptions the return is most sensitive to, so I know where to concentrate my own analysis. Do not recompute the model; focus on the logic of the assumptions.
+</PromptCard>
+
+<Callout type="warning" title="Claude reasons about numbers; it does not own your model">
+Claude can read statements and interrogate assumptions well, but it is not a calculator you should trust blindly for precise arithmetic, and it must never become the place your model actually lives. Use it to find what to check and to challenge the logic, then build and verify every calculation in your own spreadsheet where each figure is auditable. The numbers that go to the investment committee are the ones in your model, confirmed by you.
+</Callout>
+
+## Interpretation versus computation
+
+<ComparisonTable title="Where Claude helps and where it stops" caption="Claude is a reviewer of the numbers, not the source of them.">
+
+| Use Claude to | Do this in your own model |
+| --- | --- |
+| Explain what is driving a revenue or margin trend | Build and audit the actual calculations |
+| Flag one-offs, adjustments, and earnings-quality issues | Confirm every figure cell by cell |
+| Test forecast assumptions for consistency and realism | Run the precise sensitivity and scenario maths |
+| Point at the assumptions the return is most exposed to | Produce the numbers that reach the IC |
+
+</ComparisonTable>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Investment Memo Drafting" href="/playbooks/investment-memo" eyebrow="PE Playbooks" />
+  <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices" />
+</CardGrid>
