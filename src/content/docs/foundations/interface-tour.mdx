@@ -1,0 +1,116 @@
+---
+title: Interface Tour
+description: A quick, visual orientation to the Claude.ai screen, what each part does, and where your work lives.
+section: Foundations
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeSidebar from '../../../components/claude-ui/ClaudeSidebar.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
+import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
+import Hotspot from '../../../components/claude-ui/Hotspot.astro';
+
+Claude.ai is deliberately simple. There is no dashboard to learn and no settings to wade through before you can start. This page gives you a fast orientation so the screen feels familiar the moment you open it.
+
+The illustrations below recreate the real interface. Your own screen may differ in small ways as Claude updates, but the parts that matter stay in the same place.
+
+## The home screen
+
+When you sign in you land on a new chat. A slim menu sits on the left, and the message box sits in the middle. That is the whole app.
+
+<ClaudeWindow ariaLabel="The Claude home screen: a left menu and a central message box.">
+  <ClaudeSidebar slot="sidebar" active="new" workspace="KPMG" />
+  <span slot="tag">KPMG workspace</span>
+  <div style={{ padding: '32px 20px 8px', textAlign: 'center' }}>
+    <p style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: '#2a2722', letterSpacing: '-0.01em' }}>
+      Good evening
+    </p>
+    <p style={{ margin: '4px 0 0', fontSize: '0.86rem', color: '#8a8475' }}>
+      Bring a document or ask a question to begin.
+    </p>
+  </div>
+  <ClaudeComposer />
+</ClaudeWindow>
+
+**The left menu** is how you move around:
+
+- **New chat** starts a fresh conversation. Each chat is separate, so use a new one for each task.
+- **Chats** lists your recent conversations so you can return to anything.
+- **Projects** are dedicated workspaces that hold instructions and a set of files. This is where most serious deal work belongs, covered in the [Projects](/projects/what-projects-are) section.
+- **Artifacts** collects the standalone documents Claude builds for you, such as a memo or a model output.
+
+<Callout type="note" title="You are in a KPMG workspace">
+On Claude Enterprise and Team the top of the menu shows your organisation, here labelled KPMG. That workspace is what keeps your prompts and uploads out of model training, and it is why these plans are appropriate for confidential work.
+</Callout>
+
+## The message box, up close
+
+Almost everything happens in the message box. You type a request, attach files, and press send. The controls are worth knowing by name.
+
+<ClaudeWindow caption="The message box. Attach is the plus on the left; send is the arrow on the right.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Summarise the attached CIM for an initial screen."
+      menu={true}
+      model="Claude Opus"
+      effort="High"
+    />
+    <Hotspot n={1} x="14%" y="80%" />
+    <Hotspot n={2} x="20%" y="10%" label="Attach menu" />
+    <Hotspot n={3} x="76%" y="80%" />
+    <Hotspot n={4} x="93%" y="80%" />
+  </div>
+</ClaudeWindow>
+
+1. **The plus button** opens the attach menu. This is where you add a PDF, Word document, or Excel file, or pull a file from a connected source such as Google Drive.
+2. **The attach menu** lists where files can come from. Uploading from your computer is the everyday route.
+3. **The model selector** shows which Claude model is answering and how hard it is thinking. The default is the right choice for almost all PE work.
+4. **The send arrow** submits your message. You can also press Enter.
+
+<Callout type="tip" title="One file or many">
+You can attach several files to a single message. Claude reads all of them together, which is how you ask one question across a whole set of documents.
+</Callout>
+
+## A conversation
+
+Once you send, the chat fills in. Your messages sit on the right; Claude's replies run full width on the left. Everything you say stays in view, so each new message can build on the last.
+
+<ClaudeWindow caption="A short exchange. Your turn on the right, Claude's reply on the left.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" meta="62 pages" />
+      <p>Summarise this CIM for an initial screen: business, financials, and the three biggest risks.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p><strong>Business.</strong> B2B field-service software for mid-market contractors, sold on recurring subscriptions.</p>
+      <p><strong>Financials.</strong> Roughly £60m revenue, mid-20s percent growth, gross margin in the high 70s.</p>
+      <p><strong>Three risks.</strong> Customer concentration, founder dependence, and thin disclosure on churn.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+
+To keep going, you simply type again: "Put the financials in a table," or "What should I ask management first?" There is no need to re-attach the file or repeat yourself.
+
+## Where deal work lives: Projects
+
+For anything beyond a quick question, you will work inside a **Project**. A Project pairs a set of standing instructions with a knowledge base of files, so Claude already knows the context every time you open it.
+
+<ClaudeWindow caption="A Project pairs standing instructions with a knowledge base of files." url="claude.ai · Projects">
+  <ClaudeProject name="Project Atlas" kind="Deal project" capacity="18% of knowledge used" capacityPct={18}>
+    <p slot="instructions">You are assisting a KPMG private equity team screening Project Atlas, a field-service software target. Be precise, cite the source document for figures, and flag anything the materials leave unclear.</p>
+    <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" />
+    <FileChip name="Atlas_financials.xlsx" kind="xls" />
+    <FileChip name="Management_deck.pdf" kind="pdf" />
+    <FileChip name="NDA_summary.docx" kind="doc" />
+  </ClaudeProject>
+</ClaudeWindow>
+
+Projects are the heart of using Claude well, and they are how you keep each deal's data separate and confidential. The whole [Projects](/projects/what-projects-are) section walks through setting them up.
+
+## What to take from this
+
+The interface is small on purpose: a menu on the left, a message box in the middle, and Projects for anything that deserves its own workspace. With the layout familiar, the next step is learning to brief Claude properly, which begins with the [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

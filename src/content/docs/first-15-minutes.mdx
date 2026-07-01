@@ -9,12 +9,34 @@ import Callout from '../../components/Callout.astro';
 import PromptCard from '../../components/PromptCard.astro';
 import Steps from '../../components/Steps.astro';
 import Step from '../../components/Step.astro';
+import ClaudeWindow from '../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeComposer from '../../components/claude-ui/ClaudeComposer.astro';
+import ClaudeMessage from '../../components/claude-ui/ClaudeMessage.astro';
+import FileChip from '../../components/claude-ui/FileChip.astro';
+import Hotspot from '../../components/claude-ui/Hotspot.astro';
 
 The fastest way to understand Claude is to use it on something real. In the next fifteen minutes you'll go from a blank screen to a one-page summary of an actual document from your desk, and you'll see exactly why this becomes a daily habit.
 
 <Callout type="tip" title="Pick a low-stakes document">
 For this first run, choose something useful but not highly sensitive: a public teaser, an industry report, or an old deck. You'll learn the workflow without worrying about confidentiality while you find your feet. The data rules come next, in Foundations.
 </Callout>
+
+<div style={{ margin: '28px 0' }}>
+<ClaudeWindow caption="The message box, up close. The whole interface is this one box: type a question or attach a file, then send." ariaLabel="Recreated Claude message box with its controls numbered.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer placeholder="How can I help you today?" menu={true} model="Claude Opus" effort="High" />
+    <Hotspot n={1} x="14%" y="80%" />
+    <Hotspot n={2} x="20%" y="10%" label="Attach menu" />
+    <Hotspot n={3} x="76%" y="80%" />
+    <Hotspot n={4} x="93%" y="80%" />
+  </div>
+</ClaudeWindow>
+
+1. **The plus button** opens the attach menu, where you add a PDF, Word, or Excel file, or pull one from a connected source such as Google Drive.
+2. **The attach menu** lists where files can come from. Uploading from your computer is the everyday route.
+3. **The model selector** shows which Claude model is answering. The default is the right choice for almost all PE work.
+4. **The send arrow** submits your message. You can also press Enter.
+</div>
 
 ## Your first session
 
@@ -36,6 +58,14 @@ For this first run, choose something useful but not highly sensitive: a public t
   </Step>
 </Steps>
 
+<div style={{ margin: '28px 0' }}>
+<ClaudeWindow caption="A document attached, with clear instructions typed in. The send arrow turns active once there is something to send." ariaLabel="Recreated Claude composer showing an attached PDF and a typed prompt.">
+  <ClaudeComposer value="You are assisting a Private Equity associate at KPMG. I have attached a teaser. Give me a one-page summary using clear headings.">
+    <FileChip slot="files" name="Project Atlas Teaser.pdf" kind="pdf" meta="12 pages" />
+  </ClaudeComposer>
+</ClaudeWindow>
+</div>
+
 ## The prompt to start with
 
 <PromptCard title="One-page summary of any deal document">
@@ -51,6 +81,28 @@ Use bullet points. Keep it concise. Flag anything the document is vague about or
 </PromptCard>
 
 Notice what made that prompt work: it set a **role** ("assisting a PE associate"), gave a **clear task**, specified the **format** (headings, bullets), and asked Claude to **flag gaps**. That four-part shape (role, task, format, scrutiny) is the backbone of almost every good prompt, and the [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt) page breaks it down properly.
+
+<div style={{ margin: '28px 0' }}>
+<ClaudeWindow caption="What comes back: a structured summary you can read in under a minute, then refine. Illustration only, with fictional data." ariaLabel="Recreated Claude conversation showing a summary reply.">
+  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+    <ClaudeMessage role="user">
+      <FileChip name="Project Atlas Teaser.pdf" kind="pdf" meta="12 pages" />
+      <p>You are assisting a Private Equity associate at KPMG. Give me a one-page summary of the attached teaser using these headings: business overview, financial highlights, why it could be attractive, key risks.</p>
+    </ClaudeMessage>
+    <ClaudeMessage role="claude">
+      <p><strong>Business overview.</strong> Project Atlas is a mid-market field-service software provider for HVAC and plumbing contractors across the UK, monetised through per-seat subscriptions.</p>
+      <p><strong>Financial highlights.</strong></p>
+      <ul>
+        <li>Revenue about £60m, growing in the mid-20s percent</li>
+        <li>Gross margin in the high 70s percent, typical of vertical software</li>
+        <li>Net revenue retention reported above 110 percent</li>
+      </ul>
+      <p><strong>Why it could be attractive.</strong> Sticky recurring revenue, a large fragmented customer base, and clear pricing headroom.</p>
+      <p><strong>Key risks and open questions.</strong> Customer concentration is not disclosed, churn is described only in broad terms, and the teaser is vague on cash conversion. These are the first items to test in diligence.</p>
+    </ClaudeMessage>
+  </div>
+</ClaudeWindow>
+</div>
 
 ## Try one more turn
 

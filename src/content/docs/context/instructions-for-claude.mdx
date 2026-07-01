@@ -1,0 +1,95 @@
+---
+title: Instructions for Claude
+description: "Set standing instructions once in your account so Claude applies them to every chat, and understand the three-tier hierarchy that sits above them."
+section: Context
+order: 3.5
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeSettings from '../../../components/claude-ui/ClaudeSettings.astro';
+
+Some preferences never change. You always work in British English, you always want assumptions flagged, you always prefer a figure left untouched rather than tidied up. Retyping those preferences at the start of every chat is wasted effort, and the day you forget is the day the output drifts. Claude solves this with a standing field in your account settings, "Instructions for Claude", where you record how you work once and let it apply to every conversation automatically.
+
+## What it is
+
+"Instructions for Claude" is a short text field in your claude.ai settings. Whatever you write there travels with you into every new chat, silently, without you mentioning it again. It is the place for durable facts about you and durable preferences about output: your role, your spelling convention, your tolerance for guesswork.
+
+A few examples that suit a KPMG Private Equity professional:
+
+- "I work in Private Equity at KPMG."
+- "Use British spelling and conventions throughout."
+- "Be concise. Flag any assumptions or gaps rather than filling them silently."
+- "When I share figures, do not round them unless I ask."
+
+Each line is a standing preference, not a one-off request. Set them once and every answer arrives already shaped the way you like, from a quick email to a memo section.
+
+## The three-tier hierarchy
+
+Standing instructions exist at three levels, and understanding how they stack is the key idea on this page. Each narrower layer adds to the one above it, so instructions accumulate rather than compete: the account layer always applies, a Project layer adds to it inside that Project, and a chat layer adds to it for one conversation.
+
+<ComparisonTable title="Where each instruction layer lives" caption="Each layer is narrower and more specific than the one above, and adds to it rather than replacing it.">
+
+| Layer | Where you set it | What it should hold | Reaches |
+| --- | --- | --- | --- |
+| Account: Instructions for Claude | claude.ai settings | How you work: role, spelling, rigour, default tone | Every chat you ever start |
+| Project | A Project's instructions | How you approach one workstream: a method, a checklist, an output shape | Every chat inside that one Project |
+| Chat | A single conversation | What this one task needs right now | This conversation only |
+
+</ComparisonTable>
+
+Read the table top to bottom and the logic falls out. The account layer is the widest and the most permanent: it describes you, so it belongs everywhere. A Project layer is narrower: it describes how you tackle a particular kind of work, such as screening or market research, so it belongs only inside that Project. The chat layer is narrowest of all: it describes one task in front of you, so it belongs only in that conversation.
+
+When you are deciding where an instruction goes, ask how widely it should apply. A preference that is true of everything you do (your spelling, your role) belongs at the account level. A method that is true of one workstream belongs in that Project. A request that is true only of the task you are doing right now belongs in the chat. The [two-layer Project system](/projects/two-layer-system) shows how the middle tier is organised in practice.
+
+## How to set it
+
+Open claude.ai, go to Settings, and find the "Instructions for Claude" section. Write a few short lines and save. Keep three things in mind:
+
+- Keep it short. A handful of durable lines beats a long essay that Claude has to weigh on every turn.
+- Keep it durable. Write about how you work, not about any single piece of live work. If a line would stop being true once a particular task ends, it does not belong here.
+- Keep it about you. Role, spelling, tone, and your standing rule on assumptions and rounding are all good. The current week's task is not.
+
+<ClaudeWindow caption="Where it lives: the Instructions for Claude field in your claude.ai settings. Write it once; it applies to every chat.">
+  <ClaudeSettings>
+    <p>I work in Private Equity at KPMG.</p>
+    <p>Use British spelling and conventions throughout.</p>
+    <p>Be concise and partner-ready: no filler, no throat-clearing introductions.</p>
+    <p>Flag any assumptions or gaps explicitly rather than filling them silently.</p>
+    <p>When I share figures, do not round them unless I ask.</p>
+  </ClaudeSettings>
+</ClaudeWindow>
+
+Notice what this block does and does not contain. It states your role, your spelling, your tone, and your standing rules on rigour. It names no company, no target, no figure, and no live piece of work. That restraint is deliberate, and the next section explains why it matters so much.
+
+## A caution on confidentiality
+
+Account-level instructions apply to every chat, including the ones that have nothing to do with Private Equity: a holiday plan, a note to a colleague, a question about a spreadsheet formula. Because they are always present, they must never carry anything confidential or specific to a live opportunity.
+
+<Callout type="confidential" title="Never put deal specifics in account instructions">
+The "Instructions for Claude" field is the wrong home for the name of a target, a counterparty, a deal value, or any figure from a data room. It sits in the background of every conversation you have, so anything written there could surface in a chat that has nothing to do with that opportunity. Deal specifics belong in a single, siloed deal Project, never in your account settings. When in doubt about whether something can be shared at all, walk it through the [Confidentiality Decision Tree](/best-practices/confidentiality) first.
+</Callout>
+
+The rule is simple to remember: the account layer describes you, and Project instructions describe a workstream, but only a siloed deal Project should ever hold the confidential facts of a live opportunity. Keeping the layers honest is what lets you set durable preferences once without ever risking a leak between unrelated conversations.
+
+## Good versus less good
+
+A useful test for any line you are about to save: would it still be true, and still be safe, six months and ten opportunities from now? If yes, it is a good standing instruction. If it is tied to one piece of work or one moment, keep it in the chat or the deal Project instead.
+
+<ComparisonTable title="What belongs at the account level" caption="Durable preferences about how you work belong here. Anything deal-specific or time-bound does not.">
+
+| Good standing instruction | Less good for the account level |
+| --- | --- |
+| "Use British spelling throughout." | "We are screening a logistics target this week." |
+| "I work in Private Equity at KPMG." | "The target's EBITDA is around 12 million." |
+| "Be concise and flag assumptions and gaps." | "Use the figures from the data room I shared." |
+| "Do not round figures unless I ask." | "Focus on the management team's track record." |
+
+</ComparisonTable>
+
+The left-hand lines describe a way of working that holds across everything. The right-hand lines describe one opportunity at one moment: real, useful instructions, but ones that belong in a deal Project or a single chat, never in the field that follows you everywhere.
+
+## The takeaway
+
+Set "Instructions for Claude" once with the handful of preferences that are always true of how you work: your role, your spelling, your tone, and your standing rules on assumptions and rounding. Then let the hierarchy do the rest, with a Project adding the method for a given workstream and a chat adding the detail of a single task. Keep every confidential fact out of the account layer and inside a siloed deal Project. For the craft of writing the instructions themselves, see [Writing Effective Instructions](/context/writing-instructions).

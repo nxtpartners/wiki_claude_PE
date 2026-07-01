@@ -1,0 +1,85 @@
+---
+title: Thinking & Effort
+description: "What Claude's thinking setting does, how to turn it off for speed or up for hard work, and why the default is right for almost all PE work."
+section: Power Features
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import Hotspot from '../../../components/claude-ui/Hotspot.astro';
+
+At the bottom of the message box sits a small control that most people never touch: the model pill. It shows which version of Claude is answering and how much it is thinking before it replies. You do not need to adjust it to get excellent results, but understanding what it does lets you speed Claude up on simple tasks and give it more room on the genuinely hard ones.
+
+## What "thinking" actually is
+
+Thinking (you will also see it called extended thinking, or reasoning) is Claude working through a problem privately before it writes to you. When thinking is on, Claude reasons through the steps first, checks its own working, and only then composes the reply you see. When thinking is off, Claude skips that private step and answers straight away.
+
+The best comparison is a colleague. Ask a simple question and a sharp colleague answers on the spot. Ask a hard one, and the good colleague pauses, spreads the documents out, works the problem through, and only then speaks. Thinking is that pause. More thinking means more of that private working before the answer lands.
+
+Crucially, thinking is a setting you control. You can turn it **off** for the fastest possible reply, leave it on its sensible **default** for everyday work, or turn it **up** for demanding, multi-document, multi-step problems. Picture it as a single dial that runs from off, through the default, to high.
+
+## The two settings in one pill
+
+The pill bundles two things together. The first is the **model**, for example "Claude Opus". The second is the **thinking level**, sometimes shown as an effort word like "High". Click the pill and a short menu opens where you can change either one, including switching thinking off entirely.
+
+<ClaudeWindow caption="The model pill sits to the left of the send arrow. It names the model and shows how much Claude is thinking.">
+  <div style={{ padding: '20px 12px 36px' }}>
+    <ClaudeComposer
+      value="Compare the churn assumptions across these three documents and tell me where they disagree."
+      model="Claude Opus"
+      effort="High"
+    />
+    <Hotspot n={1} x="62%" y="80%" label="Thinking level" />
+    <Hotspot n={2} x="91%" y="80%" />
+  </div>
+</ClaudeWindow>
+
+1. **The model pill.** "Claude Opus" is the model; "High" is how much it is thinking. One click opens the menu, where you can turn thinking off, leave it on the default, or turn it up.
+2. **The send arrow.** The thinking level changes nothing about how you send a message: you still type and press the arrow (or Enter).
+
+## Off, default, or up
+
+Higher thinking does not make Claude more truthful or remove the need to verify. It makes Claude better at holding many moving parts in mind at once: reconciling figures across several documents, following a chain of reasoning without dropping a step, or weighing competing considerations in a nuanced judgement. Turning thinking off does the opposite trade: you give up that careful working in exchange for the quickest possible answer.
+
+<Callout type="note" title="Faster or more careful, your choice">
+Thinking off is fastest, and it is all you need for simple lookups, definitions, and reformatting. Thinking up is slower, but it is far better at reconciling figures across documents and reasoning through a nuanced memo. Whichever you pick, higher thinking still does not remove the need to verify.
+</Callout>
+
+## When higher thinking earns its keep
+
+Reach for more thinking when the task is complex, multi-step, or asks Claude to reconcile information that sits in several places at once. Turn it off when the task is a quick, mechanical one and you just want the answer now.
+
+<ComparisonTable title="Off or default versus higher thinking" caption="When in doubt, leave it on the default. Turn thinking off for quick mechanical tasks, and turn it up only when the work is genuinely demanding.">
+
+| Off or default is plenty | Consider higher thinking |
+| --- | --- |
+| A one-page summary of a teaser | Synthesising a full due diligence pack into a coherent risk picture |
+| Reformatting text into a table | Reconciling figures that disagree across the CIM, the model, and the management deck |
+| A quick lookup or definition | Drafting a nuanced investment memo section that weighs several arguments |
+| Tidying the tone of a paragraph | Tracing a single assumption through a chain of linked documents |
+| Listing the questions to ask management | Stress-testing a thesis by arguing both the bull and bear case |
+
+</ComparisonTable>
+
+The pattern is simple. If a sharp associate could answer in a glance, the default is right, or you can turn thinking off for speed. If they would need to sit down, spread the documents out, and work carefully, higher thinking helps.
+
+## When the default is the right call
+
+For the overwhelming majority of day-to-day work, the default level of thinking is exactly what you want. It is fast, it is capable, and it handles a 60-page CIM, a first-cut memo, or a market scan without breaking a sweat. Turning thinking up on a simple task just makes you wait longer for the same answer, and turning it off on a hard one risks a thinner one.
+
+<Callout type="tip" title="A safe default habit">
+Do not fiddle with the pill at all unless a task feels genuinely heavy or genuinely trivial. Start on the default. Turn thinking off when you want a fast, mechanical answer, and step it up only if the first reply feels thin on a hard, multi-document problem. You will rarely need to touch it.
+</Callout>
+
+## How this fits the rest of your workflow
+
+The thinking level changes how deeply Claude reasons, but it does not change the fundamentals you already know. A well-briefed prompt with the right context still beats a vague prompt at maximum thinking, every time. Get the [context](/context/why-context) and [instructions](/context/writing-instructions) right first, and treat thinking as a final dial you nudge only when the problem deserves it.
+
+And whatever the thinking level, the last step never changes: you [verify everything](/best-practices/verify-everything) against the source before it leaves your desk. More thinking gives you a stronger first draft, not a finished one.
+
+## What to take from this
+
+The model pill holds two settings, the model and how much Claude thinks, and you can largely ignore both. Thinking is a dial you control: off for the fastest answer on simple tasks, the default for real PE work, and up for the genuinely hard cases. The default is tuned for almost everything you do. Keep higher thinking in your back pocket for dense multi-document synthesis, reconciling conflicting figures, and nuanced memo drafting where careful reasoning pays for the extra few seconds.

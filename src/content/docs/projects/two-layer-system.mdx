@@ -1,0 +1,73 @@
+---
+title: Reusable vs Deal Projects
+description: "The two-layer project system: reusable function projects that persist, and one-time deal projects that stay siloed and are archived on close."
+section: Projects
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import DiagramPlaceholder from '../../../components/DiagramPlaceholder.astro';
+
+This is the single most important idea in how you organise work in Claude. Once it clicks, every other decision about where a file goes and where a chat belongs becomes obvious. The principle is simple: you run **two layers** of Projects, and they have very different lifespans and purposes.
+
+## The two layers
+
+<DiagramPlaceholder title="The two-layer project system" kind="layers" note="Top layer: reusable function projects (Screening, Market Research). Bottom layer: one deal project per live opportunity, each siloed." />
+
+### Layer one: reusable function projects
+
+A **reusable function project** is built around a *task you do repeatedly*, not around any single opportunity. It holds your methodology: the way your team approaches that task, the frameworks you apply, and the output templates you expect.
+
+You build one of these once and use it across every opportunity. Typical examples:
+
+- A **Screening** project that holds your screening checklist, your investment committee criteria, and a sample memo structure, so every initial screen comes out in the same shape.
+- A **Market Research** project that holds your standard research framework and the format you like findings delivered in.
+
+These projects contain no confidential deal data. They contain *how you work*. That is precisely why they can persist and be shared: there is nothing opportunity-specific to protect.
+
+### Layer two: one-time deal projects
+
+A **deal project** is built around *one live opportunity*. You create exactly one per opportunity, and it holds that opportunity's data room: the CIM, the financials, the management deck, the diligence materials. It is siloed by design, so its contents never mingle with another opportunity's. When the opportunity closes, completes, or dies, you archive or delete the project.
+
+The mental model: function projects are your **toolkit** (permanent, shared, generic). Deal projects are your **active workbenches** (temporary, siloed, specific). You bring the toolkit's thinking to each workbench, but the sensitive material never leaves the workbench it belongs to.
+
+## How the two layers work together
+
+In practice you use both at once. When a new opportunity (say, Project Atlas) arrives:
+
+1. You stand up a fresh **deal project** for Atlas and load its data room.
+2. You lean on your **Screening** function project to remember *how* to screen: the checklist, the criteria, the memo shape.
+3. You apply that methodology to Atlas's materials inside the Atlas project.
+
+The function project supplies the method. The deal project supplies the (confidential) facts. Keeping them apart is what lets the method be reused freely while the facts stay locked down. Both of these Project layers sit beneath your account-level [Instructions for Claude](/context/instructions-for-claude), which carry your standing preferences into every conversation regardless of which Project you are in.
+
+## Reusable vs deal projects at a glance
+
+<ComparisonTable title="The two layers compared" caption="Function projects persist and are shared. Deal projects are siloed and temporary.">
+
+| | Reusable function project | One-time deal project |
+| --- | --- | --- |
+| **Lifespan** | Permanent: lives across many opportunities | Temporary: created for one opportunity, archived on close |
+| **What it holds** | Methodology, frameworks, checklists, output templates | One opportunity's data room (CIM, financials, diligence) |
+| **Who shares it** | Shared across the team as a standing toolkit | Limited to those working that specific opportunity |
+| **Confidentiality** | Low: contains no opportunity-specific data | High: siloed by design, never mixed with other opportunities |
+
+</ComparisonTable>
+
+<Callout type="confidential" title="One opportunity, one project, no exceptions">
+Every live opportunity gets its own dedicated deal project, and its materials stay inside it. Never load two opportunities' data rooms into the same project, and never drop confidential deal files into a shared function project. The silo is the safeguard: it is what ensures one opportunity's information can never surface in work on another. Before any document goes in, confirm it is permitted under that opportunity's NDA.
+</Callout>
+
+## A common mistake to avoid
+
+The tempting shortcut is to make one giant "Private Equity" project and throw everything into it: your templates, plus three live opportunities, plus old reference material. Do not do this. It collapses both layers into one and destroys the silo. Claude would then be able to pull a figure from one opportunity into a conversation about another, which is exactly the confidentiality breach the two-layer system is designed to prevent.
+
+Keep the layers separate. Methodology persists in function projects. Confidential facts stay isolated in one deal project each.
+
+## Where to go next
+
+With the model clear, the next two pages are the practical build guides. Start with the reusable layer, then the deal layer:
+
+- [Setting Up a Reusable Project](/projects/reusable-setup): build a Screening project you will use on every target.
+- [Setting Up a Deal Project](/projects/deal-setup): stand up a siloed project for one live opportunity.

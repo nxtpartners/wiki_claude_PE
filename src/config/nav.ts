@@ -38,6 +38,7 @@ export const nav: NavSection[] = [
       { title: 'Why Context Is Everything', slug: 'context/why-context' },
       { title: 'Giving Claude Context', slug: 'context/giving-context' },
       { title: 'Writing Effective Instructions', slug: 'context/writing-instructions' },
+      { title: 'Instructions for Claude', slug: 'context/instructions-for-claude' },
       { title: 'Custom Styles & Tone', slug: 'context/custom-styles' },
       { title: 'Common Mistakes', slug: 'context/common-mistakes' },
     ],
@@ -70,6 +71,7 @@ export const nav: NavSection[] = [
   {
     label: 'Power Features',
     items: [
+      { title: 'Thinking & Effort', slug: 'power-features/thinking-effort' },
       { title: 'Connectors', slug: 'power-features/connectors' },
       { title: 'Analysis Tool', slug: 'power-features/analysis-tool' },
       { title: 'Artifacts', slug: 'power-features/artifacts' },
