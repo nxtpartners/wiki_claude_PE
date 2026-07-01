@@ -18,10 +18,10 @@ import ClaudeMessage from '../../../components/claude-ui/ClaudeMessage.astro';
 import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
 import FileChip from '../../../components/claude-ui/FileChip.astro';
 
-Everything in this guide comes together on a real task. This page follows one fictional target, **Project Atlas**, from the moment its CIM lands in your inbox to a drafted section of an investment committee memo. Nothing here is a new feature. It is the everyday loop, give context, ask precisely, refine, verify, applied end to end on a single deal so you can see the whole journey at once.
+A partner wants an initial screen by Friday, and a 62-page CIM has just landed. This page follows one fictional target, **Project Atlas**, from that moment to a drafted section of an investment committee memo. Nothing here is a new feature. It is the everyday loop, give context, ask precisely, refine, verify, applied end to end on a single deal so you can see the whole journey at once.
 
 <Callout type="note" title="A fictional target, on purpose">
-Project Atlas is invented. It is a mid-market field-service software business serving HVAC and plumbing contractors across the UK, sold on per-seat subscriptions: roughly £60m in revenue, growth in the mid-20s percent, gross margin in the low 70s. Every file, figure, and competitor on this page is made up so we can walk the workflow without touching real deal data.
+Project Atlas is invented. It is a mid-market field-service software business serving HVAC and plumbing contractors across the UK, sold on per-seat subscriptions: roughly £60m in revenue, growth in the mid-20s percent, gross margin in the high 70s, with net revenue retention above 110 percent. Every file, figure, and competitor on this page is made up so we can walk the workflow without touching real deal data.
 </Callout>
 
 ## The task in front of you
@@ -71,14 +71,14 @@ The reply is a structured screen, grounded in the documents and honest about the
     </ClaudeMessage>
     <ClaudeMessage role="claude">
       <p><strong>Business.</strong> Subscription software for mid-market field-service contractors: scheduling, dispatch, and invoicing. Revenue is recurring, billed annually (CIM p.6 to p.9).</p>
-      <p><strong>Financials.</strong> Revenue about £60m, growth in the mid-20s percent, gross margin low 70s (CIM p.21; financials, P&amp;L tab).</p>
+      <p><strong>Financials.</strong> Revenue about £60m, growth in the mid-20s percent, gross margin high 70s (CIM p.21; financials, P&amp;L tab).</p>
       <p><strong>Investment angle.</strong> Sticky recurring base in a fragmented market, with room to consolidate smaller tools (CIM p.30 to p.34).</p>
       <p><strong>Biggest risks.</strong> Customer concentration in the top accounts, heavy reliance on the founder-led sales motion, and thin disclosure on churn. The CIM cites retention but never defines it (CIM p.24).</p>
     </ClaudeMessage>
   </div>
 </ClaudeWindow>
 
-That last line is the tell of a good screen. Claude has not just summarised; it has noticed that a headline retention figure is quoted without a definition. That is the kind of gap that turns into a management question.
+That last line is the tell of a good screen. Claude has not just summarised; it has noticed that a headline retention figure is quoted without a definition. That is the kind of gap that turns into a management question. A first screen of a 62-page CIM is exactly the moment to run at high [thinking effort](/power-features/thinking-effort), so the reasoning has room to catch tensions like this one.
 
 ## Step 3: Drill into the risks
 
@@ -102,7 +102,7 @@ If the CIM contradicts the model or the management deck anywhere on these points
   </div>
 </ClaudeWindow>
 
-This is the moment Claude earns its place. It caught a genuine tension, the founder-led narrative in the deck against the "scaled team" claim in the CIM, that is easy to miss reading the documents separately. The [Due Diligence](/playbooks/due-diligence) playbook turns this into a repeatable routine.
+This is the moment Claude earns its place. It caught a genuine tension, the founder-led narrative in the deck against the "scaled team" claim in the CIM, that is easy to miss reading the documents separately. The [Due Diligence](/playbooks/due-diligence) playbook turns this into a repeatable routine, and the [Prompt Library](/resources/prompt-library) keeps pressure-test prompts like the one above ready to reuse on the next deal.
 
 <Callout type="warning" title="A flag is a lead, not a finding">
 Every contradiction Claude surfaces is a prompt to check the source, not a conclusion. Open the cited pages, confirm the wording, and only then carry the point forward. The discipline is set out in [Verify Everything](/best-practices/verify-everything).
@@ -120,7 +120,7 @@ The screen quoted growth and margin. Before any of those figures go near a memo,
     </ClaudeMessage>
     <ClaudeMessage role="claude">
       <p><strong>Revenue growth.</strong> Year 1 to 2: 27%. Year 2 to 3: 24%. The trend is softening.</p>
-      <p><strong>Gross margin.</strong> 71%, 72%, 73% across the three years: gently improving.</p>
+      <p><strong>Gross margin.</strong> 77%, 78%, 79% across the three years: gently improving.</p>
       <p><strong>Reconciliation note.</strong> The segment revenues on the summary tab sum to 0.4m more than the stated total. Small, but worth a question.</p>
     </ClaudeMessage>
   </div>
@@ -166,7 +166,7 @@ Now you have everything a first memo section needs: a sourced screen, concrete r
   <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
     <ClaudeMessage role="claude">
       <p>I've drafted the section as a document. In short:</p>
-      <p><strong>Investment highlights.</strong> Recurring revenue (about £60m) growing in the mid-20s percent, gross margin improving from 71% to 73%, in a fragmented market with consolidation potential.</p>
+      <p><strong>Investment highlights.</strong> Recurring revenue (about £60m) growing in the mid-20s percent, gross margin improving from 77% to 79% with net revenue retention above 110 percent, in a fragmented market with consolidation potential.</p>
       <p><strong>Key risks.</strong> Undisclosed customer concentration, a founder-versus-team tension in the sales motion, and undefined churn, each with the management question that would resolve it.</p>
       <p><strong>Open items.</strong> The 0.4m revenue reconciliation gap, and a retention definition the CIM never gives.</p>
       <p>Tell me what to sharpen and I'll update the document in place.</p>
