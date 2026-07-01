@@ -1,5 +1,11 @@
 # Handover — KPMG × Claude for PE Wiki
 
+## [2026-06-30] US locale conversion
+- **Converted the entire wiki from British English + pounds to US English + US dollars.** Project Atlas was relocated from the UK to the US: it is now a US field-service software company, $60m revenue, operating across the US (previously ~£60m, UK).
+- **Fixed two low-70s gross-margin drifts to high 70s** so all pages align to the locked canonical (gross margin high 70s percent).
+- **Verified: zero £ signs, zero UK/British references, zero em/en dashes, `npm run build` passes (37 pages).**
+- **The two approved pages (`welcome.mdx`, `first-15-minutes.mdx`) received token-only changes** (currency, geography, spelling) — NO prose rewrites. Their approved copy is otherwise untouched.
+
 ## Current state
 - **[2026-06-30] CONTENT-COMPLETE: all 36 content pages authored + ClaudeUI mockup kit built. `npm run build` passes (37 routes: 36 content + landing, Pagefind indexed, zero errors).**
 - Infrastructure (Phase 0 + 1, unchanged): Astro 6 scaffolded manually (astro@6, @astrojs/mdx@6, astro-pagefind@2, pagefind, gsap, Inter Variable + JetBrains Mono — Astro 7 rejected, astro-pagefind@2 only supports astro ≤6). Design system in `src/styles/global.css` (KPMG tokens + warm Claude mockup tokens). Layout shell: `BaseLayout`, `DocLayout`. GSAP motion in `src/scripts/motion.ts`. Content collection in `src/content.config.ts`; dynamic route `src/pages/[...slug].astro`. `src/config/nav.ts` = single source of truth for the 9-section, 36-item nav.
@@ -15,13 +21,13 @@
 - **Fixes:**
   - First 15 Minutes third mockup wrapped in a padding div (the Claude reply was rendering flush-left because role="claude" ClaudeMessage has no bubble/padding). The First 15 top mockup was already swapped to the numbered "message box, up close" style earlier.
   - Sticky sidebar + TOC fixed via `align-self: stretch` on `.doc-sidebar` and `.doc-toc` in `DocLayout.astro` (they were scrolling away on long pages because `.doc-grid` uses `align-items: flex-start`, so side columns were only as tall as their content).
-  - Project Atlas continuity: `interface-tour.mdx` aligned to the locked values (£60m revenue, gross margin high 70s), matching `first-15-minutes.mdx`.
+  - Project Atlas continuity: `interface-tour.mdx` aligned to the locked values ($60m revenue, gross margin high 70s), matching `first-15-minutes.mdx`.
   - Thinking & Effort page rewritten to actually cover thinking and the ability to turn it off (off / default / up dial), grounded in Anthropic help docs.
-- **Hard-rule audit (Task #10) status:** hard rules verified clean across pages (zero em/en dashes, no "deal team", British spelling, no code/API refs). The broader visual + editorial elevate pass across all sections remains partially pending.
+- **Hard-rule audit (Task #10) status:** hard rules verified clean across pages (zero em/en dashes, no "deal team", US English spelling, no code/API refs). The broader visual + editorial elevate pass across all sections remains partially pending.
 - **Note:** `welcome.mdx` and `first-15-minutes.mdx` prose remains locked/untouched; only additive mockup/padding changes were made to first-15.
 
 ## ★ Next session — START HERE
-- **TASK #10 — Critique & elevate pass (PARTIALLY done — hard-rule audit clean, visual + editorial elevate still pending).** Do a senior-editor quality pass across all 36 pages: consistency of voice, strong open/close on each page, cross-linking with REAL slugs only, sensible component usage, Project Atlas continuity (mid-market UK field-service software, ~£60m revenue, mid-20s% growth, gross margin high 70s, HVAC/plumbing, per-seat subs). Hard rules already audited clean (zero em/en dashes, no "deal team", British spelling, no code/API refs, fictional data only); the visual + editorial elevate pass across all sections is what remains. **DO NOT edit `welcome.mdx` or `first-15-minutes.mdx` content — client approved them as-is** (read only, for consistency reference). Finish with `npm run build` (must show 37 routes) + a grep proving zero em/en dashes. Recommended: dispatch ONE general-purpose agent with this brief, but ONLY after the user explicitly approves running it.
+- **TASK #10 — Critique & elevate pass (PARTIALLY done — hard-rule audit clean, visual + editorial elevate still pending).** Do a senior-editor quality pass across all 36 pages: consistency of voice, strong open/close on each page, cross-linking with REAL slugs only, sensible component usage, Project Atlas continuity (mid-market US field-service software, ~$60m revenue, mid-20s% growth, gross margin high 70s, HVAC/plumbing, per-seat subs, across the US). Hard rules already audited clean (zero em/en dashes, no "deal team", US English spelling, no code/API refs, fictional data only); the visual + editorial elevate pass across all sections is what remains. **DO NOT edit `welcome.mdx` or `first-15-minutes.mdx` content — client approved them as-is** (read only, for consistency reference). Finish with `npm run build` (must show 37 routes) + a grep proving zero em/en dashes. Recommended: dispatch ONE general-purpose agent with this brief, but ONLY after the user explicitly approves running it.
 - **Diagrams still placeholders.** `DiagramPlaceholder` stubs are in place (notably the confidentiality decision tree in `best-practices/confidentiality.mdx`, kind="tree"). Real diagrams to come: Claude hand-builds structural SVG/CSS (core loop, two-layer projects, confidentiality tree, context layering); user generates illustrative images via ChatGPT/Gemini/nano-banana from Claude-supplied specs.
 - Open: hosting decision (GitHub Pages vs KPMG internal); KPMG logo drop-in.
 

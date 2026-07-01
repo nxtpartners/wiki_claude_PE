@@ -13,7 +13,7 @@ import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
 import FileChip from '../../../components/claude-ui/FileChip.astro';
 import Hotspot from '../../../components/claude-ui/Hotspot.astro';
 
-When a live model sits in a shared drive and updates by the hour, the last thing you want is to analyse a stale copy you downloaded yesterday. Most of the time you bring a document to Claude by uploading it from your computer. Connectors offer a second route: they let Claude reach into an approved source, such as a shared drive, and pull a file in directly. It saves the download-then-upload shuffle and keeps you working from the current version.
+When a live model sits in a shared drive and updates by the hour, the last thing you want is to analyze a stale copy you downloaded yesterday. Most of the time you bring a document to Claude by uploading it from your computer. Connectors offer a second route: they let Claude reach into an approved source, such as a shared drive, and pull a file in directly. It saves the download-then-upload shuffle and keeps you working from the current version.
 
 ## Where connectors appear
 
@@ -22,7 +22,7 @@ Connectors live behind the same plus button you use to attach a file. Open the a
 <ClaudeWindow caption="The attach menu lists every source you can pull a file from, not just your computer.">
   <div style={{ padding: '20px 12px 36px' }}>
     <ClaudeComposer
-      value="Pull the latest Project Beacon financial model and summarise the revenue build."
+      value="Pull the latest Project Beacon financial model and summarize the revenue build."
       menu={true}
       model="Claude Opus"
       effort="High"
@@ -36,7 +36,7 @@ Connectors live behind the same plus button you use to attach a file. Open the a
 2. **A connector**, here a shared drive, lets you search that source and add a file without leaving Claude.
 
 <Callout type="note" title="Your administrator decides what is available">
-Which connectors appear is controlled by your KPMG workspace, not by you. If you do not see a source you expected, it has not been enabled for the organisation, and that is by design.
+Which connectors appear is controlled by your KPMG workspace, not by you. If you do not see a source you expected, it has not been enabled for the organization, and that is by design.
 </Callout>
 
 ## What a connector is good for
@@ -44,7 +44,7 @@ Which connectors appear is controlled by your KPMG workspace, not by you. If you
 A connector earns its place when a file already lives in an approved source and you would otherwise download it just to upload it again.
 
 - **Pulling from a shared drive.** Reach the current version of a model or deck without saving a local copy.
-- **Working from the live document.** You always get the latest file, so there is no risk of analysing a stale download.
+- **Working from the live document.** You always get the latest file, so there is no risk of analyzing a stale download.
 - **Fewer files on your laptop.** Sensitive material stays in its managed home rather than scattering across your downloads folder.
 
 ## Using a connector, step by step
@@ -69,7 +69,7 @@ Once attached, a connected file behaves like any other. The chip sits above your
 <ClaudeWindow caption="A file pulled from a connector attaches just like an upload, ready to question.">
   <div style={{ padding: '20px 12px 36px' }}>
     <ClaudeComposer
-      value="Summarise the revenue build and flag any assumption that looks aggressive."
+      value="Summarize the revenue build and flag any assumption that looks aggressive."
       model="Claude Opus"
       effort="High"
     >
@@ -90,4 +90,4 @@ One extra habit is worth keeping. Because a connector can reach a whole drive, p
 
 ## What to take from this
 
-Connectors save you a download-then-upload step by letting Claude pull a file straight from an approved source like a shared drive. They are a convenience layered on top of the normal attach flow, and the file behaves identically once attached. Treat a connected file exactly as you would an upload: brief Claude well, and apply the same confidentiality judgement before the document ever reaches the message box. To see a connected file feed straight into real deal work, follow the [Project Atlas walkthrough](/worked-example/project-atlas).
+Connectors save you a download-then-upload step by letting Claude pull a file straight from an approved source like a shared drive. They are a convenience layered on top of the normal attach flow, and the file behaves identically once attached. Treat a connected file exactly as you would an upload: brief Claude well, and apply the same confidentiality judgment before the document ever reaches the message box. To see a connected file feed straight into real deal work, follow the [Project Atlas walkthrough](/worked-example/project-atlas).

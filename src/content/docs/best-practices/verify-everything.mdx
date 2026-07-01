@@ -11,7 +11,7 @@ import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
 
-Claude writes with confidence whether or not it is right. That is the single most important thing to internalise about working with it. The output reads like a competent colleague produced it, the figures are formatted neatly, the tone is assured, and none of that tells you whether the numbers are correct. Verification is not a sign that you distrust the tool. It is the professional discipline that lets you use the tool at all.
+Claude writes with confidence whether or not it is right. That is the single most important thing to internalize about working with it. The output reads like a competent colleague produced it, the figures are formatted neatly, the tone is assured, and none of that tells you whether the numbers are correct. Verification is not a sign that you distrust the tool. It is the professional discipline that lets you use the tool at all.
 
 If you take one habit from this whole guide, take this one: **never let an unverified figure, quote, or claim reach a deliverable.** Everything else is detail.
 
@@ -25,7 +25,7 @@ The problem is rarely that Claude is wrong often. It is that when Claude is wron
 
 ## Build the check into the prompt
 
-The first line of defence costs you nothing: ask Claude to mark its own weak spots. The **scrutiny** instruction from [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt) is not optional polish, it is the part that surfaces what you would otherwise have to hunt for yourself. A model that has been told to flag gaps will point you straight at the sentences worth checking.
+The first line of defense costs you nothing: ask Claude to mark its own weak spots. The **scrutiny** instruction from [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt) is not optional polish, it is the part that surfaces what you would otherwise have to hunt for yourself. A model that has been told to flag gaps will point you straight at the sentences worth checking.
 
 <PromptCard title="Make Claude show its working">
 For every figure, claim, or conclusion in your answer, tell me where in the source it comes from (the section, page, or table). If something is your inference rather than stated in the document, label it clearly as an inference. If the document does not contain the information, say so plainly rather than estimating.
@@ -45,26 +45,26 @@ Verification is faster when it is a routine rather than a vague intention to be 
     For any direct quote or specific factual claim, confirm the source actually says it. Watch for claims that are true in spirit but overstated in wording, and for conclusions presented as fact that are really Claude's reading.
   </Step>
   <Step title="Separate what was stated from what was inferred">
-    Decide which parts came from the document and which Claude reasoned into existence. Inferences can be valuable, but they are yours to accept or reject, not facts to repeat. Mark them as judgement, not source.
+    Decide which parts came from the document and which Claude reasoned into existence. Inferences can be valuable, but they are yours to accept or reject, not facts to repeat. Mark them as judgment, not source.
   </Step>
   <Step title="Look for what is missing">
     A fluent summary can quietly omit an inconvenient risk or a caveat in a footnote. Skim the source for material points the answer left out, especially anything that would change the conclusion.
   </Step>
-  <Step title="Apply your own judgement last">
-    Finally, read the output as the professional you are. Does the conclusion make commercial sense? Does it match what you already know about the sector and the target? Claude supplies the draft; the judgement stays with you.
+  <Step title="Apply your own judgment last">
+    Finally, read the output as the professional you are. Does the conclusion make commercial sense? Does it match what you already know about the sector and the target? Claude supplies the draft; the judgment stays with you.
   </Step>
 </Steps>
 
 ## How much to verify
 
-Not every task carries the same weight, and pretending otherwise just makes verification feel like a tax you start skipping. Match the rigour to the stakes.
+Not every task carries the same weight, and pretending otherwise just makes verification feel like a tax you start skipping. Match the rigor to the stakes.
 
 <ComparisonTable title="Match the check to the risk" caption="The higher the consequence of an error, the more of the source you check by hand.">
 
 | Task | Risk if wrong | How to verify |
 | --- | --- | --- |
 | Reformatting text you wrote | Low | A quick read for sense |
-| Summarising a teaser for an initial screen | Medium | Spot-check headline figures and the stated thesis |
+| Summarizing a teaser for an initial screen | Medium | Spot-check headline figures and the stated thesis |
 | Extracting financials for a model | High | Check every figure against the source, line by line |
 | A claim going into an IC paper or client deliverable | Very high | Full trace: every number, quote, and conclusion to source |
 
@@ -74,7 +74,7 @@ The pattern is simple. Drafting and reshaping are low-risk because you can see t
 
 ## A worked example
 
-Suppose you ask Claude to pull the headline financials from the Project Atlas information pack, the mid-market B2B field-service software business growing in the mid-20s percent. It returns revenue of around £60m, EBITDA margin in the low twenties, and net retention "above 110 percent". The first two you can find on the summary page in seconds. The retention figure is the one to chase: it is precise, it is attractive, and it may have come from a single management slide, a blended cohort, or Claude's own rounding. You do not assume it is wrong. You find exactly where it came from before it informs a single line of your thesis.
+Suppose you ask Claude to pull the headline financials from the Project Atlas information pack, the mid-market B2B field-service software business growing in the mid-20s percent. It returns revenue of around $60m, EBITDA margin in the low twenties, and net retention "above 110 percent". The first two you can find on the summary page in seconds. The retention figure is the one to chase: it is precise, it is attractive, and it may have come from a single management slide, a blended cohort, or Claude's own rounding. You do not assume it is wrong. You find exactly where it came from before it informs a single line of your thesis.
 
 <Callout type="confidential" title="Verify inside the right workspace">
 Verification often means re-opening the source document, so make sure both the original and your checking happen inside KPMG's Enterprise or Team workspace, within what the NDA permits. The discipline of checking does not change the rules on where confidential material may sit. If you are unsure whether a document belongs in Claude at all, work through the [Confidentiality Decision Tree](/best-practices/confidentiality) first.
@@ -82,4 +82,4 @@ Verification often means re-opening the source document, so make sure both the o
 
 ## What to take from this
 
-Claude makes you faster by giving you a strong first draft and doing the heavy lifting of synthesis. It does not, and should not, make the final judgement. Keep the scrutiny instruction on every analytical prompt, ask Claude to point at its own sources, and run the five-pass check before anything matters. Used that way, the speed is real and the risk stays controlled. For the wider set of habits that go with this, see [What Not to Do](/best-practices/what-not-to-do) and the one-page [Cheat Sheet](/best-practices/cheat-sheet).
+Claude makes you faster by giving you a strong first draft and doing the heavy lifting of synthesis. It does not, and should not, make the final judgment. Keep the scrutiny instruction on every analytical prompt, ask Claude to point at its own sources, and run the five-pass check before anything matters. Used that way, the speed is real and the risk stays controlled. For the wider set of habits that go with this, see [What Not to Do](/best-practices/what-not-to-do) and the one-page [Cheat Sheet](/best-practices/cheat-sheet).

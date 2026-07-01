@@ -27,9 +27,9 @@ Tell Claude who it is helping and from what perspective. This sets the tone, the
 
 ### Task
 
-State plainly what you want done. Be specific about the *thing*: summarise, compare, draft, sense-check, list. Vague verbs produce vague output. "Have a look at this" is not a task; "summarise this teaser for an initial screen" is.
+State plainly what you want done. Be specific about the *thing*: summarize, compare, draft, sense-check, list. Vague verbs produce vague output. "Have a look at this" is not a task; "summarize this teaser for an initial screen" is.
 
-> *"Summarise the attached teaser so I can decide whether it is worth a first call."*
+> *"Summarize the attached teaser so I can decide whether it is worth a first call."*
 
 ### Format
 
@@ -55,7 +55,7 @@ The difference is rarely effort; it is structure. The same question, asked two w
 
 | Weak prompt | Strong prompt |
 | --- | --- |
-| "Summarise this." | "You are assisting a KPMG private equity associate. Summarise the attached teaser for an initial screen, using four headings (business, financials, thesis, risks) with bullets under each. Flag anything the teaser is vague about." |
+| "Summarize this." | "You are assisting a KPMG private equity associate. Summarize the attached teaser for an initial screen, using four headings (business, financials, thesis, risks) with bullets under each. Flag anything the teaser is vague about." |
 | Gives an unstructured wall of text you have to reshape | Gives a one-page screen you can use as-is, with gaps already marked |
 | No role, no format, no scrutiny | Role, task, format, and scrutiny all present |
 
@@ -70,7 +70,7 @@ Here is the four-part shape put together as one prompt you can paste and adapt. 
 <PromptCard title="One-page screen of an attached teaser">
 You are assisting a KPMG private equity associate. I've attached a teaser for a potential acquisition (Project Atlas, a mid-market field-service software business).
 
-Summarise it for an initial screen using these headings:
+Summarize it for an initial screen using these headings:
 1. Business overview: what they do and how they make money
 2. Financial highlights: revenue, EBITDA, growth, margins
 3. Investment thesis: why this could be attractive
@@ -84,7 +84,7 @@ This is what that prompt looks like in the message box, ready to send with the t
 <ClaudeWindow caption="The assembled prompt in the composer, with the teaser attached.">
   <div style={{ padding: '20px 12px 28px' }}>
     <ClaudeComposer
-      value="You are assisting a KPMG private equity associate. Summarise the attached Project Atlas teaser for an initial screen, using four headings with bullets. Flag anything vague or unusual."
+      value="You are assisting a KPMG private equity associate. Summarize the attached Project Atlas teaser for an initial screen, using four headings with bullets. Flag anything vague or unusual."
       model="Claude Opus"
       effort="High"
     />
@@ -100,7 +100,7 @@ When you face a new task, do not reach for a template you half-remember. Build t
     Begin with who Claude is helping and the lens to use. One line is enough: "You are assisting a KPMG private equity associate."
   </Step>
   <Step title="State the task">
-    Say exactly what you want done, with a specific verb: summarise, compare, draft, sense-check. If you would struggle to grade the result, the task is still too vague.
+    Say exactly what you want done, with a specific verb: summarize, compare, draft, sense-check. If you would struggle to grade the result, the task is still too vague.
   </Step>
   <Step title="Specify the format">
     Describe the shape of the answer: headings, bullets, a table, a word or page limit. This is what lets you use the output without rebuilding it.

@@ -44,7 +44,7 @@ When you sign in you land on a new chat. A slim menu sits on the left, and the m
 - **Artifacts** collects the standalone documents Claude builds for you, such as a memo or a model output.
 
 <Callout type="note" title="You are in a KPMG workspace">
-On Claude Enterprise and Team the top of the menu shows your organisation, here labelled KPMG. That workspace is what keeps your prompts and uploads out of model training, and it is why these plans are appropriate for confidential work.
+On Claude Enterprise and Team the top of the menu shows your organization, here labeled KPMG. That workspace is what keeps your prompts and uploads out of model training, and it is why these plans are appropriate for confidential work.
 </Callout>
 
 ## The message box, up close
@@ -54,7 +54,7 @@ Almost everything happens in the message box. You type a request, attach files, 
 <ClaudeWindow caption="The message box. Attach is the plus on the left; send is the arrow on the right.">
   <div style={{ padding: '20px 12px 36px' }}>
     <ClaudeComposer
-      value="Summarise the attached CIM for an initial screen."
+      value="Summarize the attached CIM for an initial screen."
       menu={true}
       model="Claude Opus"
       effort="High"
@@ -83,11 +83,11 @@ Once you send, the chat fills in. Your messages sit on the right; Claude's repli
   <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
     <ClaudeMessage role="user">
       <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" meta="62 pages" />
-      <p>Summarise this CIM for an initial screen: business, financials, and the three biggest risks.</p>
+      <p>Summarize this CIM for an initial screen: business, financials, and the three biggest risks.</p>
     </ClaudeMessage>
     <ClaudeMessage role="claude">
       <p><strong>Business.</strong> B2B field-service software for mid-market contractors, sold on recurring subscriptions.</p>
-      <p><strong>Financials.</strong> Roughly £60m revenue, mid-20s percent growth, gross margin in the high 70s.</p>
+      <p><strong>Financials.</strong> Roughly $60m revenue, mid-20s percent growth, gross margin in the high 70s.</p>
       <p><strong>Three risks.</strong> Customer concentration, founder dependence, and thin disclosure on churn.</p>
     </ClaudeMessage>
   </div>

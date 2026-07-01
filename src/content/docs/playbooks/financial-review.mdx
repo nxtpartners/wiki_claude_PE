@@ -13,11 +13,11 @@ import ComparisonTable from '../../../components/ComparisonTable.astro';
 import CardGrid from '../../../components/CardGrid.astro';
 import Card from '../../../components/Card.astro';
 
-The numbers are where conviction is won or lost. Reviewing a set of accounts or a management model is partly arithmetic and partly judgement: spotting the trend that does not add up, the assumption that is doing too much work, the margin that improves a little too conveniently in the forecast years. Claude is a sharp second pair of eyes here. It can read financial statements, summarise the drivers, and interrogate the logic of a model. What it does not do is recompute your model for you, so the division of labour matters.
+The numbers are where conviction is won or lost. Reviewing a set of accounts or a management model is partly arithmetic and partly judgment: spotting the trend that does not add up, the assumption that is doing too much work, the margin that improves a little too conveniently in the forecast years. Claude is a sharp second pair of eyes here. It can read financial statements, summarize the drivers, and interrogate the logic of a model. What it does not do is recompute your model for you, so the division of labor matters.
 
 ## When to use this
 
-Use this when you have financial statements or a management model in front of you and need to understand what is really driving the numbers, where the soft spots are, and what to challenge. Claude is most valuable on the interpretation: explaining a movement, sense-checking whether a forecast is internally consistent, and listing the assumptions a buyer should test. Keep the actual modelling in your spreadsheet, where you can see and audit every cell.
+Use this when you have financial statements or a management model in front of you and need to understand what is really driving the numbers, where the soft spots are, and what to challenge. Claude is most valuable on the interpretation: explaining a movement, sense-checking whether a forecast is internally consistent, and listing the assumptions a buyer should test. Keep the actual modeling in your spreadsheet, where you can see and audit every cell.
 
 ## The workflow
 
@@ -26,7 +26,7 @@ Use this when you have financial statements or a management model in front of yo
     Give Claude the historical accounts and ask it to explain the trajectory: what is driving revenue, what is happening to margin, and how cash conversion is behaving. You are after the narrative, not a restatement of the figures.
   </Step>
   <Step title="Probe earnings quality">
-    Ask Claude to flag anything that flatters the earnings: one-off items, aggressive adjustments to arrive at an adjusted EBITDA, capitalised costs, or working-capital movements that release cash unsustainably. This is the work that protects your entry multiple.
+    Ask Claude to flag anything that flatters the earnings: one-off items, aggressive adjustments to arrive at an adjusted EBITDA, capitalized costs, or working-capital movements that release cash unsustainably. This is the work that protects your entry multiple.
   </Step>
   <Step title="Interrogate the forecast assumptions">
     For a management model, paste or upload the assumption set and ask Claude to test it for internal consistency and realism. Does the margin expansion have a stated cause, does the growth need headcount the plan does not fund, does the model assume away churn.
@@ -44,13 +44,13 @@ Use this when you have financial statements or a management model in front of yo
 This prompt turns a set of statements into a clear read on financial health and earnings quality, with the soft spots flagged.
 
 <PromptCard title="Read the historical accounts for quality of earnings">
-You are assisting a KPMG private equity associate reviewing Project Atlas, a mid-market B2B field-service software target (around £60m revenue, mid-20s percent growth, low-70s percent gross margin). I have attached three years of financial statements.
+You are assisting a KPMG private equity associate reviewing Project Atlas, a mid-market B2B field-service software target (around $60m revenue, mid-20s percent growth, high 70s percent gross margin). I have attached three years of financial statements.
 
 Task: explain what the numbers are really telling me, with a focus on earnings quality.
 
 Constraints: use only the attached statements. Cite the figure and the year for every point. Where a number I would expect is not present, say so rather than inferring it.
 
-Format: cover revenue trajectory and its drivers, gross and EBITDA margin trend, cash conversion, and earnings quality. Under earnings quality, specifically flag: one-off or non-recurring items, any adjustments made to reach adjusted EBITDA, capitalised costs, and working-capital movements that affect cash.
+Format: cover revenue trajectory and its drivers, gross and EBITDA margin trend, cash conversion, and earnings quality. Under earnings quality, specifically flag: one-off or non-recurring items, any adjustments made to reach adjusted EBITDA, capitalized costs, and working-capital movements that affect cash.
 
 End with a ranked list of the financial points a buyer should be most concerned about, each tied to the figure that raised it.
 </PromptCard>
@@ -81,14 +81,14 @@ Claude can read statements and interrogate assumptions well, but it is not a cal
 | --- | --- |
 | Explain what is driving a revenue or margin trend | Build and audit the actual calculations |
 | Flag one-offs, adjustments, and earnings-quality issues | Confirm every figure cell by cell |
-| Test forecast assumptions for consistency and realism | Run the precise sensitivity and scenario maths |
+| Test forecast assumptions for consistency and realism | Run the precise sensitivity and scenario math |
 | Point at the assumptions the return is most exposed to | Produce the numbers that reach the IC |
 
 </ComparisonTable>
 
 ## Where to go next
 
-Done well, this gives you a clear read on earnings quality and a short list of the assumptions that carry the return, so your own modelling time goes where it counts. The findings feed directly into the financials section of the [Investment Memo Drafting](/playbooks/investment-memo) playbook. If you want these two prompts ready to reuse on the next set of accounts, keep them in the [Prompt Library](/resources/prompt-library).
+Done well, this gives you a clear read on earnings quality and a short list of the assumptions that carry the return, so your own modeling time goes where it counts. The findings feed directly into the financials section of the [Investment Memo Drafting](/playbooks/investment-memo) playbook. If you want these two prompts ready to reuse on the next set of accounts, keep them in the [Prompt Library](/resources/prompt-library).
 
 <CardGrid columns={2}>
   <Card title="Investment Memo Drafting" href="/playbooks/investment-memo" eyebrow="PE Playbooks" />

@@ -10,7 +10,7 @@ import ComparisonTable from '../../../components/ComparisonTable.astro';
 import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
 import ClaudeSettings from '../../../components/claude-ui/ClaudeSettings.astro';
 
-Some preferences never change. You always work in British English, you always want assumptions flagged, you always prefer a figure left untouched rather than tidied up. Retyping those preferences at the start of every chat is wasted effort, and the day you forget is the day the output drifts. Claude solves this with a standing field in your account settings, "Instructions for Claude", where you record how you work once and let it apply to every conversation automatically.
+Some preferences never change. You always work in US English, you always want assumptions flagged, you always prefer a figure left untouched rather than tidied up. Retyping those preferences at the start of every chat is wasted effort, and the day you forget is the day the output drifts. Claude solves this with a standing field in your account settings, "Instructions for Claude", where you record how you work once and let it apply to every conversation automatically.
 
 ## What it is
 
@@ -19,7 +19,7 @@ Some preferences never change. You always work in British English, you always wa
 A few examples that suit a KPMG Private Equity professional:
 
 - "I work in Private Equity at KPMG."
-- "Use British spelling and conventions throughout."
+- "Use US spelling and conventions throughout."
 - "Be concise. Flag any assumptions or gaps rather than filling them silently."
 - "When I share figures, do not round them unless I ask."
 
@@ -33,7 +33,7 @@ Standing instructions exist at three levels, and understanding how they stack is
 
 | Layer | Where you set it | What it should hold | Reaches |
 | --- | --- | --- | --- |
-| Account: Instructions for Claude | claude.ai settings | How you work: role, spelling, rigour, default tone | Every chat you ever start |
+| Account: Instructions for Claude | claude.ai settings | How you work: role, spelling, rigor, default tone | Every chat you ever start |
 | Project | A Project's instructions | How you approach one workstream: a method, a checklist, an output shape | Every chat inside that one Project |
 | Chat | A single conversation | What this one task needs right now | This conversation only |
 
@@ -41,7 +41,7 @@ Standing instructions exist at three levels, and understanding how they stack is
 
 Read the table top to bottom and the logic falls out. The account layer is the widest and the most permanent: it describes you, so it belongs everywhere. A Project layer is narrower: it describes how you tackle a particular kind of work, such as screening or market research, so it belongs only inside that Project. The chat layer is narrowest of all: it describes one task in front of you, so it belongs only in that conversation.
 
-When you are deciding where an instruction goes, ask how widely it should apply. A preference that is true of everything you do (your spelling, your role) belongs at the account level. A method that is true of one workstream belongs in that Project. A request that is true only of the task you are doing right now belongs in the chat. The [two-layer Project system](/projects/two-layer-system) shows how the middle tier is organised in practice.
+When you are deciding where an instruction goes, ask how widely it should apply. A preference that is true of everything you do (your spelling, your role) belongs at the account level. A method that is true of one workstream belongs in that Project. A request that is true only of the task you are doing right now belongs in the chat. The [two-layer Project system](/projects/two-layer-system) shows how the middle tier is organized in practice.
 
 ## How to set it
 
@@ -54,14 +54,14 @@ Open claude.ai, go to Settings, and find the "Instructions for Claude" section. 
 <ClaudeWindow caption="Where it lives: the Instructions for Claude field in your claude.ai settings. Write it once; it applies to every chat.">
   <ClaudeSettings>
     <p>I work in Private Equity at KPMG.</p>
-    <p>Use British spelling and conventions throughout.</p>
+    <p>Use US spelling and conventions throughout.</p>
     <p>Be concise and partner-ready: no filler, no throat-clearing introductions.</p>
     <p>Flag any assumptions or gaps explicitly rather than filling them silently.</p>
     <p>When I share figures, do not round them unless I ask.</p>
   </ClaudeSettings>
 </ClaudeWindow>
 
-Notice what this block does and does not contain. It states your role, your spelling, your tone, and your standing rules on rigour. It names no company, no target, no figure, and no live piece of work. That restraint is deliberate, and the next section explains why it matters so much.
+Notice what this block does and does not contain. It states your role, your spelling, your tone, and your standing rules on rigor. It names no company, no target, no figure, and no live piece of work. That restraint is deliberate, and the next section explains why it matters so much.
 
 ## A caution on confidentiality
 
@@ -81,7 +81,7 @@ A useful test for any line you are about to save: would it still be true, and st
 
 | Good standing instruction | Less good for the account level |
 | --- | --- |
-| "Use British spelling throughout." | "We are screening a logistics target this week." |
+| "Use US spelling throughout." | "We are screening a logistics target this week." |
 | "I work in Private Equity at KPMG." | "The target's EBITDA is around 12 million." |
 | "Be concise and flag assumptions and gaps." | "Use the figures from the data room I shared." |
 | "Do not round figures unless I ask." | "Focus on the management team's track record." |

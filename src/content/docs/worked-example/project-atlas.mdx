@@ -21,7 +21,7 @@ import FileChip from '../../../components/claude-ui/FileChip.astro';
 A partner wants an initial screen by Friday, and a 62-page CIM has just landed. This page follows one fictional target, **Project Atlas**, from that moment to a drafted section of an investment committee memo. Nothing here is a new feature. It is the everyday loop, give context, ask precisely, refine, verify, applied end to end on a single deal so you can see the whole journey at once.
 
 <Callout type="note" title="A fictional target, on purpose">
-Project Atlas is invented. It is a mid-market field-service software business serving HVAC and plumbing contractors across the UK, sold on per-seat subscriptions: roughly £60m in revenue, growth in the mid-20s percent, gross margin in the high 70s, with net revenue retention above 110 percent. Every file, figure, and competitor on this page is made up so we can walk the workflow without touching real deal data.
+Project Atlas is invented. It is a mid-market field-service software business serving HVAC and plumbing contractors across the US, sold on per-seat subscriptions: roughly $60m in revenue, growth in the mid-20s percent, gross margin in the high 70s, with net revenue retention above 110 percent. Every file, figure, and competitor on this page is made up so we can walk the workflow without touching real deal data.
 </Callout>
 
 ## The task in front of you
@@ -42,7 +42,7 @@ Resist the urge to drop the CIM into a fresh chat. A one-off question gets a one
   </ClaudeProject>
 </ClaudeWindow>
 
-Two things make this setup work. The **instructions** set Claude's standing behaviour for every chat in the Project: cite sources, separate fact from inference, flag gaps. The **knowledge base** holds the deal's documents in one place, so any question you ask is answered against all of them at once. The full method is in [Deal Setup](/projects/deal-setup); the thinking behind it is in [The Two-Layer System](/projects/two-layer-system).
+Two things make this setup work. The **instructions** set Claude's standing behavior for every chat in the Project: cite sources, separate fact from inference, flag gaps. The **knowledge base** holds the deal's documents in one place, so any question you ask is answered against all of them at once. The full method is in [Deal Setup](/projects/deal-setup); the thinking behind it is in [The Two-Layer System](/projects/two-layer-system).
 
 <Callout type="confidential" title="One deal, one Project, walled off">
 Keeping Atlas in its own Project is not just tidy, it is a confidentiality control. Atlas's materials never mingle with another target's, and on KPMG's Enterprise or Team plan none of it trains the model. Before loading NDA-bound files, the check in the [Confidentiality Decision Tree](/best-practices/confidentiality) still applies.
@@ -71,14 +71,14 @@ The reply is a structured screen, grounded in the documents and honest about the
     </ClaudeMessage>
     <ClaudeMessage role="claude">
       <p><strong>Business.</strong> Subscription software for mid-market field-service contractors: scheduling, dispatch, and invoicing. Revenue is recurring, billed annually (CIM p.6 to p.9).</p>
-      <p><strong>Financials.</strong> Revenue about £60m, growth in the mid-20s percent, gross margin high 70s (CIM p.21; financials, P&amp;L tab).</p>
+      <p><strong>Financials.</strong> Revenue about $60m, growth in the mid-20s percent, gross margin high 70s (CIM p.21; financials, P&amp;L tab).</p>
       <p><strong>Investment angle.</strong> Sticky recurring base in a fragmented market, with room to consolidate smaller tools (CIM p.30 to p.34).</p>
       <p><strong>Biggest risks.</strong> Customer concentration in the top accounts, heavy reliance on the founder-led sales motion, and thin disclosure on churn. The CIM cites retention but never defines it (CIM p.24).</p>
     </ClaudeMessage>
   </div>
 </ClaudeWindow>
 
-That last line is the tell of a good screen. Claude has not just summarised; it has noticed that a headline retention figure is quoted without a definition. That is the kind of gap that turns into a management question. A first screen of a 62-page CIM is exactly the moment to run at high [thinking effort](/power-features/thinking-effort), so the reasoning has room to catch tensions like this one.
+That last line is the tell of a good screen. Claude has not just summarized; it has noticed that a headline retention figure is quoted without a definition. That is the kind of gap that turns into a management question. A first screen of a 62-page CIM is exactly the moment to run at high [thinking effort](/power-features/thinking-effort), so the reasoning has room to catch tensions like this one.
 
 ## Step 3: Drill into the risks
 
@@ -162,11 +162,11 @@ Now you have everything a first memo section needs: a sourced screen, concrete r
   </div>
 </ClaudeWindow>
 
-<ClaudeWindow caption="A first draft of the memo section: structured, sourced, and ready for your judgement.">
+<ClaudeWindow caption="A first draft of the memo section: structured, sourced, and ready for your judgment.">
   <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
     <ClaudeMessage role="claude">
       <p>I've drafted the section as a document. In short:</p>
-      <p><strong>Investment highlights.</strong> Recurring revenue (about £60m) growing in the mid-20s percent, gross margin improving from 77% to 79% with net revenue retention above 110 percent, in a fragmented market with consolidation potential.</p>
+      <p><strong>Investment highlights.</strong> Recurring revenue (about $60m) growing in the mid-20s percent, gross margin improving from 77% to 79% with net revenue retention above 110 percent, in a fragmented market with consolidation potential.</p>
       <p><strong>Key risks.</strong> Undisclosed customer concentration, a founder-versus-team tension in the sales motion, and undefined churn, each with the management question that would resolve it.</p>
       <p><strong>Open items.</strong> The 0.4m revenue reconciliation gap, and a retention definition the CIM never gives.</p>
       <p>Tell me what to sharpen and I'll update the document in place.</p>
@@ -174,7 +174,7 @@ Now you have everything a first memo section needs: a sourced screen, concrete r
   </div>
 </ClaudeWindow>
 
-From here it is a conversation: "tighten the highlights for a partner," "add a row on the management team," "lead with the risks instead." The document updates each turn, and you stay in control of the judgement. The [Investment Memo](/playbooks/investment-memo) playbook covers the full memo, section by section.
+From here it is a conversation: "tighten the highlights for a partner," "add a row on the management team," "lead with the risks instead." The document updates each turn, and you stay in control of the judgment. The [Investment Memo](/playbooks/investment-memo) playbook covers the full memo, section by section.
 
 ## Step 7: Verify before it leaves your desk
 
@@ -182,7 +182,7 @@ You have a strong first draft in a fraction of the usual time. The final step is
 
 <Steps>
   <Step title="Trace every figure to source">
-    Open each cited page and tab. Confirm the £60m, the growth rates, and the margins match the documents, not just the draft.
+    Open each cited page and tab. Confirm the $60m, the growth rates, and the margins match the documents, not just the draft.
   </Step>
   <Step title="Confirm the flags are real">
     Re-read the founder-versus-team passages and the churn wording yourself. A surfaced tension is a lead until you have seen it on the page.
@@ -190,7 +190,7 @@ You have a strong first draft in a fraction of the usual time. The final step is
   <Step title="Separate fact from inference">
     Make sure the memo says what the materials state, marks what they imply, and names what they leave open. The reconciliation gap and the missing retention definition belong in the open items.
   </Step>
-  <Step title="Apply your judgement">
+  <Step title="Apply your judgment">
     Claude assembled the evidence. Whether Atlas is worth a closer look, and what to recommend, is yours to decide and yours to own.
   </Step>
 </Steps>
@@ -201,7 +201,7 @@ Claude gave you a faster path to a high-quality first draft. It did not give you
 
 ## The whole loop, on one deal
 
-Step back and the pattern is the same one from your very first session, just applied with rigour across a real screen: a Project for context, precise questions, calculation for the numbers, a market scan for the outside-in view, a drafted section, and verification at the end.
+Step back and the pattern is the same one from your very first session, just applied with rigor across a real screen: a Project for context, precise questions, calculation for the numbers, a market scan for the outside-in view, a drafted section, and verification at the end.
 
 <CardGrid columns={2}>
   <Card title="Deal Setup" href="/projects/deal-setup" eyebrow="Projects">Build the siloed deal Project the way Atlas was set up here.</Card>
@@ -210,4 +210,4 @@ Step back and the pattern is the same one from your very first session, just app
   <Card title="Investment Memo" href="/playbooks/investment-memo" eyebrow="Playbook">Take the drafted section through to a full IC memo.</Card>
 </CardGrid>
 
-That is Project Atlas, end to end. The features did not change between steps; the discipline carried them. Give Claude the right context, ask it precisely, let it do the synthesis and the maths, and keep the judgement, and the final check, firmly your own.
+That is Project Atlas, end to end. The features did not change between steps; the discipline carried them. Give Claude the right context, ask it precisely, let it do the synthesis and the math, and keep the judgment, and the final check, firmly your own.
