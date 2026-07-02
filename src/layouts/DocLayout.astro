@@ -71,16 +71,11 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
     position: relative;
   }
   .doc-grid {
-    display: flex;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--toc-w);
     gap: var(--space-12);
   }
-  .doc-sidebar {
-    flex: 0 0 var(--sidebar-w);
-    align-self: stretch;
-  }
   .doc-main {
-    flex: 1 1 auto;
     min-width: 0;
     padding-top: var(--space-12);
     padding-bottom: var(--space-16);
@@ -89,9 +84,7 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
     max-width: var(--measure);
   }
   .doc-toc {
-    flex: 0 0 var(--toc-w);
     padding-top: var(--space-4);
-    align-self: stretch;
   }
 
   .doc-header {
@@ -164,8 +157,18 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
     color: var(--ink);
   }
 
+  @media (max-width: 1240px) {
+    .doc-grid {
+      grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+    }
+    .doc-toc {
+      display: none;
+    }
+  }
+
   @media (max-width: 1080px) {
     .doc-grid {
+      grid-template-columns: minmax(0, 1fr);
       gap: var(--space-8);
     }
     .mobile-nav-toggle {
@@ -173,7 +176,6 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
     }
     .doc-sidebar {
       display: none;
-      flex-basis: auto;
       width: 100%;
     }
     .doc-sidebar.open {
@@ -181,8 +183,8 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
       padding-inline: var(--space-4);
     }
     .doc-sidebar.open :global(.sidebar) {
+      display: block;
       width: 100%;
-      flex-basis: auto;
     }
     .doc-sidebar.open :global(.sidebar-scroll) {
       position: static;

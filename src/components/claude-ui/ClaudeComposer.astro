@@ -100,6 +100,8 @@ const hasValue = Boolean(value);
     position: relative;
     margin: var(--space-4) auto;
     max-width: 620px;
+    container-type: inline-size;
+    container-name: cc;
   }
   .cc-box {
     background: var(--c-surface);
@@ -223,5 +225,16 @@ const hasValue = Boolean(value);
   .cc-menu-item svg {
     color: var(--c-clay);
     flex: 0 0 auto;
+  }
+
+  @container cc (max-width: 420px) {
+    .cc-plus {
+      width: 26px;
+      height: 26px;
+    }
+    .cc-menu {
+      width: 100%;
+      max-width: 220px;
+    }
   }
 </style>

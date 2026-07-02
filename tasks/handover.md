@@ -1,5 +1,19 @@
 # Handover — KPMG × Claude for PE Wiki
 
+## [2026-07-02] Mobile/responsive adaptive refactor (this session)
+- **Ran a mobile audit (phones 375 to 430px), applied 5 initial CSS breakpoint fixes, then did a full adaptive refactor (Option A)** after the user pushed back on fixed pixel values: the goal is to let the layout adapt on its own rather than lean on magic numbers.
+- **ROOT-CAUSE BUG 1 (empty content column / stray right-side divider on tablet and phone):** the on-this-page TOC wrapper `.doc-toc` was a flex column `flex: 0 0 var(--toc-w)` (232px) that reserved its width at ALL widths, even though the inner `.toc` content hid at `@media (max-width: 1240px)` inside `TableOfContents.astro`. The empty 232px column plus its left border squeezed the main content into a narrow column. **FIX:** converted `src/layouts/DocLayout.astro` `.doc-grid` from flexbox to CSS Grid, with `grid-template-columns` redefined per breakpoint so hidden tracks are removed entirely (no reserved empty column, no stray gap).
+- **ROOT-CAUSE BUG 2 (hamburger did not show the menu on mobile):** the inner Sidebar component (`src/components/Sidebar.astro`) sets its own `.sidebar { display: none; }` at `@media (max-width: 1080px)`. DocLayout's open-state rule `.doc-sidebar.open :global(.sidebar)` only reset width/flex-basis, never `display`, so tapping the burger opened the wrapper but its only child (the nav) stayed hidden. **FIX:** added `display: block;` to `.doc-sidebar.open :global(.sidebar)` in `DocLayout.astro` (the fix lives in the layout's open-state override; the Sidebar component keeps hiding itself by default).
+- **DocLayout grid breakpoints now:** >1240px = 3 columns (sidebar, main, toc); 1080 to 1240px = 2 columns (sidebar, main), toc hidden; <=1080px = 1 column (main), sidebar becomes an openable drawer. No `align-items` is set on the grid, so the default `stretch` keeps the sticky sidebar and sticky TOC working (this replaces the old flex `align-self: stretch` hack that context.md previously documented).
+- **Claude UI mockups moved from viewport media queries to CSS CONTAINER QUERIES:** `ClaudeWindow.astro` (`container-name: cw`, collapses the two-pane app layout to one column at `@container cw (max-width: 560px)`) and `ClaudeComposer.astro` (`container-name: cc`, shrinks controls and the attach menu at `@container cc (max-width: 420px)`). Reason: these mockups are embedded in a variable-width article column, so a viewport media query is the wrong tool (they could render cramped even on desktop when the column is narrow). Distinct container names (cw, cc) prevent a nested composer from querying the window ancestor.
+- **Other small responsive fixes:** landing hero `.answer-row` stacks to one column at `@media (max-width: 480px)` in `src/pages/index.astro`; `.container` inline padding reduces from 32px (`--space-8`) to 16px (`--space-4`) at `@media (max-width: 420px)` in `src/styles/global.css`.
+- **Verified:** `npm run build` stayed green (37 routes, Pagefind indexed 37) after each stage; grep confirms zero em/en dashes in `src/`.
+
+## [2026-07-02] Task 10 (critique & elevate pass) marked complete
+- **Task 10 (critique & elevate pass) is now fully done and closed out.** The senior-editor visual + editorial elevate pass across all 36 pages is complete.
+- **No code changes or build were run this session** (the user chose to just mark it done).
+- **Only remaining open items:** the KPMG logo drop-in, and the optional context-layering diagram.
+
 ## [2026-07-01] LIVE on GitHub Pages (this session)
 - **The wiki is deployed and live at https://nxtpartners.github.io/wiki_claude_PE/** (served from a project subpath). Build + deploy workflow is green.
 - **Hosting decision RESOLVED:** GitHub Pages, project subpath (not a custom domain). Public repo, so a `noindex, nofollow` meta was added as a confidentiality precaution.
@@ -51,7 +65,8 @@
 - **Note:** `welcome.mdx` and `first-15-minutes.mdx` prose remains locked/untouched; only additive mockup/padding changes were made to first-15.
 
 ## ★ Next session — START HERE
-- **TASK #10 — Critique & elevate pass (PARTIALLY done — hard-rule audit clean, visual + editorial elevate still pending).** Do a senior-editor quality pass across all 36 pages: consistency of voice, strong open/close on each page, cross-linking with REAL slugs only, sensible component usage, Project Atlas continuity (mid-market US field-service software, ~$60m revenue, mid-20s% growth, gross margin high 70s, HVAC/plumbing, per-seat subs, across the US). Hard rules already audited clean (zero em/en dashes, no "deal team", US English spelling, no code/API refs, fictional data only); the visual + editorial elevate pass across all sections is what remains. **DO NOT edit `welcome.mdx` or `first-15-minutes.mdx` content — client approved them as-is** (read only, for consistency reference). Finish with `npm run build` (must show 37 routes) + a grep proving zero em/en dashes. Recommended: dispatch ONE general-purpose agent with this brief, but ONLY after the user explicitly approves running it.
+- **Outstanding open items:** (a) KPMG logo drop-in, (b) optional context-layering diagram. These are the only things left.
+- **TASK #10 — Critique & elevate pass: DONE [2026-07-02].** The senior-editor visual + editorial elevate pass across all 36 pages is complete (hard-rule audit was already clean: zero em/en dashes, no "deal team", US English, no code/API refs; Project Atlas continuity preserved). welcome.mdx and first-15-minutes.mdx content remained locked/untouched.
 - **Diagrams DONE (this session).** The three structural diagrams are now generated PNGs rendered via `DiagramFigure.astro` (see the top section). Prompts live in `diagrams/diagrams_prompts/` if any need regenerating. To swap an image: drop the new PNG at `diagrams/<name>.png`, copy it to `src/assets/diagrams/<name>.png`, rebuild (no code change). Remaining optional diagram: context-layering, if wanted later.
 - Open: hosting decision (GitHub Pages vs KPMG internal); KPMG logo drop-in.
 
@@ -80,11 +95,14 @@
 - **No salesy/marketing copy.** This is an education-first guide, not an ad.
 - **Never use em or en dashes** anywhere (content, UI, comments).
 - **[2026-06-30] Do NOT run agents, builds, or other actions without explicit approval.** When the user says "add X to the handover," that means edit the doc, not execute the work. Ask/confirm before dispatching any agent or running a pass.
+- **[2026-07-02] Prefer ADAPTIVE CSS over brittle fixed-pixel magic numbers.** Use CSS Grid with per-breakpoint templates, container queries, and `min()`/`clamp()` so the layout adapts on its own wherever it can. Genuine breakpoints are fine only for real UX decisions (for example, when the sidebar becomes a drawer), not to patch symptoms with fixed values.
 
 ## Gotchas & pitfalls
 - **YAML frontmatter colons:** any `description:` containing a colon MUST be double-quoted, or the Astro build fails with "bad indentation of a mapping entry". Agents repeatedly produced unquoted descriptions with colons. Always grep `^description: [^"'].*: ` after authoring and quote offenders.
 - **MDX import depth:** pages in `src/content/docs/<section>/` import components THREE levels up (`../../../components/`); root-level docs (`welcome.mdx`, `first-15-minutes.mdx`) use TWO levels (`../../components/`). Easy to get wrong.
 - **Sidebar:** numbering comes from `flatNav` order in `nav.ts`. Adding/reordering nav items renumbers everything automatically (and shifts every page's "X of N"). That is intended.
+- **Reserved empty TOC column:** `.doc-toc` used to be a flex column `flex: 0 0 var(--toc-w)` (232px) that reserved its width at ALL widths even though the inner `.toc` content hid at `@media (max-width: 1240px)`. That empty column plus its left border squeezed the main content and left a stray divider strip. Do NOT reintroduce a fixed-width flex side column that is only content-hidden; use the CSS Grid `.doc-grid` with `grid-template-columns` per breakpoint so hidden tracks are removed entirely.
+- **Inner Sidebar hides itself:** `src/components/Sidebar.astro` sets `.sidebar { display: none; }` at `@media (max-width: 1080px)`. The mobile drawer only works because DocLayout's `.doc-sidebar.open :global(.sidebar)` override sets `display: block;`. If that override only touches width/flex-basis, tapping the burger opens an empty wrapper. Keep the un-hide fix in the layout open-state override, not in the Sidebar component.
 
 ## Open questions
 - Hosting: RESOLVED [2026-07-01] — live on GitHub Pages at a project subpath. Base is env-driven, so moving to Cloudflare / a custom domain later is a one-line `SITE_BASE=/` build change.
