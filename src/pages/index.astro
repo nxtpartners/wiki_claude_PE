@@ -107,89 +107,87 @@ const advancedTrack = [
     <!-- ===================== CHOOSE YOUR TRACK ===================== -->
     <section class="section container tracks-section" aria-labelledby="tracks-title">
       <div class="tracks-head" data-reveal>
-        <p class="mono-eyebrow">Two tracks</p>
         <h2 id="tracks-title" class="block-title">Two ways to work. Pick your track.</h2>
-        <p class="block-sub">
-          Both lead to the same Claude. The Core Track covers claude.ai, the web app most people use every
-          day. The Advanced Track covers Claude Code, for hands-on work in your own files. Each track is
-          self-contained, with its own guide from first page to last, so you can follow one without the other.
-        </p>
       </div>
 
       <div class="tracks">
         <!-- Core track: claude.ai -->
-        <article class="track-panel track-core" data-reveal>
-          <div class="panel-chrome chrome-web">
-            <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="chrome-url mono-meta">claude.ai</span>
-            <span class="chrome-tag chrome-tag-web mono-meta">browser</span>
-          </div>
-          <div class="panel-body">
-            <p class="mono-eyebrow panel-eyebrow panel-eyebrow-core">Core Track · Start here</p>
-            <h3 class="panel-title">claude.ai</h3>
-            <p class="panel-sub">
-              The chat app in your browser. Ask questions, analyze documents, and draft. This is where
-              everyone starts, and no prior experience is needed.
-            </p>
-            <ol class="module-list">
-              {
-                curriculum.map((m) => (
-                  <li class="module" data-reveal>
-                    <a class="module-link" href={m.href}>
-                      <span class="module-index" aria-hidden="true">{m.index}</span>
-                      <span class="module-body">
-                        <span class="module-name">{m.name}</span>
-                        <span class="module-outcome">{m.outcome}</span>
-                      </span>
-                      <span class="module-go" aria-hidden="true">→</span>
-                    </a>
-                  </li>
-                ))
-              }
-            </ol>
-            <a href={withBase('/welcome')} class="btn btn-primary panel-cta">
-              <span>Start the Core Track</span>
-              <span class="cta-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </article>
+        <div class="track-col" data-reveal>
+          <p class="mono-eyebrow track-label track-label-core">Core Track · Start here</p>
+          <article class="track-panel track-core">
+            <div class="panel-chrome chrome-web">
+              <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="chrome-url mono-meta">claude.ai</span>
+              <span class="chrome-tag chrome-tag-web mono-meta">browser</span>
+            </div>
+            <div class="panel-body">
+              <h3 class="panel-title">claude.ai</h3>
+              <p class="panel-sub">
+                The chat app in your browser. Ask questions, analyze documents, and draft. This is where
+                everyone starts, and no prior experience is needed.
+              </p>
+              <ol class="module-list">
+                {
+                  curriculum.map((m) => (
+                    <li class="module" data-reveal>
+                      <a class="module-link" href={m.href}>
+                        <span class="module-index" aria-hidden="true">{m.index}</span>
+                        <span class="module-body">
+                          <span class="module-name">{m.name}</span>
+                          <span class="module-outcome">{m.outcome}</span>
+                        </span>
+                        <span class="module-go" aria-hidden="true">→</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+              <a href={withBase('/welcome')} class="btn btn-primary panel-cta">
+                <span>Start the Core Track</span>
+                <span class="cta-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
 
         <!-- Advanced track: Claude Code -->
-        <article class="track-panel track-advanced" data-reveal>
-          <div class="panel-chrome chrome-terminal">
-            <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span class="chrome-url mono-meta">claude-code</span>
-            <span class="chrome-tag chrome-tag-term mono-meta">in your files</span>
-          </div>
-          <div class="panel-body">
-            <p class="mono-eyebrow panel-eyebrow panel-eyebrow-adv">Advanced Track</p>
-            <h3 class="panel-title">Claude Code</h3>
-            <p class="panel-sub">
-              Claude working directly in the files and folders on your computer, in the VS Code editor. For
-              hands-on, file-heavy work, with your approval before every change.
-            </p>
-            <ol class="module-list">
-              {
-                advancedTrack.map((m) => (
-                  <li class="module" data-reveal>
-                    <a class="module-link" href={m.href}>
-                      <span class="module-index" aria-hidden="true">{m.index}</span>
-                      <span class="module-body">
-                        <span class="module-name">{m.name}</span>
-                        <span class="module-outcome">{m.outcome}</span>
-                      </span>
-                      <span class="module-go" aria-hidden="true">→</span>
-                    </a>
-                  </li>
-                ))
-              }
-            </ol>
-            <a href={withBase('/claude-code/welcome')} class="btn btn-ink panel-cta">
-              <span>Enter the Advanced Track</span>
-              <span class="cta-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </article>
+        <div class="track-col" data-reveal>
+          <p class="mono-eyebrow track-label track-label-adv">Advanced Track</p>
+          <article class="track-panel track-advanced">
+            <div class="panel-chrome chrome-terminal">
+              <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="chrome-url mono-meta">claude-code</span>
+              <span class="chrome-tag chrome-tag-term mono-meta">in your files</span>
+            </div>
+            <div class="panel-body">
+              <h3 class="panel-title">Claude Code</h3>
+              <p class="panel-sub">
+                Claude working directly in the files and folders on your computer, in the VS Code editor. For
+                hands-on, file-heavy work, with your approval before every change.
+              </p>
+              <ol class="module-list">
+                {
+                  advancedTrack.map((m) => (
+                    <li class="module" data-reveal>
+                      <a class="module-link" href={m.href}>
+                        <span class="module-index" aria-hidden="true">{m.index}</span>
+                        <span class="module-body">
+                          <span class="module-name">{m.name}</span>
+                          <span class="module-outcome">{m.outcome}</span>
+                        </span>
+                        <span class="module-go" aria-hidden="true">→</span>
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+              <a href={withBase('/claude-code/welcome')} class="btn btn-ink panel-cta">
+                <span>Enter the Advanced Track</span>
+                <span class="cta-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -349,6 +347,21 @@ const advancedTrack = [
     align-items: stretch;
   }
 
+  .track-col {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .track-col > .track-panel {
+    flex: 1;
+  }
+  .track-label {
+    margin: 0 0 var(--space-3);
+  }
+  .track-label-adv {
+    color: var(--kpmg-blue);
+  }
+
   .track-panel {
     display: flex;
     flex-direction: column;
@@ -433,13 +446,7 @@ const advancedTrack = [
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: var(--space-8) var(--space-7) var(--space-7);
-  }
-  .panel-eyebrow {
-    margin: 0 0 var(--space-3);
-  }
-  .panel-eyebrow-adv {
-    color: var(--kpmg-blue);
+    padding: var(--space-8);
   }
   .panel-title {
     margin: 0 0 var(--space-2);
@@ -458,7 +465,7 @@ const advancedTrack = [
   /* ---- Module list within a panel ---- */
   .module-list {
     list-style: none;
-    margin: 0 0 var(--space-7);
+    margin: 0 0 var(--space-6);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -677,7 +684,7 @@ const advancedTrack = [
 
   @media (max-width: 640px) {
     .panel-body {
-      padding: var(--space-6) var(--space-5) var(--space-6);
+      padding: var(--space-6);
     }
     .module-link {
       gap: var(--space-3);
