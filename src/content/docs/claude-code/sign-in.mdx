@@ -1,0 +1,101 @@
+---
+title: Installing & Signing In to Claude Code
+description: "Add Claude Code to VS Code, sign in with your KPMG account, and understand the approval model that keeps you in control."
+section: Getting Started
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import ccStaysLocal from '../../../assets/diagrams/cc-stays-local.png';
+
+With VS Code installed, the last step is to add Claude Code itself and sign in. This is a one-time setup, and it happens in the terminal, the text area at the bottom of VS Code. Do not worry: it is three short lines you type once, and Claude Code is then ready whenever you open VS Code.
+
+<Callout type="warning" title="Involve IT first">
+The steps below install software and connect it to your KPMG account. On a managed device, IT may need to run them for you, or provide an approved route. Confirm with IT before you begin, and use only your KPMG-managed device for any firm or client work.
+</Callout>
+
+## Opening the terminal
+
+The terminal is where you talk to Claude Code, and where you install it in the first place. If you cannot see it at the bottom of VS Code, open it from the menu: **View -> Terminal**. A panel appears with a blinking cursor, waiting for you to type. That is all a terminal is: a place to type one instruction at a time and press enter.
+
+Here is the whole window, so you can see where each part sits. Your files are in the rail on the left, a file is open in the editor in the middle, and the terminal runs along the bottom. The three commands below are exactly what you will type next.
+
+<CodeWindow
+  filename="deal-screen"
+  ariaLabel="Recreated VS Code window. The file rail on the left lists a project folder, a file is open in the editor, and the terminal at the bottom shows Claude Code being installed, started, and signed in with a KPMG account."
+  caption="Installing and signing in, shown in the VS Code terminal. Your files stay on your machine."
+>
+  <ul slot="tree">
+    <li>deal-screen/</li>
+    <li>data.csv</li>
+    <li>notes.txt</li>
+    <li>CLAUDE.md</li>
+  </ul>
+  <pre slot="editor">{`CLAUDE.md
+
+What this project is:
+A private equity deal screen. Review the
+source files and draft clear summaries.`}</pre>
+  <pre slot="terminal">{`you@kpmg deal-screen %
+
+$ npm install -g @anthropic-ai/claude-code
+added 1 package in 4s
+
+$ claude
+Opening your browser to sign in...
+Signed in as you@kpmg.com
+
+Welcome to Claude Code. What would you like to do?
+> `}</pre>
+</CodeWindow>
+
+## Installing and signing in
+
+<Steps>
+  <Step title="Install Claude Code">
+    In the terminal, type the install command exactly as written below and press enter. This downloads Claude Code and makes it available on your machine. It runs once; you will not need to repeat it.
+
+    ```bash
+    npm install -g @anthropic-ai/claude-code
+    ```
+
+    If the terminal reports that `npm` is not found, Node.js is not installed yet. Node.js is the free runtime this command needs. Ask IT to install it, or to run this step for you, rather than downloading it yourself on a managed device.
+  </Step>
+  <Step title="Start Claude Code">
+    Still in the terminal, type the command below and press enter. This starts Claude Code in whatever folder you have open.
+
+    ```bash
+    claude
+    ```
+
+    The first time you run it, Claude Code will offer to sign you in and open your browser to do so.
+  </Step>
+  <Step title="Sign in with your KPMG account">
+    In the browser window that opens, sign in using your KPMG account through single sign-on, the same login you already use for firm systems. There is no separate password to create and no personal account to set up. If you are ever signed out later, type `/login` in the terminal to sign in again.
+  </Step>
+  <Step title="Confirm it is connected">
+    Once you are signed in, the browser hands you back to VS Code and Claude Code shows a ready prompt in the terminal. That prompt is the sign that everything is connected. You can now type an instruction in plain English and begin.
+  </Step>
+</Steps>
+
+That ready prompt at the end, the `>` waiting for you, is the sign that everything is connected. From here on, you type in plain English and Claude Code replies.
+
+## You stay in control
+
+The most reassuring thing about Claude Code is how it behaves once it is running. It does not change your files behind your back. Before it edits anything, it shows you a plan in plain English and waits for you to approve it. Nothing happens until you say yes. If the plan is not what you wanted, you say no and adjust the instruction. This approval step is not an obstacle; it is the safety rail that lets you work confidently, because you always see what is about to happen before it happens.
+
+<DiagramFigure image={ccStaysLocal} alt="A boundary around your machine holds your files inside, labeled your files stay here. Only your prompt and the context it needs cross the boundary out to Claude. Claude proposes changes back to you, and you approve before anything changes. A closing line reads: nothing goes live until you choose." caption="Your files stay on your machine. Only your prompt and the context it needs leave, and nothing goes live until you choose." maxWidth={640} />
+
+<Callout type="confidential" title="What stays local">
+Your files stay on your machine. Claude Code reads and edits them locally, on your computer, not on some distant server. The only thing that reaches Claude is what you actually send in a prompt. Because this touches firm and client data, involve IT before your first use on any real work, and follow their guidance on what may be used with the tool.
+</Callout>
+
+<Callout type="warning">
+Never paste passwords, secrets, or API keys into a prompt, and never place them in files you ask Claude Code to read. Follow the firm's data policy on what may be shared. If you are unsure whether something is safe to include, leave it out and check first.
+</Callout>
+
+Once you are signed in and comfortable with the approval model, you are ready to do real work in your files. The approval step will quickly become second nature: read the plan, say yes, and watch it done.

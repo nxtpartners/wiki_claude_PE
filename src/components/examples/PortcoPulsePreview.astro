@@ -1,0 +1,281 @@
+---
+// A styled "mock preview" of the PortCo Pulse Dashboard, framed as a browser
+// window. It is pure CSS (no screenshot asset), so it stays crisp at any size
+// and on any display, and it links through to the full standalone deliverable.
+// Every colour is a wiki design token; the faux tiles and bars only hint at the
+// real dashboard, which lives on its own page.
+import { withBase } from '../../utils/withBase';
+
+interface Props {
+  href?: string;
+}
+const { href = '/claude-code/portco-pulse' } = Astro.props;
+const target = withBase(href);
+
+// A few faux stat tiles and company bar rows that hint at the real dashboard.
+// The bar widths and status tints come straight from the showcase's own token
+// map so the preview stays on-palette with the real thing.
+const tiles = [
+  { label: 'Companies', value: '8' },
+  { label: 'Pending', value: '2' },
+  { label: 'Alerts', value: '2' },
+];
+const rows = [
+  { name: 'Brighton Healthcare', bar: 100, status: 'ontrack' },
+  { name: 'Keystone Logistics', bar: 55, status: 'atrisk' },
+  { name: 'OptiFi Solutions', bar: 22, status: 'ontrack' },
+  { name: 'Evergreen Fitness', bar: 7, status: 'offtrack' },
+];
+---
+
+<a class="pv" href={target} aria-label="Open the full PortCo Pulse Dashboard">
+  <div class="pv-window">
+    <div class="pv-chrome">
+      <span class="pv-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="pv-url">portco-pulse · dashboard</span>
+      <span class="pv-tag">example</span>
+    </div>
+
+    <div class="pv-body" aria-hidden="true">
+      <div class="pv-tiles">
+        {
+          tiles.map((t) => (
+            <div class="pv-tile">
+              <span class="pv-tile-value">{t.value}</span>
+              <span class="pv-tile-label">{t.label}</span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="pv-chart">
+        {
+          rows.map((r) => (
+            <div class:list={['pv-row', `pv-${r.status}`]}>
+              <span class="pv-name">{r.name}</span>
+              <span class="pv-track"><i style={`width:${r.bar}%`} /></span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="pv-overlay">
+      <span class="pv-cta">
+        Open the dashboard
+        <span class="pv-arrow" aria-hidden="true">&rarr;</span>
+      </span>
+    </div>
+  </div>
+  <p class="pv-caption">Static showcase · Portfolio KPIs, alerts, and submission status.</p>
+</a>
+
+<style>
+  .pv {
+    display: block;
+    color: inherit;
+    margin: var(--space-8) 0;
+  }
+  .pv:hover {
+    text-decoration: none;
+  }
+
+  .pv-window {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .pv:hover .pv-window {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: color-mix(in srgb, var(--kpmg-cobalt) 40%, var(--line));
+  }
+
+  /* Chrome */
+  .pv-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .pv-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .pv-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ink-muted) 30%, var(--bg));
+  }
+  .pv-url {
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+  .pv-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  /* Body */
+  .pv-body {
+    padding: var(--space-5);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .pv-tiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+  .pv-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .pv-tile-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--kpmg-blue);
+  }
+  .pv-tile-label {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .pv-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    background: var(--bg);
+  }
+  .pv-row {
+    --bar-c: var(--kpmg-blue);
+    display: grid;
+    grid-template-columns: 1fr 90px;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .pv-atrisk {
+    --bar-c: var(--warning);
+  }
+  .pv-offtrack {
+    --bar-c: var(--confidential);
+  }
+  .pv-name {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pv-track {
+    height: 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bar-c) 12%, var(--bg-soft));
+    overflow: hidden;
+  }
+  .pv-track i {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bar-c) 78%, var(--bg));
+  }
+
+  /* Hover overlay CTA */
+  .pv-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--space-6);
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 31, 87, 0.72) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .pv:hover .pv-overlay,
+  .pv:focus-visible .pv-overlay {
+    opacity: 1;
+  }
+  .pv-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--kpmg-blue);
+    border-radius: var(--radius-md);
+    padding: 0.65em 1.2em;
+    box-shadow: var(--shadow-md);
+  }
+  .pv-arrow {
+    transition: transform 0.18s ease;
+  }
+  .pv:hover .pv-arrow {
+    transform: translateX(3px);
+  }
+
+  .pv-caption {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pv-window,
+    .pv-overlay,
+    .pv-arrow {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pv-tiles {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .pv-name {
+      font-size: 0.72rem;
+    }
+    /* On small screens the overlay CTA is always visible, since there is no hover. */
+    .pv-overlay {
+      opacity: 1;
+      position: static;
+      background: none;
+      padding: var(--space-4) 0 0;
+    }
+  }
+</style>

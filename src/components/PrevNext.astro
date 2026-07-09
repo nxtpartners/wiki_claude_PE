@@ -1,17 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
-import { flatNav } from '../config/nav';
+import type { NavItem } from '../config/nav';
 import { withBase } from '../utils/withBase';
 
 interface Props {
   currentSlug: string;
+  flatItems: NavItem[];
 }
-const { currentSlug } = Astro.props;
+const { currentSlug, flatItems } = Astro.props;
 
-// Only consider pages that actually exist, in nav order.
+// Only consider pages that actually exist, in nav order. Scoped to the current
+// track's items so prev/next never crosses the track boundary.
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
-const available = flatNav.filter((n) => existing.has(n.slug));
+const available = flatItems.filter((n) => existing.has(n.slug));
 
 const idx = available.findIndex((n) => n.slug === currentSlug);
 const prev = idx > 0 ? available[idx - 1] : null;

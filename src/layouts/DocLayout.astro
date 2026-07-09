@@ -6,7 +6,7 @@ import Sidebar from '../components/Sidebar.astro';
 import TableOfContents from '../components/TableOfContents.astro';
 import PrevNext from '../components/PrevNext.astro';
 import Footer from '../components/Footer.astro';
-import { flatNav } from '../config/nav';
+import { trackForSlug, navForTrack, flatNavForTrack, TRACKS } from '../config/nav';
 
 interface Props {
   title: string;
@@ -17,8 +17,15 @@ interface Props {
 }
 const { title, description, section, slug, headings } = Astro.props;
 
-// Position within the wiki for the breadcrumb-style label.
-const flatIndex = flatNav.findIndex((n) => n.slug === slug);
+// Resolve which track this page belongs to, then scope the sidebar, prev/next,
+// and numbering to that track only.
+const track = trackForSlug(slug);
+const sections = navForTrack(track);
+const flat = flatNavForTrack(track);
+const trackName = TRACKS[track].name;
+
+// Position within the track for the breadcrumb-style label.
+const flatIndex = flat.findIndex((n) => n.slug === slug);
 const position = flatIndex >= 0 ? flatIndex + 1 : null;
 ---
 
@@ -36,14 +43,19 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
 
     <div class="doc-grid container">
       <div class="doc-sidebar" id="mobile-sidebar">
-        <Sidebar currentSlug={slug} />
+        <Sidebar currentSlug={slug} sections={sections} track={track} />
       </div>
 
       <main class="doc-main" id="main">
-        <article class="doc-article" data-pagefind-body>
+        <article
+          class="doc-article"
+          data-pagefind-body
+          data-pagefind-filter={`Track:${trackName}`}
+          data-pagefind-meta={`track:${trackName}`}
+        >
           <header class="doc-header" data-reveal>
             <p class="doc-eyebrow">
-              {section}{position ? <span class="doc-pos"> · {position} of {flatNav.length}</span> : null}
+              {section}{position ? <span class="doc-pos"> · {position} of {flat.length}</span> : null}
             </p>
             <h1 data-pagefind-meta="title">{title}</h1>
             {description && <p class="doc-lede">{description}</p>}
@@ -53,7 +65,7 @@ const position = flatIndex >= 0 ? flatIndex + 1 : null;
             <slot />
           </div>
 
-          <PrevNext currentSlug={slug} />
+          <PrevNext currentSlug={slug} flatItems={flat} />
         </article>
       </main>
 

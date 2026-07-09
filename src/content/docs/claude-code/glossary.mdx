@@ -1,0 +1,104 @@
+---
+title: Glossary
+description: "Plain-language definitions of the Claude Code terms you meet in this track, written for a private equity reader."
+section: Resources
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Claude Code introduces a handful of terms from the world of software tools. None of them require a technical background, but a few come up often enough that it helps to have them straight before you start. This page defines, in plain English, the words you meet across this track and inside Claude Code itself. If a term on another page is unclear, it is almost certainly explained here.
+
+<Callout type="note" title="A companion to the main glossary">
+This page covers the hands-on, Claude Code side of the wiki. For terms that apply to Claude everywhere (context, prompt, hallucination, verification, and the like), see the [claude.ai Glossary](/resources/glossary). The two are meant to be read together.
+</Callout>
+
+## The tools you work in
+
+**Claude Code**
+: Claude running directly in the files and folders on your computer, rather than in a browser chat. It can read your files, propose changes, and, with your approval, make them. See [What Claude Code Is](/claude-code/what-it-is).
+
+**VS Code**
+: A free code editor from Microsoft, and the recommended home for running Claude Code. It gives you your files on one side and Claude in a panel beside them. See [Installing VS Code](/claude-code/install-vs-code).
+
+**Terminal**
+: The text window where you type commands to your computer. Claude Code runs here, most conveniently inside the terminal built into VS Code. See [Installing & Signing In](/claude-code/sign-in).
+
+**Command line (CLI)**
+: A way of controlling a program by typing commands instead of clicking buttons. Claude Code is a command-line tool, but in practice you talk to it in plain English.
+
+## Files and projects
+
+**Folder (directory)**
+: A place on your computer that holds related files. You point Claude Code at one folder and it works within it.
+
+**Working directory**
+: The specific folder Claude Code is currently opened in and allowed to work with. Keeping the right folder open is part of keeping confidential material in its place.
+
+**Repository (repo)**
+: A folder whose full history of changes is tracked by Git, so every version can be recovered. See [Saving Work with Git](/claude-code/git-basics).
+
+**CLAUDE.md**
+: A plain-text file in your project that tells Claude Code the standing rules and context for that project: what it is, how to behave, and what to avoid. It is the project's rulebook. See [CLAUDE.md Rulebook](/claude-code/claude-md).
+
+**handover.md, plan.md, context.md**
+: Three plain-text notes kept alongside CLAUDE.md that record where the work stands, the plan, and the lessons learned, so any session or colleague can pick the work up cleanly. See [CLAUDE.md Rulebook](/claude-code/claude-md).
+
+**README**
+: A short plain-text file describing what a project is and how to run it, written for whoever opens the folder next.
+
+## Making and reviewing changes
+
+**Prompt (request)**
+: The instruction you give Claude Code, in plain English. A good request is small and specific: one clear task at a time. See [Your First Session](/claude-code/first-session).
+
+**Diff**
+: A side-by-side view of exactly what Claude proposes to change, with removals and additions marked. You read the diff before you accept anything. See [Approving Changes](/claude-code/approving-changes).
+
+**Approve / reject**
+: Your decision on each proposed change. Nothing is written to your files until you approve it, which is what keeps you in control. See [Approving Changes](/claude-code/approving-changes).
+
+**Session**
+: One continuous working conversation with Claude Code in a folder. It remembers what has been said within it, which is why a handover note matters when you start a fresh one.
+
+**Agent**
+: Claude working through a multi-step task on its own, checking its own progress as it goes, still under your approval for changes that touch your files.
+
+## Saving and shipping
+
+**Git**
+: The system that records snapshots of your work so you can always return to an earlier state. It is your safety net, and the reason you can experiment without fear. See [Saving Work with Git](/claude-code/git-basics).
+
+**Commit**
+: A saved snapshot of your project at a point in time, with a short note describing what changed. See [Saving Work with Git](/claude-code/git-basics).
+
+**Branch**
+: A separate line of work you can develop and review before combining it with the main version, so unfinished changes never disturb the working copy.
+
+**Push**
+: To send your committed work from your computer to a shared home online, such as GitHub, so it is backed up and others can see it.
+
+**GitHub**
+: A widely used online home for repositories, where work is stored, shared, and published from.
+
+**Deploy (going live)**
+: To publish your work so it becomes a live link others can open. See [Going Live](/claude-code/deploy).
+
+## Keeping it safe
+
+**Confidentiality**
+: The discipline of keeping restricted material within the boundaries your firm's policy allows. It applies just as strictly in Claude Code as in the browser. See the [Confidentiality Decision Tree](/best-practices/confidentiality).
+
+**Verification**
+: Checking what Claude Code produces against the source and your own judgment before relying on it. Fluent output is not the same as correct output. See [Verify Everything](/best-practices/verify-everything).
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Cheat Sheet" href="/claude-code/cheat-sheet" eyebrow="Resources">The whole Claude Code approach on one page.</Card>
+  <Card title="Your First Session" href="/claude-code/first-session" eyebrow="First Sessions">Open a folder and make your first approved change.</Card>
+  <Card title="CLAUDE.md Rulebook" href="/claude-code/claude-md" eyebrow="Good Habits">Set the standing rules for a project.</Card>
+  <Card title="claude.ai Glossary" href="/resources/glossary" eyebrow="Resources">The terms that apply to Claude everywhere.</Card>
+</CardGrid>

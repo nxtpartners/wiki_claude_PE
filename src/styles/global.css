@@ -350,6 +350,19 @@ pre code {
   --c-muted: #8a8475; /* secondary text, placeholder */
   --c-clay: #be5d3a; /* Claude accent (send, sparkle) */
   --c-clay-soft: #f4e8e1; /* clay tint background */
+
+  /* ---------- VS Code dark palette (Claude Code mockup ONLY — never KPMG blue) ---------- */
+  --vs-bg: #1e1e1e; /* window / editor background */
+  --vs-editor-bg: #1e1e1e; /* code editor pane */
+  --vs-sidebar-bg: #252526; /* file-tree rail + title bar */
+  --vs-terminal-bg: #181818; /* integrated terminal */
+  --vs-border: #333333; /* hairline separators */
+  --vs-text: #d4d4d4; /* primary code / body text */
+  --vs-muted: #858585; /* comments, secondary text, line hints */
+  --vs-accent: #4a9eff; /* selection / active file / prompt accent */
+  --vs-clay: #be5d3a; /* Claude accent reused inside the terminal exchange */
+  --vs-green: #4ec9b0; /* success / approved */
+  --vs-amber: #d7ba7d; /* pending / plan step */
 }
 
 /* ---------- Pagefind UI theming ---------- */

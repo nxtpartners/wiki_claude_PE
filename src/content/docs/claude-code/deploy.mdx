@@ -1,0 +1,44 @@
+---
+title: "Going Live: From Folder to Shareable Link"
+description: "What it means to deploy a project, and how Claude Code can help you prepare the files before anything goes live."
+section: Good Habits
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+
+Everything you build with Claude Code starts life as a set of files sitting in a folder on your computer. Those files are only visible to you. Deployment is the step that changes that. It is the process of taking a project from your machine and putting it somewhere online, so that it becomes a live, shareable link that other people can simply open in a browser.
+
+That is the whole idea in one line. A folder on your computer becomes a web address you can send to a colleague. The details of how that happens sit underneath, and you do not need to master them to understand what deployment is for.
+
+## What this looks like in practice
+
+Picture a small internal tool, or a simple dashboard that pulls a few figures into one clean view. On your computer it is useful only to you. Once it is deployed, you can share a link, and a colleague can open the same thing without installing anything or copying any files. That is the value: a private working file becomes something you can hand to others.
+
+In practice, at a firm, deployment is rarely something you would do entirely on your own. It usually involves your IT or engineering colleagues, who manage where things are hosted, who can access them, and how they are kept secure. Your role is often to get the project into good shape first. This is where Claude Code is genuinely useful. It can help you organize the files, tidy them up, and prepare a clear package that you can hand over.
+
+<PromptCard title="Ask Claude Code to prepare files for handover" label="Prompt">
+Please help me get this project ready to hand to our IT team. Organize the files sensibly, and write a short plain-English note that explains what the project is and what it needs to run.
+</PromptCard>
+
+## Where a project actually goes live
+
+So where does a folder go when it goes live? It goes onto a host, a service whose whole job is to take your files and serve them at a web address. For simple projects like a small internal page or dashboard, two hosts come up again and again because they are free and straightforward:
+
+- **GitHub Pages.** GitHub is where many teams already store their Git repositories, the save-history from the previous page. GitHub Pages takes one of those repositories and publishes it at a web address for you.
+- **Cloudflare Pages.** A similar service from Cloudflare. You point it at your Git repository, and it builds the project and serves it at a link, refreshing automatically whenever you save new work.
+
+Notice what both have in common: they start from the Git repository you already set up. That is why saving your work with Git comes first. Going live is really just connecting that repository to a host, which then turns your latest save into a live link. You do not manage any servers yourself; the host does that part.
+
+The plain-English shape of it is: your files live in a Git repository, you push that repository to a service like GitHub, and a host like GitHub Pages or Cloudflare Pages serves it at a shareable address. Claude Code can walk you through each of those moves, but the decision of where to host, and whether the content is cleared to be public, belongs with IT and security.
+
+## The order of operations
+
+The simplest way to think about it is in three moves. First, you build and test the project on your own computer until it does what you want. Second, you ask Claude Code to help you prepare and tidy the files. Third, you involve IT or engineering to take it live in a safe, approved way. Keeping these steps separate keeps you out of trouble.
+
+<Callout type="warning" title="Check with IT and security first">
+Never publish anything that contains firm data or deal data without clearance. A live link is, by definition, reachable by others, and once something is online you cannot assume it stays private. Before you deploy anything, confirm with your IT and security colleagues that the content is cleared to go live and that it is hosted in an approved place. When in doubt, ask before you publish, not after.
+</Callout>
+
+The takeaway is a comfortable one. Deployment is not something you have to figure out alone, and it is not a wall you need to scale on your own. Understand the concept, let Claude Code help you prepare, and bring in the right people to take it the last step of the way.

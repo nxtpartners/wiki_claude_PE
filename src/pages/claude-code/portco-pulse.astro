@@ -1,0 +1,139 @@
+---
+// Standalone full-width deliverable: the PortCo Pulse Dashboard.
+// This is the "finished artifact" that Example 2 walks you through building.
+// It lives on its own route (not inside the narrow doc column) so the wide
+// portfolio dashboard has room to breathe, and carries a clear path back to the
+// Advanced Track. Chrome (Header/Footer) matches the rest of the wiki.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PortcoPulseShowcase from '../../components/examples/PortcoPulseShowcase.astro';
+import { withBase } from '../../utils/withBase';
+---
+
+<BaseLayout
+  title="PortCo Pulse Dashboard"
+  description="A portfolio-monitoring dashboard for a private equity fund: monthly KPI tracking, plan-vs-actual variance, and automated off-track alerts across the portfolio."
+>
+  <Header />
+
+  <main id="main" class="pp-page">
+    <header class="pp-page-head">
+      <div class="pp-page-head-inner">
+        <a href={withBase('/claude-code/example-portco-pulse')} class="pp-back">
+          <span aria-hidden="true">&larr;</span> Back to the walkthrough
+        </a>
+        <h1 class="pp-page-title">PortCo Pulse Dashboard</h1>
+        <p class="pp-page-sub">
+          A portfolio-monitoring dashboard for a private equity fund. Eight portfolio companies submit
+          monthly KPIs against an annual plan, and the dashboard surfaces revenue performance,
+          plan-vs-actual variance, and the companies that are off track. This is the finished deliverable
+          that the
+          <a href={withBase('/claude-code/example-portco-pulse')}>Example 2 walkthrough</a> shows you how to
+          assemble with Claude.
+        </p>
+      </div>
+    </header>
+
+    <div class="pp-page-body">
+      <PortcoPulseShowcase />
+    </div>
+
+    <div class="pp-page-foot">
+      <a href={withBase('/claude-code/example-portco-pulse')} class="pp-return">
+        <span aria-hidden="true">&larr;</span> Return to the walkthrough
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .pp-page {
+    /* A wider working width than the doc column, capped so the dashboard never
+       forces horizontal page scroll on smaller laptops. */
+    --pp-maxw: min(96vw, 1360px);
+  }
+  .pp-page-head {
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 60% 80% at 90% 0%, rgba(30, 73, 226, 0.06), transparent 60%),
+      var(--bg);
+  }
+  .pp-page-head-inner {
+    width: var(--pp-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-10);
+  }
+  .pp-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--kpmg-cobalt);
+    margin-bottom: var(--space-6);
+  }
+  .pp-back:hover {
+    text-decoration: none;
+    color: var(--kpmg-blue);
+  }
+  .pp-page-title {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .pp-page-sub {
+    margin: 0;
+    font-size: clamp(1rem, 0.96rem + 0.3vw, 1.15rem);
+    line-height: 1.62;
+    color: var(--ink-muted);
+  }
+
+  .pp-page-body {
+    width: var(--pp-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-8);
+  }
+
+  .pp-page-foot {
+    width: var(--pp-maxw);
+    margin-inline: auto;
+    padding: var(--space-4) var(--space-4) var(--space-24);
+  }
+  .pp-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.7em 1.2em;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .pp-return:hover {
+    text-decoration: none;
+    background: var(--bg-soft);
+    border-color: var(--kpmg-cobalt);
+  }
+
+  @media (max-width: 720px) {
+    .pp-page {
+      --pp-maxw: 100%;
+    }
+    .pp-page-head-inner,
+    .pp-page-body,
+    .pp-page-foot {
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
+    }
+  }
+</style>

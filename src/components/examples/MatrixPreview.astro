@@ -1,0 +1,322 @@
+---
+// A styled "mock preview" of the AI Value Creation Matrix, framed as a browser
+// window. It is pure CSS (no screenshot asset), so it stays crisp at any size
+// and on any display, and it links through to the full standalone deliverable.
+// Every colour is a wiki design token; the faux rows only hint at the real
+// matrix, which lives on its own page.
+import { withBase } from '../../utils/withBase';
+
+interface Props {
+  href?: string;
+}
+const { href = '/claude-code/value-creation-matrix' } = Astro.props;
+const target = withBase(href);
+
+// A few representative levers to tint the faux rows, straight from the matrix's
+// own lever token map so the preview stays on-palette with the real thing.
+const previewRows = [
+  { lever: 'efficiency', name: 'SG&A Benchmarking & Anomaly Detection', phase: '100-Day' },
+  { lever: 'revenue', name: 'Churn Prediction & Retention Signals', phase: 'Mid-Hold' },
+  { lever: 'margin', name: 'AI-Assisted Dynamic Pricing', phase: 'Mid-Hold' },
+  { lever: 'inorganic', name: 'Cross-Portfolio Spend Consolidation', phase: 'Exit Prep' },
+];
+---
+
+<a class="mp" href={target} aria-label="Open the full AI Value Creation Matrix">
+  <div class="mp-window">
+    <div class="mp-chrome">
+      <span class="mp-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="mp-url">claude · ai-value-creation-matrix</span>
+      <span class="mp-tag">example</span>
+    </div>
+
+    <div class="mp-body" aria-hidden="true">
+      <div class="mp-filters">
+        <span class="mp-chip mp-chip-on">All phases</span>
+        <span class="mp-chip">100-Day</span>
+        <span class="mp-chip">Mid-Hold</span>
+        <span class="mp-chip">Exit Prep</span>
+        <span class="mp-count">19 use cases</span>
+      </div>
+
+      <div class="mp-table">
+        <div class="mp-thead">
+          <span>Use case</span>
+          <span>Phase</span>
+          <span>Fit</span>
+        </div>
+        {
+          previewRows.map((r) => (
+            <div class="mp-row">
+              <span class="mp-cell mp-usecase">
+                <span class:list={['mp-dot', `mp-dot-${r.lever}`]} />
+                {r.name}
+              </span>
+              <span class="mp-cell mp-badge">{r.phase}</span>
+              <span class="mp-cell mp-bar"><i /></span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mp-overlay">
+      <span class="mp-cta">
+        Open the full matrix
+        <span class="mp-arrow" aria-hidden="true">&rarr;</span>
+      </span>
+    </div>
+  </div>
+  <p class="mp-caption">Interactive · Filter by phase, fund tier, and KPMG service line.</p>
+</a>
+
+<style>
+  .mp {
+    display: block;
+    color: inherit;
+    margin: var(--space-8) 0;
+  }
+  .mp:hover {
+    text-decoration: none;
+  }
+
+  .mp-window {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .mp:hover .mp-window {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: color-mix(in srgb, var(--kpmg-cobalt) 40%, var(--line));
+  }
+
+  /* Chrome */
+  .mp-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .mp-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .mp-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ink-muted) 30%, var(--bg));
+  }
+  .mp-url {
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+  .mp-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  /* Body */
+  .mp-body {
+    padding: var(--space-5);
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+  .mp-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: var(--space-4);
+  }
+  .mp-chip {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 3px 10px;
+  }
+  .mp-chip-on {
+    background: var(--kpmg-blue);
+    border-color: var(--kpmg-blue);
+    color: #fff;
+    font-weight: 600;
+  }
+  .mp-count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+
+  .mp-table {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .mp-thead {
+    display: grid;
+    grid-template-columns: 1fr 90px 70px;
+    gap: var(--space-3);
+    padding: 8px 12px;
+    background: var(--kpmg-blue);
+  }
+  .mp-thead span {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.82);
+  }
+  .mp-row {
+    display: grid;
+    grid-template-columns: 1fr 90px 70px;
+    gap: var(--space-3);
+    align-items: center;
+    padding: 9px 12px;
+    border-top: 1px solid var(--line);
+  }
+  .mp-cell {
+    min-width: 0;
+  }
+  .mp-usecase {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mp-dot {
+    flex: 0 0 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .mp-dot-efficiency {
+    background: var(--kpmg-blue);
+  }
+  .mp-dot-revenue {
+    background: var(--kpmg-teal);
+  }
+  .mp-dot-margin {
+    background: var(--kpmg-cobalt);
+  }
+  .mp-dot-inorganic {
+    background: var(--confidential);
+  }
+  .mp-badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--kpmg-cobalt);
+    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--kpmg-cobalt) 30%, var(--bg));
+    border-radius: var(--radius-sm);
+    padding: 2px 7px;
+    justify-self: start;
+  }
+  .mp-bar {
+    height: 6px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--kpmg-teal) 18%, var(--bg));
+    overflow: hidden;
+  }
+  .mp-bar i {
+    display: block;
+    height: 100%;
+    width: 72%;
+    background: var(--kpmg-teal);
+  }
+
+  /* Hover overlay CTA */
+  .mp-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--space-6);
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 31, 87, 0.72) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .mp:hover .mp-overlay,
+  .mp:focus-visible .mp-overlay {
+    opacity: 1;
+  }
+  .mp-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--kpmg-blue);
+    border-radius: var(--radius-md);
+    padding: 0.65em 1.2em;
+    box-shadow: var(--shadow-md);
+  }
+  .mp-arrow {
+    transition: transform 0.18s ease;
+  }
+  .mp:hover .mp-arrow {
+    transform: translateX(3px);
+  }
+
+  .mp-caption {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mp-window,
+    .mp-overlay,
+    .mp-arrow {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .mp-thead,
+    .mp-row {
+      grid-template-columns: 1fr 70px 48px;
+    }
+    .mp-usecase {
+      font-size: 0.72rem;
+    }
+    /* On small screens the overlay CTA is always visible, since there is no hover. */
+    .mp-overlay {
+      opacity: 1;
+      position: static;
+      background: none;
+      padding: var(--space-4) 0 0;
+    }
+  }
+</style>

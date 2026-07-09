@@ -1,0 +1,159 @@
+---
+title: "CLAUDE.md: Your Project's Rulebook"
+description: "A plain-text file that Claude Code reads every session so your standing rules and context never need repeating."
+section: Good Habits
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+
+Imagine briefing a new assistant afresh every single morning: your house tone, the things they must always do, the things they must never touch. You would tire of it quickly, and sooner or later you would forget a rule and something would slip. A CLAUDE.md file solves exactly that problem.
+
+## What a CLAUDE.md is
+
+A CLAUDE.md is an ordinary plain-text file that lives inside your project folder. There is nothing technical about it; it is just written instructions. What makes it special is that Claude Code reads it automatically at the start of every session. Whatever standing rules and context you put in it are in front of Claude from the first message, without you typing them again.
+
+Think of it as the project's rulebook. It holds the things that are always true for this work: what the project is, who Claude is assisting, how you want things written, and the boundaries that must never be crossed.
+
+## Why it matters
+
+Repeating your standards by hand is not just tedious; it is where inconsistency creeps in. A CLAUDE.md earns its place for three reasons.
+
+- **Consistency.** Every session starts from the same rules, so the tenth memo sounds like the first.
+- **Fewer mistakes.** The boundaries you care about most, such as never touching restricted client data, are stated once and applied every time, rather than depending on you remembering to mention them.
+- **Your standards, applied automatically.** The way your team works gets baked in, so Claude behaves like it already knows how you operate.
+
+## A starter template
+
+Below is a simple starting point you can adapt. Copy it into a file named `CLAUDE.md` in your project folder, then edit it to fit your work. Keep the language plain; you are writing instructions for an assistant, not filling in a form.
+
+<PromptCard title="Starter CLAUDE.md" label="Template">
+What this project is:
+This folder holds working documents for a private equity deal screen. The work involves reviewing source materials and drafting clear, accurate summaries.
+
+Who you are assisting:
+You are assisting an investment professional at a private equity firm. Pitch your work at a senior, professional level.
+
+House tone:
+Write concise, neutral, partner-ready prose. No superlatives, no filler, no throat-clearing introductions. Use US English spelling.
+
+Always do:
+- Read the source documents in this folder before answering.
+- Show me a short plan before making any change, and wait for my approval.
+- Verify every figure, date, and name against the source document.
+- Say "not stated" rather than estimating when the source does not give a figure.
+
+Never do:
+- Never include restricted or confidential client data in anything you draft.
+- Never move files or information outside this project folder.
+- Never guess a number to fill a gap; flag the gap instead.
+</PromptCard>
+
+Notice what the template does. It names the project, sets who Claude is helping, fixes the tone, and draws bright lines around what must always happen and what must never happen. Those "never do" lines are the most valuable part, because they protect you even on a busy day when you would not think to state them.
+
+## The best practice: two rulebooks that stack
+
+Here is the setup worth adopting from the start: keep **two** CLAUDE.md files, not one. A general, personal rulebook that applies to everything you do, and a project rulebook in each folder for the details of that specific work. Claude Code reads both and layers them together, so you write each rule exactly once, in the right place.
+
+The CLAUDE.md template above is the **project** file. It lives inside a single project folder, so its rules apply only to that piece of work. That is exactly where project-specific details belong, like what one deal is about. But some rules are true for everything you do: your house tone, your spelling, the confidentiality lines you never cross. Retyping those into every project would be the very repetition a CLAUDE.md is meant to end.
+
+So those go in the **general** file: a personal rulebook that applies to all your work, whatever folder you are in. It lives in a hidden folder in your home directory, at this path:
+
+```bash
+~/.claude/CLAUDE.md
+```
+
+The `~` is simply shorthand for your home folder, and `.claude` is a hidden folder inside it. When you start a session, Claude Code reads this general file first, then reads the project's own CLAUDE.md on top of it. Your personal rules always apply, and each project adds its own details. This two-file setup is the recommended way to work, and it is exactly how experienced teams keep Claude consistent across many projects at once.
+
+Here is how that looks with several deals on the go. Notice the single general rulebook in `~/.claude/`, and then, inside each project folder, the best-practice trio: a project CLAUDE.md, a `handover.md`, and a `plan.md`, sitting alongside the deal's own files. When you start Claude Code in one of them, it loads the general file plus that project's files, and nothing from the other projects.
+
+<CodeWindow
+  filename="project-atlas/handover.md"
+  ariaLabel="Recreated VS Code file rail showing one general CLAUDE.md in the home .claude folder, plus two deal project folders, each holding its own CLAUDE.md, handover.md, and plan.md alongside its work files. The editor shows a handover file, and the terminal shows a session loading the general and project rules."
+  caption="One general rulebook, plus a CLAUDE.md, handover.md, and plan.md in every project. Each session loads the general file and only that project's files."
+>
+  <ul slot="tree">
+    <li>~/.claude/</li>
+    <li>└ CLAUDE.md   general</li>
+    <li>project-atlas/</li>
+    <li>├ CLAUDE.md   project</li>
+    <li>├ handover.md</li>
+    <li>├ plan.md</li>
+    <li>└ ic-memo.md</li>
+    <li>project-borden/</li>
+    <li>├ CLAUDE.md   project</li>
+    <li>├ handover.md</li>
+    <li>├ plan.md</li>
+    <li>└ data.csv</li>
+  </ul>
+  <pre slot="editor">{`project-atlas/handover.md
+
+Done:
+- Summarized the CIM, flagged 3 risks.
+In progress:
+- Cross-checking revenue against the model.
+Next:
+- Draft the IC memo from the summary.`}</pre>
+  <pre slot="terminal">{`$ cd project-atlas
+$ claude
+
+Claude Code
+Loaded your rules for this session:
+  ~/.claude/CLAUDE.md       general
+  project-atlas/CLAUDE.md   this project
+
+Read handover.md and plan.md. Picking up
+where you left off: cross-checking revenue.
+> `}</pre>
+</CodeWindow>
+
+You can create or open this file from the terminal without hunting through folders. Type the command below and press enter, and Claude Code opens your personal rulebook for you to edit:
+
+```bash
+claude config edit
+```
+
+Keep this personal file to the rules that are genuinely true everywhere. A good general file also tells Claude Code how you like every project set up, so each new folder starts with the same tidy structure. A strong starting point:
+
+<PromptCard title="Personal CLAUDE.md (~/.claude/CLAUDE.md)" label="Global template">
+House tone:
+Write concise, neutral, professional prose. No superlatives, no filler. Use US English spelling.
+
+Always do:
+- Show me a short plan before making any change, and wait for my approval.
+- Verify every figure, date, and name against the source before stating it.
+- Say "not stated" rather than estimating when the source does not give a figure.
+
+For every new project, set it up like this:
+- Create a CLAUDE.md in the project folder describing that specific work.
+- Keep a handover.md that records what is done, what is in progress, and what is next.
+- Keep a plan.md that lays out the goal and the steps to get there.
+- Update handover.md and plan.md as the work moves, so I can pick it back up later.
+
+Never do:
+- Never include restricted or confidential client data in anything you draft.
+- Never paste passwords, secrets, or keys into any file or prompt.
+</PromptCard>
+
+Those three files work together. The project CLAUDE.md holds the standing rules for that work, `handover.md` is a running note of where things stand so you can stop and restart without losing your place, and `plan.md` keeps the goal and the steps in view. Because these instructions live in your general file, Claude Code sets up the same structure in every new project without you having to ask each time.
+
+<Callout type="note" title="Personal rules, project details">
+A simple way to decide where a rule belongs: if it is true for every deal and every folder, put it in your personal `~/.claude/CLAUDE.md`. If it is only true for this one piece of work, put it in the project's own CLAUDE.md. The two stack together automatically.
+</Callout>
+
+## Habits that keep it useful
+
+A CLAUDE.md is not a document you write once and forget. Two small habits keep it working.
+
+- **Keep it short.** A page or so is plenty. A long, rambling rulebook is harder for you to maintain and easier to contradict yourself in. Include the rules that matter and leave out the rest.
+- **Update it whenever you correct Claude.** The best time to add a rule is the moment you find yourself correcting the same thing twice. If you tell Claude "please always cite the page number" and then have to say it again, add that line to your CLAUDE.md. Over time the file becomes a record of your standards, and the corrections stop repeating.
+
+<Callout type="note" title="It grows with you">
+The most useful CLAUDE.md files are the ones that started small and grew one correction at a time. You do not need to anticipate every rule up front. Write a short version today, then let it improve whenever a session teaches you something. Within a few weeks it will read like the way your team actually works.
+</Callout>
+
+## The takeaway
+
+A CLAUDE.md is a plain-text rulebook that Claude Code reads every session, so your standing context and standards are applied automatically instead of retyped. The best practice is to keep two of them: a general `~/.claude/CLAUDE.md` for the rules that are true everywhere, and a project CLAUDE.md in each folder for that work's own details. Start from the templates above, keep each one short, and add a line whenever you correct Claude. It is the single easiest thing you can do to make Claude Code consistent, careful, and genuinely yours.

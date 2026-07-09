@@ -53,6 +53,16 @@ const curriculum = [
     outcome: 'Verify everything and keep confidential data where it belongs.',
   },
 ];
+
+// The advanced track: six Claude Code modules, for hands-on work in your files.
+const advancedTrack = [
+  { index: '01', name: 'Getting Started', href: resolve('claude-code/what-it-is'), outcome: 'See what Claude Code is, then install VS Code and sign in the safe way.' },
+  { index: '02', name: 'First Sessions', href: resolve('claude-code/first-session'), outcome: 'Open a folder, ask for something small, and approve your first change.' },
+  { index: '03', name: 'Good Habits', href: resolve('claude-code/claude-md'), outcome: 'Set up CLAUDE.md, save with Git, ship safely, and keep the cheat sheet close.' },
+  { index: '04', name: 'PE Recipes', href: resolve('claude-code/recipes-data'), outcome: 'Put it to work: data packs, model checks, and summarizing memos.' },
+  { index: '05', name: 'Examples', href: resolve('claude-code/example-value-creation'), outcome: 'See a finished deliverable: a filterable AI value-creation matrix.' },
+  { index: '06', name: 'Glossary', href: resolve('claude-code/glossary'), outcome: 'Look up any Claude Code term, in plain English.' },
+];
 ---
 
 <BaseLayout title="Home">
@@ -65,6 +75,7 @@ const curriculum = [
       <div class="container hero-grid">
         <!-- Left: the pitch -->
         <div class="hero-copy">
+          <p class="mono-eyebrow hero-eyebrow" data-hero="1">KPMG Private Equity · Internal enablement</p>
           <h1 id="hero-title" class="hero-title" data-hero="2">
             Use Claude with confidence on private equity work.
           </h1>
@@ -144,32 +155,93 @@ const curriculum = [
       </div>
     </section>
 
-    <!-- ===================== CURRICULUM PATH ===================== -->
-    <section class="section container curriculum" aria-labelledby="curriculum-title">
-      <div class="curriculum-head" data-reveal>
-        <p class="mono-eyebrow">The path</p>
-        <h2 id="curriculum-title" class="block-title">Six modules, in deliberate order.</h2>
+    <!-- ===================== CHOOSE YOUR TRACK ===================== -->
+    <section class="section container tracks-section" aria-labelledby="tracks-title">
+      <div class="tracks-head" data-reveal>
+        <p class="mono-eyebrow">Two tracks</p>
+        <h2 id="tracks-title" class="block-title">Two ways to work. Pick your track.</h2>
         <p class="block-sub">
-          Start with the fundamentals, master context, then move into the playbooks you will use every week.
+          Both lead to the same Claude. The Core Track covers claude.ai, the web app most people use every
+          day. The Advanced Track covers Claude Code, for hands-on work in your own files. Each track is
+          self-contained, with its own guide from first page to last, so you can follow one without the other.
         </p>
       </div>
 
-      <ol class="syllabus">
-        {
-          curriculum.map((m) => (
-            <li class="step" data-reveal>
-              <a class="step-link" href={m.href}>
-                <span class="step-index" aria-hidden="true">{m.index}</span>
-                <span class="step-body">
-                  <span class="step-name">{m.name}</span>
-                  <span class="step-outcome">{m.outcome}</span>
-                  <span class="step-go mono-meta" aria-hidden="true">Open</span>
-                </span>
-              </a>
-            </li>
-          ))
-        }
-      </ol>
+      <div class="tracks">
+        <!-- Core track: claude.ai -->
+        <article class="track-panel track-core" data-reveal>
+          <div class="panel-chrome chrome-web">
+            <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="chrome-url mono-meta">claude.ai</span>
+            <span class="chrome-tag chrome-tag-web mono-meta">browser</span>
+          </div>
+          <div class="panel-body">
+            <p class="mono-eyebrow panel-eyebrow panel-eyebrow-core">Core Track · Start here</p>
+            <h3 class="panel-title">claude.ai</h3>
+            <p class="panel-sub">
+              The chat app in your browser. Ask questions, analyze documents, and draft. This is where
+              everyone starts, and no prior experience is needed.
+            </p>
+            <ol class="module-list">
+              {
+                curriculum.map((m) => (
+                  <li class="module" data-reveal>
+                    <a class="module-link" href={m.href}>
+                      <span class="module-index" aria-hidden="true">{m.index}</span>
+                      <span class="module-body">
+                        <span class="module-name">{m.name}</span>
+                        <span class="module-outcome">{m.outcome}</span>
+                      </span>
+                      <span class="module-go" aria-hidden="true">→</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ol>
+            <a href={withBase('/welcome')} class="btn btn-primary panel-cta">
+              <span>Start the Core Track</span>
+              <span class="cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Advanced track: Claude Code -->
+        <article class="track-panel track-advanced" data-reveal>
+          <div class="panel-chrome chrome-terminal">
+            <span class="chrome-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="chrome-url mono-meta">claude-code</span>
+            <span class="chrome-tag chrome-tag-term mono-meta">in your files</span>
+          </div>
+          <div class="panel-body">
+            <p class="mono-eyebrow panel-eyebrow panel-eyebrow-adv">Advanced Track</p>
+            <h3 class="panel-title">Claude Code</h3>
+            <p class="panel-sub">
+              Claude working directly in the files and folders on your computer, in the VS Code editor. For
+              hands-on, file-heavy work, with your approval before every change.
+            </p>
+            <ol class="module-list">
+              {
+                advancedTrack.map((m) => (
+                  <li class="module" data-reveal>
+                    <a class="module-link" href={m.href}>
+                      <span class="module-index" aria-hidden="true">{m.index}</span>
+                      <span class="module-body">
+                        <span class="module-name">{m.name}</span>
+                        <span class="module-outcome">{m.outcome}</span>
+                      </span>
+                      <span class="module-go" aria-hidden="true">→</span>
+                    </a>
+                  </li>
+                ))
+              }
+            </ol>
+            <a href={withBase('/claude-code/welcome')} class="btn btn-ink panel-cta">
+              <span>Enter the Advanced Track</span>
+              <span class="cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- ===================== CONFIDENTIALITY BAND ===================== -->
@@ -261,6 +333,9 @@ const curriculum = [
   }
   .hero-copy {
     max-width: 36rem;
+  }
+  .hero-eyebrow {
+    margin-bottom: var(--space-5);
   }
   .hero-title {
     margin: 0 0 var(--space-6);
@@ -434,84 +509,224 @@ const curriculum = [
     padding-bottom: var(--space-12);
   }
 
-  /* ---------- CURRICULUM ---------- */
-  .curriculum-head {
-    max-width: 60ch;
+  /* ---------- CHOOSE YOUR TRACK ---------- */
+  .tracks-head {
+    max-width: 62ch;
     margin-bottom: var(--space-12);
   }
-  .syllabus {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
+  /* Two doorway panels side by side; each is a self-contained track with its
+     own chrome (warm browser for claude.ai, dark terminal for Claude Code) so
+     the two are visually and conceptually distinct. Stacks on narrow screens. */
+  .tracks {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+    align-items: stretch;
   }
-  .step {
-    margin: 0;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    transition:
-      border-color 0.18s ease,
-      box-shadow 0.18s ease,
-      transform 0.18s ease;
-  }
-  .step:hover {
-    border-color: var(--kpmg-cobalt);
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-  .step-link {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-5);
-    align-items: start;
-    padding: var(--space-6);
-    color: inherit;
-    height: 100%;
-  }
-  .step-link:hover {
-    text-decoration: none;
-  }
-  .step-index {
-    font-size: clamp(2rem, 1.5rem + 1.4vw, 2.8rem);
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    color: var(--kpmg-blue);
-    font-variant-numeric: tabular-nums;
-  }
-  .step:hover .step-index {
-    color: var(--kpmg-cobalt);
-  }
-  .step-body {
+
+  .track-panel {
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  .track-panel:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-3px);
+  }
+  .track-core:hover {
+    border-color: var(--kpmg-cobalt);
+  }
+  .track-advanced:hover {
+    border-color: var(--vs-accent);
+  }
+
+  /* ---- Panel chrome (the little window title bar) ---- */
+  .panel-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+  }
+  .chrome-web {
+    background: #f0eee6;
+    border-bottom: 1px solid #eae7dc;
+  }
+  .chrome-terminal {
+    background: var(--vs-sidebar-bg);
+    border-bottom: 1px solid var(--vs-border);
+  }
+  .chrome-dots {
+    display: inline-flex;
     gap: 6px;
   }
-  .step-name {
-    font-size: 1.22rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+  .chrome-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+  .chrome-web .chrome-dots i {
+    background: #d8d3c4;
+  }
+  .chrome-terminal .chrome-dots i {
+    background: #3a4048;
+  }
+  .chrome-url {
+    margin-inline: auto;
+  }
+  .chrome-web .chrome-url {
+    color: #8a8475;
+  }
+  .chrome-terminal .chrome-url {
+    color: var(--vs-muted);
+  }
+  .chrome-tag {
+    border-radius: 999px;
+    padding: 2px 9px;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+  .chrome-tag-web {
+    color: #be5d3a;
+    background: #f4e8e1;
+  }
+  .chrome-tag-term {
+    color: var(--vs-accent);
+    background: rgba(74, 158, 255, 0.14);
+  }
+
+  /* ---- Panel body ---- */
+  .panel-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: var(--space-8) var(--space-7) var(--space-7);
+  }
+  .panel-eyebrow {
+    margin: 0 0 var(--space-3);
+  }
+  .panel-eyebrow-adv {
+    color: var(--kpmg-blue);
+  }
+  .panel-title {
+    margin: 0 0 var(--space-2);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
     color: var(--ink);
   }
-  .step-outcome {
+  .panel-sub {
+    margin: 0 0 var(--space-6);
     font-size: 0.98rem;
     color: var(--ink-muted);
-    line-height: 1.5;
+    line-height: 1.55;
   }
-  .step-go {
-    margin-top: var(--space-3);
+
+  /* ---- Module list within a panel ---- */
+  .module-list {
+    list-style: none;
+    margin: 0 0 var(--space-7);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-top: 1px solid var(--line);
+  }
+  .module {
+    margin: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .module-link {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: var(--space-4);
+    align-items: center;
+    padding: var(--space-4) var(--space-2);
+    color: inherit;
+    transition: padding-left 0.18s ease;
+  }
+  .module-link:hover {
+    text-decoration: none;
+    padding-left: var(--space-4);
+  }
+  .module-index {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--kpmg-cobalt);
+    font-variant-numeric: tabular-nums;
+  }
+  .track-advanced .module-index {
+    color: var(--kpmg-blue);
+  }
+  .module-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .module-name {
+    font-size: 1.02rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .module-outcome {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.45;
+  }
+  .module-go {
     opacity: 0;
-    transform: translateX(-6px);
+    transform: translateX(-4px);
     transition:
       opacity 0.18s ease,
       transform 0.18s ease;
     color: var(--kpmg-cobalt);
+    font-size: 1.1rem;
   }
-  .step:hover .step-go {
+  .module-link:hover .module-go {
     opacity: 1;
     transform: none;
+  }
+
+  /* ---- Panel call to action, pinned to the bottom ---- */
+  .panel-cta {
+    margin-top: auto;
+    align-self: stretch;
+    justify-content: space-between;
+    gap: var(--space-4);
+    font-size: 0.92rem;
+    padding: 0.72em 1.1em;
+  }
+  .cta-arrow {
+    font-size: 1.05rem;
+    line-height: 1;
+    transition: transform 0.18s ease;
+  }
+  .panel-cta:hover .cta-arrow {
+    transform: translateX(3px);
+  }
+  .btn-ink {
+    background: var(--ink);
+    color: #fff;
+    border: 1px solid var(--ink);
+  }
+  .btn-ink:hover {
+    text-decoration: none;
+    background: #000;
+    border-color: #000;
   }
 
   /* ---------- CONFIDENTIALITY BAND ---------- */
@@ -626,14 +841,21 @@ const curriculum = [
     }
   }
 
-  @media (max-width: 640px) {
-    .syllabus {
+  /* Stack the two doorway panels (core then advanced) once side-by-side
+     columns get too tight. */
+  @media (max-width: 900px) {
+    .tracks {
       grid-template-columns: 1fr;
+      gap: var(--space-8);
     }
-    .step-link {
-      grid-template-columns: 56px 1fr;
-      gap: var(--space-4);
-      padding: var(--space-5);
+  }
+
+  @media (max-width: 640px) {
+    .panel-body {
+      padding: var(--space-6) var(--space-5) var(--space-6);
+    }
+    .module-link {
+      gap: var(--space-3);
     }
     .confidential-grid {
       grid-template-columns: 1fr;

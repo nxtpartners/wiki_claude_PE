@@ -4,7 +4,8 @@ Format: `[YYYY-MM-DD] | what went wrong | rule to prevent it`
 
 - [2026-06-30] | Project kickoff | Audience is non-technical PE professionals at KPMG — never let the site feel like developer docs (no Docusaurus look). Polished, editorial, institutional.
 - [2026-06-30] | Branding | Use KPMG palette (deep blue #00338D); do NOT use NXT Partners colors or fonts. No logo yet.
-- [2026-06-30] | Scope | Teach Claude.ai web app only — not the API, not Claude Code. Assume Enterprise/Team accounts.
+- [2026-06-30] | Scope | Primary track is the Claude.ai web app (not the API). Assume Enterprise/Team accounts.
+- [2026-07-09] | Scope update | Claude Code is now IN scope as a second track (its own "Claude Code" nav section and glossary terms). The wiki now teaches two tracks: the Claude.ai web app (primary) and Claude Code (secondary). The API remains out of scope.
 - [2026-06-30] | Typography decision | Use Inter (sans-only) throughout — clean KPMG-aligned look, NOT serif. KPMG deep blue #00338D primary.
 - [2026-06-30] | Dependency pinning | astro-pagefind@2 only supports astro ≤6 — pin astro@6 + @astrojs/mdx@6 (NOT astro 7 / mdx 7) or npm install fails with peer-dep conflict.
 - [2026-06-30] | Pagefind asset loading | Never ESM-`import()` `/pagefind/pagefind-ui.js` — Rollup tries to resolve it and the build fails (asset only exists post-build). Inject it as a runtime `<script>` tag instead.

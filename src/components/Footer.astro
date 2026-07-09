@@ -7,18 +7,36 @@ import { withBase } from '../utils/withBase';
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
 
-// Explore column: main sections → their first page.
-const exploreLabels = ['Foundations', 'Context', 'Projects', 'PE Playbooks', 'Power Features', 'Best Practices'];
-const explore = nav
-  .filter((s) => exploreLabels.includes(s.label))
-  .map((s) => ({ title: s.label, slug: s.items[0]?.slug ?? '' }));
+// The footer mirrors the wiki's two tracks. Each track lists its sections, with
+// the Glossary as the final entry so there is one obvious reference per track.
 
-// Resources column: the most-used shortcuts.
-const resources = [
-  { title: 'Prompt Library', slug: 'resources/prompt-library' },
+// claude.ai (Core Track): main sections → their first page, then the Glossary.
+const coreSectionLabels = ['Foundations', 'Context', 'Projects', 'PE Playbooks', 'Power Features', 'Best Practices'];
+const coreSections = [
+  ...nav
+    .filter((s) => coreSectionLabels.includes(s.label))
+    .map((s) => ({ title: s.label, slug: s.items[0]?.slug ?? '' })),
   { title: 'Glossary', slug: 'resources/glossary' },
-  { title: 'Cheat Sheet', slug: 'best-practices/cheat-sheet' },
-  { title: 'Confidentiality', slug: 'best-practices/confidentiality' },
+];
+
+// Claude Code (Advanced Track): its sections → first page, then the Glossary.
+const advancedSectionLabels = [
+  'Claude Code Welcome',
+  'Getting Started',
+  'First Sessions',
+  'Good Habits',
+  'PE Recipes',
+  'Examples',
+];
+const advancedSections = [
+  ...nav
+    .filter((s) => advancedSectionLabels.includes(s.label))
+    .map((s) => ({
+      // The Welcome section shows the page title; module sections show the section label.
+      title: s.label === 'Claude Code Welcome' ? (s.items[0]?.title ?? s.label) : s.label,
+      slug: s.items[0]?.slug ?? '',
+    })),
+  { title: 'Glossary', slug: 'claude-code/glossary' },
 ];
 
 const year = new Date().getFullYear();
@@ -31,11 +49,11 @@ const year = new Date().getFullYear();
       <p class="footer-tagline">Internal enablement: from the basics to confident daily use.</p>
     </div>
 
-    <nav class="footer-col" aria-label="Explore">
-      <p class="footer-heading">Explore</p>
+    <nav class="footer-col footer-track" aria-label="claude.ai">
+      <p class="footer-heading">claude.ai</p>
       <ul>
         {
-          explore.map((item) =>
+          coreSections.map((item) =>
             existing.has(item.slug) ? (
               <li><a href={withBase(item.slug)}>{item.title}</a></li>
             ) : (
@@ -46,11 +64,11 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
 
-    <nav class="footer-col" aria-label="Resources">
-      <p class="footer-heading">Resources</p>
+    <nav class="footer-col footer-track" aria-label="Claude Code">
+      <p class="footer-heading">Claude Code</p>
       <ul>
         {
-          resources.map((item) =>
+          advancedSections.map((item) =>
             existing.has(item.slug) ? (
               <li><a href={withBase(item.slug)}>{item.title}</a></li>
             ) : (
@@ -110,6 +128,14 @@ const year = new Date().getFullYear();
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-muted);
+  }
+  .footer-subheading {
+    margin: var(--space-5) 0 var(--space-3);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9aa6b6;
   }
   .footer-col ul {
     list-style: none;
@@ -182,6 +208,12 @@ const year = new Date().getFullYear();
     }
     .footer-brand {
       grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
     }
     .footer-bar-inner {
       flex-direction: column;

@@ -1,0 +1,62 @@
+---
+title: What Claude Code Is (and Why)
+description: "Claude Code is Claude working directly in the files and folders on your computer, editing in place and always asking before it changes anything."
+section: Getting Started
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+
+Most of the time you meet Claude in a browser: you open a chat, paste something in, and read the answer. Claude Code is the same Claude, working somewhere else. Instead of a chat window, it sits inside the actual files and folders on your computer, in a free editor called VS Code. It can read a whole folder, edit files in place, and carry out a task that takes several steps, and it asks for your approval before it changes anything.
+
+That last point is the one to hold on to. Claude Code does not quietly rewrite your work. It tells you what it plans to do, waits for you to say yes, and only then acts. You stay in control the whole way through.
+
+## A first exchange
+
+Here is what it looks like in practice. You have a folder with a messy data pack in it. You type a short instruction, Claude Code shows you a plan, you approve it, and it does the work.
+
+<CodeWindow filename="deal-pack" caption="Illustration of Claude Code tidying a data pack. Your files stay on your machine.">
+  <ul slot="tree">
+    <li>deal-pack/</li>
+    <li>data.csv</li>
+    <li>notes.txt</li>
+    <li>CLAUDE.md</li>
+  </ul>
+  <pre slot="editor">{`data.csv
+
+Company, Revenue, EBITDA
+Acme,   4200,    810
+Borden,  ,       540
+Crest,  2650,    `}</pre>
+  <pre slot="terminal">{`> Tidy the data pack and flag any blank cells in a short report.
+
+Claude Code
+Plan:
+1. Read data.csv
+2. Fix the header spacing
+3. List every blank cell in report.md
+Proceed? (y / n)
+
+> y
+
+Done. 2 blank cells flagged in report.md.`}</pre>
+</CodeWindow>
+
+Notice the shape of it: a plain-English request, a short plan you can read, a yes from you, and then the work. No jargon required.
+
+## Why this matters for private equity
+
+The everyday reality of a deal is files. A data pack that arrives in poor shape. A model exported to a spreadsheet. A folder of memos, teasers, and notes that all need to say the same thing. Claude Code is built for exactly this kind of hands-on, file-heavy work.
+
+- **It works on the real thing.** You do not copy a table into a chat and paste the answer back. Claude Code edits the actual file, in place, where it already lives.
+- **It is repeatable.** The same clean-up you do on one data pack, you can run again on the next one, the same way each time.
+- **It can act, not just advise.** A browser chat can tell you what to change. Claude Code can make the change, across a whole folder, and then show you what it did.
+
+<Callout type="note" title="Your files stay put">
+Working in your own files does not mean your files go somewhere else. They stay on your machine. Claude Code reads and edits them locally, and only what you actually send in a prompt is shared with Claude. We cover this properly on the sign-in page, so for now just know that "in your files" means "on your computer".
+</Callout>
+
+## Where to go next
+
+If you are wondering when to open a browser chat and when to reach for Claude Code, that is the right question to ask early. The next page, [Claude Code vs claude.ai](/claude-code/vs-claude-ai), lays the two side by side so you always know which one fits the task in front of you.

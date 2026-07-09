@@ -1,27 +1,53 @@
 ---
 import { getCollection } from 'astro:content';
-import { nav, flatNav } from '../config/nav';
+import type { NavSection, Track } from '../config/nav';
+import { TRACKS } from '../config/nav';
 import { withBase } from '../utils/withBase';
 
 interface Props {
-  currentSlug?: string;
+  currentSlug: string;
+  sections: NavSection[];
+  track: Track;
 }
-const { currentSlug } = Astro.props;
+const { currentSlug, sections, track } = Astro.props;
 
 // Resolve which slugs have a real content file so we never link to a 404.
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
 
-// Global position (1-based) for each slug, so the sidebar number matches the
-// "X of N" shown in each page's header.
-const positionOf = new Map(flatNav.map((item, i) => [item.slug, i + 1]));
+// Position (1-based) for each slug WITHIN this track, so the sidebar number
+// matches the "X of N" shown in each page's header.
+const trackItems = sections.flatMap((s) => s.items);
+const positionOf = new Map(trackItems.map((item, i) => [item.slug, i + 1]));
 const pad = (n: number) => String(n).padStart(2, '0');
+
+// The switcher points at the opposite track's landing page.
+const otherTrack: Track = track === 'core' ? 'advanced' : 'core';
+const current = TRACKS[track];
+const other = TRACKS[otherTrack];
 ---
 
 <nav class="sidebar" aria-label="Wiki navigation">
   <div class="sidebar-scroll">
+    <div class="track-switcher">
+      <a class="track-home" href={withBase('/')}>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true">
+          <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span>Home</span>
+      </a>
+      <p class="track-eyebrow">{current.tagline}</p>
+      <p class="track-name">{current.name}</p>
+      <a class="track-switch" href={withBase('/' + other.homeSlug)}>
+        <span>Switch to {other.name}</span>
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>
+    </div>
     {
-      nav.map((section) => (
+      sections.map((section) => (
+        <>
         <div class="nav-section">
           <p class="nav-label">{section.label}</p>
           <ul class="nav-list">
@@ -52,6 +78,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
             })}
           </ul>
         </div>
+        </>
       ))
     }
   </div>
@@ -74,6 +101,60 @@ const pad = (n: number) => String(n).padStart(2, '0');
 
   .nav-section + .nav-section {
     margin-top: var(--space-6);
+  }
+
+  /* Track switcher: identifies the current track (claude.ai vs Claude Code),
+     links home, and offers a subtle jump to the other track. Sits above the
+     section list, separated by a hairline rule. */
+  .track-switcher {
+    margin-bottom: var(--space-6);
+    padding: 0 var(--space-3) var(--space-5);
+    border-bottom: 1px solid var(--line);
+  }
+  .track-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    transition: color 0.15s ease;
+  }
+  .track-home:hover {
+    color: var(--kpmg-blue);
+    text-decoration: none;
+  }
+  .track-eyebrow {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+  }
+  .track-name {
+    margin: 2px 0 var(--space-3);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .track-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    transition: gap 0.15s ease;
+  }
+  .track-switch:hover {
+    text-decoration: none;
+    gap: 9px;
   }
   .nav-label {
     font-size: 0.7rem;

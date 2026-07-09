@@ -1,0 +1,91 @@
+---
+title: Cheat Sheet
+description: "The whole Claude Code approach on one page: the loop, the setup, the request shape, the do's and don'ts, and the confidentiality rule."
+section: Good Habits
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Everything that matters in Claude Code, on one page. Skim it before you start, keep it open while you work, and come back whenever a habit starts to slip. Each line points to a fuller page if you want the detail.
+
+## The Claude Code loop
+
+Working with Claude Code is a short, repeatable cycle, not a single command.
+
+1. **Open** the right folder in VS Code, so Claude Code works only where it should.
+2. **Ask** for one small, specific thing in plain English.
+3. **Review** the diff: read exactly what it proposes to change.
+4. **Approve** what is right, reject what is not. Nothing changes until you do.
+5. **Save** with a Git commit once a step is working, so you can always return to it.
+
+If you remember only one step, remember that nothing touches your files until you approve it.
+
+## Setup, once
+
+<ComparisonTable title="What you need in place" caption="A one-time setup, ideally with IT in the loop. See Install & Setup for the full walkthrough.">
+
+| Step | What it is |
+| --- | --- |
+| **Install VS Code** | The free editor that is Claude Code's home. |
+| **Install & sign in** | Add Claude Code and sign in with your KPMG account. |
+| **Open a folder** | Point Claude Code at the project you want to work on. |
+| **Add a CLAUDE.md** | A short rulebook so Claude knows the project's context and limits. |
+
+</ComparisonTable>
+
+## The shape of a good request
+
+The same four-part brief that works in the chat app works here.
+
+<ComparisonTable title="Role, Task, Format, Scrutiny" caption="Keep requests small and specific.">
+
+| Part | What it does | Example |
+| --- | --- | --- |
+| **Role** | Sets the perspective | "You are helping a KPMG private equity associate." |
+| **Task** | One specific job | "Add a totals row to this model summary." |
+| **Format** | The shape of the result | "Keep the existing layout, change only the summary." |
+| **Scrutiny** | Demands honesty | "Flag anything you are unsure about before changing it." |
+
+</ComparisonTable>
+
+## Do's and don'ts
+
+<ComparisonTable title="The short version" caption="Good habits on the left, traps on the right.">
+
+| Do | Don't |
+| --- | --- |
+| Take small steps you can review | Ask for many changes at once |
+| Read every diff before approving | Approve changes you have not read |
+| Commit with Git once a step works | Go hours with nothing saved |
+| Keep confidential files where policy allows | Open restricted material in the wrong place |
+| Ask one clear task at a time | Bundle five requests into one message |
+| Involve IT when unsure | Guess at permissions or data handling |
+
+</ComparisonTable>
+
+## Saving and shipping, in three moves
+
+- **Commit** a snapshot once something works, with a short note on what changed.
+- **Push** it to a shared home online so it is backed up.
+- **Deploy** when it is ready to be a live link others can open.
+
+The full routine is in [Saving Work with Git](/claude-code/git-basics) and [Going Live](/claude-code/deploy).
+
+## Confidentiality, in one line
+
+<Callout type="confidential" title="The one-line rule">
+Confirm you are working in an approved place with approved material, and when any part of that is unclear, stop and ask first. Claude Code follows the same standard as the browser: the full version is the [Confidentiality Decision Tree](/best-practices/confidentiality).
+</Callout>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="Glossary" href="/claude-code/glossary" eyebrow="Resources">Plain-language definitions for every Claude Code term.</Card>
+  <Card title="Approving Changes" href="/claude-code/approving-changes" eyebrow="First Sessions">How to read a diff and stay in control.</Card>
+  <Card title="Habits That Keep You Safe" href="/claude-code/good-habits" eyebrow="Good Habits">The everyday habits behind safe use.</Card>
+  <Card title="PE Recipes" href="/claude-code/recipes-data" eyebrow="PE Recipes">Put Claude Code to work on real PE tasks.</Card>
+</CardGrid>

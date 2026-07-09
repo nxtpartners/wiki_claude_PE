@@ -1,5 +1,7 @@
 // Single source of truth for navigation order.
-// Every section + page in the wiki is listed here. The sidebar reads from this.
+// The wiki ships two self-contained tracks: the Core track (claude.ai) and the
+// Advanced track (Claude Code). Each track owns its own sidebar, prev/next, and
+// numbering; a reader in one track never sees the other track's sections.
 // Pages that do not yet have a content file are rendered as muted "coming soon"
 // labels (resolved at build time against the docs collection) so the build never
 // links to a non-existent slug.
@@ -15,7 +17,10 @@ export interface NavSection {
   items: NavItem[];
 }
 
-export const nav: NavSection[] = [
+// ---------------------------------------------------------------------------
+// Core track: claude.ai (the web app most people use every day).
+// ---------------------------------------------------------------------------
+export const navCore: NavSection[] = [
   {
     label: 'Start Here',
     items: [
@@ -36,11 +41,8 @@ export const nav: NavSection[] = [
     label: 'Context',
     items: [
       { title: 'Why Context Is Everything', slug: 'context/why-context' },
-      { title: 'Giving Claude Context', slug: 'context/giving-context' },
       { title: 'Writing Effective Instructions', slug: 'context/writing-instructions' },
       { title: 'Instructions for Claude', slug: 'context/instructions-for-claude' },
-      { title: 'Custom Styles & Tone', slug: 'context/custom-styles' },
-      { title: 'Common Mistakes', slug: 'context/common-mistakes' },
     ],
   },
   {
@@ -97,5 +99,97 @@ export const nav: NavSection[] = [
   },
 ];
 
-/** Flattened, ordered list of all nav items, used for prev/next. */
-export const flatNav: NavItem[] = nav.flatMap((s) => s.items);
+// ---------------------------------------------------------------------------
+// Advanced track: Claude Code (Claude in your own files, for hands-on work).
+// ---------------------------------------------------------------------------
+export const navAdvanced: NavSection[] = [
+  {
+    label: 'Claude Code Welcome',
+    items: [
+      { title: 'Welcome to Claude Code', slug: 'claude-code/welcome' },
+    ],
+  },
+  {
+    label: 'Getting Started',
+    items: [
+      { title: 'What Claude Code Is', slug: 'claude-code/what-it-is' },
+      { title: 'Claude Code vs claude.ai', slug: 'claude-code/vs-claude-ai' },
+      { title: 'Installing VS Code', slug: 'claude-code/install-vs-code' },
+      { title: 'Installing & Signing In', slug: 'claude-code/sign-in' },
+    ],
+  },
+  {
+    label: 'First Sessions',
+    items: [
+      { title: 'Your First Session', slug: 'claude-code/first-session' },
+      { title: 'Approving Changes', slug: 'claude-code/approving-changes' },
+    ],
+  },
+  {
+    label: 'Good Habits',
+    items: [
+      { title: 'CLAUDE.md Rulebook', slug: 'claude-code/claude-md' },
+      { title: 'Habits That Keep You Safe', slug: 'claude-code/good-habits' },
+      { title: 'Keeping Deal Data Safe', slug: 'claude-code/confidentiality' },
+      { title: 'Saving Work with Git', slug: 'claude-code/git-basics' },
+      { title: 'Going Live', slug: 'claude-code/deploy' },
+      { title: 'Cheat Sheet', slug: 'claude-code/cheat-sheet' },
+    ],
+  },
+  {
+    label: 'PE Recipes',
+    items: [
+      { title: 'Data Packs & Model Checks', slug: 'claude-code/recipes-data' },
+      { title: 'Memos into Summaries', slug: 'claude-code/recipes-docs' },
+    ],
+  },
+  {
+    label: 'Examples',
+    items: [
+      { title: 'AI Value Creation Matrix', slug: 'claude-code/example-value-creation' },
+      { title: 'PortCo Pulse Dashboard', slug: 'claude-code/example-portco-pulse' },
+    ],
+  },
+  {
+    label: 'Resources',
+    items: [
+      { title: 'Glossary', slug: 'claude-code/glossary' },
+    ],
+  },
+];
+
+/** Flattened, ordered list per track, used for numbering and prev/next. */
+export const flatNavCore: NavItem[] = navCore.flatMap((s) => s.items);
+export const flatNavAdvanced: NavItem[] = navAdvanced.flatMap((s) => s.items);
+
+// ---------------------------------------------------------------------------
+// Track model + helpers. Each doc page resolves to exactly one track, and all
+// track-scoped chrome (sidebar, prev/next, numbering) reads from these.
+// ---------------------------------------------------------------------------
+export type Track = 'core' | 'advanced';
+
+export const TRACKS = {
+  core: { id: 'core', name: 'claude.ai', tagline: 'Core Track', homeSlug: 'welcome' },
+  advanced: { id: 'advanced', name: 'Claude Code', tagline: 'Advanced Track', homeSlug: 'claude-code/welcome' },
+} as const;
+
+const advancedSlugs = new Set(flatNavAdvanced.map((i) => i.slug));
+
+export function trackForSlug(slug: string): Track {
+  return advancedSlugs.has(slug) ? 'advanced' : 'core';
+}
+
+export function navForTrack(t: Track): NavSection[] {
+  return t === 'advanced' ? navAdvanced : navCore;
+}
+
+export function flatNavForTrack(t: Track): NavItem[] {
+  return t === 'advanced' ? flatNavAdvanced : flatNavCore;
+}
+
+// ---------------------------------------------------------------------------
+// Combined exports, kept for consumers that need a global site map (e.g. the
+// footer, which lists both tracks side by side).
+// ---------------------------------------------------------------------------
+export const nav: NavSection[] = [...navCore, ...navAdvanced];
+export const flatNav: NavItem[] = [...flatNavCore, ...flatNavAdvanced];

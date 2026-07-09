@@ -1,6 +1,6 @@
 ---
-title: Why Context Is Everything
-description: Claude only knows what you tell it, so the quality of your output tracks the quality of your context.
+title: Why Context Is Everything (and How to Give It)
+description: Claude only knows what you tell it, so the quality of your output tracks the quality of your context, and the practical ways to supply it.
 section: Context
 order: 1
 ---
@@ -10,6 +10,9 @@ import PromptCard from '../../../components/PromptCard.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
 import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
 import coreLoop from '../../../assets/diagrams/core_loop.png';
+import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
+import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import FileChip from '../../../components/claude-ui/FileChip.astro';
 
 There is one idea that sits underneath everything else in this guide: Claude only knows what you tell it. It has no access to your live deal, your firm's house view, or the document open on your other screen unless you put that material in front of it. The quality of what you get back tracks, almost exactly, the quality of the context you give. Master that and the rest is technique.
 
@@ -74,8 +77,71 @@ The second prompt sets a role, names the target, defines the task, fixes the for
 
 Once you have briefed Claude in a conversation, that context stays live. You do not re-attach the file or restate the situation on every turn. You simply keep going: "Now put the financials in a table," or "Rewrite the overview for a partner with thirty seconds." Each message builds on everything said so far, which is why refining is cheap and why a single well briefed chat compounds in value the longer you work in it.
 
-The flip side matters too: because context accumulates, a chat that has drifted across three unrelated tasks becomes muddled ground for the fourth. Keep one chat to one job. The [Common Mistakes](/context/common-mistakes) page returns to this.
+The flip side matters too: because context accumulates, a chat that has drifted across three unrelated tasks becomes muddled ground for the fourth. Keep one chat to one job. The [What Not to Do](/best-practices/what-not-to-do) page returns to this.
+
+## How to supply context
+
+If context is everything, the next question is purely practical: how do you actually get your material in front of Claude? There are three routes, and most PE work uses the first two every day. The sections below walk through each, when to reach for it, and the one habit that keeps confidential material safe.
+
+<ComparisonTable title="Attach, paste, or connect" caption="Most PE work lives in the first two rows. Connectors are an optional accelerator your IT team enables.">
+
+| Method | When to use it | Strengths | Watch-outs |
+| --- | --- | --- | --- |
+| **Attach a file** | A teaser, CIM, model, or deck already saved on your machine | Reads whole documents (PDF, Word, Excel) in full; the everyday default | Confirm the file is permitted before uploading |
+| **Paste text directly** | A few paragraphs, an email, a table, or notes with no file | Fast; no upload step; good for snippets | Long pastes get unwieldy; a file is cleaner past a page |
+| **Connect a live source** | A large or frequently updated library (for example Google Drive) | Pulls live, large sources without re-uploading | Must be enabled by IT; always check the permissions on what you pull |
+
+</ComparisonTable>
+
+### Attach a file
+
+Attaching is the workhorse. Claude reads the entire document, so a sixty-page CIM or a multi-tab Excel model is no problem. Click the plus button in the message box, choose **Upload from computer**, wait for the file to finish attaching, then ask your question. You can attach several files to one message, which is how you ask a single question across a whole set of documents.
+
+<ClaudeWindow caption="Attaching is the everyday route: the plus opens the menu, the file sits above your text.">
+  <div style={{ padding: '20px 12px 28px' }}>
+    <ClaudeComposer
+      menu={true}
+      value="Across these two files, where does the model's revenue assumption differ from the teaser's narrative?"
+    >
+      <FileChip slot="files" name="Project_Atlas_CIM.pdf" kind="pdf" meta="62 pages" />
+      <FileChip slot="files" name="Atlas_financials.xlsx" kind="xls" />
+    </ClaudeComposer>
+  </div>
+</ClaudeWindow>
+
+### Paste text directly
+
+Sometimes there is no file, just a chunk of text: a paragraph from an email, a short table, a few lines of management commentary. Paste it straight into the message box and tell Claude what to do with it. This is quicker than saving a file first, and it is ideal when the context is small. Past roughly a page, an attached file reads more cleanly and is easier to reference later.
+
+### Connect a live source
+
+Connectors let Claude reach an external system, such as a shared drive, without you downloading and re-uploading files by hand. They shine when the source is large or changes often. Two things to know up front: a connector has to be **switched on by your IT or workspace administrator** before it appears, and when you pull from it you should **check the permissions** on what you are accessing, exactly as you would on the underlying system. Connectors are an accelerator, not a requirement; the [Connectors](/power-features/connectors) page covers them in full.
+
+## Asking across several documents
+
+The real power of attaching is the cross-document question. Give Claude two or three files at once and ask it to reconcile, compare, or find the gaps between them.
+
+<PromptCard title="Reconcile a model against the narrative">
+You are assisting a KPMG private equity associate on Project Atlas. I have attached the teaser and the financial model.
+
+Compare the two and tell me:
+1. Where the model's growth and margin assumptions line up with the teaser's narrative
+2. Where they diverge, with the figure and the source for each side
+3. The questions these differences raise for management
+
+Use a short table for the comparison. If a number appears in one file but not the other, say so rather than estimating it.
+</PromptCard>
+
+That single prompt does work that would otherwise mean flipping between two documents line by line, and it tells Claude to flag mismatches instead of papering over them.
+
+## Confirm before you upload
+
+Every method above puts your material into Claude, so the discipline is the same regardless of route: be deliberate about what goes in.
+
+<Callout type="confidential" title="Confirm a file is permitted before you upload it">
+On KPMG's Enterprise and Team plan your uploads are not used to train Anthropic's models, but that does not override an NDA or KPMG's data-handling rules. Before attaching anything tied to a live deal, confirm it is permitted, use the right workspace, and keep each deal's material inside its own dedicated Project. The full rules are in [Your Account & Confidential Data](/foundations/account-and-data).
+</Callout>
 
 ## The takeaway
 
-Claude is a fast, capable partner, but it is only ever as good as the context you give it and only as trustworthy as your verification. Hold those two ends, rich context going in and disciplined checking coming out, and the loop in between does the work. The next step is the practical one: the concrete ways to supply context, covered in [Giving Claude Context](/context/giving-context). If you want to revisit how to shape the ask itself, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).
+Claude is a fast, capable partner, but it is only ever as good as the context you give it and only as trustworthy as your verification. Hold those two ends, rich context going in and disciplined checking coming out, and the loop in between does the work. In practice you will attach files most of the time, lean on multi-file questions to do cross-document work, and reach for connectors only once IT has switched them on. With the context supplied, the next lever is how you phrase the request itself, covered in [Writing Effective Instructions](/context/writing-instructions). If you want to revisit how to shape the ask itself, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

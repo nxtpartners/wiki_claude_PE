@@ -6,10 +6,9 @@ import { withBase } from '../utils/withBase';
 
 <header class="site-header">
   <div class="header-inner">
-    <a href={withBase('/')} class="wordmark" aria-label="Claude for Private Equity, home">
-      {/* ---- KPMG LOGO PLACEHOLDER ---- */}
-      {/* Drop the official KPMG logo <img/> or inline SVG here later.        */}
-      {/* It should sit before the "× Claude" text and align baseline-center. */}
+    <a href={withBase('/')} class="wordmark" aria-label="KPMG and Claude for Private Equity, home">
+      <img src={withBase('/kpmg-logo.png')} alt="KPMG" class="mark-kpmg" width="61" height="26" />
+      <span class="mark-x" aria-hidden="true">&middot;</span>
       <span class="mark-claude">Claude</span>
       <span class="mark-sub">for Private Equity</span>
     </a>
@@ -78,14 +77,26 @@ import { withBase } from '../utils/withBase';
 
   .wordmark {
     display: inline-flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: center;
+    gap: 9px;
     color: var(--ink);
     font-weight: 700;
     letter-spacing: -0.01em;
   }
   .wordmark:hover {
     text-decoration: none;
+  }
+  .mark-kpmg {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+  .mark-x {
+    color: var(--ink-subtle, var(--ink-muted));
+    font-weight: 400;
+    font-size: 0.95rem;
+    line-height: 1;
+    margin-inline: 1px;
   }
   .mark-claude {
     font-weight: 700;

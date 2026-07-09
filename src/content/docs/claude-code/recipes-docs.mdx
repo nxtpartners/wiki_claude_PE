@@ -1,0 +1,57 @@
+---
+title: "Recipes: Folders of Memos into Summaries"
+description: "Two Claude Code recipes for turning a folder of memos into one clean summary and standardizing a set of documents."
+section: PE Recipes
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+
+Documents pile up fast. A single workstream can leave you with a folder of memos, notes, and PDFs that nobody has time to read end to end. The two recipes below turn that pile into something usable: one clean summary, and one consistent, well-organized set of files. Claude Code handles the reading and reformatting; you keep the judgment on what matters.
+
+## Recipe 3 - Folder of memos to a summary
+
+When you have a folder of memos or PDFs on one topic, you rarely want to read all of them. You want the shape of what they say. Point Claude Code at the whole folder and ask for a single structured summary that pulls the threads together.
+
+<PromptCard title="Summarize a folder of memos" label="Prompt">
+Please read all of the memos and PDFs in this folder. Produce one structured summary with three sections: key points, risks, and open questions. Under key points, capture the main takeaways across all the documents. Under risks, list anything the documents flag as a concern. Under open questions, note anything left unresolved or contradicted between documents. Where a point comes from a specific file, name the file.
+</PromptCard>
+
+<Steps>
+  <Step title="Gather the documents in one folder">
+    Put the memos and PDFs you want covered into a single folder, and remove anything that does not belong. Claude Code will summarize what it finds, so a clean folder gives a cleaner summary.
+  </Step>
+  <Step title="Run the prompt above">
+    Ask for one structured summary with key points, risks, and open questions. Asking for those three fixed sections gives you something you can use as it stands.
+  </Step>
+  <Step title="Check the summary against the source">
+    For anything you plan to rely on, open the named file and confirm the summary reflects it fairly. A fluent summary can still miss nuance, so verify before it reaches a colleague.
+  </Step>
+</Steps>
+
+## Recipe 4 - Standardize a set of documents
+
+A set of files from different people tends to be inconsistent: mismatched names, different formats, and key terms buried in the body of each one. Claude Code can bring order to the set, renaming to a consistent pattern, reformatting for consistency, and lifting the important terms into one table you can scan.
+
+<PromptCard title="Standardize a set of documents" label="Prompt">
+Please review the documents in this folder. Rename them to a consistent pattern that I can read at a glance, such as date, then topic, then a short label. Reformat them so they follow the same structure where that makes sense. Then extract the key terms from each document into a single table, with one row per document and columns for the terms that matter most across the set. Tell me first what pattern and columns you plan to use so I can confirm before you make changes.
+</PromptCard>
+
+Because renaming and reformatting change your files, ask Claude Code to confirm its plan before it acts, as the prompt above does. Review the proposed naming pattern and the table columns, adjust anything you do not like, and only then let it proceed. This keeps you in control while it does the repetitive work.
+
+<Callout type="confidential">
+Keep restricted material within firm policy at all times. Memos and deal documents often carry confidentiality obligations, so confirm what is permitted before you point Claude Code at anything sensitive. Test these recipes on non-sensitive samples first, so you know how they behave before they touch real, restricted material.
+</Callout>
+
+## Where to go next
+
+<CardGrid columns={2}>
+  <Card title="CLAUDE.md: Your Project's Rulebook" href="/claude-code/claude-md" eyebrow="Good Habits" />
+  <Card title="CIM & Teaser Analysis" href="/playbooks/cim-analysis" eyebrow="PE Playbooks" />
+  <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices" />
+</CardGrid>

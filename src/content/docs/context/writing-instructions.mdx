@@ -86,6 +86,45 @@ When unsure: if the teaser does not state something, write "not stated" rather t
 
 Every part is doing a job: the role sets depth, the task is singular, the constraints fence the answer, the format makes it usable, and the fallback turns silent guesses into a clean list of questions.
 
+## Custom styles and house tone
+
+One instruction deserves its own treatment: how you want the answer to sound. Claude can write in almost any register, which is useful and also a trap. Left to its own defaults it tends toward the enthusiastic and the wordy, neither of which belongs in an investment committee paper. Tone is an instruction, not a hope. State it the same way you state the task and the format, and a few words is usually enough: "concise, neutral, no superlatives, US English" reshapes an answer completely.
+
+<ComparisonTable title="Default voice versus specified voice" caption="The same content, reshaped by a single line of tone instruction.">
+
+| Claude's default tends to be | A specified house voice asks for |
+| --- | --- |
+| Enthusiastic, with superlatives | Measured and neutral |
+| Wordy, with throat-clearing intros | Concise, straight to the point |
+| Generic business register | Partner-ready, suited to an IC audience |
+| Mixed spelling conventions | Consistent, for example US English |
+
+</ComparisonTable>
+
+The simplest way to control tone is to name it inside the request, alongside the role, task, and format you already specify.
+
+<PromptCard title="A house-voice instruction">
+You are drafting for a KPMG private equity audience. Write in our house voice throughout:
+
+- Concise and partner-ready: no filler, no throat-clearing introductions.
+- Neutral and measured: state findings plainly, avoid superlatives and hype.
+- Precise: prefer specific figures and clear caveats over vague positives.
+- US English spelling and conventions.
+
+Now draft a three-paragraph summary of Project Atlas suitable for an initial investment committee read.
+</PromptCard>
+
+Pasting a tone block into every chat works, but it is repetitive and easy to vary by accident. For anything you do regularly, capture the voice once so it applies automatically. There are two clean ways to do this:
+
+- **A saved Style.** Claude lets you capture a writing style and apply it to a conversation, so you select your house voice rather than retyping it. This is ideal for a personal, consistent register across one-off chats.
+- **Standing instructions in a Project.** A Project holds instructions that apply to every conversation inside it. Put your house-voice block in the Project instructions and every memo, email, and summary you draft in that Project inherits the same tone without a single extra line. This is the better route for sustained deal work, because the voice and the deal context live together. See [Instructions for Claude](/context/instructions-for-claude) for how to write that standing block, the [Projects](/projects/what-projects-are) section for the setup, and [Instruction Templates](/projects/templates) for reusable starting points.
+
+<Callout type="note" title="Consistency is the real prize">
+An IC paper assembled from several Claude sessions reads badly if each section has a different voice: one breezy, one stiff, one littered with superlatives. Capturing the house voice once, in a Style or a Project, means every section sounds like it came from the same hand. That coherence is what makes a document feel partner-ready.
+</Callout>
+
+Specifying a measured, caveat-friendly voice does more than make prose look professional. A voice that prefers "the document states" over "this is a fantastic business" naturally surfaces the evidence and the gaps, which makes the output easier to verify. Hype hides uncertainty; a neutral register exposes it. The tone you ask for and the rigor you want tend to pull in the same direction.
+
 ## The takeaway
 
-Precise instructions are not longer or more complex; they simply leave nothing for Claude to invent. Name the seat, state one task, set the constraints, fix the format, and say what to do when unsure. When you find yourself typing the same instructions on every deal, capture them once as standing [Instructions for Claude](/context/instructions-for-claude) so they apply automatically. From there you can lock a consistent voice across everything you produce, which is the subject of [Custom Styles & Tone](/context/custom-styles). For the underlying anatomy of a prompt, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).
+Precise instructions are not longer or more complex; they simply leave nothing for Claude to invent. Name the seat, state one task, set the constraints, fix the format, and say what to do when unsure. When you find yourself typing the same instructions on every deal, capture them once as standing [Instructions for Claude](/context/instructions-for-claude) so they apply automatically, and lock a consistent voice at the same time using the house-tone approach in the section above. For the underlying anatomy of a prompt, see [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

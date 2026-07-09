@@ -1,0 +1,96 @@
+---
+title: Watching It Work & Approving Changes
+description: "How the approval loop works: Claude proposes, you review the exact changes, and nothing happens without your yes."
+section: First Sessions
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import ccApprovalLoop from '../../../assets/diagrams/cc-approval-loop.png';
+
+The single most reassuring thing about Claude Code is also the easiest to miss: it never changes anything on your computer without asking you first. Every action passes through a short review, and you are the one who approves it. This is called the approval loop, and once you trust it, the tool stops feeling risky and starts feeling like a careful assistant.
+
+<DiagramFigure image={ccApprovalLoop} alt="A repeating four-move cycle. You ask by describing the task in plain English, Claude plans by proposing a clear step-by-step plan, you approve by saying yes or sending it back to adjust, then it acts and you verify the change against the source. The loop returns to the start, and a central line reads: nothing changes without your yes." caption="The approval loop: you ask, Claude plans, you approve, it acts and you verify. Nothing changes without your yes, and you run the loop until the work is right." maxWidth={640} />
+
+## How the loop works
+
+The loop has the same three beats every time, no matter how small or large the task.
+
+<Steps>
+  <Step title="Claude proposes">
+    You make a request, and Claude replies with a plan rather than an action. It tells you what it intends to do, step by step, in plain language. For anything that touches a file, it also shows you the exact change: the old text and the new text, side by side, so you can see precisely what would move.
+  </Step>
+  <Step title="You review">
+    You read the plan and the proposed changes. This is the heart of the loop. You are not rubber-stamping; you are checking that Claude understood the request and that the change is one you actually want. Take the time to read it, especially any figures or wording that will end up in front of others.
+  </Step>
+  <Step title="You approve or send it back">
+    If it looks right, you approve, and only then does Claude make the change. If it looks wrong, incomplete, or simply not what you meant, you say no and explain. Claude adjusts and proposes again. You can go around this loop as many times as you need.
+  </Step>
+</Steps>
+
+## What an approval looks like
+
+Here is the loop on screen. The reader asks for a small edit to a memo, Claude proposes a plan and shows the exact change as a diff (the old line marked with a minus, the new line marked with a plus), and then waits at `Proceed? (y / n)`. Nothing in the file changes until the reader types `y`.
+
+<CodeWindow
+  filename="deal-screen"
+  ariaLabel="Recreated VS Code window. The editor shows a memo file, and the terminal shows Claude Code proposing a plan, displaying the exact change as a diff, and waiting for approval before editing."
+  caption="A single approval: plan, exact diff, then your yes. Nothing changes on your machine until you approve."
+>
+  <ul slot="tree">
+    <li>deal-screen/</li>
+    <li>ic-memo.md</li>
+    <li>data.csv</li>
+    <li>CLAUDE.md</li>
+  </ul>
+  <pre slot="editor">{`ic-memo.md
+
+Revenue grew to 60m in the last
+full year, up from the prior period.
+Gross margin sits in the low 70s.`}</pre>
+  <pre slot="terminal">{`> The revenue figure should read 62m, not 60m. Fix it in the memo.
+
+Claude Code
+Here is my plan:
+1. Open ic-memo.md
+2. Update the revenue figure from 60m to 62m
+3. Leave the rest of the wording unchanged
+
+Proposed change to ic-memo.md:
+- Revenue grew to 60m in the last
++ Revenue grew to 62m in the last
+
+Proceed? (y / n)
+
+> y
+
+Done. Updated 1 line in ic-memo.md.`}</pre>
+</CodeWindow>
+
+Notice the two things you are given before you decide: a plain-English plan, and the precise before-and-after of the change. Reviewing the diff is where you confirm the new figure is the one you actually meant.
+
+## Nothing happens until you say yes
+
+It is worth stating plainly, because it is the promise the whole tool rests on: no file on your computer is created, edited, renamed, or deleted until you approve the specific change. Reading your files and thinking about them happens freely; changing them does not. If you close the window at the review step, nothing has been altered.
+
+This is what makes it safe to experiment. You can ask for something, see the proposed change, decide you do not like it, and walk away, all without a single mark on your actual documents.
+
+<Callout type="confidential" title="What stays local">
+Your files stay on your machine. Claude Code does not upload your folder. When you make a request, only your prompt and the specific context it needs (the parts of the files relevant to the task) are sent to Claude so it can reason about them. The documents themselves remain where they are, on your computer, under your control.
+</Callout>
+
+## Review is your job, not a formality
+
+The approval loop only protects you if you actually use it. Approving without reading is the same as letting the tool run unsupervised, which defeats the point. Claude is capable and fast, but it can misread a request or make a mistake, and the review step is where you catch it.
+
+<Callout type="warning" title="Verify every change">
+Read what changed before you approve, do not just glance at it. If a change involves a number, a date, or a name, check it against the source document rather than trusting that it was carried over correctly. And use Git (covered later in this track) so that even an approved change can always be undone. Reviewing carefully and keeping an undo path are what let you move quickly without moving carelessly.
+</Callout>
+
+## The takeaway
+
+The approval loop is simple: Claude proposes, you review the exact changes, and you approve or send it back. Nothing on your computer changes without your yes. Treat the review step as real work rather than a formality, verify anything that matters against the source, and lean on Git so every change stays reversible. With that habit in place, you stay firmly in control of everything Claude Code does.

@@ -1,0 +1,84 @@
+---
+title: "PortCo Pulse Dashboard"
+description: "A worked example of a portfolio-monitoring dashboard you could assemble with Claude Code: KPI tracking, plan-vs-actual variance, and automated off-track alerts across a private equity portfolio."
+section: Examples
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+import PortcoPulsePreview from '../../../components/examples/PortcoPulsePreview.astro';
+
+This page is a worked example. It takes one finished deliverable, a live dashboard that monitors a private equity portfolio, and shows how you would build something like it with Claude Code. The point is not this one dashboard, but the pattern: turning scattered monthly KPI reporting, a spreadsheet from each company, a plan buried in a deck, into a single view that shows performance and flags what is off track.
+
+The finished version is a full page of its own. The preview below links straight to it.
+
+<PortcoPulsePreview />
+
+## What you are looking at
+
+The dashboard follows a fictional fund, Meridian Capital Partners, and eight portfolio companies that submit monthly KPIs against an FY2026 plan. Each figure is compared to plan and given a RAG status: green when the company is within 5% of plan, amber when it is 5-15% off, and red when it is more than 15% off. The tracked KPIs are revenue, gross margin, EBITDA, headcount, churn rate, and NPS.
+
+The top of the dashboard shows three stat cards: how many companies are in the portfolio, how many submissions are still pending, and how many alerts are open. Below that, a portfolio bar chart ranks companies by latest-period revenue, and an off-track and at-risk section pulls out the two companies that need attention. A company analytics table then breaks one company down KPI by KPI, and a submission tracking grid shows which reports each company has filed for the period.
+
+Operators at each portfolio company do not fill in forms. They report KPIs by chatting with an AI assistant, which reads the numbers back, checks them against the plan, and files the submission. That structure is the hard part, and it is exactly the kind of work Claude Code is good at. You bring the plan and the judgment; Claude does the patient job of wiring the pieces into one consistent view.
+
+## How this was built
+
+<Steps>
+  <Step title="Collect the KPI definitions and the annual plan in one folder">
+    Start with what you already have: the KPI definitions, the annual plan targets by company, and a few example monthly submissions. Put them in a single folder and open it in VS Code so Claude Code can see everything at once.
+  </Step>
+  <Step title="Agree the data model first">
+    Before any building, decide how the data is shaped: companies, the KPIs each one reports, monthly actuals, plan targets, and the RAG thresholds. Note that thresholds depend on direction: for revenue, higher is better; for churn, lower is better. Ask Claude Code to propose the model from your material, then refine it.
+
+    <PromptCard title="Ask Claude Code to propose the data model" label="Prompt">
+    Look at the KPI definitions and the annual plan in this folder. Propose a data model for a portfolio-monitoring dashboard: companies, the KPIs each reports, monthly actuals, plan targets, and RAG status thresholds. Account for KPI direction, so higher is better for revenue and lower is better for churn. Explain each field and each threshold. Do not build the dashboard yet, just the model.
+    </PromptCard>
+  </Step>
+  <Step title="Build the dashboard views">
+    With the model agreed, ask Claude Code to build the views: the stat cards, the portfolio revenue chart, the off-track and at-risk section, and the per-company analytics table. Claude Code writes the markup and styling and keeps every value tied back to the source data.
+  </Step>
+  <Step title="Wire the RAG alert logic">
+    Now connect the thresholds so companies over the line surface automatically. A company drops into off track or at risk based on its variance against plan, and the alert carries the KPI and the gap, so a reader sees why it fired rather than just that it did.
+
+    <PromptCard title="Ask Claude Code to wire the alert logic" label="Prompt">
+    Using the data model we agreed, add the RAG alert logic. For each company, compare actuals to plan and assign a status: green within 5% of plan, amber 5-15% off, red over 15% off, respecting KPI direction. Surface any company that is amber or red into an alerts section, and include the KPI name and the variance so the reason is visible. Do not invent figures, use only what is in the source data.
+    </PromptCard>
+  </Step>
+  <Step title="Add conversational submission">
+    Instead of a form, let operators report KPIs by chatting. The assistant asks for the period figures, reads them back for confirmation, checks them against the plan, and files the submission. This lowers the effort of reporting and keeps the data flowing on time.
+  </Step>
+  <Step title="Review against source, then save with Git">
+    Read every figure and threshold against your source before you trust it. Fix what is off, then save your work with Git so you have a clean point to return to.
+  </Step>
+</Steps>
+
+<Callout type="warning">
+Claude Code assembles structure quickly, but it cannot supply judgment. Check every figure and every threshold against your own source material before this goes in front of anyone. An alert is a prompt to look, not a verdict.
+</Callout>
+
+<Callout type="confidential">
+Portfolio KPI data is sensitive. Keep the source data in an approved folder and add a `.gitignore` before your first commit, so nothing confidential is ever saved into history. See [Saving Your Work](/claude-code/git-basics) and [Keeping Deal Data Safe](/claude-code/confidentiality).
+</Callout>
+
+## See the finished deliverable
+
+<PortcoPulsePreview />
+
+## What to reuse
+
+The value here is the workflow, not this one dashboard. Any time you have scattered reporting that would be more useful as a single, comparable view with clear thresholds, the same steps apply.
+
+<CardGrid columns={2}>
+  <Card title="AI Value Creation Matrix" href="/claude-code/example-value-creation" eyebrow="Example">
+    The first worked example: turning scattered research notes into a structured, filterable matrix of AI use cases.
+  </Card>
+  <Card title="PE Recipes" href="/claude-code/recipes-data" eyebrow="Practice">
+    Shorter, everyday workflows: tidy a data pack, sanity-check a model, turn a memo into a summary.
+  </Card>
+</CardGrid>

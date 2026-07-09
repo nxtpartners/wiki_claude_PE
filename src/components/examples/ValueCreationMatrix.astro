@@ -1,0 +1,1265 @@
+---
+// Example 1: AI Value Creation Matrix.
+// A self-contained, re-skinned adaptation of a standalone KPMG deliverable:
+// 19 AI value-creation use cases across five PE value levers, filterable by
+// phase, fund tier, and KPMG service line.
+//
+// Design rules followed here:
+//  - Never hardcode colors. Every hue is a wiki design token (--kpmg-blue,
+//    --kpmg-cobalt, --kpmg-teal, --warning, --confidential, --ink-muted).
+//    Badge tints are derived from those tokens with color-mix, so the whole
+//    matrix stays on-palette with the rest of the wiki.
+//  - No external fonts: Inter for body, JetBrains Mono (--font-mono) for the
+//    micro-labels and badges.
+//  - No em/en dashes anywhere. Ranges use a hyphen ("4-6 wks"); prose dashes
+//    are rewritten as commas or colons.
+//  - Mobile-adaptable: the wide table collapses to stacked cards under 720px
+//    using data-label attributes; the .table-wrap keeps overflow-x for the
+//    in-between range. No animation is added, so reduced-motion is respected.
+
+const serviceLabels: Record<string, string> = {
+  strategy: 'Strategy & Advisory',
+  platform: 'Platform Build',
+  impl: 'Implementation',
+  managed: 'Managed Service',
+  vc: 'Portfolio VC',
+};
+
+const phaseMeta: Record<string, { label: string; cls: string }> = {
+  '100-Day': { label: '100-Day', cls: 'phase-100' },
+  'Mid-Hold': { label: 'Mid-Hold', cls: 'phase-mid' },
+  'Exit Prep': { label: 'Exit Prep', cls: 'phase-exit' },
+  'All Phases': { label: 'Continuous', cls: 'phase-all' },
+};
+const tierMeta: Record<string, string> = {
+  'Mid-Market': 'tier-mm',
+  'Large-Cap': 'tier-lc',
+  Both: 'tier-both',
+};
+const fitMeta: Record<string, string> = { High: 'pp-high', Medium: 'pp-med', Low: 'pp-low' };
+const cxMeta: Record<string, string> = { Low: 'cx-low', Medium: 'cx-med', High: 'cx-high' };
+const entryMeta: Record<string, string> = { build: 'entry-build', buy: 'entry-buy', partner: 'entry-partner' };
+
+interface Row {
+  sublever: string;
+  usecase: string;
+  phase: string;
+  tier: string;
+  filterServices: string;
+  services: string[];
+  airole: string;
+  anchor: string;
+  fit: string;
+  complexity: string;
+  ttv: string;
+  duration: string;
+  deps: string;
+  entry: { type: string; label: string };
+}
+interface Lever {
+  key: string;
+  title: string;
+  rows: Row[];
+}
+
+const levers: Lever[] = [
+  {
+    key: 'efficiency',
+    title: 'Operational Efficiency',
+    rows: [
+      {
+        sublever: 'SG&A & COGS (Labor)',
+        usecase: 'Automated SG&A Benchmarking & Anomaly Detection',
+        phase: '100-Day',
+        tier: 'Mid-Market',
+        filterServices: 'strategy vc impl',
+        services: ['strategy', 'vc', 'platform'],
+        airole:
+          `KPMG's Value Navigator already contains the benchmark database and methodology. The current workflow requires significant manual reconciliation against trial balances to produce clean output, a process that is time-intensive and introduces error risk. AI automates the GL ingestion and reconciliation layer: classifying spend lines, resolving miscodings, and mapping actuals to benchmark categories without manual intervention. Because Value Navigator ingests census data covering fully loaded labor cost and headcount, the output spans both SG&A and direct labor on the COGS side, surfacing cost reduction opportunities across back-office and operational functions alike. The methodology stays intact; the bottleneck is removed.`,
+        anchor:
+          `KPMG Value Navigator (existing internal tool). AI augmentation of the reconciliation layer is the specific gap, not a net-new build.`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '4-6 wks',
+        duration: '8-12 wks',
+        deps: 'ERP GL export; 12+ months of actuals; vendor master list.',
+        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+      },
+      {
+        sublever: 'SG&A & COGS (Labor)',
+        usecase: 'AI-Driven Headcount & Org Layer Analysis',
+        phase: 'All Phases',
+        tier: 'Both',
+        filterServices: 'strategy vc impl',
+        services: ['strategy', 'vc', 'platform'],
+        airole:
+          `Value Navigator already holds the benchmark data for headcount and fully loaded labor cost by function, industry, and company size. The gap is the manual effort required to map census data and trial balances to the benchmark structure before any comparison is possible. AI automates that mapping, cleaning and reconciling inputs from payroll and GL exports without manual intervention. Because the analysis covers fully loaded cost and headcount across all functions, the output applies equally to SG&A roles and direct labor on the COGS side. The ranked opportunity set covers headcount reduction, offshoring candidates by function, outsourcing opportunities, and span and band optimization, across back-office and operational workforce alike.`,
+        anchor:
+          `KPMG Value Navigator (existing internal tool). Same reconciliation bottleneck as SG&A benchmarking; AI closes the same gap across a different data input.`,
+        fit: 'Low',
+        complexity: 'Medium',
+        ttv: '6-8 wks',
+        duration: '10-14 wks',
+        deps: 'HRIS/payroll export with reporting lines; compensation banding.',
+        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+      },
+      {
+        sublever: 'Supply Chain & Operations',
+        usecase: 'Demand Forecasting with ML-Augmented Inputs',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `Replaces static spreadsheet forecasting with ML models trained on historical shipment data, seasonality, promotional calendars, and external signals. Reduces forecast error and associated safety stock carrying cost. Most impactful for portcos with high SKU count and variable demand.`,
+        anchor:
+          `Kinaxis, o9 Solutions, Blue Yonder for large manufacturers. Streamline or Inventory Planner for mid-market. ML forecasting at defense-adjacent portcos (Veritas Capital, emerging).`,
+        fit: 'Low',
+        complexity: 'High',
+        ttv: '12-16 wks',
+        duration: '20-28 wks',
+        deps: '3+ years clean SKU-level sales history; ERP with inventory module.',
+        entry: { type: 'buy', label: 'Buy + Partner' },
+      },
+      {
+        sublever: 'Supply Chain & Operations',
+        usecase: 'Procurement Spend Analytics & Supplier Consolidation',
+        phase: 'Mid-Hold',
+        tier: 'Large-Cap',
+        filterServices: 'vc impl',
+        services: ['vc', 'platform'],
+        airole:
+          `Value Navigator benchmarks spend by category and industry. The current process requires manually mapping AP and PO data to the benchmark taxonomy, reconciling against trial balances to get clean category-level spend before any comparison is possible. AI automates that classification and reconciliation, then surfaces consolidation opportunities: categories where spend is above benchmark, vendors appearing across multiple functions, and tail spend above an actionable threshold. Where labor-related costs appear in procurement data (e.g., contract labor, staffing agencies), the analysis connects to the same fully loaded cost benchmarks that drive the headcount and SG&A workstreams. Output is a prioritized renegotiation and consolidation target list grounded in benchmark data.`,
+        anchor:
+          `KPMG Value Navigator (existing internal tool). Same census-to-trial-balance reconciliation bottleneck as SG&A and headcount; AI applies the same fix to procurement spend inputs.`,
+        fit: 'Low',
+        complexity: 'Medium',
+        ttv: '8-10 wks',
+        duration: '14-20 wks',
+        deps: 'AP/PO export with vendor names and line descriptions; $50M+ in addressable indirect spend.',
+        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+      },
+    ],
+  },
+  {
+    key: 'balance',
+    title: 'Balance Sheet Strength',
+    rows: [
+      {
+        sublever: 'Working Capital',
+        usecase: 'Cash Conversion Cycle Monitoring & Alert Engine',
+        phase: 'All Phases',
+        tier: 'Mid-Market',
+        filterServices: 'platform managed strategy',
+        services: ['platform', 'managed', 'strategy'],
+        airole:
+          `Continuously pulls AR aging, AP aging, and inventory data to compute DSO, DPO, and DIO at the portco level. Detects deteriorating trends before month-end, e.g., DSO creeping 8 days over a 90-day rolling average. Generates automated alerts with drill-down by customer or vendor. At mid-market, this function does not otherwise exist between board meetings.`,
+        anchor:
+          `Tesorio for AI-powered AR forecasting; HighRadius for enterprise. Neither does fund-level portfolio aggregation, that is the PortCo Pulse layer.`,
+        fit: 'High',
+        complexity: 'Low',
+        ttv: '2-4 wks',
+        duration: '6-10 wks',
+        deps: 'ERP with AR/AP/inventory modules; monthly WC data submission.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Working Capital',
+        usecase: 'Customer Payment Behavior Prediction & Collections Prioritization',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `Classification model trained on invoice amount, customer segment, payment history, and days outstanding to predict which open invoices are high-risk for late payment. Outputs a prioritized collections queue, replacing the "oldest invoice first" default. Measurable via DSO improvement against control period.`,
+        anchor:
+          `Tesorio and Billtrust offer AI collections prioritization commercially. Deployed at PE-backed SaaS and B2B services portcos (analogous).`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '8-12 wks',
+        duration: '14-20 wks',
+        deps: '18+ months of invoice-level AR history; customer master with segment data.',
+        entry: { type: 'buy', label: 'Buy + Partner' },
+      },
+      {
+        sublever: 'CapEx Management',
+        usecase: 'Predictive Maintenance to Defer Unplanned CapEx',
+        phase: 'Mid-Hold',
+        tier: 'Large-Cap',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `IoT sensor data combined with ML anomaly detection identifies equipment degradation before failure. Shifts maintenance from calendar-based to condition-based, reducing unplanned downtime and emergency CapEx. Skews large-cap because sensor infrastructure and maintenance data maturity are prerequisites most mid-market portcos do not meet.`,
+        anchor:
+          `Uptake, SparkCognition, C3.ai in industrial predictive maintenance. KKR has deployed at manufacturing portcos (emerging, not public).`,
+        fit: 'Low',
+        complexity: 'High',
+        ttv: '16-24 wks',
+        duration: '24-36 wks',
+        deps: 'IoT sensors on key equipment; 2+ years of maintenance logs; OT/IT integration.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Capital Markets Readiness',
+        usecase: 'AI-Assisted Data Room Construction & Narrative Packaging',
+        phase: 'Exit Prep',
+        tier: 'Both',
+        filterServices: 'strategy impl platform',
+        services: ['strategy', 'impl', 'platform'],
+        airole:
+          `LLM-assisted assembly of data room materials: structures financial data from ERP/BI exports, drafts management presentation narrative grounded in actual KPIs, identifies information gaps sophisticated buyers will flag, and generates Q&A preparation materials from prior deal patterns. Reduces a 6-8 week data room build by roughly 40%.`,
+        anchor:
+          `DealRoom and Ansarada offer AI-assisted VDR features. Goldman and JPMorgan have internal LLM deal tools (analogous). KPMG deal advisory practice is building comparable internal capability.`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '3-4 wks post-data assembly',
+        duration: '8-12 wks',
+        deps: 'Clean 3-5 year financials; KPI tracking history; management review capacity.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+    ],
+  },
+  {
+    key: 'revenue',
+    title: 'Revenue Growth',
+    rows: [
+      {
+        sublever: 'Improve Sales',
+        usecase: 'Pipeline Health Scoring & Rep Productivity Analysis',
+        phase: '100-Day',
+        tier: 'Mid-Market',
+        filterServices: 'strategy vc impl',
+        services: ['strategy', 'vc', 'impl'],
+        airole:
+          `AI analyzes CRM data (deal stage, age, activity cadence, contact depth) to produce a probabilistic win/loss score for every open opportunity. Surfaces at-risk deals before they slip, identifies reps with structurally different pipeline patterns, and flags stale accounts. Forces CRM discipline as a prerequisite and delivers immediate commercial insight as the return.`,
+        anchor:
+          `Clari is the canonical tool and is widely used at PE-backed SaaS companies. Thoma Bravo portfolio companies have broad Clari deployment (widely referenced in PE tech circles).`,
+        fit: 'Medium',
+        complexity: 'Low',
+        ttv: '3-5 wks',
+        duration: '6-10 wks',
+        deps: 'Salesforce or HubSpot with 6+ months of pipeline history; consistent rep activity logging.',
+        entry: { type: 'buy', label: 'Buy + Partner (CRM hygiene first)' },
+      },
+      {
+        sublever: 'Improve Sales',
+        usecase: 'Customer Churn Prediction & Proactive Retention',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'vc impl strategy',
+        services: ['vc', 'impl', 'strategy'],
+        airole:
+          `ML model trained on product usage, support ticket frequency, NPS trends, renewal dates, and billing behavior to score churn probability by customer. High-risk accounts surfaced to CSM team with recommended intervention playbook. Direct impact on NRR, a key exit multiple driver in recurring revenue businesses.`,
+        anchor:
+          `Gainsight is the market leader at SaaS portcos. Vista Equity Partners deploys Gainsight as a standard portfolio playbook across its software companies.`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '10-14 wks',
+        duration: '16-24 wks',
+        deps: 'Product usage telemetry (SaaS); 18+ months customer history; CSM team to act on outputs.',
+        entry: { type: 'buy', label: 'Buy + Partner' },
+      },
+      {
+        sublever: 'New Markets & Offerings',
+        usecase: 'Adjacent Market Sizing via External Data Synthesis',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'strategy',
+        services: ['strategy'],
+        airole:
+          `LLM-assisted synthesis of external data (job postings as demand proxies, patent filings, web traffic trends, competitor pricing pages) to quantify size and accessibility of adjacent markets. Produces a market entry scorecard for 3-5 adjacencies ranked by revenue potential and execution fit, evidence a lean management team could not assemble in the same timeframe without dedicated research resources.`,
+        anchor:
+          `Crayon, Klue, AlphaSense for competitive intelligence. Bain and McKinsey use proprietary LLM research pipelines for market sizing (analogous). PE hold-period adjacency screening with AI is emerging.`,
+        fit: 'Low',
+        complexity: 'Medium',
+        ttv: '4-6 wks per sprint',
+        duration: '4-6 wks per sprint',
+        deps: 'Clear definition of core business perimeter; licensed external data access; analyst capacity to validate synthesis.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Improve Sales',
+        usecase: 'AI Sales Coach for Rep Enablement at Scale',
+        phase: 'All Phases',
+        tier: 'Both',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `Conversation intelligence platform analyzes recorded sales calls to score against a defined winning-call framework: talk-to-listen ratios, competitor mentions, objection handling, qualification methodology adherence. Surfaces specific coaching moments to managers in near-real-time, compressing the feedback loop from monthly 1:1s to weekly or daily insight.`,
+        anchor:
+          `Gong is the dominant tool and widely deployed at PE-backed B2B companies. Insight Partners drives Gong adoption as a standard value creation playbook item across its SaaS portfolio.`,
+        fit: 'Low',
+        complexity: 'Low',
+        ttv: '2-4 wks',
+        duration: '4-6 wks',
+        deps: 'Sales team recording calls; defined sales methodology to benchmark against.',
+        entry: { type: 'buy', label: 'Buy' },
+      },
+    ],
+  },
+  {
+    key: 'margin',
+    title: 'Margin Expansion',
+    rows: [
+      {
+        sublever: 'Pricing Strategy',
+        usecase: 'Price Elasticity Modeling & Discount Governance',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'strategy vc impl',
+        services: ['strategy', 'vc', 'impl'],
+        airole:
+          `Ingests transaction-level pricing data to estimate price sensitivity by segment. Identifies where discounting is not correlated with win rate, i.e., where reps are giving away margin unnecessarily. Outputs a recommended discount floor by customer tier with a governance workflow that flags exceptions for approval. One of the highest-certainty AI applications because the data is internal and the causal mechanism is direct.`,
+        anchor:
+          `PROS Holdings, Vendavo, and Zilliant are the enterprise pricing AI platforms. Francisco Partners and Thoma Bravo have embedded pricing analytics at software portcos (analogous).`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '8-12 wks',
+        duration: '14-20 wks',
+        deps: 'Transaction-level invoice data with discount fields; 12+ months of history; CRM win/loss linked to pricing; sales leadership committed to enforcement.',
+        entry: { type: 'buy', label: 'Buy + Partner' },
+      },
+      {
+        sublever: 'Pricing Strategy',
+        usecase: 'Dynamic Pricing Engine for Transaction-Intensive Businesses',
+        phase: 'Mid-Hold',
+        tier: 'Large-Cap',
+        filterServices: 'vc impl platform',
+        services: ['vc', 'impl', 'platform'],
+        airole:
+          `For portcos with high transaction volume (usage-based SaaS, e-commerce, B2B marketplace), ML model adjusts pricing in near-real-time based on demand signals, inventory levels, competitor pricing, and customer segment. Active price optimization, not just analysis. Requires sophisticated data infrastructure, rules out most mid-market portcos on data maturity grounds alone.`,
+        anchor:
+          `Zilliant, PROS, and Revionics (Aptos) for retail/distribution. Several TPG and Warburg Pincus distribution portcos have deployed dynamic pricing (analogous, not public).`,
+        fit: 'Low',
+        complexity: 'High',
+        ttv: '20-28 wks',
+        duration: '28-40 wks',
+        deps: 'High-volume transaction data; modern data warehouse; pricing authority with management; systems that can receive dynamic pricing outputs.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Minimize COGS',
+        usecase: 'Yield & Quality Defect Root Cause Analysis',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `For manufacturing portcos, ML model trained on production parameters cross-referenced against quality inspection outcomes identifies specific factor combinations that predict defects. Replaces manual SPC review with an always-on model. Directly reduces scrap rate, rework cost, and warranty expense, all COGS line items.`,
+        anchor:
+          `DataRobot and Seeq used in process manufacturing quality analytics. Mid-market PE application is emerging, particularly in food/bev and specialty chemicals.`,
+        fit: 'Low',
+        complexity: 'High',
+        ttv: '12-20 wks',
+        duration: '20-32 wks',
+        deps: 'Structured production parameter logs; quality inspection data linked to production run IDs; MES or SCADA system.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Minimize COGS',
+        usecase: 'Contract Abstraction for Billing Leakage Identification',
+        phase: 'All Phases',
+        tier: 'Both',
+        filterServices: 'strategy vc impl',
+        services: ['strategy', 'vc', 'impl'],
+        airole:
+          `LLMs extract key commercial terms from supplier and customer contracts at scale: pricing tiers, volume rebates, escalation clauses, MFN provisions, audit rights. Cross-references against actual billing data to identify where the company is not receiving contractual rebates, is being overbilled, or has favorable provisions it is not exercising. PE portcos routinely have 20-40% of contracts with some billing discrepancy when first audited. AI makes this systematic rather than a one-time manual review.`,
+        anchor:
+          `Icertis, Ironclad, and Evisort (now Workday) for AI contract extraction. Kira Systems used in legal due diligence; billing discrepancy application during hold period is analogous and emerging.`,
+        fit: 'Low',
+        complexity: 'Medium',
+        ttv: '6-8 wks (initial pass)',
+        duration: '10-14 wks',
+        deps: 'Contracts in digital format; AP billing data for cross-reference; legal or commercial team to act on flagged discrepancies.',
+        entry: { type: 'buy', label: 'Buy or Partner' },
+      },
+    ],
+  },
+  {
+    key: 'inorganic',
+    title: 'Inorganic',
+    rows: [
+      {
+        sublever: 'Integrate Culture & Ops',
+        usecase: 'Post-Merger Integration PMO with AI-Assisted Workstream Tracking',
+        phase: '100-Day',
+        tier: 'Both',
+        filterServices: 'strategy impl managed',
+        services: ['strategy', 'impl', 'managed'],
+        airole:
+          `LLM-powered IMO tool synthesizes cross-functional integration status reports (IT, HR, finance, commercial) to generate executive PMO dashboards, flag interdependency conflicts, and surface stalled workstreams before they become schedule slippage. The AI is synthesizing 15+ concurrent workstreams at a speed no human PMO lead can match in real time.`,
+        anchor:
+          `Workiva and Smartsheet for integration tracking. Bain and Accenture are building AI synthesis layers on top using proprietary LLM tooling (analogous). Pure-play AI PMO for M&A integration is emerging.`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '4-6 wks',
+        duration: '12-20 wks',
+        deps: 'Defined workstream list with owners and milestones; consistent status reporting cadence; executive PMO sponsor.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Realize Synergies',
+        usecase: 'Cross-Portfolio Vendor Spend Consolidation Identification',
+        phase: 'Mid-Hold',
+        tier: 'Both',
+        filterServices: 'strategy vc impl managed',
+        services: ['strategy', 'vc', 'impl', 'managed'],
+        airole:
+          `AI classifies and normalizes vendor spend data across multiple portcos in a fund's portfolio, identifying where the same vendor or category appears across companies and where aggregated volume creates negotiating leverage. Generates a ranked consolidation list with estimated spend at risk. Requires fund-level data aggregation, which is exactly what PortCo Pulse enables as the collection layer.`,
+        anchor:
+          `Coupa and Jaggaer for cross-entity spend at enterprise level. Bridgepoint, Advent International have run manual versions of this analysis (analogous). AI-automated fund-level version is emerging and a genuine KPMG differentiation opportunity.`,
+        fit: 'Medium',
+        complexity: 'Medium',
+        ttv: '8-12 wks post-collection',
+        duration: '16-24 wks',
+        deps: 'AP/vendor data from 2+ portcos; fund-level data sharing consent; commercial team to lead supplier conversations.',
+        entry: { type: 'partner', label: 'Partner' },
+      },
+      {
+        sublever: 'Integrate Culture & Ops',
+        usecase: 'Employee Sentiment Monitoring During Integration',
+        phase: '100-Day',
+        tier: 'Both',
+        filterServices: 'vc impl',
+        services: ['vc', 'impl'],
+        airole:
+          `NLP model running on pulse survey responses (weekly, 3-5 questions) tracks sentiment trajectory by department, manager, and site during integration. Identifies declining sentiment in high-retention-risk populations before it manifests as attrition, e.g., acquired engineering team or key account managers. Provides an early warning signal that directs management attention during a high-distraction period.`,
+        anchor:
+          `Glint (LinkedIn), Culture Amp, and Qualtrics EmployeeXM offer AI sentiment analysis commercially. Integration-specific application is standard at large-cap sponsors; emerging at mid-market.`,
+        fit: 'Low',
+        complexity: 'Low',
+        ttv: '3-4 wks',
+        duration: '4-6 wks',
+        deps: 'Employee email list for survey deployment; HR leadership willing to act on results.',
+        entry: { type: 'buy', label: 'Buy' },
+      },
+    ],
+  },
+];
+
+const totalUseCases = levers.reduce((n, l) => n + l.rows.length, 0);
+
+const columns = [
+  'Sub-Lever',
+  'Use Case',
+  'Phase',
+  'Tier',
+  'AI Role',
+  'Real-World Anchor',
+  'PortCo Pulse Fit \u2460',
+  'Complexity',
+  'Time to Value \u2461',
+  'Project Duration \u2461',
+  'Key Dependencies',
+  'Entry Point',
+  'KPMG Services',
+];
+---
+
+<section class="vcm" data-vcm aria-label="AI value creation matrix">
+  <!-- Controls -->
+  <div class="vcm-controls">
+    <div class="vcm-group">
+      <span class="vcm-group-label">Phase</span>
+      <button type="button" class="vcm-filter active" data-group="phase" data-filter="__all">All</button>
+      <button type="button" class="vcm-filter" data-group="phase" data-filter="100-Day">100-Day</button>
+      <button type="button" class="vcm-filter" data-group="phase" data-filter="Mid-Hold">Mid-Hold</button>
+      <button type="button" class="vcm-filter" data-group="phase" data-filter="Exit Prep">Exit Prep</button>
+      <button type="button" class="vcm-filter" data-group="phase" data-filter="All Phases">Continuous</button>
+    </div>
+    <div class="vcm-group">
+      <span class="vcm-group-label">Tier</span>
+      <button type="button" class="vcm-filter active" data-group="tier" data-filter="__all">All</button>
+      <button type="button" class="vcm-filter" data-group="tier" data-filter="Mid-Market">Mid-Market</button>
+      <button type="button" class="vcm-filter" data-group="tier" data-filter="Large-Cap">Large-Cap</button>
+      <button type="button" class="vcm-filter" data-group="tier" data-filter="Both">Both</button>
+    </div>
+    <div class="vcm-group">
+      <span class="vcm-group-label">Service</span>
+      <button type="button" class="vcm-filter active" data-group="service" data-filter="__all">All</button>
+      <button type="button" class="vcm-filter" data-group="service" data-filter="strategy">Strategy & Advisory</button>
+      <button type="button" class="vcm-filter" data-group="service" data-filter="platform">Platform Build</button>
+      <button type="button" class="vcm-filter" data-group="service" data-filter="impl">Implementation</button>
+      <button type="button" class="vcm-filter" data-group="service" data-filter="managed">Managed Service</button>
+      <button type="button" class="vcm-filter" data-group="service" data-filter="vc">Portfolio VC</button>
+    </div>
+    <span class="vcm-count" data-count>{totalUseCases} use cases</span>
+  </div>
+
+  <!-- Lever sections -->
+  {
+    levers.map((lever) => (
+      <div class="vcm-lever" data-lever-section={lever.key}>
+        <div class="vcm-lever-head">
+          <span class:list={['vcm-dot', `dot-${lever.key}`]} aria-hidden="true" />
+          <h3 class="vcm-lever-title">{lever.title}</h3>
+          <span class="vcm-lever-count" data-lever-count={lever.key} />
+        </div>
+        <div class="table-wrap">
+          <table class="vcm-table">
+            <thead>
+              <tr>{columns.map((c) => <th>{c}</th>)}</tr>
+            </thead>
+            <tbody>
+              {lever.rows.map((r) => (
+                <tr
+                  data-row
+                  data-lever={lever.key}
+                  data-phase={r.phase}
+                  data-tier={r.tier}
+                  data-services={r.filterServices}
+                >
+                  <td class="td-sublever" data-label="Sub-Lever">{r.sublever}</td>
+                  <td class="td-usecase" data-label="Use Case">{r.usecase}</td>
+                  <td data-label="Phase">
+                    <span class:list={['badge', phaseMeta[r.phase].cls]}>{phaseMeta[r.phase].label}</span>
+                  </td>
+                  <td data-label="Tier">
+                    <span class:list={['badge', tierMeta[r.tier]]}>{r.tier}</span>
+                  </td>
+                  <td class="td-airole" data-label="AI Role">{r.airole}</td>
+                  <td class="td-anchor" data-label="Real-World Anchor">{r.anchor}</td>
+                  <td data-label="PortCo Pulse Fit">
+                    <span class:list={['badge', fitMeta[r.fit]]}>{r.fit}</span>
+                  </td>
+                  <td data-label="Complexity">
+                    <span class:list={['cx', cxMeta[r.complexity]]}>{r.complexity}</span>
+                  </td>
+                  <td class="td-time" data-label="Time to Value">{r.ttv}</td>
+                  <td class="td-time" data-label="Project Duration">{r.duration}</td>
+                  <td class="td-deps" data-label="Key Dependencies">{r.deps}</td>
+                  <td data-label="Entry Point">
+                    <span class:list={['entry', entryMeta[r.entry.type]]}>{r.entry.label}</span>
+                  </td>
+                  <td class="td-services" data-label="KPMG Services">
+                    {r.services.map((s) => (
+                      <span class:list={['svc', `svc-${s}`]}>{serviceLabels[s]}</span>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    ))
+  }
+
+  <!-- Footnote -->
+  <div class="vcm-footnote">
+    <p>
+      <strong>{'\u2461'} Time to Value vs. Project Duration:</strong> Time to Value is when the AI layer
+      starts producing a usable signal: the first automated alert, the first scored pipeline report, the
+      first anomaly flag. It is intentionally earlier than full deployment. Project Duration is the
+      realistic end-to-end engagement length, from scoping through change management to a stable, adopted
+      system. Both numbers matter: Time to Value anchors the sponsor conversation on early wins; Project
+      Duration drives the fee engagement.
+    </p>
+    <p>
+      <strong>{'\u2460'} PortCo Pulse Fit:</strong> PortCo Pulse is a portfolio monitoring platform that
+      uses conversational AI to collect KPI submissions from CFOs and controllers across a fund's portcos,
+      normalize data, surface variance against plan, and alert the fund team to threshold breaches,
+      automating the monitoring function that is the prerequisite for every other hold-period AI
+      application. The fit rating reflects how directly a given use case is addressed by or benefits from
+      PortCo Pulse infrastructure.
+    </p>
+    <div class="vcm-fn-row">
+      <div class="vcm-fn-item">
+        <span class="badge pp-high">High</span>
+        <span class="vcm-fn-desc">
+          PortCo Pulse directly addresses this use case: the KPI collection, monitoring, and alerting
+          workflow is the core product.
+        </span>
+      </div>
+      <div class="vcm-fn-item">
+        <span class="badge pp-med">Medium</span>
+        <span class="vcm-fn-desc">
+          PortCo Pulse provides the upstream data layer or output tracking that makes this use case more
+          effective; a separate tool handles the analytical or predictive work.
+        </span>
+      </div>
+      <div class="vcm-fn-item">
+        <span class="badge pp-low">Low</span>
+        <span class="vcm-fn-desc">
+          Use case operates on a data type (operational, HR, IoT, contract) that is outside PortCo Pulse's
+          financial KPI scope.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="vcm-thesis">
+    <div class="vcm-thesis-head">
+      <p class="vcm-thesis-eyebrow">Strategic Summary</p>
+      <h3 class="vcm-thesis-title">The AI Hold Thesis</h3>
+    </div>
+    <div class="vcm-thesis-body">
+      <div class="vcm-thesis-col">
+        <p>
+          <strong>AI is not a new value creation lever.</strong> Every use case in this inventory existed
+          before large language models, before ML-powered pricing engines, before conversational KPI
+          collection. What AI changes is the cost and speed of execution across every lever that already
+          matters. SG&A analysis that required a 4-week analyst project now takes 48 hours. Churn risk that
+          was invisible until renewal is surfaced 90 days early. Pricing discounts that were "relationship
+          decisions" are now quantifiably correlated with win rates. The frame is not "add AI to the value
+          creation plan", it is "which parts of the plan can AI compress, sharpen, or make continuous."
+        </p>
+        <p>
+          <strong>The KPMG opportunity is structurally distinct by fund tier.</strong> For mid-market funds,
+          the pitch is not augmentation, it is substitution. These funds do not have portfolio ops teams
+          that need to go faster. They have lean investment teams managing portcos directly, with quarterly
+          board reviews as their primary governance mechanism. AI-enabled ops as a service positions KPMG as
+          the persistent operating function the fund cannot afford to build internally. PortCo Pulse is the
+          infrastructure layer for this model: low deployment cost, immediate visibility, designed for CFOs
+          and controllers who are not data scientists.
+        </p>
+      </div>
+      <div class="vcm-thesis-col">
+        <p>
+          <strong>For large-cap funds, the pitch is depth and cross-portfolio pattern recognition</strong>
+          that internal teams cannot replicate. A fund's internal portfolio ops director can run standard
+          monitoring. KPMG brings sector benchmark databases, cross-portfolio spend analytics, and specialist
+          AI tooling (pricing, predictive maintenance, demand forecasting) that require implementation
+          capability beyond what most internal teams sustain across a full portfolio. The use cases that
+          clear the bar here are the ones requiring deep technical implementation, not the ones available off
+          the shelf.
+        </p>
+        <p>
+          <strong>PortCo Pulse operationalizes the prerequisite.</strong> Every high-value AI application in
+          this inventory depends on clean, current, structured data from the portco. Pricing analytics
+          requires transaction history. Churn prediction requires customer health data. Org analysis requires
+          HRIS exports. None of this happens without a monitoring discipline that enforces regular data
+          collection and flags gaps. PortCo Pulse is not the end state, it is the data foundation that makes
+          every other use case viable, and the entry point that generates the ongoing data flow from which
+          higher-value advisory work originates.
+        </p>
+        <p>
+          <strong>The market position is available.</strong> Top-tier strategy firms are focused on large-cap
+          relationships and proprietary tooling built for their own delivery model. Big 4 peers are building
+          comparable practices but are not yet differentiated on mid-market PE ops. KPMG's window is to own
+          the mid-market ops-as-a-service position, and to build a credible large-cap augmentation offering
+          that leads with implementation specificity rather than framework decks.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="vcm-legend">
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Hold Phase</span>
+      <div class="vcm-legend-items">
+        <span class="badge phase-100">100-Day</span>
+        <span class="badge phase-mid">Mid-Hold</span>
+        <span class="badge phase-exit">Exit Prep</span>
+        <span class="badge phase-all">Continuous</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Fund Tier</span>
+      <div class="vcm-legend-items">
+        <span class="badge tier-mm">Mid-Market</span>
+        <span class="badge tier-lc">Large-Cap</span>
+        <span class="badge tier-both">Both</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">PortCo Pulse Fit</span>
+      <div class="vcm-legend-items">
+        <span class="badge pp-high">High</span>
+        <span class="badge pp-med">Medium</span>
+        <span class="badge pp-low">Low</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Complexity</span>
+      <div class="vcm-legend-items">
+        <span class="cx cx-low">Low</span>
+        <span class="cx cx-med">Med</span>
+        <span class="cx cx-high">High</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">KPMG Services</span>
+      <div class="vcm-legend-items">
+        <span class="svc svc-strategy">Strategy & Advisory</span>
+        <span class="svc svc-platform">Platform Build</span>
+        <span class="svc svc-impl">Implementation</span>
+        <span class="svc svc-managed">Managed Service</span>
+        <span class="svc svc-vc">Portfolio VC</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Component-scoped token map: every hue below derives from a wiki design
+     token, so nothing is hardcoded. Badge tints are built with color-mix. */
+  .vcm {
+    --lv-efficiency: var(--kpmg-blue);
+    --lv-balance: var(--warning);
+    --lv-revenue: var(--kpmg-teal);
+    --lv-margin: var(--kpmg-cobalt);
+    --lv-inorganic: var(--confidential);
+
+    font-family: var(--font-sans);
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* ---- Controls ---- */
+  .vcm-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-8);
+  }
+  .vcm-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .vcm-group-label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-right: 2px;
+  }
+  .vcm-filter {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 4px 11px;
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      background 0.15s ease;
+  }
+  .vcm-filter:hover {
+    color: var(--kpmg-cobalt);
+    border-color: var(--kpmg-cobalt);
+  }
+  .vcm-filter.active {
+    background: var(--kpmg-blue);
+    border-color: var(--kpmg-blue);
+    color: #fff;
+    font-weight: 600;
+  }
+  .vcm-count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Lever section ---- */
+  .vcm-lever {
+    margin-bottom: var(--space-8);
+  }
+  .vcm-lever.is-hidden {
+    display: none;
+  }
+  .vcm-lever-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--line);
+  }
+  .vcm-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-efficiency {
+    background: var(--lv-efficiency);
+  }
+  .dot-balance {
+    background: var(--lv-balance);
+  }
+  .dot-revenue {
+    background: var(--lv-revenue);
+  }
+  .dot-margin {
+    background: var(--lv-margin);
+  }
+  .dot-inorganic {
+    background: var(--lv-inorganic);
+  }
+  .vcm-lever-title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--kpmg-blue);
+  }
+  .vcm-lever-count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Table ---- */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .vcm-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1500px;
+  }
+  .vcm-table thead th {
+    background: var(--kpmg-blue);
+    color: rgba(255, 255, 255, 0.82);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    text-align: left;
+    padding: 9px 13px;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+  .vcm-table tbody tr {
+    border-bottom: 1px solid var(--line);
+    transition: background 0.1s ease;
+  }
+  .vcm-table tbody tr:last-child {
+    border-bottom: none;
+  }
+  .vcm-table tbody tr:hover {
+    background: var(--bg-soft);
+  }
+  .vcm-table tbody tr.is-hidden {
+    display: none;
+  }
+  .vcm-table td {
+    padding: 10px 13px;
+    vertical-align: top;
+    color: var(--ink-muted);
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
+  .td-sublever {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+  .td-usecase {
+    color: var(--kpmg-blue);
+    font-weight: 600;
+    font-size: 0.82rem;
+    min-width: 190px;
+    max-width: 220px;
+  }
+  .td-airole {
+    min-width: 240px;
+    max-width: 300px;
+  }
+  .td-anchor {
+    min-width: 160px;
+    max-width: 200px;
+    font-style: italic;
+  }
+  .td-deps {
+    min-width: 170px;
+    max-width: 210px;
+  }
+  .td-time {
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .td-services {
+    min-width: 180px;
+  }
+
+  /* ---- Badges (tints derived from tokens) ---- */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 1px 2px 1px 0;
+    background: color-mix(in srgb, var(--c) 12%, var(--bg));
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+  }
+  .phase-100 {
+    --c: var(--kpmg-cobalt);
+  }
+  .phase-mid {
+    --c: var(--kpmg-blue);
+  }
+  .phase-exit {
+    --c: var(--warning);
+  }
+  .phase-all {
+    --c: var(--kpmg-teal);
+  }
+  .tier-mm {
+    --c: var(--warning);
+  }
+  .tier-lc {
+    --c: var(--kpmg-cobalt);
+  }
+  .tier-both {
+    --c: var(--kpmg-blue);
+  }
+  .pp-high {
+    --c: var(--kpmg-teal);
+  }
+  .pp-med {
+    --c: var(--warning);
+  }
+  .pp-low {
+    --c: var(--ink-muted);
+  }
+
+  /* Service badges */
+  .svc {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 2px 2px 2px 0;
+    background: color-mix(in srgb, var(--c) 12%, var(--bg));
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+  }
+  .svc-strategy {
+    --c: var(--kpmg-blue);
+  }
+  .svc-platform {
+    --c: var(--kpmg-cobalt);
+  }
+  .svc-impl {
+    --c: var(--warning);
+  }
+  .svc-managed {
+    --c: var(--kpmg-teal);
+  }
+  .svc-vc {
+    --c: var(--confidential);
+  }
+
+  /* Complexity + entry: text-only tokens */
+  .cx {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .cx-low {
+    color: var(--kpmg-teal);
+  }
+  .cx-med {
+    color: var(--warning);
+  }
+  .cx-high {
+    color: var(--confidential);
+  }
+  .entry {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .entry-build {
+    color: var(--kpmg-cobalt);
+  }
+  .entry-buy {
+    color: var(--kpmg-teal);
+  }
+  .entry-partner {
+    color: var(--kpmg-blue);
+  }
+
+  /* ---- Footnote ---- */
+  .vcm-footnote {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .vcm-footnote p {
+    margin: 0 0 var(--space-4);
+  }
+  .vcm-footnote strong {
+    color: var(--ink);
+  }
+  .vcm-fn-row {
+    display: flex;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+  .vcm-fn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    flex: 1 1 220px;
+  }
+  .vcm-fn-desc {
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Thesis ---- */
+  .vcm-thesis {
+    margin-top: var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .vcm-thesis-head {
+    background: linear-gradient(135deg, #001f57 0%, var(--kpmg-blue) 75%);
+    padding: var(--space-4) var(--space-6);
+  }
+  .vcm-thesis-eyebrow {
+    margin: 0 0 2px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kpmg-sky);
+  }
+  .vcm-thesis-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .vcm-thesis-body {
+    padding: var(--space-6);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    background: var(--bg-soft);
+  }
+  .vcm-thesis-col p {
+    margin: 0 0 var(--space-4);
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
+  .vcm-thesis-col p:last-child {
+    margin-bottom: 0;
+  }
+  .vcm-thesis-col strong {
+    color: var(--kpmg-blue);
+    font-weight: 650;
+  }
+
+  /* ---- Legend ---- */
+  .vcm-legend {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .vcm-legend-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .vcm-legend-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .vcm-legend-items {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* ---- Mobile: collapse the table into stacked cards ---- */
+  @media (max-width: 720px) {
+    .table-wrap {
+      overflow-x: visible;
+      border: none;
+      border-radius: 0;
+    }
+    .vcm-table {
+      min-width: 0;
+    }
+    .vcm-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .vcm-table,
+    .vcm-table tbody,
+    .vcm-table tr,
+    .vcm-table td {
+      display: block;
+      width: 100%;
+    }
+    .vcm-table tr {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--bg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-4);
+      box-shadow: var(--shadow-xs);
+    }
+    .vcm-table tbody tr:hover {
+      background: var(--bg);
+    }
+    .vcm-table td {
+      padding: 5px 0;
+      max-width: none !important;
+      min-width: 0 !important;
+      display: grid;
+      grid-template-columns: 40% 1fr;
+      gap: var(--space-3);
+      align-items: baseline;
+      border-bottom: 1px solid var(--line);
+    }
+    .vcm-table td:last-child {
+      border-bottom: none;
+    }
+    .vcm-table td::before {
+      content: attr(data-label);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .td-usecase {
+      font-size: 0.95rem;
+    }
+    .vcm-thesis-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Vanilla-JS multi-select filtering, scoped per matrix instance. Mirrors the
+  // island pattern used by PromptCard.astro (no framework, no shared globals).
+  document.querySelectorAll<HTMLElement>('[data-vcm]').forEach((root) => {
+    const state: Record<string, Set<string>> = {
+      phase: new Set(),
+      tier: new Set(),
+      service: new Set(),
+    };
+
+    const rows = Array.from(root.querySelectorAll<HTMLElement>('[data-row]'));
+    const sections = Array.from(root.querySelectorAll<HTMLElement>('[data-lever-section]'));
+    const countEl = root.querySelector<HTMLElement>('[data-count]');
+    const leverCounts = Array.from(root.querySelectorAll<HTMLElement>('[data-lever-count]'));
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+
+    const label = (n: number) => n + ' use case' + (n !== 1 ? 's' : '');
+
+    function apply() {
+      const per: Record<string, number> = {};
+      let total = 0;
+
+      rows.forEach((row) => {
+        const p = row.dataset.phase || '';
+        const t = row.dataset.tier || '';
+        const s = (row.dataset.services || '').split(' ');
+
+        const pm = state.phase.size === 0 || state.phase.has(p);
+        const tm = state.tier.size === 0 || state.tier.has(t);
+        const sm = state.service.size === 0 || s.some((v) => state.service.has(v));
+
+        const show = pm && tm && sm;
+        row.classList.toggle('is-hidden', !show);
+        if (show) {
+          total++;
+          const lv = row.dataset.lever || '';
+          per[lv] = (per[lv] || 0) + 1;
+        }
+      });
+
+      leverCounts.forEach((el) => {
+        const lv = el.dataset.leverCount || '';
+        el.textContent = label(per[lv] || 0);
+      });
+      sections.forEach((sec) => {
+        const lv = sec.dataset.leverSection || '';
+        sec.classList.toggle('is-hidden', !per[lv]);
+      });
+      if (countEl) countEl.textContent = label(total);
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group || '';
+        const value = btn.dataset.filter || '';
+        const set = state[group];
+        if (!set) return;
+
+        if (value === '__all') {
+          set.clear();
+        } else if (set.has(value)) {
+          set.delete(value);
+        } else {
+          set.add(value);
+        }
+
+        // Reflect state on the button row: "All" is active only when the group is empty.
+        root.querySelectorAll<HTMLButtonElement>(`[data-group="${group}"]`).forEach((b) => {
+          const v = b.dataset.filter || '';
+          if (v === '__all') b.classList.toggle('active', set.size === 0);
+          else b.classList.toggle('active', set.has(v));
+        });
+
+        apply();
+      });
+    });
+
+    apply();
+  });
+</script>

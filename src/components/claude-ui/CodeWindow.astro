@@ -1,0 +1,222 @@
+---
+// CodeWindow: the dark sibling of ClaudeWindow — a recreated VS Code / terminal
+// screen running Claude Code. Uses a VS Code Dark+ palette (never KPMG blue).
+//
+// Layout:
+//   A title bar (traffic-light dots + filename) sits above a two-column shell:
+//     - left  "tree"     slot: the file-tree rail
+//     - right "editor"   slot (top) + "terminal" slot (bottom) stacked in a pane
+//   The terminal is the teaching surface — it holds the Claude Code exchange.
+//
+// Named slots:
+//   - "tree"      (optional) left file-tree rail
+//   - "editor"    (optional) top-right code editor pane
+//   - "terminal"  (optional) bottom-right integrated terminal (Claude Code)
+//
+// Props:
+//   - caption:  small line under the frame (default reminds files stay local)
+//   - filename: label shown in the title bar next to the dots
+//   - flat:     reduce the shadow for decorative placements
+//   - bare:     hide the title bar (use for a cropped close-up)
+
+interface Props {
+  caption?: string;
+  filename?: string;
+  flat?: boolean;
+  bare?: boolean;
+  ariaLabel?: string;
+}
+const {
+  caption = 'Illustration of VS Code with Claude Code. Your files stay on your machine.',
+  filename = 'CLAUDE.md',
+  flat = false,
+  bare = false,
+  ariaLabel,
+} = Astro.props;
+
+const hasTree = Astro.slots.has('tree');
+const hasEditor = Astro.slots.has('editor');
+const hasTerminal = Astro.slots.has('terminal');
+---
+
+<figure
+  class:list={['vw', { 'vw--flat': flat }]}
+  role="img"
+  aria-label={ariaLabel ?? 'Recreated VS Code interface running Claude Code for illustration.'}
+>
+  {
+    !bare && (
+      <div class="vw-bar" aria-hidden="true">
+        <span class="vw-dots"><i /><i /><i /></span>
+        <span class="vw-file">{filename}</span>
+      </div>
+    )
+  }
+
+  <div class="vw-shell">
+    {
+      hasTree && (
+        <div class="vw-tree">
+          <slot name="tree" />
+        </div>
+      )
+    }
+    <div class="vw-pane">
+      {
+        hasEditor && (
+          <div class="vw-editor">
+            <slot name="editor" />
+          </div>
+        )
+      }
+      {
+        hasTerminal && (
+          <div class="vw-terminal">
+            <slot name="terminal" />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</figure>
+
+{caption && <figcaption class="vw-caption" aria-hidden="true">{caption}</figcaption>}
+
+<style>
+  .vw {
+    margin: var(--space-8) 0 var(--space-4);
+    container-type: inline-size;
+    container-name: vw;
+    background: var(--vs-bg);
+    border: 1px solid var(--vs-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .vw--flat {
+    box-shadow: var(--shadow-md);
+  }
+
+  .vw-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: 10px var(--space-4);
+    background: var(--vs-sidebar-bg);
+    border-bottom: 1px solid var(--vs-border);
+  }
+  .vw-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .vw-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #5a5a5a;
+  }
+  .vw-file {
+    font-family: var(--font-mono);
+    font-size: clamp(0.66rem, 0.6rem + 0.3vw, 0.74rem);
+    letter-spacing: 0.06em;
+    color: var(--vs-muted);
+  }
+
+  .vw-shell {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    min-height: 420px;
+  }
+  .vw-tree {
+    border-right: 1px solid var(--vs-border);
+    background: var(--vs-sidebar-bg);
+    color: var(--vs-text);
+    min-width: 0;
+    overflow: auto;
+    padding: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: clamp(0.68rem, 0.62rem + 0.3vw, 0.78rem);
+  }
+  .vw-pane {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-width: 0;
+  }
+  .vw-editor {
+    background: var(--vs-editor-bg);
+    color: var(--vs-text);
+    min-width: 0;
+    overflow: auto;
+    padding: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 0.66rem + 0.35vw, 0.86rem);
+    line-height: 1.6;
+  }
+  .vw-terminal {
+    background: var(--vs-terminal-bg);
+    color: var(--vs-text);
+    border-top: 1px solid var(--vs-border);
+    min-width: 0;
+    overflow: auto;
+    padding: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 0.66rem + 0.35vw, 0.86rem);
+    line-height: 1.6;
+  }
+
+  .vw-caption {
+    margin: var(--space-2) 0 0;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  /* ---------- Slotted content (dark, mono, wrap — never page scroll) ---------- */
+  .vw-tree :global(ul),
+  .vw-tree :global(ol) {
+    list-style: none;
+    margin: 0;
+    padding-left: var(--space-3);
+  }
+  .vw-tree :global(li) {
+    margin-bottom: var(--space-1);
+    color: var(--vs-text);
+  }
+  .vw-tree :global(li::marker) {
+    color: var(--vs-muted);
+  }
+
+  .vw-editor :global(pre),
+  .vw-terminal :global(pre) {
+    margin: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    color: var(--vs-text);
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: auto;
+  }
+  .vw-editor :global(code),
+  .vw-terminal :global(code) {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    color: inherit;
+  }
+
+  @container vw (max-width: 560px) {
+    .vw-shell {
+      grid-template-columns: 1fr;
+    }
+    .vw-tree {
+      display: none; /* keep the teaching focus on editor + terminal on phones */
+    }
+  }
+</style>

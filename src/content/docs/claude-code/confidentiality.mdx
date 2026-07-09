@@ -1,0 +1,45 @@
+---
+title: Keeping Deal Data Safe
+description: "How Claude Code handles your files, where confidential material belongs, and the one rule to follow when you are unsure."
+section: Good Habits
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import ComparisonTable from '../../../components/ComparisonTable.astro';
+
+Claude Code runs closer to your files than the browser does, so it is worth being clear about what that means for confidential deal material. The reassuring part is that the model is simple, and the safe habit is a single sentence. This page explains how your data is handled, then points you to the full decision tree when a specific document leaves you unsure.
+
+## What Claude Code can and cannot see
+
+Claude Code only ever looks at the folder you open. It cannot reach across your machine, browse other drives, or send a file anywhere on its own. When you make a request, your prompt and the specific context that task needs are sent to Claude; the rest of your files stay where they are.
+
+<ComparisonTable title="Where your files live" caption="A strong default, but never a substitute for your firm's policy.">
+
+| What stays on your machine | What is sent to Claude |
+| --- | --- |
+| Every file in the folder you opened | Your prompt, plus the parts of files a task needs |
+| Folders you have not opened | Nothing from outside the open folder |
+| Your Git history and saved commits | Nothing, unless a task asks about them |
+
+</ComparisonTable>
+
+## The plan you are on
+
+KPMG provides Claude through an Enterprise or Team plan. On these plans your prompts and uploaded files are not used to train the model, which is what makes them appropriate for professional work. That protection is real, but it sits underneath your obligations, not above them: the NDA on a deal, the client's terms, and KPMG's own policy still decide what may be opened where.
+
+<Callout type="confidential" title="The one rule">
+Confirm you are working in an approved folder with material you are cleared to use. When any part of that is unclear, stop and ask before you open it. When in doubt, treat a document as restricted and check first. The full logic is the [Confidentiality Decision Tree](/best-practices/confidentiality).
+</Callout>
+
+## Habits that keep deal data safe
+
+- **Practice on samples first.** Learn the loop on a throwaway or dummy folder before you ever point Claude Code at live deal material.
+- **Open one deal at a time.** Keep each engagement in its own folder so material from separate deals never mixes.
+- **Do not move restricted files to reach them.** If a document is not somewhere Claude Code can already work, that is a permissions question for IT, not a reason to copy it into an approved folder.
+- **Use a `.gitignore` before your first commit.** It keeps confidential files from ever being saved into history or pushed anywhere. See [Saving Your Work](/claude-code/git-basics).
+- **Involve IT or security when unsure.** A short question about permissions or data handling now prevents a real problem later.
+
+## Where to go next
+
+The full, step-by-step logic for deciding what may go where lives in the [Confidentiality Decision Tree](/best-practices/confidentiality), which applies across both Claude Code and the browser. For the wider set of everyday habits, see [Habits That Keep You Safe](/claude-code/good-habits).

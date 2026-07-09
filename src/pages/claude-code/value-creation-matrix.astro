@@ -1,0 +1,138 @@
+---
+// Standalone full-width deliverable: the AI Value Creation Matrix.
+// This is the "finished artifact" that Example 1 walks you through building.
+// It lives on its own route (not inside the narrow doc column) so the wide,
+// filterable matrix has room to breathe, and carries a clear path back to the
+// Advanced Track. Chrome (Header/Footer) matches the rest of the wiki.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ValueCreationMatrix from '../../components/examples/ValueCreationMatrix.astro';
+import { withBase } from '../../utils/withBase';
+---
+
+<BaseLayout
+  title="AI Value Creation Matrix"
+  description="A filterable matrix of AI value-creation use cases across five private equity value levers, with hold-phase, fund-tier, and KPMG service views."
+>
+  <Header />
+
+  <main id="main" class="vcm-page">
+    <header class="vcm-page-head">
+      <div class="vcm-page-head-inner">
+        <a href={withBase('/claude-code/example-value-creation')} class="vcm-back">
+          <span aria-hidden="true">&larr;</span> Back to the walkthrough
+        </a>
+        <h1 class="vcm-page-title">AI Value Creation Matrix</h1>
+        <p class="vcm-page-sub">
+          A structured, filterable inventory of AI value-creation use cases across five private equity
+          value levers. Filter by hold phase, fund tier, and KPMG service line to see where each use
+          case fits. This is the finished deliverable that the
+          <a href={withBase('/claude-code/example-value-creation')}>Example 1 walkthrough</a> shows you how to
+          assemble with Claude.
+        </p>
+      </div>
+    </header>
+
+    <div class="vcm-page-body">
+      <ValueCreationMatrix />
+    </div>
+
+    <div class="vcm-page-foot">
+      <a href={withBase('/claude-code/example-value-creation')} class="vcm-return">
+        <span aria-hidden="true">&larr;</span> Return to the walkthrough
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .vcm-page {
+    /* A wider working width than the doc column, capped so the matrix never
+       forces horizontal page scroll on smaller laptops. */
+    --vcm-maxw: min(96vw, 1360px);
+  }
+  .vcm-page-head {
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 60% 80% at 90% 0%, rgba(30, 73, 226, 0.06), transparent 60%),
+      var(--bg);
+  }
+  .vcm-page-head-inner {
+    width: var(--vcm-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-10);
+  }
+  .vcm-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--kpmg-cobalt);
+    margin-bottom: var(--space-6);
+  }
+  .vcm-back:hover {
+    text-decoration: none;
+    color: var(--kpmg-blue);
+  }
+  .vcm-page-title {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .vcm-page-sub {
+    margin: 0;
+    font-size: clamp(1rem, 0.96rem + 0.3vw, 1.15rem);
+    line-height: 1.62;
+    color: var(--ink-muted);
+  }
+
+  .vcm-page-body {
+    width: var(--vcm-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-8);
+  }
+
+  .vcm-page-foot {
+    width: var(--vcm-maxw);
+    margin-inline: auto;
+    padding: var(--space-4) var(--space-4) var(--space-24);
+  }
+  .vcm-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.7em 1.2em;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .vcm-return:hover {
+    text-decoration: none;
+    background: var(--bg-soft);
+    border-color: var(--kpmg-cobalt);
+  }
+
+  @media (max-width: 720px) {
+    .vcm-page {
+      --vcm-maxw: 100%;
+    }
+    .vcm-page-head-inner,
+    .vcm-page-body,
+    .vcm-page-foot {
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
+    }
+  }
+</style>

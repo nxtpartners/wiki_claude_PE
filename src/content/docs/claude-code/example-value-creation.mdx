@@ -1,0 +1,79 @@
+---
+title: "AI Value Creation Matrix"
+description: "A worked example of a structured, filterable deliverable you can assemble with Claude Code: 19 AI value-creation use cases across five private equity value levers."
+section: Examples
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import CardGrid from '../../../components/CardGrid.astro';
+import Card from '../../../components/Card.astro';
+import MatrixPreview from '../../../components/examples/MatrixPreview.astro';
+
+This page is a worked example. It takes one finished deliverable, an interactive matrix of AI value-creation use cases across the five levers a private equity fund pulls during a hold, and shows how you would build something like it with Claude Code. The point is not the matrix itself, but the pattern: turning a pile of raw research notes into a clean, structured, filterable artifact you can hand to a colleague.
+
+The finished version is a full page of its own. The preview below links straight to it.
+
+<MatrixPreview />
+
+## What you are looking at
+
+The matrix organizes 19 use cases under five value levers: operational efficiency, working-capital balance, revenue growth, margin expansion, and inorganic growth. Each row carries the same structured fields, the hold phase it fits, the fund tier it suits, the AI role, a real-world anchor, complexity, time to value, and the KPMG service line that would deliver it. Because every row shares that shape, the whole thing becomes filterable: pick a phase or a service, and the view narrows to just what matters.
+
+That structure is the hard part, and it is exactly the kind of work Claude Code is good at. You bring the raw material and the judgment; Claude does the patient job of pulling it into a consistent shape.
+
+## How this was built
+
+<Steps>
+  <Step title="Gather the raw material in one folder">
+    Start with what you already have: research notes, a longlist of use cases, a rough spreadsheet, a few memos. Put them in a single folder and open it in VS Code so Claude Code can see everything at once.
+  </Step>
+  <Step title="Agree the structure first">
+    Before any building, decide the fields every row must carry. Ask Claude Code to propose a schema from your notes, then refine it. A shared structure is what makes the final artifact filterable rather than just a long list.
+
+    <PromptCard title="Ask Claude Code to propose a structure" label="Prompt">
+    Look at the notes in this folder. Propose a consistent set of fields that every AI use case should be described by, so I can compare them side by side. Suggest the columns and explain why each one earns its place. Do not write the full matrix yet, just the structure.
+    </PromptCard>
+  </Step>
+  <Step title="Populate the rows from your notes">
+    With the structure agreed, ask Claude Code to work through the notes and fill in each row. Tell it to leave a field blank and flag it rather than invent anything it cannot find in your source material.
+
+    <PromptCard title="Ask Claude Code to fill in the matrix" label="Prompt">
+    Using the structure we agreed, turn my notes into one row per use case. Fill every field only from what is in the notes. Where a field is not covered, leave it blank and add it to a short list of gaps for me to fill. Do not guess figures or invent anchors.
+    </PromptCard>
+  </Step>
+  <Step title="Build the interactive view">
+    Once the content is clean, ask Claude Code to turn it into a filterable page: a table grouped by lever, with buttons to filter by phase, tier, and service. Claude Code writes the markup, styling, and the small amount of code that makes the filters work.
+  </Step>
+  <Step title="Review, correct, and save">
+    Read every row against your source before you trust it. Fix what is off, fill the gaps it flagged, then save your work with Git so you have a clean point to return to.
+  </Step>
+</Steps>
+
+<Callout type="warning">
+Claude Code assembles structure quickly, but it cannot supply judgment. Check every figure, anchor, and claim against your own source material before this goes in front of anyone. The matrix is a starting point for a conversation, not a finished verdict.
+</Callout>
+
+<Callout type="confidential">
+This example uses illustrative, non-deal material. If you adapt the pattern to live work, keep the source notes in an approved folder and add a `.gitignore` before your first commit, so nothing confidential is ever saved into history. See [Saving Your Work](/claude-code/git-basics) and [Keeping Deal Data Safe](/claude-code/confidentiality).
+</Callout>
+
+## See the finished deliverable
+
+<MatrixPreview />
+
+## What to reuse
+
+The value here is the workflow, not this one matrix. Any time you have scattered notes that would be more useful as a structured, comparable artifact, the same five steps apply.
+
+<CardGrid columns={2}>
+  <Card title="PE Recipes" href="/claude-code/recipes-data" eyebrow="Practice">
+    Shorter, everyday workflows: tidy a data pack, sanity-check a model, turn a memo into a summary.
+  </Card>
+  <Card title="Cheat Sheet" href="/claude-code/cheat-sheet" eyebrow="Reference">
+    The prompts and habits from across the Advanced Track, on a single page.
+  </Card>
+</CardGrid>

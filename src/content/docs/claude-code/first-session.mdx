@@ -1,0 +1,94 @@
+---
+title: Your First Session
+description: "A gentle, first-time walkthrough of talking to Claude Code in plain English and watching it work."
+section: First Sessions
+order: 1
+---
+
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import Callout from '../../../components/Callout.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+
+By now you have installed VS Code and Claude Code and signed in with your KPMG account. Starting a session is the short step that follows: you open a folder in VS Code, open the terminal at the bottom, and type one word, `claude`, then press enter. That is what brings Claude Code to life in the folder you are looking at.
+
+The first time you do this, the screen can look a little intimidating: a dark window, a file list on one side, and the terminal at the bottom. Take a breath. There is nothing here you can break by typing, and nothing changes on your computer until you say so.
+
+The most important thing to understand is that terminal at the bottom. Once Claude Code is running there, it is not something you write code into. It is simply where you talk to Claude Code, in the same plain English you would use to brief a junior colleague. You type a request, press enter, and Claude replies. That is the whole conversation.
+
+## The one idea to hold on to
+
+Claude Code does not act first and explain later. It reads your request, tells you what it plans to do, and waits for your approval before touching a single file. You are always the one who says "go ahead." Think of it as an assistant who never moves without a nod from you.
+
+<Callout type="tip" title="Start on something you cannot harm">
+For your very first try, open a throwaway folder or a sample folder, not live deal material. A folder with a few practice files lets you learn the rhythm of the conversation without any worry about confidential documents. Once the loop feels familiar, you can decide what to trust it with.
+</Callout>
+
+## A first session, step by step
+
+You do not need to memorize commands. There is only one to know, `claude`, to start a session. Everything after that is plain English. The whole flow is six small moments, and Claude walks you through each one.
+
+<Steps>
+  <Step title="Open your folder in VS Code">
+    Open a folder on your computer in VS Code. For a first run, use a throwaway or sample folder with a few practice files in it, not real deal material. This folder is simply the workspace Claude can see. Its files appear in the rail on the left.
+  </Step>
+  <Step title="Start Claude Code in the terminal">
+    Open the terminal at the bottom of VS Code (from the menu, **View -> Terminal**), type `claude`, and press enter. This starts Claude Code in the folder you just opened. A ready prompt appears, waiting for your first instruction.
+
+    ```bash
+    claude
+    ```
+  </Step>
+  <Step title="Type a small request in plain English">
+    At that prompt, describe one small thing you want done, the way you would ask a colleague. For example: "Rename these files so the names are clear and consistent." Keep it small for your first try.
+  </Step>
+  <Step title="Watch Claude propose a short plan">
+    Instead of acting immediately, Claude replies with a short plan: a numbered list of what it intends to do. Read it. This is your chance to see exactly what will happen before anything happens.
+  </Step>
+  <Step title="Approve it">
+    If the plan looks right, you approve it (usually by typing "y" for yes). Nothing on your computer changes until this moment. If the plan looks wrong, you can say no and explain what you actually meant.
+  </Step>
+  <Step title="See the result">
+    Claude carries out the approved plan and reports back plainly: what it did and where. You look at the result, and if you are happy, you move on. If not, you simply ask for a change.
+  </Step>
+</Steps>
+
+## What that first exchange looks like
+
+Here is a complete first conversation. Notice the shape of it: you make a plain request, Claude proposes a plan, you approve, and Claude reports back. The window below is a picture of Claude Code running, with a small practice folder open.
+
+<CodeWindow filename="first-session" caption="A first exchange on a practice folder. Your files stay on your machine.">
+  <ul slot="tree">
+    <li>practice-folder/</li>
+    <li>doc1 FINAL v2.txt</li>
+    <li>doc1 FINAL.txt</li>
+    <li>Notes (old).txt</li>
+    <li>summary DRAFT.txt</li>
+  </ul>
+  <pre slot="terminal">{`$ claude
+Welcome to Claude Code.
+
+> Rename these files so the names are clear and consistent.
+
+Claude Code
+Here is my plan:
+1. Read the four file names in practice-folder
+2. Rename them to a clear, consistent pattern
+3. Report the new names back to you
+
+Nothing changes until you approve. Proceed? (y / n)
+
+> y
+
+Done. Renamed 4 files:
+  doc1 FINAL v2.txt   ->  document-01.txt
+  doc1 FINAL.txt      ->  document-02.txt
+  Notes (old).txt     ->  notes.txt
+  summary DRAFT.txt   ->  summary.txt`}</pre>
+</CodeWindow>
+
+That is a full session. You asked for one clear thing, you saw the plan, you approved it, and you saw the result. Nothing was hidden, and nothing happened without your yes.
+
+## The takeaway
+
+Your first session is meant to be small and safe. Open a practice folder, type one plain request, read the plan, approve it, and look at what came back. Once that loop feels natural, everything else in this track is just the same rhythm applied to bigger, more useful work. The next page looks closely at that approval loop, because it is the habit that keeps you in control.

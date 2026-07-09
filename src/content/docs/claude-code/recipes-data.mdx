@@ -1,0 +1,50 @@
+---
+title: "Recipes: Data Packs & Model Checks"
+description: "Two practical Claude Code recipes for tidying a messy data pack and running a quick sanity check on a model."
+section: PE Recipes
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+
+A "recipe" is a short, repeatable workflow you can lean on again and again. The two below are everyday jobs that eat up time by hand: cleaning a data pack and sanity-checking a model. Claude Code is well suited to both, because it can read a whole file or folder at once and work through it patiently. You stay in charge of the judgment; it takes on the grind.
+
+## Recipe 1 - Tidy a data pack
+
+Data packs arrive messy. Headers are inconsistent, some cells are blank, and the odd figure looks wrong at a glance. Rather than combing through row by row, you can point Claude Code at the file (a single messy CSV, or a folder of them) and ask it to clean things up and tell you what it found.
+
+<PromptCard title="Tidy a messy data pack" label="Prompt">
+Please look at the CSV file in this folder. Normalize the column headers so they are consistent and clearly named. Flag any blank cells and any obvious outliers that look like errors, but do not change the underlying figures without telling me. Then write a short report that lists what you cleaned up, where the blanks are, and which numbers look suspicious and why.
+</PromptCard>
+
+<Steps>
+  <Step title="Point Claude Code at the file">
+    Put the messy CSV, or the folder of files, where Claude Code can see it, and tell it which one you mean. If it is a folder, say so, and it will work through the files in turn.
+  </Step>
+  <Step title="Run the prompt above">
+    Ask it to normalize headers, flag blanks and obvious outliers, and produce a short report. The report is the part you will read first.
+  </Step>
+  <Step title="Read the report before the data">
+    The report tells you what changed and what looked off. Read it before you trust the tidied file, so you understand every adjustment that was made.
+  </Step>
+  <Step title="Spot-check the flagged items">
+    For each blank or outlier it raised, check the source to decide whether it is a genuine error or simply an unusual but correct figure. That call is yours.
+  </Step>
+</Steps>
+
+## Recipe 2 - Quick model checker
+
+Before you rely on a model someone else built, or one you put together in a hurry, it helps to run a quick check for the usual traps. Working from an exported model or a CSV of its cells, Claude Code can scan for the mistakes that most often slip through.
+
+<PromptCard title="Quick sanity check on a model" label="Prompt">
+Please review this exported model. Flag anything that looks like a broken link or a reference that points nowhere. Point out places where a number appears to be typed in by hand where a formula would normally be expected. And highlight any assumptions that seem inconsistent with each other, for example a growth rate or a margin used two different ways. Give me a short, ranked list of what to check first.
+</PromptCard>
+
+Treat the output as a checklist of things to look at, not a verdict. Claude Code is good at surfacing the suspicious spots quickly, which saves you from hunting for them. What it cannot do is know your business context, so the decision on whether each flag actually matters stays with you. Work down its ranked list, open each flagged cell in the real model, and confirm for yourself.
+
+<Callout type="warning">
+Always verify the outputs before you act on them. Claude Code can miss things and can occasionally flag something that is perfectly fine, so its report is a starting point, not the final word. Where you can, run these recipes on sample or anonymized data first, so you learn how they behave before pointing them at anything sensitive.
+</Callout>
