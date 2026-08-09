@@ -167,7 +167,6 @@ export const navAdvanced: NavSection[] = [
   {
     label: 'Getting Started',
     items: [
-      { title: 'What Claude Code Is', slug: 'claude-code/what-it-is' },
       { title: 'Claude Code vs claude.ai', slug: 'claude-code/vs-claude-ai' },
       { title: 'Installing VS Code', slug: 'claude-code/install-vs-code' },
       { title: 'Installing & Signing In', slug: 'claude-code/sign-in' },
