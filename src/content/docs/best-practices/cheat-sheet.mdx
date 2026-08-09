@@ -9,6 +9,7 @@ import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
 import CardGrid from '../../../components/CardGrid.astro';
 import Card from '../../../components/Card.astro';
+import { withBase } from '../../../utils/withBase';
 
 Everything that matters, on one page. Skim it before a task, keep it open while you work, and come back to it whenever a habit starts to slip. Each line points to a fuller page if you want the detail.
 
@@ -88,7 +89,7 @@ The fuller routine is in [Verify Everything](/best-practices/verify-everything).
 - **Devil's advocate**: tell Claude to argue against your thesis.
 - **Constrain the output**: name the length, headings, and tone precisely.
 
-Full versions in [Prompt Patterns](/best-practices/prompt-patterns).
+Full versions in <a href={withBase('/foundations/anatomy-of-a-prompt')}>Anatomy of a Good Prompt</a>.
 
 ## Where to go next
 

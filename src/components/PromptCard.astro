@@ -7,13 +7,24 @@ interface Props {
   prompt?: string;
   label?: string;
   title?: string;
-  // Long templates clamp to a readable height with a "show full" toggle.
-  // Defaults to false so every existing prompt renders exactly as before.
-  collapsible?: boolean;
+  // How much of the prompt to hide behind a toggle. Omit and the prompt renders
+  // in full, exactly as before.
+  //   'clamp'  — long templates cut to a readable height, with a "show full" toggle.
+  //   'closed' — body hidden entirely; the card reads as a title you click open.
+  //              Used on reference pages where the titles are the index.
+  collapse?: 'clamp' | 'closed';
 }
-const { prompt, label = 'Prompt', title, collapsible = false } = Astro.props;
+const { prompt, label = 'Prompt', title, collapse } = Astro.props;
 
 const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
+
+// Toggle wording lives here rather than in the script, so the two modes have a
+// single definition and the script stays mode-agnostic.
+const TOGGLE_TEXT = {
+  clamp: { shut: 'Show full template', open: 'Show less' },
+  closed: { shut: 'Show prompt', open: 'Hide prompt' },
+} as const;
+const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
 ---
 
 <figure class="prompt-card" data-prompt-card>
@@ -33,13 +44,24 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
       <span class="pc-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div class:list={['pc-wrap', collapsible && 'pc-clamp']} data-prompt-wrap>
+  <div
+    class:list={['pc-wrap', collapse === 'clamp' && 'pc-clamp', collapse === 'closed' && 'pc-closed']}
+    data-prompt-wrap
+  >
     <pre class="pc-body" id={uid} data-prompt-text>{prompt ? prompt : <slot />}</pre>
   </div>
   {
-    collapsible && (
-      <button type="button" class="pc-toggle" data-toggle-btn aria-expanded="false">
-        Show full template
+    toggleText && (
+      <button
+        type="button"
+        class="pc-toggle"
+        data-toggle-btn
+        data-shut-label={toggleText.shut}
+        data-open-label={toggleText.open}
+        aria-controls={uid}
+        aria-expanded="false"
+      >
+        {toggleText.shut}
       </button>
     )
   }
@@ -130,6 +152,20 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
     display: none;
   }
 
+  /* Fully closed: collapse the body rather than removing it, so the Copy button
+     can still read its text while the prompt is hidden. */
+  .pc-closed .pc-body {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+  .pc-closed.open .pc-body {
+    max-height: none;
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
   .pc-toggle {
     display: block;
     width: 100%;
@@ -196,7 +232,8 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
       }, 1600);
     });
 
-    // Expand/collapse for long templates (only present when collapsible).
+    // Expand/collapse (only present when the card sets a collapse mode). The
+    // wording comes from the markup, so this works for every mode.
     const toggle = card.querySelector<HTMLButtonElement>('[data-toggle-btn]');
     const wrap = card.querySelector<HTMLElement>('[data-prompt-wrap]');
     if (!toggle || !wrap) return;
@@ -204,7 +241,7 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
     toggle.addEventListener('click', () => {
       const open = wrap.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
-      toggle.textContent = open ? 'Show less' : 'Show full template';
+      toggle.textContent = open ? toggle.dataset.openLabel! : toggle.dataset.shutLabel!;
       if (!open) card.scrollIntoView({ block: 'nearest' });
     });
   });

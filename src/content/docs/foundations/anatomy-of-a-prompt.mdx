@@ -1,17 +1,17 @@
 ---
 title: Anatomy of a Good Prompt
 description: The repeatable four-part shape that turns a vague request into reliable, usable output.
-section: Foundations
-order: 4
+section: Start Here
+order: 2
 ---
 
 import Callout from '../../../components/Callout.astro';
 import PromptCard from '../../../components/PromptCard.astro';
-import ComparisonTable from '../../../components/ComparisonTable.astro';
 import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
 import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
 import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
+import { withBase } from '../../../utils/withBase';
 
 A good prompt is not a clever trick; it is a clear brief. The same instinct that makes you good at handing work to an analyst makes you good at prompting Claude: say who they are, what you need, how you want it back, and what to watch for. That four-part shape (**Role, Task, Format, Scrutiny**) is the backbone of almost every strong prompt, and once you have it, the quality of your output stops being a matter of luck.
 
@@ -46,22 +46,6 @@ Ask Claude to be honest about the limits of what it produced. Tell it to flag ga
 <Callout type="tip" title="Scrutiny is the part that protects you">
 Role, Task, and Format make the answer tidy. Scrutiny makes it trustworthy. Always ask Claude to flag gaps and oddities, then verify those flags against the source. Fluent output can still be confidently wrong, so the instruction to point at its own weak spots is the cheapest insurance you have.
 </Callout>
-
-## Weak versus strong
-
-The difference is rarely effort; it is structure. The same question, asked two ways, gives you two very different mornings.
-
-<ComparisonTable title="The same request, two ways" caption="The strong version is barely longer. It just says who, what, how, and what to watch for.">
-
-| Weak prompt | Strong prompt |
-| --- | --- |
-| "Summarize this." | "You are assisting a KPMG private equity associate. Summarize the attached teaser for an initial screen, using four headings (business, financials, thesis, risks) with bullets under each. Flag anything the teaser is vague about." |
-| Gives an unstructured wall of text you have to reshape | Gives a one-page screen you can use as-is, with gaps already marked |
-| No role, no format, no scrutiny | Role, task, format, and scrutiny all present |
-
-</ComparisonTable>
-
-Notice the strong prompt is only a sentence or two longer. The cost of a good brief is small; the cost of a bad one is the time you spend fixing the answer.
 
 ## A full prompt, assembled
 
@@ -113,6 +97,82 @@ When you face a new task, do not reach for a template you half-remember. Build t
   </Step>
 </Steps>
 
+## Patterns that stack on top
+
+The four parts cover most of what you will ask for. The moves below are the next layer: a small set of shapes that handle the situations that keep coming back in deal work. None of them is clever. They are reliable, and knowing them saves you reinventing the same prompt every week. Treat them as shapes to adapt rather than scripts to obey; the wording is a starting point, the structure is the value.
+
+### Iterate, do not restart
+
+The most common mistake is treating each prompt as a fresh start. Claude holds the thread of a conversation, so the fastest route to a good answer is usually a decent first draft followed by precise corrections. You would not ask an analyst to redo a whole memo because one section is off; you would tell them what to change. Do the same here.
+
+<PromptCard title="Refine in place">
+Good start. Now make three changes: tighten the risks section to the five that actually matter for an initial screen, drop the generic market commentary, and add a one-line "so what" under each risk explaining why it would affect the thesis. Keep everything else as it is.
+</PromptCard>
+
+<Callout type="tip" title="Steer, don't scrap">
+If an answer is 80 percent right, fix the 20 percent with a follow-up rather than re-prompting from scratch. You keep the good material and the established context, and you spend your words only on what needs to change.
+</Callout>
+
+### Ask for the reasoning, not just the answer
+
+For anything analytical, the conclusion is less useful than the path to it. Asking Claude to lay out its reasoning does two things: it gives you something to check, and it tends to produce a more careful answer, because the model has to justify itself rather than just assert.
+
+<PromptCard title="Show the working">
+Before you give your conclusion, walk through your reasoning step by step: what the document says, what you can infer from it, and where the gaps are. Then give your conclusion as a separate final paragraph, and note how confident you are in it and why.
+</PromptCard>
+
+This pairs naturally with the verification routine in <a href={withBase('/best-practices/verify-everything')}>Verify Everything</a>. Visible reasoning is far quicker to check than a bare verdict.
+
+### Structured comparison
+
+You constantly weigh things against each other: two targets, two structures, the case for and against a thesis. Left to its own devices, Claude may give you flowing prose when what you want is a grid. Ask for the structure explicitly, and give it the dimensions to compare on.
+
+<PromptCard title="Compare on fixed dimensions">
+Compare these two acquisition candidates as a table. Use these rows: business model, revenue scale, growth rate, margin profile, customer concentration, and the single biggest risk. Add a final row with your one-line read on which is the more attractive screen and why. If a document is silent on a dimension, write "not stated" rather than guessing.
+</PromptCard>
+
+The "not stated" instruction matters. Without it, a comparison table is exactly the kind of place a confident-looking but invented figure can slip in.
+
+### The devil's advocate
+
+Claude is, by default, agreeable. Left unprompted it tends to support the direction you seem to be leaning. That is the opposite of what you want when you are pressure-testing a thesis. Ask it explicitly to argue against you.
+
+<PromptCard title="Argue the other side">
+I am inclined to pursue Project Atlas. Take the opposite view. Give me the strongest, most specific case against this investment: the risks I am most likely to be underweighting, the questions that would most worry an investment committee, and the single thing that, if true, would kill the deal. Be direct, not diplomatic.
+</PromptCard>
+
+<Callout type="note" title="Use it to find blind spots, not to decide">
+The devil's advocate pattern is a tool for surfacing what you have not considered. The arguments it raises still need checking against the source and weighing with your own judgment. It widens the search; it does not make the call.
+</Callout>
+
+### Constrain the output
+
+When you need output in a specific shape (a fixed word count, a particular set of headings, a tone, a template), say so up front and be concrete. Vague constraints produce vague compliance. "Keep it short" is weaker than "no more than 150 words". "Make it formal" is weaker than "written for an investment committee paper: measured, specific, no marketing language".
+
+<PromptCard title="Tight constraints">
+Draft the executive summary for an investment committee paper on Project Atlas. Hard constraints: no more than 200 words, three short paragraphs (thesis, value-creation angle, the main risk), measured and specific tone, no superlatives or marketing language. If you cannot fit something important in the word count, list it separately below the summary rather than cutting it silently.
+</PromptCard>
+
+### Name the shape you cannot see
+
+Sometimes the failure is not the content but the shape it comes back in. This is the **Format** part above, used deliberately: decide what you want back before you write the prompt, because if you cannot picture the output, Claude cannot either. Name the headings, the row labels, the length, the order. That specificity is what removes the reformatting step afterwards.
+
+Then add the guard that most people forget: tell Claude what to do when a piece of information is missing. Write "not stated", flag it, or list it separately. Without that instruction, a clean-looking output can quietly hide a hole.
+
+### Combining patterns
+
+These stack. A strong real-world prompt might set the role, state the task, ask for visible reasoning, demand a fixed table format, and finish with a devil's-advocate pass, all in one message. You do not need every pattern every time. Reach for the one that fits the job, layer a second if it helps, and keep the scrutiny instruction running underneath all of them.
+
 ## What to take from this
 
-Strong prompting is not a special skill reserved for the technically minded; it is good delegation written down. Set the **role**, state the **task**, specify the **format**, and demand **scrutiny**, and you will get reliable, usable work back the first time far more often. To go deeper on phrasing and standing instructions, read [Writing Effective Instructions](/context/writing-instructions), and to understand why the context you provide matters as much as the wording, see [Why Context Is Everything](/context/why-context). When you want prompts built to this shape and ready to paste, the [Prompt Library](/resources/prompt-library) has one for each common PE task.
+Strong prompting is not a special skill reserved for the technically minded; it is good delegation written down. Set the **role**, state the **task**, specify the **format**, and demand **scrutiny**, and you will get reliable, usable work back the first time far more often. The patterns on top of that are habits more than techniques: refine instead of restart, ask for the reasoning, force structured comparisons, invite the counter-argument, and constrain the output precisely.
+
+## Next: the same job, next month
+
+The four parts get you a good answer today. What they do not do is stop you rebuilding the same prompt from memory the next time the same job comes round, a little worse each time, with the one clause that made it work last quarter quietly missing.
+
+Closing that gap is the whole subject of the next page. A prompt you have written, corrected, and run three or four times has earned the right to become a **template**: the inputs pulled out into named fields, the constraints written down instead of remembered, and enough structure that a colleague who was not there can run it and get your result rather than their own.
+
+<a href={withBase('/resources/from-prompt-to-template')}>From Prompt to Template</a> takes the four-part shape you have just learned and shows what it grows into: a fuller structure with an intake step that interviews you for the facts it needs, plus the templates that structure produced on live engagements. Read it next. Nothing in it replaces what is on this page, it all sits on top.
+
+For everything else, <a href={withBase('/context/writing-instructions')}>Writing Effective Instructions</a> goes deeper on phrasing and standing instructions, <a href={withBase('/context/why-context')}>Why Context Is Everything</a> explains why what you supply matters as much as how you word it, and the <a href={withBase('/resources/prompt-library')}>Prompt Library</a> has short ready-to-paste prompts for common private equity tasks.

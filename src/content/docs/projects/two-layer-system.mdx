@@ -7,8 +7,10 @@ order: 2
 
 import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
+import PromptCard from '../../../components/PromptCard.astro';
 import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
 import twoLayer from '../../../assets/diagrams/two-layer-system.png';
+import { withBase } from '../../../utils/withBase';
 
 Your screening method never changes; the opportunities running through it change constantly. That single distinction is the most important idea in how you organize work in Claude. Once it clicks, every decision about where a file goes and where a chat belongs becomes obvious. The principle is simple: you run **two layers** of Projects, and they have very different lifespans and purposes.
 
@@ -27,6 +29,8 @@ You build one of these once and use it across every opportunity. Typical example
 
 These projects contain no confidential deal data. They contain *how you work*. That is precisely why they can persist and be shared: there is nothing opportunity-specific to protect.
 
+The output templates are the most valuable thing in this layer, and the part most often left half-built. A checklist copied out of a Word document is a start, but a real template names the inputs it needs, interviews you for the ones you left out, and writes its constraints down instead of trusting you to remember them. <a href={withBase('/resources/from-prompt-to-template')}>From Prompt to Template</a> sets out that structure and includes four full templates from live engagements, plus a blank master prompt, that you can lift straight into a reusable project.
+
 ### Layer two: one-time deal projects
 
 A **deal project** is built around *one live opportunity*. You create exactly one per opportunity, and it holds that opportunity's data room: the CIM, the financials, the management deck, the diligence materials. It is siloed by design, so its contents never mingle with another opportunity's. When the opportunity closes, completes, or dies, you archive or delete the project.
@@ -41,7 +45,7 @@ In practice you use both at once. When a new opportunity (say, Project Atlas) ar
 2. You lean on your **Screening** function project to remember *how* to screen: the checklist, the criteria, the memo shape.
 3. You apply that methodology to Atlas's materials inside the Atlas project.
 
-The function project supplies the method. The deal project supplies the (confidential) facts. Keeping them apart is what lets the method be reused freely while the facts stay locked down. Both of these Project layers sit beneath your account-level [Instructions for Claude](/context/instructions-for-claude), which carry your standing preferences into every conversation regardless of which Project you are in.
+The function project supplies the method. The deal project supplies the (confidential) facts. Keeping them apart is what lets the method be reused freely while the facts stay locked down. Both of these Project layers sit beneath your account-level <a href={withBase('/context/instructions-for-claude')}>Instructions for Claude</a>, which carry your standing preferences into every conversation regardless of which Project you are in.
 
 ## Reusable vs deal projects at a glance
 
@@ -66,9 +70,36 @@ The tempting shortcut is to make one giant "Private Equity" project and throw ev
 
 Keep the layers separate. Methodology persists in function projects. Confidential facts stay isolated in one deal project each.
 
+## The reusable layer still needs maintenance
+
+A function project is permanent. The templates inside it are not. Every template was written against whichever model was current at the time, and models keep getting better. When a new one arrives, a template tuned to its predecessor quietly starts working against it: scaffolding that used to be necessary becomes redundant, worked examples that used to steer the answer start narrowing it, and instructions written to prevent a failure mode now guard against something that no longer happens.
+
+This rarely breaks loudly. The output still arrives, still in the right shape, just a little flatter and more literal than the model was capable of. That is why it goes unnoticed for months.
+
+So build a habit: whenever the model behind Claude changes, take your reusable templates back through it. The fastest way to do that is to ask Claude to do it for you.
+
+<PromptCard title="Upgrade a template for a newer model">
+Below is a prompt template my team wrote for [model it was written for]. We are now running on [current model].
+
+Review it against what the newer model can do and tell me:
+1. Which instructions are now redundant scaffolding the model no longer needs
+2. Which constraints still earn their place and should stay untouched
+3. Where the template is now under-specified, because the model can handle more than it used to be asked for
+
+Then give me a revised version, followed by a short list of what you changed and why. Do not change the output format unless you explain what it buys me.
+
+[paste the template here]
+</PromptCard>
+
+Then verify rather than assume. Run the old and the revised version against the same input once, compare the two outputs side by side, and keep whichever is genuinely better; a suggestion from Claude about its own prompting is still a suggestion. Save the winner back into the function project with the date and the model it was tuned for written at the top, so the next person can see how current it is at a glance.
+
+<Callout type="tip" title="Two model releases is the warning line">
+A template nobody has revisited in two model releases is almost certainly costing you quality without anyone noticing. Put the review on the same footing as any other standing method: it belongs to the reusable layer, so it gets maintained like the rest of it.
+</Callout>
+
 ## Where to go next
 
 With the model clear, the next two pages are the practical build guides. Start with the reusable layer, then the deal layer:
 
-- [Setting Up a Reusable Project](/projects/reusable-setup): build a Screening project you will use on every target.
-- [Setting Up a Deal Project](/projects/deal-setup): stand up a siloed project for one live opportunity.
+- <a href={withBase('/projects/reusable-setup')}>Setting Up a Reusable Project</a>: build a Screening project you will use on every target.
+- <a href={withBase('/projects/deal-setup')}>Setting Up a Deal Project</a>: stand up a siloed project for one live opportunity.

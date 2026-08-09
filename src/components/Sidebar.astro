@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import type { NavSection, Track } from '../config/nav';
-import { TRACKS } from '../config/nav';
+import { TRACKS, sectionHoldsSlug, trackPositions } from '../config/nav';
 import { withBase } from '../utils/withBase';
 
 interface Props {
@@ -15,11 +15,8 @@ const { currentSlug, sections, track } = Astro.props;
 const docs = await getCollection('docs', ({ data }) => data.draft !== true);
 const existing = new Set(docs.map((d) => d.id));
 
-// Position (1-based) for each slug WITHIN this track, so the sidebar number
-// matches the "X of N" shown in each page's header.
-const trackItems = sections.flatMap((s) => s.items);
-const positionOf = new Map(trackItems.map((item, i) => [item.slug, i + 1]));
-const pad = (n: number) => String(n).padStart(2, '0');
+// Shared position labels from nav.ts (numbered spine + lettered optional items).
+const positions = trackPositions(track);
 
 // The switcher points at the opposite track's landing page.
 const otherTrack: Track = track === 'core' ? 'advanced' : 'core';
@@ -46,15 +43,15 @@ const other = TRACKS[otherTrack];
       </a>
     </div>
     {
-      sections.map((section) => (
-        <>
-        <div class:list={['nav-section', { optional: section.optional }]}>
-          <p class="nav-label">{section.label}</p>
+      (() => {
+        // The link markup has a single definition, reused by every section at
+        // every depth, so how a section is wrapped never changes how it reads.
+        const itemList = (section: NavSection) => (
           <ul class="nav-list">
             {section.items.map((item) => {
               const isActive = item.slug === currentSlug;
               const exists = existing.has(item.slug);
-              const num = positionOf.get(item.slug);
+              const posLabel = positions.get(item.slug)?.label ?? '';
               return (
                 <li>
                   {exists ? (
@@ -63,12 +60,12 @@ const other = TRACKS[otherTrack];
                       class:list={['nav-link', { active: isActive }]}
                       aria-current={isActive ? 'page' : undefined}
                     >
-                      <span class="nav-num" aria-hidden="true">{num ? pad(num) : ''}</span>
+                      <span class="nav-num" aria-hidden="true">{posLabel}</span>
                       <span class="nav-text">{item.title}</span>
                     </a>
                   ) : (
                     <span class="nav-link nav-soon" title="Coming soon">
-                      <span class="nav-num" aria-hidden="true">{num ? pad(num) : ''}</span>
+                      <span class="nav-num" aria-hidden="true">{posLabel}</span>
                       <span class="nav-text">{item.title}</span>
                       <span class="soon-tag">soon</span>
                     </span>
@@ -77,9 +74,50 @@ const other = TRACKS[otherTrack];
               );
             })}
           </ul>
-        </div>
-        </>
-      ))
+        );
+
+        // Recursive, so a sub-section is rendered by exactly the same code as a
+        // top-level one and inherits its behaviour for free.
+        const renderSection = (section: NavSection, depth: number) => {
+          const classes = [
+            'nav-section',
+            { optional: section.optional, nested: depth > 0 },
+          ];
+          const body = (
+            <>
+              {itemList(section)}
+              {section.children?.map((child) => renderSection(child, depth + 1))}
+            </>
+          );
+
+          // A folded section still opens when the reader is inside it — or
+          // inside anything nested under it — so the current page is never
+          // hidden from its own navigation.
+          if (section.collapsible) {
+            const holdsCurrent = sectionHoldsSlug(section, currentSlug);
+            return (
+              <details class:list={classes} open={!section.startClosed || holdsCurrent}>
+                <summary class="nav-label nav-summary">
+                  <span>{section.label}</span>
+                  <svg class="nav-chevron" viewBox="0 0 24 24" width="11" height="11" fill="none" aria-hidden="true">
+                    <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </summary>
+                {body}
+              </details>
+            );
+          }
+
+          return (
+            <div class:list={classes}>
+              <p class="nav-label">{section.label}</p>
+              {body}
+            </div>
+          );
+        };
+
+        return sections.map((section) => renderSection(section, 0));
+      })()
     }
   </div>
 </nav>
@@ -107,8 +145,31 @@ const other = TRACKS[otherTrack];
     border-top: 1px solid var(--line);
     padding-top: var(--space-6);
   }
+  /* Consecutive folded sections read as one zone, so only the first of a run
+     carries the dividing rule. */
+  .nav-section.optional + .nav-section.optional {
+    margin-top: var(--space-2);
+    border-top: none;
+    padding-top: 0;
+  }
+  /* A nested section sits inside its parent's disclosure, so it carries no
+     divider of its own — the indent is what signals the relationship. */
+  .nav-section.nested,
+  .nav-section.optional.nested {
+    margin-top: var(--space-4);
+    border-top: none;
+    padding-top: 0;
+    padding-left: var(--space-3);
+  }
+  .nav-section.nested .nav-label {
+    font-size: 0.66rem;
+  }
   .nav-section.optional .nav-label {
     color: #9aa6b6;
+  }
+  .nav-section.optional .nav-num {
+    font-variant-numeric: normal;
+    font-style: italic;
   }
 
   /* Track switcher: identifies the current track (claude.ai vs Claude Code),
@@ -116,7 +177,7 @@ const other = TRACKS[otherTrack];
      section list, separated by a hairline rule. */
   .track-switcher {
     margin-bottom: var(--space-6);
-    padding: 0 var(--space-3) var(--space-5);
+    padding: 0 var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--line);
   }
   .track-home {
@@ -173,6 +234,42 @@ const other = TRACKS[otherTrack];
     margin: 0 0 var(--space-2);
     padding-left: var(--space-3);
   }
+  /* Collapsible sections: the label becomes the control. Native <details>
+     keeps it keyboard-accessible and working without JavaScript. */
+  .nav-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: color 0.15s ease;
+  }
+  .nav-summary::-webkit-details-marker {
+    display: none;
+  }
+  .nav-summary:hover {
+    color: var(--kpmg-blue);
+  }
+  .nav-summary:focus-visible {
+    outline: 2px solid var(--kpmg-blue);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  .nav-chevron {
+    flex: 0 0 auto;
+    margin-right: var(--space-3);
+    color: #b4bdc9;
+    transition: transform 0.18s ease;
+  }
+  details[open] > .nav-summary .nav-chevron {
+    transform: rotate(180deg);
+  }
+  .nav-summary:hover .nav-chevron {
+    color: var(--kpmg-blue);
+  }
+
   .nav-list {
     list-style: none;
     margin: 0;
