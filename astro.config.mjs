@@ -2,7 +2,7 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import pagefind from 'astro-pagefind';
-import { rehypeBaseUrls } from './src/plugins/rehype-base-urls.mjs';
+import { rehypeBaseUrls } from './src/plugins/rehype-base-urls';
 
 // Base path is env-driven for host portability.
 // GitHub Pages (project subpath) uses the default; set SITE_BASE=/ for root-served hosts (Cloudflare, custom domain).

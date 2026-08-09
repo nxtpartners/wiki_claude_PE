@@ -7,7 +7,6 @@ order: 4
 
 import Callout from '../../../components/Callout.astro';
 import PromptCard from '../../../components/PromptCard.astro';
-import { withBase } from '../../../utils/withBase';
 
 Most prompt collections are written the wrong way round. Someone sits down, imagines the tasks a team might face, and writes a library of templates in advance. The templates look tidy. Almost nobody uses them, because they were designed for an imagined job rather than a real one.
 
@@ -169,7 +168,7 @@ table, write out the column headers.]
 </output_format>
 `} />
 
-This connects directly to the four-part shape taught in <a href={withBase('/foundations/anatomy-of-a-prompt')}>Anatomy of a Good Prompt</a>. It is the same idea carried further: `tone` is the role, `task_description` is the task, `output_format` is the format, and `constraints` is the scrutiny.
+This connects directly to the four-part shape taught in [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt). It is the same idea carried further: `tone` is the role, `task_description` is the task, `output_format` is the format, and `constraints` is the scrutiny.
 
 <Callout type="note" title="Keep the template current with the model">
 These templates were written for Claude Opus 4.7. When a new model is released and you switch to it, run the template once, note where the output changed, adjust the wording, and save the updated version. Prompts are tuned to the model that was current when they were written. A template nobody has revisited in three model releases will quietly underperform, and the drift is easy to miss because the output still looks reasonable.
@@ -790,7 +789,7 @@ The main use case for Copilot is that you can create an agent linked to the Micr
 
 It is worth being explicit about why a Copilot agent appears in a Claude guide. The structure on this page is not specific to one assistant. A named role, stated inputs, an intake step, explicit constraints, and a defined output format behave the same way in Copilot as they do in Claude, and the instructions below deliberately push users back towards that same shape. Learn the structure once and it travels with you.
 
-One caution, and it is a real one. An agent with standing access to project files is only as safe as the sources it is pointed at. Everything in the <a href={withBase('/best-practices/confidentiality')}>Confidentiality Decision Tree</a> applies, and it applies to the whole connected source rather than to one document at a time.
+One caution, and it is a real one. An agent with standing access to project files is only as safe as the sources it is pointed at. Everything in the [Confidentiality Decision Tree](/best-practices/confidentiality) applies, and it applies to the whole connected source rather than to one document at a time.
 
 <PromptCard title="Project Brain agent instructions" collapse="clamp" prompt={`# Project Brain Agent Instructions
 
@@ -897,7 +896,7 @@ When the same task comes round for the third time, stop rewriting the prompt fro
 6. **Run it on a real job and fix what breaks.** Repeat until it stops surprising you.
 
 <Callout type="confidential" title="Before you paste in a document">
-These templates are written to be filled with live engagement material. Confirm the document is permitted for processing in the KPMG Enterprise or Team workspace before you attach anything, using the <a href={withBase('/best-practices/confidentiality')}>Confidentiality Decision Tree</a>. And verify the output against the source before it reaches a deliverable, as <a href={withBase('/best-practices/verify-everything')}>Verify Everything</a> explains.
+These templates are written to be filled with live engagement material. Confirm the document is permitted for processing in the KPMG Enterprise or Team workspace before you attach anything, using the [Confidentiality Decision Tree](/best-practices/confidentiality). And verify the output against the source before it reaches a deliverable, as [Verify Everything](/best-practices/verify-everything) explains.
 </Callout>
 
-For shorter, single-task prompts covering everyday deal work, see the <a href={withBase('/resources/prompt-library')}>Prompt Library</a>. For the reasoning behind the structure, and the patterns that stack on top of it, start with <a href={withBase('/foundations/anatomy-of-a-prompt')}>Anatomy of a Good Prompt</a>.
+For shorter, single-task prompts covering everyday deal work, see the [Prompt Library](/resources/prompt-library). For the reasoning behind the structure, and the patterns that stack on top of it, start with [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

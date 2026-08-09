@@ -11,7 +11,6 @@ import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
 import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
 import ClaudeComposer from '../../../components/claude-ui/ClaudeComposer.astro';
-import { withBase } from '../../../utils/withBase';
 
 A good prompt is not a clever trick; it is a clear brief. The same instinct that makes you good at handing work to an analyst makes you good at prompting Claude: say who they are, what you need, how you want it back, and what to watch for. That four-part shape (**Role, Task, Format, Scrutiny**) is the backbone of almost every strong prompt, and once you have it, the quality of your output stops being a matter of luck.
 
@@ -121,7 +120,7 @@ For anything analytical, the conclusion is less useful than the path to it. Aski
 Before you give your conclusion, walk through your reasoning step by step: what the document says, what you can infer from it, and where the gaps are. Then give your conclusion as a separate final paragraph, and note how confident you are in it and why.
 </PromptCard>
 
-This pairs naturally with the verification routine in <a href={withBase('/best-practices/verify-everything')}>Verify Everything</a>. Visible reasoning is far quicker to check than a bare verdict.
+This pairs naturally with the verification routine in [Verify Everything](/best-practices/verify-everything). Visible reasoning is far quicker to check than a bare verdict.
 
 ### Structured comparison
 
@@ -173,6 +172,6 @@ The four parts get you a good answer today. What they do not do is stop you rebu
 
 Closing that gap is the whole subject of the next page. A prompt you have written, corrected, and run three or four times has earned the right to become a **template**: the inputs pulled out into named fields, the constraints written down instead of remembered, and enough structure that a colleague who was not there can run it and get your result rather than their own.
 
-<a href={withBase('/resources/from-prompt-to-template')}>From Prompt to Template</a> takes the four-part shape you have just learned and shows what it grows into: a fuller structure with an intake step that interviews you for the facts it needs, plus the templates that structure produced on live engagements. Read it next. Nothing in it replaces what is on this page, it all sits on top.
+[From Prompt to Template](/resources/from-prompt-to-template) takes the four-part shape you have just learned and shows what it grows into: a fuller structure with an intake step that interviews you for the facts it needs, plus the templates that structure produced on live engagements. Read it next. Nothing in it replaces what is on this page, it all sits on top.
 
-For everything else, <a href={withBase('/context/writing-instructions')}>Writing Effective Instructions</a> goes deeper on phrasing and standing instructions, <a href={withBase('/context/why-context')}>Why Context Is Everything</a> explains why what you supply matters as much as how you word it, and the <a href={withBase('/resources/prompt-library')}>Prompt Library</a> has short ready-to-paste prompts for common private equity tasks.
+For everything else, [Writing Effective Instructions](/context/writing-instructions) goes deeper on phrasing and standing instructions, [Why Context Is Everything](/context/why-context) explains why what you supply matters as much as how you word it, and the [Prompt Library](/resources/prompt-library) has short ready-to-paste prompts for common private equity tasks.
