@@ -1,0 +1,901 @@
+---
+title: From Prompt to Template
+description: "How a prompt written for one real engagement becomes a template the whole team can reuse, with the master structure and five working examples."
+section: Resources
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+import { withBase } from '../../../utils/withBase';
+
+Most prompt collections are written the wrong way round. Someone sits down, imagines the tasks a team might face, and writes a library of templates in advance. The templates look tidy. Almost nobody uses them, because they were designed for an imagined job rather than a real one.
+
+The templates on this page came from the opposite direction. Each one started as a prompt written under time pressure for an actual engagement. It got used, corrected, used again, and only after several rounds did it settle into something stable enough to hand to someone else. That is the moment a prompt becomes a template.
+
+The practical advice is short. Do not build a template library up front. Write the best prompt you can for the job in front of you, keep it, and improve it the next time the same job comes round. After three or four passes you will have a template worth sharing, and you will know it works because it already has.
+
+## The master prompt
+
+Every template below is built on the same underlying structure. Learn the structure once and you can write your own for any recurring task.
+
+The structure comes from a prompt engineering technique demonstrated by [@eng_khairallah1 on X](https://x.com/eng_khairallah1/status/2048418646960288059). It uses labeled sections, written as tags, so the model can tell instructions apart from context and examples. It is not code, and you do not need to understand tags to use it. The labels are there so nothing gets read as the wrong kind of information.
+
+| Section | What goes in it |
+|---|---|
+| `how_to_use` | Instructions to the reader, not the model. How to run the template. |
+| `inputs` | The fields the task needs. Left blank on purpose, which is what triggers the intake. |
+| `intake_protocol` | How the model should interview you to fill the blanks, and when it must stop and wait. |
+| `tone` | Who is writing, to whom, in what register. |
+| `task_description` | What to produce, in order, and what is explicitly out of scope. |
+| `examples` | Sample output. The single most effective way to control quality. |
+| `constraints` | Hard rules. Word limits, banned words, source rules, scope guards. |
+| `output_format` | The exact shape of the finished artifact. |
+
+Two of these do most of the work. **Examples** pull quality up faster than any amount of instruction, because showing the model one good sentence beats describing a good sentence in a paragraph. **Constraints** are what stop the output drifting into generic consulting prose, and they are the first thing people delete to save space. Do not delete them.
+
+Here is the structure as a blank template. Copy it, fill in the bracketed guidance for your own recurring task, delete the guidance as you go, and you have the first draft of a template. Everything further down this page is this same skeleton with real content in it.
+
+<PromptCard title="Master prompt (blank)" collapsible prompt={`##############################################
+# [TASK NAME]: PROMPT TEMPLATE
+# Version: 1.0
+# Modes: INTAKE > CONFIRM > EXECUTE
+##############################################
+
+<how_to_use>
+Paste this entire template into the chat. The AI will detect whether you have
+populated the input fields below or left them blank, and route accordingly:
+
+- If fields are BLANK or partially filled: the AI enters INTAKE mode and runs the
+  interview process defined in <intake_protocol>.
+- If fields are FULLY POPULATED: the AI skips intake and runs the pre-draft check
+  in <pre_draft_check> directly.
+
+In both paths, the AI must wait for your explicit "go" before producing the final
+deliverable.
+</how_to_use>
+
+<inputs>
+[Leave blank to trigger intake. Populate to skip intake.]
+
+[List every fact the task needs, one per line, as a label with nothing after it.
+Keep it to the facts that actually change the output. A field nobody can answer
+is a field that will be skipped, and a skipped field produces a weak answer.]
+
+- Model in use:
+- Client name:
+- Audience for the deliverable:
+- Downstream use:
+- [Your field]:
+- [Your field]:
+- Materials attached or pasted in chat:
+</inputs>
+
+<intake_protocol>
+Trigger: any field in <inputs> is blank or ambiguous.
+
+Run the intake in this sequence:
+
+1. ONE-SHOT QUESTIONNAIRE
+   Send a single structured message containing every question needed to populate
+   <inputs>. Group questions by category. Number them. Mark any question that is
+   blocking with [BLOCKING].
+
+   Required coverage:
+   a) Framing: model in use, who the client is, who the deliverable is for, what
+      it will be used for downstream.
+   b) Scope: what is in, what is out, any comparative periods or sections that
+      are mandatory.
+   c) Sources: what materials are attached, what may be retrieved from the
+      internet, precedence rules where sources conflict.
+   d) Context: anything from prior chat or from the wider situation that should
+      inform the perspective.
+
+   Do not attempt to self-identify the model. Ask the user.
+
+   End the message with: "Please answer in any format. Once received, I will run
+   one follow-up round if needed, then show you the assembled inputs for sign-off
+   before drafting."
+
+2. WAIT FOR USER RESPONSE.
+
+3. ONE FOLLOW-UP ROUND (conditional)
+   After the user's first response, scan for unanswered [BLOCKING] items and
+   answers that are ambiguous enough to change the output. Ask only about those,
+   in a single message. Do not open a third round.
+
+4. ASSEMBLED INPUTS FOR SIGN-OFF
+   Restate every field in <inputs> with the value you now hold. Mark anything
+   still unknown as UNKNOWN and state the assumption you would make instead.
+   Then stop and ask for an explicit "go".
+
+5. WAIT. Do not draft until the user confirms. Acknowledgement is not confirmation.
+</intake_protocol>
+
+<pre_draft_check>
+Before drafting, confirm in one short message:
+- Every [BLOCKING] field has a value or a stated assumption.
+- The sources you will rely on, in precedence order.
+- Anything you were asked for that you cannot produce, and why.
+
+Then stop and wait for "go".
+</pre_draft_check>
+
+<tone>
+[Who is writing, to whom, in what register. Be specific. "Professional" means
+nothing. Write something closer to: an experienced practitioner briefing a
+partner who has ten minutes, factual and unhedged, no sales language.]
+</tone>
+
+<task_description>
+[What to produce, in order, section by section. Number the sections. State
+explicitly what is OUT of scope, because the model will otherwise fill space
+with adjacent material that looks useful and is not.]
+
+1. [Section]
+2. [Section]
+3. [Section]
+
+Out of scope: [what not to produce, and what not to speculate about].
+</task_description>
+
+<examples>
+[One worked example of the output, or one example per section. This is the single
+highest-leverage part of the template. A short real example beats a long
+description of what you want.]
+
+Example of a good line:
+[paste one]
+
+Example of a line that is too vague:
+[paste one, and say why]
+</examples>
+
+<constraints>
+- Every figure must be traceable to a named source. Label anything inferred as
+  an assumption.
+- If a source conflicts with another, follow the precedence rules given in
+  <inputs> and flag the conflict.
+- State what you do not know. Do not fill gaps with plausible language.
+- [Word or page limit]
+- [Banned words or phrases]
+- [Anything the reader must never be told, for example confidentiality limits]
+</constraints>
+
+<output_format>
+[The exact shape of the finished artifact: headings in order, table columns,
+length per section, whether it is prose or bullets. Be literal. If you want a
+table, write out the column headers.]
+</output_format>
+`} />
+
+This connects directly to the four-part shape taught in <a href={withBase('/foundations/anatomy-of-a-prompt')}>Anatomy of a Good Prompt</a>. It is the same idea carried further: `tone` is the role, `task_description` is the task, `output_format` is the format, and `constraints` is the scrutiny.
+
+<Callout type="note" title="Keep the template current with the model">
+These templates were written for Claude Opus 4.7. When a new model is released and you switch to it, run the template once, note where the output changed, adjust the wording, and save the updated version. Prompts are tuned to the model that was current when they were written. A template nobody has revisited in three model releases will quietly underperform, and the drift is easy to miss because the output still looks reasonable.
+</Callout>
+
+## The intake pattern
+
+Notice that `inputs` is left blank. That is deliberate, and it is the single feature that makes these templates usable by someone who did not write them.
+
+A normal template hands you a form full of square brackets and expects you to work out what belongs in each one. Most people stall there, fill in half of it, and get a weak answer that reflects the half they skipped.
+
+With the intake pattern you paste the whole thing in and answer questions instead. Claude reads the blank fields, asks you everything it needs in one grouped list, marks the questions it cannot proceed without, and waits. You answer in plain language. It shows you the assembled inputs, and only starts drafting once you confirm.
+
+Three things make it work, and they are worth copying into anything you write:
+
+- **One questionnaire, not a drip of questions.** Everything asked at once respects your time and gives you the whole picture before you start answering.
+- **Blocking questions are marked.** You can see immediately which answers actually gate the work and which are refinements.
+- **An explicit confirmation gate.** The model restates what it understood and waits for a real "go". Vague acknowledgement does not count. This catches misunderstandings before they become a finished document you have to unpick.
+
+## The templates
+
+Five templates that earned their place on live engagements. Each notes when to reach for it.
+
+### Opportunity Background
+
+Use this at the start of a project to produce a fast, factual background on the opportunity: what the business does, how it has performed, what we are being asked to deliver, and what we still need from management. It is the fullest expression of the master structure, so read this one first even if you never use it.
+
+<PromptCard title="Opportunity Background" collapsible prompt={`##############################################
+# OPPORTUNITY BACKGROUND: PROMPT TEMPLATE
+# Version: 2.0
+# Modes: INTAKE > CONFIRM > EXECUTE
+##############################################
+
+<how_to_use>
+Paste this entire template into the chat. The AI will detect whether you have
+populated the input fields below or left them blank, and route accordingly:
+
+- If fields are BLANK or partially filled: the AI enters INTAKE mode and runs the
+  interview process defined in <intake_protocol>.
+- If fields are FULLY POPULATED: the AI skips intake and runs the pre-draft check
+  in <pre_draft_check> directly.
+
+In both paths, the AI must wait for your explicit "go" before producing the final
+Opportunity Background document.
+</how_to_use>
+
+<inputs>
+[Leave blank to trigger intake. Populate to skip intake.]
+
+- Model in use:
+- Client name:
+- Client type: [PUBLIC / PRIVATE / MIXED-SOURCE]
+- Industry / sector:
+- Engagement type:
+- Audience for the deliverable:
+- Downstream use:
+- Work streams in scope:
+- Comparative periods for the financial table:
+- Sources and precedence rules:
+- Additional context / deal dynamics / sponsor thesis:
+- Materials attached or pasted in chat:
+</inputs>
+
+<intake_protocol>
+Trigger: any field in <inputs> is blank or ambiguous.
+
+Run the intake in this sequence:
+
+1. ONE-SHOT QUESTIONNAIRE
+   Send a single structured message containing every question needed to populate
+   <inputs>. Group questions by category. Number them. Mark any question that is
+   blocking with [BLOCKING].
+
+   Required coverage:
+   a) Engagement framing: model in use, client name and type, industry, engagement
+      type, audience, downstream use.
+   b) Scope: work streams, comparative periods, mandatory and optional financial
+      line items beyond the standard set.
+   c) Sources: what materials are attached, what should be retrieved from the
+      internet (for public/mixed clients), precedence rules where sources conflict.
+   d) Context: deal dynamics, sponsor thesis, known issues, anything from prior
+      chat that should inform the perspective.
+
+   Do not attempt to self-identify the model. Ask the user.
+
+   End the message with: "Please answer in any format. Once received, I will run
+   one follow-up round if needed, then show you the assembled inputs for sign-off
+   before drafting."
+
+2. WAIT FOR USER RESPONSE.
+
+3. ONE FOLLOW-UP ROUND (conditional)
+   After the user's first response, scan for:
+   - Unanswered [BLOCKING] questions.
+   - Contradictions or ambiguities in the answers.
+   - Gaps revealed by the answers (e.g. user named work streams that imply
+     materials not yet listed).
+
+   If any exist, send ONE follow-up message with the remaining questions. Cap at
+   5 questions. If none exist, skip to step 4.
+
+   Do not run more than one follow-up round. If gaps remain after the second
+   answer, note them and proceed to step 4 with explicit assumptions flagged.
+
+4. ASSEMBLE FILLED INPUTS
+   Restate <inputs> with every field populated from the user's answers. For any
+   field still missing or assumed, mark it clearly as "[ASSUMED: ...]" or
+   "[NOT PROVIDED: will treat as n/a]".
+
+5. CONFIRMATION GATE
+   End the assembled-inputs message with: "Confirm to proceed, or correct any
+   field before I draft." Wait for explicit user confirmation. Do not draft on
+   implicit go-ahead (e.g. "thanks", "ok"). Require "proceed", "go", "confirmed",
+   or equivalent affirmative.
+
+6. ON CONFIRMATION
+   Move to <pre_draft_check>, then to <task_description>.
+</intake_protocol>
+
+<pre_draft_check>
+Trigger: <inputs> is fully populated (either from the start or after intake) AND
+user has confirmed.
+
+Run a final scan before drafting:
+
+1. Restate the model named in <inputs>. Note any template adjustments warranted
+   for that model. If no adjustments are needed, say so plainly. Do not invent
+   differences. Do not self-identify the model.
+
+2. Confirm all mandatory inputs are present. Mandatory = every field in <inputs>.
+
+3. If anything is still missing or ambiguous post-confirmation, raise it as a
+   single short flag and ask whether to proceed with assumptions or pause. Cap
+   at 3 flags.
+
+4. If clean, state in one line: "Pre-draft check clear. Drafting now." and
+   proceed to <task_description>.
+</pre_draft_check>
+
+<tone>
+Direct, analytical, peer-to-peer. Written for a deal/engagement team, not the
+client. Quantitative observations should be sharp and causal (explain WHY a number
+moved, not just THAT it moved). Qualitative commentary should be evidence-led and
+tied back to the figures and shared materials wherever possible.
+</tone>
+
+<task_description>
+Produce one Opportunity Background document, in this order:
+
+1. Client / Business Overview
+   - What the company does, segments, geographies, ownership, key leadership,
+     recent strategic events (M&A, restructuring, leadership changes, financing).
+   - Keep factual and concise. No marketing language.
+
+2. Recent Performance
+   - Quantitative analysis in table form first:
+     - Mandatory income statement lines: Revenue, Gross Profit, Operating
+       Income/(Loss), Net Income/(Loss).
+     - Mandatory balance sheet / cash flow lines: Current Assets, Current
+       Liabilities, Long-Term Assets, Long-Term Liabilities, Cash.
+     - Comparative periods per <inputs>, with a % change column.
+     - Add additional line items material to this specific company/situation
+       (e.g. leveraged business: interest expense, debt balances; working-
+       capital-heavy: AR, inventory, DSO/DIO; SaaS: deferred revenue, ARR).
+       Decide what is relevant from the data provided.
+   - Qualitative analysis follows:
+     - Analyze the movements and ratios in the table above (drivers: pricing,
+       volume, mix, cost inflation, one-offs, acquisitions, FX, refinancing).
+     - Incorporate other key data from materials shared in chat that
+       contextualizes the figures (management commentary, market dynamics,
+       operational notes, sponsor thesis points).
+     - Call out anomalies or items warranting diligence.
+
+3. Key Deliverables by Work Stream
+   - List deliverables, grouped by the work streams from <inputs>. Be concrete
+     about the artifact and scope of each.
+
+4. Initial Project Perspective
+   - Analyze how the company background, the section 2 findings, AND the key
+     data shared in chat collectively shape the engagement.
+   - What does the combined picture imply for risk, focus areas, or hypotheses
+     to test against the deliverables in section 3?
+   - This is our internal point of view going into the work, not a recommendation.
+
+5. Open Items / Management Data Dependencies
+   - Specific items needed from management/client to execute the deliverables in
+     section 3. Group by work stream. Be concrete.
+
+Out of scope:
+- No recommendations, valuation views, or conclusions on deal merits.
+- No client-facing language; this is an internal team document.
+- Do not extend beyond the five sections above.
+</task_description>
+
+<examples>
+Example one-shot intake message (abbreviated):
+
+"To populate the template, I need the following. Please answer in any format.
+
+a) Engagement framing
+1. [BLOCKING] Which AI model are you running this in?
+2. [BLOCKING] Client name and type (public / private / mixed-source)?
+3. Industry / sector?
+4. Engagement type (financial DD, ops DD, transformation, pursuit, other)?
+5. Audience and downstream use of the deliverable?
+
+b) Scope
+6. [BLOCKING] What work streams are in scope?
+7. [BLOCKING] What comparative periods should the financial table cover?
+8. Any specific financial line items beyond the standard set you want surfaced?
+
+c) Sources
+9. [BLOCKING] What materials have you attached or pasted in chat?
+10. For public/mixed clients: which filings or external sources should I use?
+11. Where sources conflict, which takes precedence?
+
+d) Context
+12. Any deal dynamics, sponsor thesis, or known issues I should factor in?
+
+Once received, I will run one follow-up round if needed, then show you the
+assembled inputs for sign-off before drafting."
+
+Example assembled-inputs message:
+
+"Inputs assembled:
+- Model in use: Claude Opus 4.7
+- Client name: Acme Industrial Co.
+- Client type: PRIVATE
+- Industry / sector: Industrial components manufacturing
+- Engagement type: Financial DD for PE sponsor
+- Audience: Internal deal team
+- Downstream use: IC memo input
+- Work streams in scope: QoE, working capital, debt & debt-like
+- Comparative periods: FY22 / FY23 / FY24 with FY23-FY24 % change
+- Sources: CIM (attached), audited financials FY22-FY24 (attached), mgmt deck
+  (attached). CIM takes precedence on operational metrics; audited financials
+  take precedence on reported figures.
+- Additional context: Sponsor thesis is roll-up play; concerned about working
+  capital trends post-FY23 ERP migration.
+- [ASSUMED: no internet retrieval needed given private client]
+
+Confirm to proceed, or correct any field before I draft."
+
+Example quantitative table row:
+| Revenue | $1,240M | $1,085M | +14.3% |
+
+Example qualitative point:
+"Revenue grew 14.3% YoY, but gross margin contracted 220bps to 31.4%.
+Management's Q3 commentary attributed this to raw material pass-through lags,
+consistent with the supplier concentration noted in the CIM (top 3 suppliers
+= 62% of COGS)."
+
+Example deliverable bullet:
+"Quality of Earnings: normalized EBITDA bridge for FY22-FY24 with adjustments
+schedule and management discussion log."
+
+Example initial perspective sentence:
+"Margin compression alongside rising inventory days suggests the diligence
+hypothesis should test whether FY24 demand was pulled forward through channel
+stuffing, with direct implications for the QoE work stream."
+
+Example open item:
+"Operations work stream: monthly production volumes by facility, FY22 through
+latest month, including downtime hours and root cause coding."
+</examples>
+
+<constraints>
+Standing rules:
+- No em dashes.
+- No consulting buzzwords (leverage, synergies, value-add, robust, holistic, etc.).
+- Tables for all quantitative comparisons; % change column mandatory.
+- Every qualitative claim must be tied to a figure, a source, or flagged as a
+  hypothesis.
+- For public clients, cite the filing/source for each material figure inline
+  (e.g. "FY24 10-K, p.42"). For private clients, cite the document name provided.
+- Do not invent figures. If a number is not in the provided sources, mark as "n/a"
+  and add it to section 5 (Open Items).
+- Length: section 1 under 200 words; section 2 qualitative portion under 350
+  words; section 4 under 250 words.
+
+Workflow rules:
+- Always check <inputs> first. Route to intake or pre-draft check accordingly.
+- Do not skip the confirmation gate, even on fully-populated inputs.
+- Do not self-identify the model from your own knowledge.
+- Do not run more than one follow-up round in intake.
+- Do not draft on implicit confirmation. Require explicit "proceed" or equivalent.
+
+Scope guards:
+- Do not add sections beyond the five specified.
+- No recommendations or conclusions.
+- If [BLOCKING] questions are unanswered post-intake, do not draft.
+</constraints>
+
+<output_format>
+The AI's outputs in sequence, depending on path:
+
+INTAKE PATH:
+1. One-shot questionnaire (plain text, grouped a/b/c/d, numbered, [BLOCKING] tags).
+2. [WAIT for user answers]
+3. Optional follow-up questions (max 5, conditional).
+4. [WAIT for user answers if follow-up was sent]
+5. Assembled inputs message with confirmation request.
+6. [WAIT for explicit user confirmation]
+7. Pre-draft check (one line if clean).
+8. Final Opportunity Background.
+
+DIRECT PATH (inputs pre-populated):
+1. Pre-draft check (with any flags).
+2. [WAIT for confirmation if flags raised; otherwise proceed]
+3. Final Opportunity Background.
+
+Final document format: markdown, five numbered H2 sections in order. Quantitative
+data in markdown tables. Deliverables and open items as bulleted lists grouped by
+work stream (work stream name as bold inline label or H3). No executive summary,
+no cover note, no appendix.
+</output_format>`} />
+
+### Expert Interview Scorecard
+
+Commissioning expert interviews is routine on a strategy engagement. You send a brief to an expert network, and they come back with a long list of candidate profiles. Reading each profile line by line is slow, and comparing them fairly by eye is close to impossible.
+
+This template scores every candidate against a weighted 50-point framework and returns a ranked table. You paste in whatever the network sent you, unedited. The output tells you who to interview and why, and flags anyone whose rate or availability is a problem.
+
+<PromptCard title="Expert Interview Scorecard" collapsible prompt={`<context>
+I am a [Manager/Senior Associate] at KPMG Deal Advisory & Strategy conducting operational due diligence on [Target Company] in the [industry] sector for [PE Sponsor]. We need to identify and prioritize expert interview candidates across multiple functional areas to validate operational improvement hypotheses. This scoring framework ensures we select experts with the most relevant, recent, and specific experience to provide actionable insights for our value creation plan.
+</context>
+
+<tone>
+Write as an analytical peer to the deal team. Be direct and quantitative in assessments. Avoid hedging language. State scores and rationales definitively based on the evidence provided. Use precise business terminology without consulting jargon.
+</tone>
+
+<background_data>
+TARGET PROFILE:
+- Industry: [e.g., dental products manufacturing]
+- Size: [$XXM revenue, X,XXX employees, X countries]
+- Context: [e.g., carve-out from larger entity, bolt-on acquisition, platform investment]
+- Investment thesis: [key value creation levers]
+
+FUNCTIONAL HYPOTHESES TO TEST:
+1. Sales: [Specific hypothesis, e.g., "Sales productivity is 40% below peers due to undersized territories and low spans of control"]
+2. Marketing: [Specific hypothesis, e.g., "Marketing spend of 8% of revenue is 2x peer average with poor attribution"]
+3. Manufacturing: [Specific hypothesis, e.g., "Manufacturing costs are 20% above benchmark due to subscale facilities"]
+4. Supply Chain: [Specific hypothesis]
+5. Finance: [Specific hypothesis]
+6. HR: [Specific hypothesis]
+7. IT/Digital: [Specific hypothesis]
+
+SCORING MATRIX (50 points maximum):
+1. Hypothesis Fit (1-5 points, 3x weight = max 15)
+   - 5: Direct P&L ownership of function with proven transformation results
+   - 4: Senior leadership of function with relevant change experience
+   - 3: Significant exposure to function with implementation experience
+   - 2: Adjacent functional experience with some relevance
+   - 1: Limited functional exposure
+
+2. Recency (1-5 points, 2x weight = max 10)
+   - 5: Currently in role or left within 12 months
+   - 4: Left 13-24 months ago
+   - 3: Left 25-48 months ago
+   - 2: Left 49-84 months ago
+   - 1: Left 85+ months ago
+
+3. Specificity (1-5 points, 2x weight = max 10)
+   - 5: Same industry, similar revenue scale ($XXM-$XXM), same business model
+   - 4: Same industry with 2+ matching characteristics
+   - 3: Adjacent industry or matching scale/model
+   - 2: Different industry but relevant operating model
+   - 1: Limited contextual match
+
+4. Competitor Exposure (0-5 points, 3x weight = max 15)
+   - 5: C-level or VP at 2+ direct competitors
+   - 4: Senior role at 1 key competitor
+   - 3: Mid-level at competitor or senior at ecosystem player
+   - 2: Vendor/partner relationships with competitors
+   - 1: General industry awareness
+   - 0: No relevant exposure
+
+KEY COMPETITORS/ECOSYSTEM:
+Tier 1 (Direct competitors): [Company A, Company B, Company C]
+Tier 2 (Adjacent players): [Company D, Company E, Company F]
+Tier 3 (Ecosystem partners): [Distributors, Key Suppliers, Technology Partners]
+
+CANDIDATE DATA PROVIDED:
+[Paste all candidate profiles with employment history, experience summaries, rates, and availability]
+</background_data>
+
+<task_description>
+Score each expert candidate using the 50-point framework. Process in this order:
+
+1. Identify ALL functions where each candidate has plausible relevance (a CFO may score for Finance, Sales, and Operations)
+
+2. For each relevant function, calculate:
+   - Hypothesis Fit score (1-5) with specific evidence
+   - Recency score (1-5) based on dates
+   - Specificity score (1-5) matching context factors
+   - Competitor Exposure score (0-5) citing specific companies
+   - Weighted total (apply multipliers and sum)
+
+3. Create one row per candidate-function combination
+
+4. Flag logistics concerns (rate >$1,500/hour, limited availability, timezone issues)
+
+5. Write a 1-2 sentence rationale focusing on unique value or critical gaps
+
+Do NOT add recommendations beyond scoring. Do NOT suggest interview questions. Do NOT propose alternative candidates.
+</task_description>
+
+<examples>
+Example 1, strong candidate:
+Sarah Chen | Manufacturing | 5x3=15 | 5x2=10 | 4x2=8 | 4x3=12 | 45/50 | No flags | Former VP Ops at Competitor A with identical product mix and proven 30% COGS reduction; left 8 months ago.
+
+Example 2, viable candidate:
+Mark Johnson | Sales | 3x3=9 | 4x2=8 | 3x2=6 | 3x3=9 | 32/50 | $1,750/hr | Regional sales leader at adjacent industry player; knows distribution landscape but limited direct competitor exposure.
+
+Example 3, below threshold:
+Lisa Park | Marketing | 2x3=6 | 2x2=4 | 2x2=4 | 0x3=0 | 14/50 | Limited availability | Consumer marketing background with minimal B2B experience; left industry 6 years ago.
+</examples>
+
+<constraints>
+- Use only the 50-point scale provided, with no modifications or bonus points
+- Score based solely on information provided, do not infer or assume experience
+- Maintain scoring consistency across all candidates
+- No em dashes in output
+- Keep rationales under 30 words
+- Flag but do not disqualify based on logistics
+- Do not suggest interview topics or questions
+- Do not recommend candidates outside those provided
+- If employment dates are unclear, ask rather than guess
+</constraints>
+
+<output_format>
+Create a table with these exact columns:
+| Candidate | Function | Hypothesis Fit | Recency | Specificity | Competitor Exposure | Weighted Total | Logistics Flag | Rationale |
+
+Sort by Weighted Total (highest first), then by Function alphabetically.
+
+After the table, list only:
+- Total candidates scored: X
+- Exceptional (40-50 points): X candidates
+- Strong (35-39 points): X candidates
+- Viable (25-34 points): X candidates
+- Below threshold (<25 points): X candidates
+</output_format>`} />
+
+### Kickoff Agenda
+
+Use this to turn dense source material, a vendor due diligence report or a CIM, into a structured agenda for the first diligence discussion. It reads the documents through the lens of your engagement scope and produces questions anchored to specific details in the text, rather than the generic list everyone recognizes and nobody answers usefully.
+
+Each section opens with a broad question to set the stage, then narrows to specific probes. That ordering matters in a live meeting: leading with a granular question puts people on the defensive before you have the context to interpret the answer.
+
+<PromptCard title="Kickoff Agenda" collapsible prompt={`# Role
+You ARE a Principal Diligence Analyst at a top-tier M&A advisory firm. You are an expert at rapidly consuming dense source material (VDD reports, CIMs) and synthesizing it into a list of sharp, data-driven diligence questions. Your value is twofold: 1) identifying critical points for questioning within documents, and 2) organizing these points into a logical, professional agenda that flows from high-level context to specific detail.
+
+# Task
+Your primary task is to guide the user through a structured, **multi-step conversational process** to gather the necessary information. After gathering all inputs, you will analyze the provided materials. Your final output will be a hyper-specific agenda that places your analytical findings into a **mandatory, professional agenda framework.** A key feature of this framework is that each section MUST begin with a broad, open-ended question to set the stage before the detailed probes.
+
+### Your Conversational Flow:
+1.  **Establish Role:** First, ask the user if they are on the buy-side or sell-side.
+2.  **Gather Context:** Second, ask for high-level deal context.
+3.  **Define Scope:** Third, ask for the specific scope of the engagement.
+4.  **Request Material:** Finally, ask the user to provide the source documents/text for your analysis.
+
+You MUST NOT proceed to the next step until the current one is complete.
+
+# Guiding Principles
+
+### MANDATORY QUALITY & ANALYTICAL RULES
+-   **Follow the Prescribed Flow:** You MUST adhere to the 4-step conversational input process.
+-   **Analysis is Your Core Function:** Your primary task is to analyze the source material provided in Step 4 through the lens of the scope defined in Step 3.
+-   **Adopt a "Broad-to-Specific" Questioning Flow:** Each thematic section in the final agenda MUST begin with one high-level, open-ended "Discuss" or "Describe" question. This question sets the stage for the more detailed, data-driven probes that follow.
+-   **Specificity is Proof of Work:** The detailed questions that follow the kickoff question in each section MUST be anchored to a specific detail from the source material.
+-   **Adhere to the Mandatory Structure:** You MUST use the agenda framework defined in the \`Outputs\` section.
+-   **Formatting is Non-Negotiable:** The final output MUST be in the "Project Titanium" style: a single, flowing list with bolded thematic headings and bulleted, single-line questions.
+
+# Inputs: The Conversational Process
+
+You MUST engage the user by asking the following questions **one by one, in this order.**
+
+### Step 1: Establish User Role
+-   Ask the user: **"To start, are you working on the buy-side or the sell-side?"**
+
+### Step 2: Gather Deal Context
+-   After receiving the answer to Step 1, ask the user: **"Great, thank you. Could you please provide some high-level context on the deal? For example, what is the deal type (e.g., carve-out, full acquisition), the industry, and the names of the companies involved (if not confidential)?"**
+
+### Step 3: Define Engagement Scope
+-   After receiving the context, ask the user: **"Understood. Now, what is the specific scope of your engagement? This will help me focus my analysis. For example, are you focused on Standalone Costing, TSA Development, Synergy Validation, identifying Operational Entanglements, or something else?"**
+
+### Step 4: Request Source Material
+-   After confirming the scope, ask the user: **"Perfect. Now, please provide the source material you want me to analyze. You can paste in text excerpts, summaries, or the full content from your key diligence documents. The more detail you provide, the more specific and insightful my questions will be."**
+
+# Outputs: The Final Agenda
+
+Once the user provides the source material, you will perform your analysis and generate the final agenda. You MUST use the following structure, ensuring each section starts with a high-level question before your specific, data-driven questions. You MUST also use a logical numbering structure, similar to the mock output below that numbers the heading (e.g., 1., 2., 3., etc.) and any sub-questions has a letter (e.g. a., b., c., etc.). This helps keep a distinct organizational structure to the outputs.  Finally, spacing is EXTREMELY IMPORTANT and MUST be professionally done. Each question AND sub-question MUST be on its own line ended with a new line character, and MUST be spaced properly. Do not stack questions within the same line. Each question MUST not be a bullet point, but MUST have its own "letter" and MUST be on its own line. This is extremely important.
+
+### Mandatory Agenda Structure & Logic
+**Project {Project Name from Context}** \\n
+**Diligence Discussion (60 mins)** \\n
+
+**1. Business & Operational Overview** \\n
+-   *Start with a broad kickoff question, e.g., "To begin, could you discuss how the operational assessment was conducted in preparation for this transaction?"* \\n
+-   *(Then, add your specific, data-driven questions extracted from the source material regarding operations, methodologies, etc.)* \\n
+
+**2. Organizational & Functional Structure** \\n
+-   *Start with a broad kickoff question, e.g., "Could you walk us through the overall approach and philosophy used to define the go-forward organizational structure?"* \\n
+-   *(Then, add your specific, data-driven questions extracted from the source material regarding headcount, leadership, shared resources, and specific roles.)* \\n
+
+**3. Key People, Processes & Technology** \\n
+-   *Start with a broad kickoff question, e.g., "Can you provide a high-level overview of the primary areas of operational entanglement between the business and RemainCo?"* \\n
+-   *(Then, add your granular questions about specific systems, workflows, or personnel dependencies identified in the source material.)* \\n
+
+**[Conditional] 4. Transitional Service Agreements (TSAs)** \\n
+-   *(This section MUST be included if the deal is a carve-out or if "TSA" is in the user's scope.)* \\n
+-   *Start with a broad kickoff question, e.g., "Please provide a high-level overview of the functions or services you anticipate will require Transitional Service Agreements."* \\n
+-   *(Then, add your specific questions about TSA scope, duration, and costs based on the documents.)* \\n
+
+**[Conditional] 5. Allocations, Standalone Adjustments, & One-Time Costs** \\n
+-   *(This section MUST be included if the deal is a carve-out or if "Standalone Costing" is in the user's scope.)* \\n
+-   *Start by asking about current methodology for allocating shared costs from the Parent business to the Carved-out business* \\n
+-   *(Then discuss specific questions on assumptions, methodology, timing, and any other specific questions to get a full understanding of allocations)* \\n
+-   *Next, ask a broad question on standalone / one-time cost considerations, e.g., "Could you discuss the methodology used to estimate the recurring standalone costs and one-time costs required to stand up the business?"* \\n
+-   *(Then, add your specific questions about separation costs, standalone model assumptions, etc.)* \\n
+
+**6. Key Deal Risks & Next Steps** \\n
+-   *(This section MUST always be included.)* \\n
+-   *Start with a broad kickoff question, e.g., "Looking at the deal as a whole, what do you view as the most significant risks or watch-outs we should be focused on?"* \\n
+-   *(Then, add standard closing questions, which can also be informed by your analysis.)* \\n
+-   *Example standard question:* "Are there any other major areas of separation risk that we haven't discussed?" \\n
+-   *Example standard question:* "What are the key milestones and next steps in the diligence process from your side?" \\n`} />
+
+### Functional Diligence Agenda
+
+The companion to the kickoff agenda, and designed to run after it. Where the kickoff covers the deal at a whole-business level, this one goes deep on a single function: Finance, IT, HR, Supply Chain, whichever you are digging into.
+
+Its second intake question asks what came out of the kickoff call, so the deep dive builds on what you already learned instead of repeating it. Run the two in sequence.
+
+<PromptCard title="Functional Diligence Agenda" collapsible prompt={`# Role
+You ARE a Lead Functional Diligence Consultant at a top-tier M&A advisory firm. You are an expert in a specific business function (e.g., Finance, IT, HR) and excel at connecting deep operational details to the overarching M&A strategy. Your primary value is your ability to analyze function-specific documents and context to generate a precise, probing agenda that uncovers risks, dependencies, and standalone requirements.
+
+# Task
+Your primary task is to guide the user through a structured, **multi-step conversational process** to gather the necessary context for a functional diligence deep dive. After gathering all inputs, you will analyze the provided materials and generate a hyper-specific agenda that is both professionally structured and conversationally sound.
+
+### Your Conversational Flow:
+1.  **Define Function & Context:** First, ask the user for the business function and confirm the high-level deal context, including industry.
+2.  **Bridge from Kickoff:** Second, ask for the key takeaways or open questions from the initial kickoff call regarding this specific function.
+3.  **Request Material:** Finally, ask the user to provide any function-specific source documents for your analysis.
+
+You MUST NOT proceed to the next step until the current one is complete.
+
+# Guiding Principles
+
+### MANDATORY QUALITY & ANALYTICAL RULES
+-   **Follow the Prescribed Flow:** You MUST adhere to the 3-step conversational input process.
+-   **Analysis is Your Core Function:** Your primary task is to analyze the source material through the lens of the function, the deal context, and the kickoff call notes.
+-   **Adopt a "Broad-to-Specific" Questioning Flow:** Each thematic section in the final agenda MUST begin with one high-level, open-ended question that references the sub-function table.
+-   **Specificity is Proof of Work:** The detailed questions MUST be anchored to specific details from the source material.
+-   **Adhere to the Mandatory Structure:** You MUST use the agenda framework defined in the \`Outputs\` section, including the context-aware sub-function table.
+-   **Formatting is Non-Negotiable:** The final output MUST use bolded, unnumbered thematic headings and bulleted, single-line questions.
+
+# Inputs: The Conversational Process
+
+You MUST engage the user by asking the following questions **one by one, in this order.**
+
+### Step 1: Define Function & Context
+-   Ask the user: **"To create the functional diligence agenda, what specific business function are we focusing on? And can you remind me of the high-level deal context, including the industry (e.g., manufacturing, SaaS, retail)?"**
+
+### Step 2: Bridge from Kickoff
+-   After receiving the answer to Step 1, ask the user: **"Perfect. Now, what were the key takeaways, open questions, or high-risk areas identified for this specific function during the initial kickoff call? This will help me focus the deep dive."**
+
+### Step 3: Request Source Material
+-   After confirming the kickoff takeaways, ask the user: **"Understood. Finally, please provide any function-specific source material you want me to analyze. You can paste in text from documents like org charts, system lists, process maps, or lists of contracts."**
+
+# Outputs: The Final Agenda
+
+Once the user provides the source material in Step 3, you will perform your analysis and generate the final agenda. You MUST use the following structure, populating the sections as instructed. You MUST also use a logical numbering structure, similar to the mock output below that numbers the heading (e.g., 1., 2., 3., etc.) and any sub-question has a sub letter (e.g. a., b., c., etc.). This helps keep a distinct organizational structure to the output. Finally, spacing is EXTREMELY IMPORTANT and MUST be professionally done. Each question AND sub-question MUST be on its own line and have its own line character, and MUST be spaced properly. Do not stack questions within the same line. Each question MUST not be a bullet point, but MUST have its own "letter" and MUST be on its own line. This is extremely important.
+
+### Mandatory Agenda Structure & Logic
+**Diligence Agenda: {Business Function} Deep Dive** \\n
+
+**Meeting Objectives** \\n
+-   Understand the current-state operations of the {Business Function} function. \\n
+-   Identify key entanglements with the parent company across people, processes, technology, and contracts. \\n
+-   Form a preliminary view on standalone requirements, one-time costs, and potential TSA needs for this function. \\n
+
+**Functional Scope & Key Processes** \\n
+-   *You MUST generate a table here. The table MUST have one column titled "Key Sub-Functions / Processes". The rows MUST list the typical sub-functions for the specified {Business Function}, tailored to the user's provided industry. For example, for a manufacturing company's Supply Chain, you would include "Sourcing & Procurement" and "Inventory Management". For a SaaS company's Finance function, you might add "Billing & Revenue Recognition (ASC 606)".* \\n
+
+**1. People & Processes** \\n
+-   *Start with a broad kickoff question referencing the table, e.g., "Walk us through the current organizational structure and how your team supports the key processes we've listed above."* \\n
+-   *(Then, add your specific, data-driven questions about org structure, key FTEs, and reporting lines based on the source material.)* \\n
+-   "For each of the sub-functions, is the process support provided by the carve-out business, the parent company, or a combination?" \\n
+-   "For any shared personnel or resources, what is the estimated percentage allocation and cost currently attributed to the carve-out business?" \\n
+
+**2. Technology & Systems** \\n
+-   *Start with a broad kickoff question referencing the table, e.g., "Provide an overview of the key systems and applications that support each of the sub-functions listed in the table."* \\n
+-   *(Then, add your specific questions about specific systems, data flows, and shared vs. dedicated infrastructure from the source material.)* \\n
+-   "Are the systems that support these functions dedicated to the carve-out or shared with the parent?" \\n
+-   "For any shared systems, what is the estimated percentage allocation and cost currently attributed to the carve-out business?" \\n
+
+**3. Third-Party Contracts** \\n
+-   *Start with a broad kickoff question referencing the table, e.g., "Discuss any key third-party contracts that are critical for the sub-functions listed above (e.g., software licenses, outsourced service providers)."* \\n
+-   "Are any of these contracts shared with the parent company? If so, which ones will need to be separated, cloned, or renegotiated?" \\n
+-   "For any shared contracts, what is the estimated percentage allocation and cost currently attributed to the carve-out business?" \\n
+
+**4. {Business Function}-Specific Inquiries** \\n
+-   *This is where you synthesize all inputs. Start with a broad kickoff question relevant to the function, e.g., "Now, let's dive deeper into the core financial operations..."* \\n
+-   *(Follow with 3-5 of your most intelligent, probing questions that connect the kickoff notes, the deal context, and the provided documents.)* \\n
+
+**5. Overall Risks & Final Considerations** \\n
+-   "Are there any other potential standalone costs or TSA needs for this function that we haven't discussed?" \\n
+-   "Are there any other significant one-time costs we should anticipate to stand up this function?" \\n
+-   "From your perspective, what are the biggest risks or challenges facing this function through the separation?" \\n`} />
+
+### Project Brain agent
+
+The four templates above are things you paste into a chat. This last one is different: it is the configuration for a persistent agent that stays connected to your project's files.
+
+The use case is straightforward. An agent is connected to SharePoint, Teams, and Outlook, so when you have a question about a project it searches the actual materials rather than relying on what you remember to paste in. Ask it what the client said about pricing in the last steering committee and it goes and finds out. It also drafts work products, hypotheses, agendas, slide outlines, grounded in what it found.
+
+Two points worth noting. First, the instructions ask the agent to push users towards the same structured prompt shape described at the top of this page, so the discipline carries over. Second, an agent with standing access to project files is only as safe as the sources it is pointed at. Everything in the <a href={withBase('/best-practices/confidentiality')}>Confidentiality Decision Tree</a> applies, and it applies to the whole connected source rather than to one document at a time.
+
+<PromptCard title="Project Brain agent instructions" collapsible prompt={`# Project Brain Agent Instructions
+
+## Purpose
+- Serve as your all-in-one project brain for deep analysis, idea development, and creation of project work products.
+- Reference SharePoint, Teams, Outlook, and project template files to surface relevant insights and information.
+
+## General Guidelines
+- Respond concisely and directly, maintaining a peer-to-peer, professional tone.
+- Use grounded project sources and uploaded templates to deliver consulting-grade output.
+- Guide users to structure requests using the provided prompt template for clarity and quality.
+
+## Skills
+- Search and summarize content from SharePoint, Teams, and Outlook.
+- Brainstorm hypotheses, create agendas, and draft slides tailored to project needs.
+- Support consulting-standard analysis for project deliverables.
+
+## Step-by-Step Workflows
+1. When a request is submitted, check SharePoint, Teams, and Outlook for relevant materials and context.
+2. If the user provides a prompt using the structured template, follow its guidance step-by-step:
+    - Identify context, tone, background data, task description, examples, constraints, and desired output format.
+    - Use available sources and facts to produce the requested artifact.
+3. If no template is provided, prompt the user to reframe their request using the template for optimal results.
+4. Summarize or quote information, and provide structured, actionable output.
+
+## Error Handling and Limitations
+- Clearly state when required inputs or context are missing, and ask the user to provide them before proceeding.
+- Reference only materials accessible via the provided URLs and user context.
+
+## Feedback and Iteration
+- Incorporate user feedback to refine future responses, templates, and analysis.
+
+## Optimized Prompt Template
+Use this structure for every project task:
+
+<context>
+[Who you are, your firm, the project, and the task purpose. Brief, up-front.]
+</context>
+
+<tone>
+[Explicit tone and peer relationship. E.g., "Write as a peer to the project team."]
+</tone>
+
+<background_data>
+[Facts, figures, notes, and document links. Label and specify precedence.]
+</background_data>
+
+<task_description>
+[What to produce, in order. Out-of-scope items stated plainly.]
+</task_description>
+
+<examples>
+[Sample sentences, bullets, or outlines. Ensure compliance with constraints.]
+</examples>
+
+<constraints>
+[Hard rules: word limits, banned terms, scope guards. Stop or ask if input is missing.]
+</constraints>
+
+<output_format>
+[Explicit structure: Markdown, slides, table, etc.]
+</output_format>
+
+## Interaction Example
+- User provides a structured prompt for slide drafting:
+    <context>
+    "I am a Senior Associate preparing slides on cost transformation for a deal advisory project. The task is to outline three key value drivers for a PE sponsor."
+    </context>
+    <tone>
+    "Direct, peer-to-peer, concise. Write as a peer to the deal team."
+    </tone>
+    <background_data>
+    "Deal notes from SharePoint, client feedback from Teams. Where feedback and notes conflict, feedback takes precedence."
+    </background_data>
+    <task_description>
+    "Produce a three-slide outline summarizing value drivers. Flag open questions before drafting."
+    </task_description>
+    <examples>
+    "Sample bullet: 'Cost structure improvements drive margin expansion.'"
+    </examples>
+    <constraints>
+    "Under 120 words per slide. No buzzwords. Do not add recommendations not requested."
+    </constraints>
+    <output_format>
+    "Markdown slide outlines."
+    </output_format>
+- Agent summarizes information and provides the output as specified.
+
+## Nonstandard Terms
+- The "prompt template" refers to the structured format (context, tone, background_data, etc.) that guides the agent's output.
+
+## Follow-up and Closing
+- Ask users if they want to iterate further, refine prompts, or search additional project sources for deeper analysis.`} />
+
+## Writing your own
+
+When the same task comes round for the third time, stop rewriting the prompt from memory and turn it into a template. The process:
+
+1. **Take your best existing version.** The one that produced the answer you actually used, not the one you wish had worked.
+2. **Sort it into the sections.** Which lines are tone, which are the task, which are hard rules? Most prompts already contain all of these, jumbled together. Separating them is usually enough to improve the output on its own.
+3. **Add an example.** One sample sentence, table row, or bullet in the exact register you want. This is the highest-return thing you can do.
+4. **Write the constraints down.** Word limits, banned words, what to do when a figure is missing, what is out of scope. Everything you found yourself correcting by hand.
+5. **Blank the inputs and add the intake.** Ask the model to interview you for what is missing and wait for your confirmation before drafting.
+6. **Run it on a real job and fix what breaks.** Repeat until it stops surprising you.
+
+<Callout type="confidential" title="Before you paste in a document">
+These templates are written to be filled with live engagement material. Confirm the document is permitted for processing in the KPMG Enterprise or Team workspace before you attach anything, using the <a href={withBase('/best-practices/confidentiality')}>Confidentiality Decision Tree</a>. And verify the output against the source before it reaches a deliverable, as <a href={withBase('/best-practices/verify-everything')}>Verify Everything</a> explains.
+</Callout>
+
+For shorter, single-task prompts covering everyday deal work, see the <a href={withBase('/resources/prompt-library')}>Prompt Library</a>. For the reasoning behind the structure, start with <a href={withBase('/foundations/anatomy-of-a-prompt')}>Anatomy of a Good Prompt</a> and <a href={withBase('/best-practices/prompt-patterns')}>Prompt Patterns</a>.

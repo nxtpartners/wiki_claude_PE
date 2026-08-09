@@ -7,8 +7,11 @@ interface Props {
   prompt?: string;
   label?: string;
   title?: string;
+  // Long templates clamp to a readable height with a "show full" toggle.
+  // Defaults to false so every existing prompt renders exactly as before.
+  collapsible?: boolean;
 }
-const { prompt, label = 'Prompt', title } = Astro.props;
+const { prompt, label = 'Prompt', title, collapsible = false } = Astro.props;
 
 const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
 ---
@@ -30,7 +33,16 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
       <span class="pc-copy-text">Copy</span>
     </button>
   </figcaption>
-  <pre class="pc-body" id={uid} data-prompt-text>{prompt ? prompt : <slot />}</pre>
+  <div class:list={['pc-wrap', collapsible && 'pc-clamp']} data-prompt-wrap>
+    <pre class="pc-body" id={uid} data-prompt-text>{prompt ? prompt : <slot />}</pre>
+  </div>
+  {
+    collapsible && (
+      <button type="button" class="pc-toggle" data-toggle-btn aria-expanded="false">
+        Show full template
+      </button>
+    )
+  }
 </figure>
 
 <style>
@@ -94,6 +106,48 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
     color: #d6fbfa;
   }
 
+  .pc-wrap {
+    position: relative;
+  }
+  .pc-clamp .pc-body {
+    max-height: 26rem;
+    overflow: hidden;
+  }
+  .pc-clamp.open .pc-body {
+    max-height: none;
+  }
+  /* Fade the clipped edge so it reads as "continues below", not "ends here". */
+  .pc-clamp::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 5rem;
+    background: linear-gradient(to bottom, transparent, var(--bg-code));
+    pointer-events: none;
+  }
+  .pc-clamp.open::after {
+    display: none;
+  }
+
+  .pc-toggle {
+    display: block;
+    width: 100%;
+    padding: 11px var(--space-4);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.82);
+    background: #122544;
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: color 0.16s ease;
+  }
+  .pc-toggle:hover {
+    color: #fff;
+  }
+
   .pc-body {
     margin: 0;
     padding: var(--space-6);
@@ -140,6 +194,18 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
         btn.classList.remove('copied');
         if (textEl) textEl.textContent = 'Copy';
       }, 1600);
+    });
+
+    // Expand/collapse for long templates (only present when collapsible).
+    const toggle = card.querySelector<HTMLButtonElement>('[data-toggle-btn]');
+    const wrap = card.querySelector<HTMLElement>('[data-prompt-wrap]');
+    if (!toggle || !wrap) return;
+
+    toggle.addEventListener('click', () => {
+      const open = wrap.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? 'Show less' : 'Show full template';
+      if (!open) card.scrollIntoView({ block: 'nearest' });
     });
   });
 </script>

@@ -94,6 +94,7 @@ export const navCore: NavSection[] = [
     label: 'Resources',
     items: [
       { title: 'Prompt Library', slug: 'resources/prompt-library' },
+      { title: 'From Prompt to Template', slug: 'resources/from-prompt-to-template' },
       { title: 'Glossary', slug: 'resources/glossary' },
     ],
   },
