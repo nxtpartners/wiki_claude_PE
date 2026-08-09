@@ -311,9 +311,3 @@ export function sectionLabelForSlug(t: Track, slug: string): string | null {
   return null;
 }
 
-// ---------------------------------------------------------------------------
-// Combined exports, kept for consumers that need a global site map (e.g. the
-// footer, which lists both tracks side by side). Flattened, so a section that
-// is nested in the sidebar is still reachable by label here.
-// ---------------------------------------------------------------------------
-export const nav: NavSection[] = [...walkSections(navCore), ...walkSections(navAdvanced)];

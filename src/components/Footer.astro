@@ -1,43 +1,36 @@
 ---
-import { getCollection } from 'astro:content';
-import { nav } from '../config/nav';
+import type { Track } from '../config/nav';
+import { TRACKS, navForTrack, walkSections } from '../config/nav';
+import { existingDocSlugs } from '../utils/existingDocs';
 import { withBase } from '../utils/withBase';
 
-// Resolve which slugs have a real content file so we never link to a 404.
-const docs = await getCollection('docs', ({ data }) => data.draft !== true);
-const existing = new Set(docs.map((d) => d.id));
+const existing = await existingDocSlugs();
 
-// The footer mirrors the wiki's two tracks. Each track lists its sections, with
-// the Glossary as the final entry so there is one obvious reference per track.
+// The footer mirrors the wiki's two tracks, derived from the same nav registry
+// the sidebar reads. Naming the sections here by hand is what let a renamed
+// section silently vanish from the site map, so nothing is named twice.
+//
+// Nested sections are included on purpose: the footer is where a section the
+// sidebar folds away stays reachable.
+//
+// A section holding a single page is labelled with that page's title, because
+// a section name pointing at one lone page tells the reader less than the page
+// name does.
+function trackLinks(track: Track) {
+  return [...walkSections(navForTrack(track))].flatMap((section) => {
+    const first = section.items[0];
+    if (!first) return [];
+    return [
+      {
+        title: section.items.length === 1 ? first.title : section.label,
+        slug: first.slug,
+      },
+    ];
+  });
+}
 
-// claude.ai (Core Track): main sections → their first page, then the Glossary.
-const coreSectionLabels = ['Foundations', 'Context', 'Projects', 'PE Playbooks', 'Power Features', 'Best Practices'];
-const coreSections = [
-  ...nav
-    .filter((s) => coreSectionLabels.includes(s.label))
-    .map((s) => ({ title: s.label, slug: s.items[0]?.slug ?? '' })),
-  { title: 'Glossary', slug: 'resources/glossary' },
-];
-
-// Claude Code (Advanced Track): its sections → first page, then the Glossary.
-const advancedSectionLabels = [
-  'Claude Code Welcome',
-  'Getting Started',
-  'First Sessions',
-  'Good Habits',
-  'PE Recipes',
-  'Examples',
-];
-const advancedSections = [
-  ...nav
-    .filter((s) => advancedSectionLabels.includes(s.label))
-    .map((s) => ({
-      // The Welcome section shows the page title; module sections show the section label.
-      title: s.label === 'Claude Code Welcome' ? (s.items[0]?.title ?? s.label) : s.label,
-      slug: s.items[0]?.slug ?? '',
-    })),
-  { title: 'Glossary', slug: 'claude-code/glossary' },
-];
+const coreSections = trackLinks('core');
+const advancedSections = trackLinks('advanced');
 
 const year = new Date().getFullYear();
 ---
@@ -49,8 +42,8 @@ const year = new Date().getFullYear();
       <p class="footer-tagline">Internal enablement: from the basics to confident daily use.</p>
     </div>
 
-    <nav class="footer-col footer-track" aria-label="claude.ai">
-      <p class="footer-heading">claude.ai</p>
+    <nav class="footer-col footer-track" aria-label={TRACKS.core.name}>
+      <p class="footer-heading">{TRACKS.core.name}</p>
       <ul>
         {
           coreSections.map((item) =>
@@ -64,8 +57,8 @@ const year = new Date().getFullYear();
       </ul>
     </nav>
 
-    <nav class="footer-col footer-track" aria-label="Claude Code">
-      <p class="footer-heading">Claude Code</p>
+    <nav class="footer-col footer-track" aria-label={TRACKS.advanced.name}>
+      <p class="footer-heading">{TRACKS.advanced.name}</p>
       <ul>
         {
           advancedSections.map((item) =>
