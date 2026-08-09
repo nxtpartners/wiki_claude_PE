@@ -48,7 +48,7 @@ const other = TRACKS[otherTrack];
     {
       sections.map((section) => (
         <>
-        <div class="nav-section">
+        <div class:list={['nav-section', { optional: section.optional }]}>
           <p class="nav-label">{section.label}</p>
           <ul class="nav-list">
             {section.items.map((item) => {
@@ -101,6 +101,14 @@ const other = TRACKS[otherTrack];
 
   .nav-section + .nav-section {
     margin-top: var(--space-6);
+  }
+  .nav-section.optional {
+    margin-top: var(--space-8);
+    border-top: 1px solid var(--line);
+    padding-top: var(--space-6);
+  }
+  .nav-section.optional .nav-label {
+    color: #9aa6b6;
   }
 
   /* Track switcher: identifies the current track (claude.ai vs Claude Code),

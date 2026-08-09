@@ -20,9 +20,9 @@ const resolve = (slug: string) => withBase(existing.has(slug) ? `/${slug}` : '/w
 const curriculum = [
   {
     index: '01',
-    name: 'Foundations',
-    href: resolve('foundations/what-claude-is'),
-    outcome: 'Understand what Claude can and cannot be trusted with.',
+    name: 'Prompting',
+    href: resolve('foundations/anatomy-of-a-prompt'),
+    outcome: 'Write a brief that gets a usable answer the first time.',
   },
   {
     index: '02',
@@ -88,7 +88,7 @@ const advancedTrack = [
             <a href={withBase('/claude-code/welcome')} class="btn btn-secondary">Explore Claude Code</a>
           </div>
           <p class="hero-meta mono-meta" data-hero="5">
-            For Claude Enterprise &amp; Team · Self-paced · No prior AI experience required
+            For Claude Enterprise &amp; Team · Self-paced · Foundations included if you need them
           </p>
         </div>
 
@@ -114,6 +114,22 @@ const advancedTrack = [
         <p class="confidential-sub">
           In claude.ai or Claude Code, your deal data stays private and NDAs are handled the right way.
         </p>
+      </div>
+    </section>
+
+    <!-- ===================== TWO DOORS ===================== -->
+    <section class="section container two-doors-section" aria-label="Choose your starting point" data-reveal>
+      <div class="two-doors">
+        <a class="door door-primary" href={resolve('foundations/anatomy-of-a-prompt')}>
+          <h3 class="door-heading">Used ChatGPT or Copilot before?</h3>
+          <p class="door-body">Skip the orientation. Start where the value is: how to write a brief Claude can actually act on.</p>
+          <span class="door-link">Go to Anatomy of a Good Prompt <span class="door-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
+        <a class="door door-secondary" href={resolve('first-15-minutes')}>
+          <h3 class="door-heading">New to Claude?</h3>
+          <p class="door-body">Walk through a real task in fifteen minutes, then see what Claude is, what it is not, and where everything lives on screen.</p>
+          <span class="door-link">Start with the basics <span class="door-arrow" aria-hidden="true">&rarr;</span></span>
+        </a>
       </div>
     </section>
 
@@ -588,6 +604,72 @@ const advancedTrack = [
     max-width: 50ch;
   }
 
+  /* ---------- TWO DOORS ---------- */
+  .two-doors-section {
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-4);
+  }
+  .two-doors {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+  .door {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    box-shadow: var(--shadow-sm);
+    color: inherit;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  .door:hover {
+    text-decoration: none;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .door-primary {
+    border-color: var(--kpmg-cobalt);
+    background: rgba(0, 51, 141, 0.025);
+  }
+  .door-primary:hover {
+    border-color: var(--kpmg-blue);
+  }
+  .door-secondary:hover {
+    border-color: var(--kpmg-cobalt);
+  }
+  .door-heading {
+    margin: 0 0 var(--space-2);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .door-body {
+    margin: 0 0 var(--space-4);
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .door-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+  }
+  .door-arrow {
+    display: inline-block;
+    transition: transform 0.18s ease;
+  }
+  .door:hover .door-arrow {
+    transform: translateX(3px);
+  }
+
   /* ---------- Responsive ---------- */
   @media (max-width: 960px) {
     .hero {
@@ -611,6 +693,9 @@ const advancedTrack = [
     .tracks {
       grid-template-columns: 1fr;
       gap: var(--space-8);
+    }
+    .two-doors {
+      grid-template-columns: 1fr;
     }
   }
 

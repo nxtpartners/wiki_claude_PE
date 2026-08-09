@@ -1,7 +1,14 @@
 // Single source of truth for navigation order.
+//
 // The wiki ships two self-contained tracks: the Core track (claude.ai) and the
 // Advanced track (Claude Code). Each track owns its own sidebar, prev/next, and
 // numbering; a reader in one track never sees the other track's sections.
+//
+// The Core track is ordered advanced-first: readers arrive already familiar with
+// AI assistants, so prompting opens the sequence rather than orientation material.
+// An optional group at the bottom ("New to Claude?") exists for anyone who has
+// never used Claude before.
+//
 // Pages that do not yet have a content file are rendered as muted "coming soon"
 // labels (resolved at build time against the docs collection) so the build never
 // links to a non-existent slug.
@@ -14,6 +21,8 @@ export interface NavItem {
 
 export interface NavSection {
   label: string;
+  /** Renders muted and set apart: a detour for newcomers, not a prerequisite. */
+  optional?: boolean;
   items: NavItem[];
 }
 
@@ -25,16 +34,9 @@ export const navCore: NavSection[] = [
     label: 'Start Here',
     items: [
       { title: 'Welcome', slug: 'welcome' },
-      { title: 'First 15 Minutes', slug: 'first-15-minutes' },
-    ],
-  },
-  {
-    label: 'Foundations',
-    items: [
-      { title: "What Claude Is (and Isn't)", slug: 'foundations/what-claude-is' },
-      { title: 'Interface Tour', slug: 'foundations/interface-tour' },
-      { title: 'Your Account & Confidential Data', slug: 'foundations/account-and-data' },
       { title: 'Anatomy of a Good Prompt', slug: 'foundations/anatomy-of-a-prompt' },
+      { title: 'From Prompt to Template', slug: 'resources/from-prompt-to-template' },
+      { title: 'Your Account & Confidential Data', slug: 'foundations/account-and-data' },
     ],
   },
   {
@@ -94,8 +96,19 @@ export const navCore: NavSection[] = [
     label: 'Resources',
     items: [
       { title: 'Prompt Library', slug: 'resources/prompt-library' },
-      { title: 'From Prompt to Template', slug: 'resources/from-prompt-to-template' },
       { title: 'Glossary', slug: 'resources/glossary' },
+    ],
+  },
+  {
+    label: 'New to Claude?',
+    optional: true,
+    // Ordered so the existing forward pointers inside these pages stay true:
+    // First 15 Minutes ends by sending the reader to What Claude Is, which in
+    // turn ends by sending them to the Interface Tour.
+    items: [
+      { title: 'First 15 Minutes', slug: 'first-15-minutes' },
+      { title: "What Claude Is (and Isn't)", slug: 'foundations/what-claude-is' },
+      { title: 'Interface Tour', slug: 'foundations/interface-tour' },
     ],
   },
 ];
