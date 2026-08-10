@@ -1,0 +1,98 @@
+---
+// Filter controls for the AI Value Creation Matrix.
+// Rendered inside ValueCreationMatrix.astro's [data-vcm] section, so the
+// parent's filter <script> can query these buttons by data attribute.
+
+interface Props {
+  totalUseCases: number;
+}
+
+const { totalUseCases } = Astro.props;
+---
+
+<div class="vcm-controls">
+  <div class="vcm-group">
+    <span class="vcm-group-label">Phase</span>
+    <button type="button" class="vcm-filter active" data-group="phase" data-filter="__all">All</button>
+    <button type="button" class="vcm-filter" data-group="phase" data-filter="100-Day">100-Day</button>
+    <button type="button" class="vcm-filter" data-group="phase" data-filter="Mid-Hold">Mid-Hold</button>
+    <button type="button" class="vcm-filter" data-group="phase" data-filter="Exit Prep">Exit Prep</button>
+    <button type="button" class="vcm-filter" data-group="phase" data-filter="All Phases">Continuous</button>
+  </div>
+  <div class="vcm-group">
+    <span class="vcm-group-label">Tier</span>
+    <button type="button" class="vcm-filter active" data-group="tier" data-filter="__all">All</button>
+    <button type="button" class="vcm-filter" data-group="tier" data-filter="Mid-Market">Mid-Market</button>
+    <button type="button" class="vcm-filter" data-group="tier" data-filter="Large-Cap">Large-Cap</button>
+    <button type="button" class="vcm-filter" data-group="tier" data-filter="Both">Both</button>
+  </div>
+  <div class="vcm-group">
+    <span class="vcm-group-label">Service</span>
+    <button type="button" class="vcm-filter active" data-group="service" data-filter="__all">All</button>
+    <button type="button" class="vcm-filter" data-group="service" data-filter="strategy">Strategy & Advisory</button>
+    <button type="button" class="vcm-filter" data-group="service" data-filter="platform">Platform Build</button>
+    <button type="button" class="vcm-filter" data-group="service" data-filter="impl">Implementation</button>
+    <button type="button" class="vcm-filter" data-group="service" data-filter="managed">Managed Service</button>
+    <button type="button" class="vcm-filter" data-group="service" data-filter="vc">Portfolio VC</button>
+  </div>
+  <span class="vcm-count" data-count>{totalUseCases} use cases</span>
+</div>
+
+<style>
+  .vcm-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    padding: var(--space-4);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-8);
+  }
+  .vcm-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+  .vcm-group-label {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-right: 2px;
+  }
+  .vcm-filter {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 4px 11px;
+    cursor: pointer;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease,
+      background 0.15s ease;
+  }
+  .vcm-filter:hover {
+    color: var(--kpmg-cobalt);
+    border-color: var(--kpmg-cobalt);
+  }
+  .vcm-filter.active {
+    background: var(--kpmg-blue);
+    border-color: var(--kpmg-blue);
+    color: #fff;
+    font-weight: 600;
+  }
+  .vcm-count {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+</style>

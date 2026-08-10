@@ -1,0 +1,181 @@
+---
+// Shared frame for example preview components: the browser window chrome,
+// hover overlay with CTA, and caption. Each variant provides its body content
+// via the default slot and keeps only its body-specific CSS (parent scoped
+// styles do not reach slotted children in Astro).
+import { withBase } from '../../utils/withBase';
+
+interface Props {
+  href?: string;
+  defaultHref: string;
+  ariaLabel: string;
+  urlLabel: string;
+  ctaText: string;
+  caption: string;
+}
+
+const {
+  href,
+  defaultHref,
+  ariaLabel,
+  urlLabel,
+  ctaText,
+  caption,
+} = Astro.props;
+
+const target = withBase(href ?? defaultHref);
+const ctaContent = `\n${ctaText}\n`;
+---
+
+<a class="pf" href={target} aria-label={ariaLabel}>
+  <div class="pf-window">
+    <div class="pf-chrome">
+      <span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="pf-url">{urlLabel}</span>
+      <span class="pf-tag">example</span>
+    </div>
+
+    <div class="pf-body" aria-hidden="true">
+      <slot />
+    </div>
+
+    <div class="pf-overlay">
+      <span class="pf-cta">{ctaContent}<span class="pf-arrow" aria-hidden="true">&rarr;</span>
+      </span>
+    </div>
+  </div>
+  <p class="pf-caption">{caption}</p>
+</a>
+
+<style>
+  .pf {
+    display: block;
+    color: inherit;
+    margin: var(--space-8) 0;
+  }
+  .pf:hover {
+    text-decoration: none;
+  }
+
+  .pf-window {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg);
+    box-shadow: var(--shadow-md);
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .pf:hover .pf-window {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: color-mix(in srgb, var(--kpmg-cobalt) 40%, var(--line));
+  }
+
+  /* Chrome */
+  .pf-chrome {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .pf-dots {
+    display: inline-flex;
+    gap: 6px;
+  }
+  .pf-dots i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--ink-muted) 30%, var(--bg));
+  }
+  .pf-url {
+    margin-inline: auto;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-muted);
+  }
+  .pf-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
+    border-radius: 999px;
+    padding: 2px 9px;
+  }
+
+  /* Body slot wrapper */
+  .pf-body {
+    padding: var(--space-5);
+    background:
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+  }
+
+  /* Hover overlay CTA */
+  .pf-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--space-6);
+    background: linear-gradient(180deg, transparent 55%, rgba(0, 31, 87, 0.72) 100%);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .pf:hover .pf-overlay,
+  .pf:focus-visible .pf-overlay {
+    opacity: 1;
+  }
+  .pf-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--kpmg-blue);
+    border-radius: var(--radius-md);
+    padding: 0.65em 1.2em;
+    box-shadow: var(--shadow-md);
+  }
+  .pf-arrow {
+    transition: transform 0.18s ease;
+  }
+  .pf:hover .pf-arrow {
+    transform: translateX(3px);
+  }
+
+  .pf-caption {
+    margin: var(--space-3) 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    color: var(--ink-muted);
+    text-align: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pf-window,
+    .pf-overlay,
+    .pf-arrow {
+      transition: none;
+    }
+  }
+
+  @media (max-width: 520px) {
+    /* On small screens the overlay CTA is always visible, since there is no hover. */
+    .pf-overlay {
+      opacity: 1;
+      position: static;
+      background: none;
+      padding: var(--space-4) 0 0;
+    }
+  }
+</style>

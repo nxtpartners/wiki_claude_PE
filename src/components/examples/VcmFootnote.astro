@@ -1,0 +1,330 @@
+---
+// Footnote, thesis, and legend sections for the AI Value Creation Matrix.
+// Extracted from ValueCreationMatrix.astro. Pure static markup, no props needed.
+// Indentation is 2 spaces deeper than typical because this component renders
+// inside <section class="vcm"> and Astro does not inherit parent indentation.
+---
+
+  <!-- Footnote -->
+  <div class="vcm-footnote">
+    <p>
+      <strong>{'\u2461'} Time to Value vs. Project Duration:</strong> Time to Value is when the AI layer
+      starts producing a usable signal: the first automated alert, the first scored pipeline report, the
+      first anomaly flag. It is intentionally earlier than full deployment. Project Duration is the
+      realistic end-to-end engagement length, from scoping through change management to a stable, adopted
+      system. Both numbers matter: Time to Value anchors the sponsor conversation on early wins; Project
+      Duration drives the fee engagement.
+    </p>
+    <p>
+      <strong>{'\u2460'} PortCo Pulse Fit:</strong> PortCo Pulse is a portfolio monitoring platform that
+      uses conversational AI to collect KPI submissions from CFOs and controllers across a fund's portcos,
+      normalize data, surface variance against plan, and alert the fund team to threshold breaches,
+      automating the monitoring function that is the prerequisite for every other hold-period AI
+      application. The fit rating reflects how directly a given use case is addressed by or benefits from
+      PortCo Pulse infrastructure.
+    </p>
+    <div class="vcm-fn-row">
+      <div class="vcm-fn-item">
+        <span class="badge pp-high">High</span>
+        <span class="vcm-fn-desc">
+          PortCo Pulse directly addresses this use case: the KPI collection, monitoring, and alerting
+          workflow is the core product.
+        </span>
+      </div>
+      <div class="vcm-fn-item">
+        <span class="badge pp-med">Medium</span>
+        <span class="vcm-fn-desc">
+          PortCo Pulse provides the upstream data layer or output tracking that makes this use case more
+          effective; a separate tool handles the analytical or predictive work.
+        </span>
+      </div>
+      <div class="vcm-fn-item">
+        <span class="badge pp-low">Low</span>
+        <span class="vcm-fn-desc">
+          Use case operates on a data type (operational, HR, IoT, contract) that is outside PortCo Pulse's
+          financial KPI scope.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thesis -->
+  <div class="vcm-thesis">
+    <div class="vcm-thesis-head">
+      <p class="vcm-thesis-eyebrow">Strategic Summary</p>
+      <h3 class="vcm-thesis-title">The AI Hold Thesis</h3>
+    </div>
+    <div class="vcm-thesis-body">
+      <div class="vcm-thesis-col">
+        <p>
+          <strong>AI is not a new value creation lever.</strong> Every use case in this inventory existed
+          before large language models, before ML-powered pricing engines, before conversational KPI
+          collection. What AI changes is the cost and speed of execution across every lever that already
+          matters. SG&A analysis that required a 4-week analyst project now takes 48 hours. Churn risk that
+          was invisible until renewal is surfaced 90 days early. Pricing discounts that were "relationship
+          decisions" are now quantifiably correlated with win rates. The frame is not "add AI to the value
+          creation plan", it is "which parts of the plan can AI compress, sharpen, or make continuous."
+        </p>
+        <p>
+          <strong>The KPMG opportunity is structurally distinct by fund tier.</strong> For mid-market funds,
+          the pitch is not augmentation, it is substitution. These funds do not have portfolio ops teams
+          that need to go faster. They have lean investment teams managing portcos directly, with quarterly
+          board reviews as their primary governance mechanism. AI-enabled ops as a service positions KPMG as
+          the persistent operating function the fund cannot afford to build internally. PortCo Pulse is the
+          infrastructure layer for this model: low deployment cost, immediate visibility, designed for CFOs
+          and controllers who are not data scientists.
+        </p>
+      </div>
+      <div class="vcm-thesis-col">
+        <p>
+          <strong>For large-cap funds, the pitch is depth and cross-portfolio pattern recognition</strong>
+          that internal teams cannot replicate. A fund's internal portfolio ops director can run standard
+          monitoring. KPMG brings sector benchmark databases, cross-portfolio spend analytics, and specialist
+          AI tooling (pricing, predictive maintenance, demand forecasting) that require implementation
+          capability beyond what most internal teams sustain across a full portfolio. The use cases that
+          clear the bar here are the ones requiring deep technical implementation, not the ones available off
+          the shelf.
+        </p>
+        <p>
+          <strong>PortCo Pulse operationalizes the prerequisite.</strong> Every high-value AI application in
+          this inventory depends on clean, current, structured data from the portco. Pricing analytics
+          requires transaction history. Churn prediction requires customer health data. Org analysis requires
+          HRIS exports. None of this happens without a monitoring discipline that enforces regular data
+          collection and flags gaps. PortCo Pulse is not the end state, it is the data foundation that makes
+          every other use case viable, and the entry point that generates the ongoing data flow from which
+          higher-value advisory work originates.
+        </p>
+        <p>
+          <strong>The market position is available.</strong> Top-tier strategy firms are focused on large-cap
+          relationships and proprietary tooling built for their own delivery model. Big 4 peers are building
+          comparable practices but are not yet differentiated on mid-market PE ops. KPMG's window is to own
+          the mid-market ops-as-a-service position, and to build a credible large-cap augmentation offering
+          that leads with implementation specificity rather than framework decks.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legend -->
+  <div class="vcm-legend">
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Hold Phase</span>
+      <div class="vcm-legend-items">
+        <span class="badge phase-100">100-Day</span>
+        <span class="badge phase-mid">Mid-Hold</span>
+        <span class="badge phase-exit">Exit Prep</span>
+        <span class="badge phase-all">Continuous</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Fund Tier</span>
+      <div class="vcm-legend-items">
+        <span class="badge tier-mm">Mid-Market</span>
+        <span class="badge tier-lc">Large-Cap</span>
+        <span class="badge tier-both">Both</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">PortCo Pulse Fit</span>
+      <div class="vcm-legend-items">
+        <span class="badge pp-high">High</span>
+        <span class="badge pp-med">Medium</span>
+        <span class="badge pp-low">Low</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">Complexity</span>
+      <div class="vcm-legend-items">
+        <span class="cx cx-low">Low</span>
+        <span class="cx cx-med">Med</span>
+        <span class="cx cx-high">High</span>
+      </div>
+    </div>
+    <div class="vcm-legend-group">
+      <span class="vcm-legend-label">KPMG Services</span>
+      <div class="vcm-legend-items">
+        <span class="svc svc-strategy">Strategy & Advisory</span>
+        <span class="svc svc-platform">Platform Build</span>
+        <span class="svc svc-impl">Implementation</span>
+        <span class="svc svc-managed">Managed Service</span>
+        <span class="svc svc-vc">Portfolio VC</span>
+      </div>
+    </div>
+  </div>
+
+<style>
+  /* ---- Footnote ---- */
+  .vcm-footnote {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .vcm-footnote p {
+    margin: 0 0 var(--space-4);
+  }
+  .vcm-footnote strong {
+    color: var(--ink);
+  }
+  .vcm-fn-row {
+    display: flex;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+  .vcm-fn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    flex: 1 1 220px;
+  }
+  .vcm-fn-desc {
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Badges used in footnote and legend (duplicated from parent because
+     Astro scoped styles do not cross component boundaries via slot) ---- */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.03em;
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 1px 2px 1px 0;
+    background: color-mix(in srgb, var(--c) 12%, var(--bg));
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+  }
+  .phase-100 { --c: var(--kpmg-cobalt); }
+  .phase-mid { --c: var(--kpmg-blue); }
+  .phase-exit { --c: var(--warning); }
+  .phase-all { --c: var(--kpmg-teal); }
+  .tier-mm { --c: var(--warning); }
+  .tier-lc { --c: var(--kpmg-cobalt); }
+  .tier-both { --c: var(--kpmg-blue); }
+  .pp-high { --c: var(--kpmg-teal); }
+  .pp-med { --c: var(--warning); }
+  .pp-low { --c: var(--ink-muted); }
+
+  /* Service badges */
+  .svc {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    white-space: nowrap;
+    margin: 2px 2px 2px 0;
+    background: color-mix(in srgb, var(--c) 12%, var(--bg));
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+  }
+  .svc-strategy { --c: var(--kpmg-blue); }
+  .svc-platform { --c: var(--kpmg-cobalt); }
+  .svc-impl { --c: var(--warning); }
+  .svc-managed { --c: var(--kpmg-teal); }
+  .svc-vc { --c: var(--confidential); }
+
+  /* Complexity tokens */
+  .cx {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+  }
+  .cx-low { color: var(--kpmg-teal); }
+  .cx-med { color: var(--warning); }
+  .cx-high { color: var(--confidential); }
+
+  /* ---- Thesis ---- */
+  .vcm-thesis {
+    margin-top: var(--space-8);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  .vcm-thesis-head {
+    background: linear-gradient(135deg, #001f57 0%, var(--kpmg-blue) 75%);
+    padding: var(--space-4) var(--space-6);
+  }
+  .vcm-thesis-eyebrow {
+    margin: 0 0 2px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kpmg-sky);
+  }
+  .vcm-thesis-title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .vcm-thesis-body {
+    padding: var(--space-6);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    background: var(--bg-soft);
+  }
+  .vcm-thesis-col p {
+    margin: 0 0 var(--space-4);
+    font-size: 0.86rem;
+    line-height: 1.7;
+    color: var(--ink-muted);
+  }
+  .vcm-thesis-col p:last-child {
+    margin-bottom: 0;
+  }
+  .vcm-thesis-col strong {
+    color: var(--kpmg-blue);
+    font-weight: 650;
+  }
+
+  /* ---- Legend ---- */
+  .vcm-legend {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .vcm-legend-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .vcm-legend-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .vcm-legend-items {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  @media (max-width: 720px) {
+    .vcm-thesis-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

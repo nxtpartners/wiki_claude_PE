@@ -1,0 +1,143 @@
+---
+// Shared layout for standalone full-width deliverable pages (the finished
+// artifacts the walkthroughs teach you to build). Each page sits on its own
+// route with Header/Footer chrome and a width-capped body slot for the
+// showcase component. Currently used by the Value Creation Matrix and
+// PortCo Pulse Dashboard pages.
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/withBase';
+
+interface Props {
+  title: string;
+  description: string;
+  walkthroughHref: string;
+  subtitle: string;
+  walkthroughLabel?: string;
+}
+
+const {
+  title,
+  description,
+  walkthroughHref,
+  subtitle,
+  walkthroughLabel = 'the walkthrough',
+} = Astro.props;
+
+const backText = ` Back to ${walkthroughLabel}\n`;
+const returnText = ` Return to ${walkthroughLabel}\n`;
+---
+
+<BaseLayout title={title} description={description}>
+  <Header />
+
+  <main id="main" class="dl-page">
+    <header class="dl-head">
+      <div class="dl-head-inner">
+        <a href={withBase(walkthroughHref)} class="dl-back">
+          <span aria-hidden="true">&larr;</span>{backText}</a>
+        <h1 class="dl-title">{title}</h1>
+        <p class="dl-sub"><Fragment set:html={subtitle} /></p>
+      </div>
+    </header>
+
+    <div class="dl-body">
+      <slot />
+    </div>
+
+    <div class="dl-foot">
+      <a href={withBase(walkthroughHref)} class="dl-return">
+        <span aria-hidden="true">&larr;</span>{returnText}</a>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .dl-page {
+    --dl-maxw: min(96vw, 1360px);
+  }
+  .dl-head {
+    border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(ellipse 60% 80% at 90% 0%, rgba(30, 73, 226, 0.06), transparent 60%),
+      var(--bg);
+  }
+  .dl-head-inner {
+    width: var(--dl-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-10);
+  }
+  .dl-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--kpmg-cobalt);
+    margin-bottom: var(--space-6);
+  }
+  .dl-back:hover {
+    text-decoration: none;
+    color: var(--kpmg-blue);
+  }
+  .dl-title {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .dl-sub {
+    margin: 0;
+    font-size: clamp(1rem, 0.96rem + 0.3vw, 1.15rem);
+    line-height: 1.62;
+    color: var(--ink-muted);
+  }
+
+  .dl-body {
+    width: var(--dl-maxw);
+    margin-inline: auto;
+    padding: var(--space-12) var(--space-4) var(--space-8);
+  }
+
+  .dl-foot {
+    width: var(--dl-maxw);
+    margin-inline: auto;
+    padding: var(--space-4) var(--space-4) var(--space-24);
+  }
+  .dl-return {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 0.7em 1.2em;
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease;
+  }
+  .dl-return:hover {
+    text-decoration: none;
+    background: var(--bg-soft);
+    border-color: var(--kpmg-cobalt);
+  }
+
+  @media (max-width: 720px) {
+    .dl-page {
+      --dl-maxw: 100%;
+    }
+    .dl-head-inner,
+    .dl-body,
+    .dl-foot {
+      padding-left: var(--space-5);
+      padding-right: var(--space-5);
+    }
+  }
+</style>

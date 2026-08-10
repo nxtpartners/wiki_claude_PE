@@ -5,6 +5,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { existingDocSlugs } from '../utils/existingDocs';
 import { withBase } from '../utils/withBase';
+import { walkSections, navForTrack } from '../config/nav';
+import type { NavSection } from '../config/nav';
 import twoPaths from '../assets/diagrams/home-two-paths.png';
 
 const existing = await existingDocSlugs();
@@ -13,55 +15,114 @@ const existing = await existingDocSlugs();
 // Base-aware so every curriculum link resolves under the deploy base path.
 const resolve = (slug: string) => withBase(existing.has(slug) ? `/${slug}` : '/welcome');
 
-// The six-module curriculum, in deliberate order.
-const curriculum = [
-  {
-    index: '01',
-    name: 'Prompting',
-    href: resolve('foundations/anatomy-of-a-prompt'),
-    outcome: 'Write a brief that gets a usable answer the first time.',
-  },
-  {
-    index: '02',
-    name: 'Context',
-    href: resolve('context/why-context'),
-    outcome: 'Brief Claude so it answers as if it has been on the deal for weeks.',
-  },
-  {
-    index: '03',
-    name: 'Projects',
-    href: resolve('projects/what-projects-are'),
-    outcome: 'Stand up a clean, confidential workspace for each deal or function.',
-  },
-  {
-    index: '04',
-    name: 'PE Playbooks',
-    href: resolve('playbooks/cim-analysis'),
-    outcome: 'Run CIMs, due diligence, IC memos, and model reviews step by step.',
-  },
-  {
-    index: '05',
-    name: 'Power Features',
-    href: resolve('power-features/connectors'),
-    outcome: 'Use connectors, data analysis, artifacts, and web search with judgment.',
-  },
-  {
-    index: '06',
-    name: 'Best Practices',
-    href: resolve('best-practices/verify-everything'),
-    outcome: 'Verify everything and keep confidential data where it belongs.',
-  },
+// ---------------------------------------------------------------------------
+// Derive the homepage module lists from nav.ts. Slugs and hrefs come from
+// the nav registry so a rename propagates; display names and outcome copy
+// are presentational and live here. When adding a section to nav.ts, add a
+// matching entry to the outcome and (if needed) displayName maps below.
+// ---------------------------------------------------------------------------
+
+// Sections to show on the homepage, identified by their nav.ts label.
+// Order here determines display order.
+const coreSectionLabels = [
+  'Start Here', 'Context', 'Projects', 'PE Playbooks', 'Power Features', 'Best Practices',
+];
+const advancedSectionLabels = [
+  'Getting Started', 'First Sessions', 'Good Habits', 'PE Recipes', 'Examples', 'Resources',
 ];
 
-// The advanced track: six Claude Code modules, for hands-on work in your files.
-const advancedTrack = [
-  { index: '01', name: 'Getting Started', href: resolve('claude-code/vs-claude-ai'), outcome: 'See when to use Claude Code over a browser chat, then set up your environment and sign in the safe way.' },
-  { index: '02', name: 'First Sessions', href: resolve('claude-code/first-session'), outcome: 'Open a folder, ask for something small, and approve your first change.' },
-  { index: '03', name: 'Good Habits', href: resolve('claude-code/claude-md'), outcome: 'Set up CLAUDE.md, save with Git, ship safely, and keep the cheat sheet close.' },
-  { index: '04', name: 'PE Recipes', href: resolve('claude-code/recipes-data'), outcome: 'Put it to work: data packs, model checks, and summarizing memos.' },
-  { index: '05', name: 'Examples', href: resolve('claude-code/example-value-creation'), outcome: 'See a finished deliverable: a filterable AI value-creation matrix.' },
-  { index: '06', name: 'Glossary', href: resolve('claude-code/glossary'), outcome: 'Look up any Claude Code term, in plain English.' },
-];
+// Display names where they differ from the nav.ts section label.
+// Most sections use their nav label as-is; only overrides go here.
+const coreDisplayNames: Record<string, string> = {
+  'Start Here': 'Prompting',
+};
+const advancedDisplayNames: Record<string, string> = {
+  'Resources': 'Glossary',
+};
+
+// Which page a module opens on, where it is NOT the section's first item.
+// The homepage curates its entry point: the "Prompting" module opens on the
+// prompting page, not on Welcome, even though Welcome is first in the section.
+// Keyed by nav.ts section label, valued by the nav ITEM TITLE. The slug itself
+// still comes from nav.ts, so renaming a slug propagates; renaming a title
+// fails the build loudly rather than silently relinking.
+const coreEntryTitles: Record<string, string> = {
+  'Start Here': 'Anatomy of a Good Prompt',
+  'Power Features': 'Connectors',
+};
+const advancedEntryTitles: Record<string, string> = {};
+
+// Outcome copy is presentational and specific to the homepage.
+// Keyed by nav.ts section label.
+const coreOutcomes: Record<string, string> = {
+  'Start Here': 'Write a brief that gets a usable answer the first time.',
+  'Context': 'Brief Claude so it answers as if it has been on the deal for weeks.',
+  'Projects': 'Stand up a clean, confidential workspace for each deal or function.',
+  'PE Playbooks': 'Run CIMs, due diligence, IC memos, and model reviews step by step.',
+  'Power Features': 'Use connectors, data analysis, artifacts, and web search with judgment.',
+  'Best Practices': 'Verify everything and keep confidential data where it belongs.',
+};
+const advancedOutcomes: Record<string, string> = {
+  'Getting Started': 'See when to use Claude Code over a browser chat, then set up your environment and sign in the safe way.',
+  'First Sessions': 'Open a folder, ask for something small, and approve your first change.',
+  'Good Habits': 'Set up CLAUDE.md, save with Git, ship safely, and keep the cheat sheet close.',
+  'PE Recipes': 'Put it to work: data packs, model checks, and summarizing memos.',
+  'Examples': 'See a finished deliverable: a filterable AI value-creation matrix.',
+  'Resources': 'Look up any Claude Code term, in plain English.',
+};
+
+// Build section lookup from nav.ts (includes nested children).
+function sectionMap(sections: NavSection[]): Map<string, NavSection> {
+  const map = new Map<string, NavSection>();
+  for (const s of walkSections(sections)) {
+    map.set(s.label, s);
+  }
+  return map;
+}
+
+// Derive a module list from the nav registry. Each entry gets a sequential
+// index from its display order (01, 02, ...), its name from a display-name
+// override or the section label, its href from the curated entry item (or the
+// section's first item if none is curated), and its outcome from the outcome map.
+function deriveModules(
+  trackId: 'core' | 'advanced',
+  labels: string[],
+  displayNames: Record<string, string>,
+  entryTitles: Record<string, string>,
+  outcomes: Record<string, string>,
+) {
+  const sections = sectionMap(navForTrack(trackId));
+
+  return labels.map((label, idx) => {
+    const section = sections.get(label);
+    if (!section || !section.items[0]) {
+      throw new Error(`Homepage: nav.ts has no section "${label}" for track "${trackId}"`);
+    }
+    const wantedTitle = entryTitles[label];
+    const entry = wantedTitle
+      ? section.items.find((i) => i.title === wantedTitle)
+      : section.items[0];
+    if (!entry) {
+      throw new Error(
+        `Homepage: section "${label}" has no item titled "${wantedTitle}". ` +
+          `Update coreEntryTitles/advancedEntryTitles in index.astro to match nav.ts.`,
+      );
+    }
+    return {
+      index: String(idx + 1).padStart(2, '0'),
+      name: displayNames[label] ?? label,
+      href: resolve(entry.slug),
+      outcome: outcomes[label] ?? '',
+    };
+  });
+}
+
+const curriculum = deriveModules(
+  'core', coreSectionLabels, coreDisplayNames, coreEntryTitles, coreOutcomes,
+);
+const advancedTrack = deriveModules(
+  'advanced', advancedSectionLabels, advancedDisplayNames, advancedEntryTitles, advancedOutcomes,
+);
 ---
 
 <BaseLayout title="Home">

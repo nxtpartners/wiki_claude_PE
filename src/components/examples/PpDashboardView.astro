@@ -1,0 +1,342 @@
+---
+// Dashboard view for the PortCo Pulse showcase: stat cards, bar chart, alerts.
+import { companies, stats, fiscalYear } from './pp-data';
+---
+
+<div class="pp-view active" data-view="dashboard">
+  <!-- Dashboard header -->
+  <div class="pp-head">
+    <div>
+      <p class="pp-eyebrow">Portfolio Dashboard</p>
+      <h3 class="pp-title">Portfolio Overview</h3>
+    </div>
+    <span class="pp-fy">{fiscalYear} plan</span>
+  </div>
+
+  <!-- Stat cards -->
+  <div class="pp-stats">
+    {
+      stats.map((s) => (
+        <div class:list={['pp-stat', `stat-${s.key}`]}>
+          <span class="pp-stat-chip" aria-hidden="true">
+            {s.key === 'companies' && (
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <rect x="3" y="8" width="8" height="12" rx="1.5" stroke="currentColor" stroke-width="1.7" />
+                <rect x="13" y="4" width="8" height="16" rx="1.5" stroke="currentColor" stroke-width="1.7" />
+                <path d="M6 12h2m-2 3h2m9-7h2m-2 4h2m-2 4h2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            )}
+            {s.key === 'pending' && (
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
+                <path d="M12 7v5l3 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            )}
+            {s.key === 'alerts' && (
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                <path d="M12 3 2.5 20h19L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                <path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+              </svg>
+            )}
+          </span>
+          <span class="pp-stat-value">{s.value}</span>
+          <span class="pp-stat-label">{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Portfolio performance bar chart -->
+  <div class="pp-panel">
+    <div class="pp-panel-head">
+      <h4 class="pp-panel-title">Portfolio Performance</h4>
+      <span class="pp-panel-note">Latest-period revenue</span>
+    </div>
+    <div class="pp-chart">
+      {
+        companies.map((c) => (
+          <div class:list={['pp-bar-row', `bar-${c.status}`]}>
+            <span class="pp-bar-name">{c.name}</span>
+            <span class="pp-bar-track" aria-hidden="true">
+              <span class="pp-bar-fill" style={`width:${c.bar}%`} />
+            </span>
+            <span class="pp-bar-value">{c.revenue}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Off Track / At Risk -->
+  <div class="pp-alerts">
+    <div class="pp-alert alert-offtrack">
+      <div class="pp-alert-head">
+        <span class="pp-alert-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <path d="M12 3 2.5 20h19L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+            <path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="pp-alert-tag">Off Track</span>
+      </div>
+      <p class="pp-alert-co">Evergreen Fitness</p>
+      <p class="pp-alert-note">Revenue 20% below plan: $548K vs $650K</p>
+    </div>
+
+    <div class="pp-alert alert-atrisk">
+      <div class="pp-alert-head">
+        <span class="pp-alert-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <path d="M12 3 2.5 20h19L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+            <path d="M12 9v5m0 3h.01" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+          </svg>
+        </span>
+        <span class="pp-alert-tag">At Risk</span>
+      </div>
+      <p class="pp-alert-co">Keystone Logistics</p>
+      <p class="pp-alert-note">EBITDA margin at risk: 12.5% variance</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ---- View header (shared across all views, duplicated per Astro scoping) ---- */
+  .pp-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .pp-eyebrow {
+    margin: 0 0 2px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+  }
+  .pp-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pp-fy {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+  }
+
+  /* ---- Switchable views ---- */
+  .pp-view {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  .pp-view.active {
+    display: flex;
+  }
+
+  /* ---- Stat cards ---- */
+  .pp-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+  .pp-stat {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--space-6);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-xs);
+  }
+  .pp-stat-chip {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-2);
+  }
+  .stat-companies .pp-stat-chip {
+    color: var(--kpmg-blue);
+    background: color-mix(in srgb, var(--kpmg-blue) 12%, var(--bg));
+  }
+  .stat-pending .pp-stat-chip {
+    color: var(--kpmg-cobalt);
+    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
+  }
+  .stat-alerts .pp-stat-chip {
+    color: var(--confidential);
+    background: color-mix(in srgb, var(--confidential) 12%, var(--bg));
+  }
+  .pp-stat-value {
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .pp-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Panels ---- */
+  .pp-panel {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+  }
+  .pp-panel-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .pp-panel-title {
+    margin: 0;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--kpmg-blue);
+  }
+  .pp-panel-note {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Bar chart ---- */
+  .pp-chart {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .pp-bar-row {
+    --bar-c: var(--kpmg-blue);
+    display: grid;
+    grid-template-columns: 150px 1fr 68px;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .bar-atrisk {
+    --bar-c: var(--warning);
+  }
+  .bar-offtrack {
+    --bar-c: var(--confidential);
+  }
+  .pp-bar-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .pp-bar-track {
+    height: 14px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bar-c) 10%, var(--bg-soft));
+    overflow: hidden;
+  }
+  .pp-bar-fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bar-c) 78%, var(--bg));
+  }
+  .pp-bar-value {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-align: right;
+  }
+
+  /* ---- Alerts ---- */
+  .pp-alerts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+  .pp-alert {
+    --al-c: var(--confidential);
+    padding: var(--space-6);
+    border-radius: var(--radius-md);
+    border: 1px solid color-mix(in srgb, var(--al-c) 34%, var(--line));
+    border-left: 4px solid var(--al-c);
+    background: color-mix(in srgb, var(--al-c) 7%, var(--bg));
+  }
+  .alert-offtrack {
+    --al-c: var(--confidential);
+  }
+  .alert-atrisk {
+    --al-c: var(--warning);
+  }
+  .pp-alert-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+  .pp-alert-icon {
+    color: var(--al-c);
+    display: inline-flex;
+  }
+  .pp-alert-tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--al-c);
+  }
+  .pp-alert-co {
+    margin: 0 0 2px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .pp-alert-note {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 720px) {
+    .pp-stats {
+      grid-template-columns: 1fr;
+    }
+    .pp-alerts {
+      grid-template-columns: 1fr;
+    }
+    .pp-bar-row {
+      grid-template-columns: 110px 1fr 60px;
+      gap: var(--space-2);
+    }
+    .pp-bar-name {
+      font-size: 0.74rem;
+    }
+  }
+</style>
