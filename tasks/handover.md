@@ -1,6 +1,17 @@
 # Handover — KPMG × Claude for PE Wiki
 
-## [2026-07-09] Homepage hero + section rework for the two-track story (this session)
+## [2026-08-09] Nav restructure + three single-source refactors
+Seven commits (`0014b72`..`9db5be6`), written up 2026-08-10 from git. `git log` has the reasoning per commit; only what outlives it is below. No build was run while writing this, so nothing here is a verification claim.
+
+- **The nav has one walk.** `NavSection` gained `children`, and `walkSections()` in `nav.ts` now backs numbering, prev/next, sidebar and footer, so those four cannot drift. The sidebar renders sections recursively.
+- **The footer derives from the registry.** It used to name its sections by hand and match those strings against the nav, so a rename in `nav.ts` silently dropped a footer link with no error and no failing build.
+- **`existingDocSlugs()` lives in `src/utils/existingDocs.ts`** — the "which slugs have real content" lookup, previously copy-pasted into four components.
+- **The base-path rule lives in `src/utils/basePath.ts` only.** `applyBase()` is idempotent; `withBase.ts` binds it for components, `plugins/rehype-base-urls.ts` for prose. Change the rule there and nowhere else.
+- **Prose links are now base-aware at build time.** 173 markdown `[text](/foo)` links were 404ing on the subpath. **JSX in MDX is deliberately untouched** — `Card` and friends call `withBase()` themselves, so rewriting their attributes would double-prefix.
+- **Structure:** Core track opens on Anatomy of a Good Prompt; the three orientation pages moved into an optional nested "New to Claude?" zone with PE Playbooks and Best Practices, dropping the numbered spine from 31 to 20. Prompt Patterns merged into Anatomy; `claude-code/what-it-is` deleted (Getting Started opens on the vs-claude.ai comparison); new Resources page From Prompt to Template. Nothing else was deleted.
+- **Now 50 content pages** in `src/content/docs/`.
+
+
 - **Reworked `src/pages/index.astro` into a two-track homepage** (claude.ai = Core/beginner, Claude Code = Advanced/hands-on), iterated live with the user.
 - **Hero:** H1 is now "Claude for Private Equity"; subcopy shortened to "One Claude, two ways to work: claude.ai for everyday questions, and Claude Code for advanced, hands-on work in your files." Two track-mapped CTAs ("Start with claude.ai" -> /welcome, "Explore Claude Code" -> /claude-code/welcome). Hero fills the viewport (`min-height: calc(100svh - var(--header-h))` + flex centering; reset to block on mobile).
 - **Hero diagram (`home-two-paths.png`):** the top header band of the source art (blue "ONE CLAUDE" eyebrow + big headline + subtitle) was cropped off. The USER did the crop themselves (`diagrams_home/two-paths-cropped.png`, 1637x745); I adopted that file as the site asset. Do not re-crop. Then ENLARGED the diagram by shifting `.hero-grid` from `1.02fr 0.98fr` to `0.85fr 1.15fr` and gap `--space-16` -> `--space-12` (diagram is `width:100%`, scales with its column; no horizontal overflow).
@@ -76,7 +87,8 @@
 - **Note:** `welcome.mdx` and `first-15-minutes.mdx` prose remains locked/untouched; only additive mockup/padding changes were made to first-15.
 
 ## ★ Next session — START HERE
-- **Outstanding open items:** (a) KPMG logo drop-in, (b) optional context-layering diagram. These are the only things left.
+- **Outstanding open items:** the optional context-layering diagram. That is the only one left from this list.
+- **KPMG logo: DONE [2026-07-09] in `6b7a84e`.** `public/kpmg-logo.png` replaced the placeholder in `Header.astro`. Older sections below still call it outstanding; they are stale.
 - **TASK #10 — Critique & elevate pass: DONE [2026-07-02].** The senior-editor visual + editorial elevate pass across all 36 pages is complete (hard-rule audit was already clean: zero em/en dashes, no "deal team", US English, no code/API refs; Project Atlas continuity preserved). welcome.mdx and first-15-minutes.mdx content remained locked/untouched.
 - **Diagrams DONE (this session).** The three structural diagrams are now generated PNGs rendered via `DiagramFigure.astro` (see the top section). Prompts live in `diagrams/diagrams_prompts/` if any need regenerating. To swap an image: drop the new PNG at `diagrams/<name>.png`, copy it to `src/assets/diagrams/<name>.png`, rebuild (no code change). Remaining optional diagram: context-layering, if wanted later.
 - Open: hosting decision (GitHub Pages vs KPMG internal); KPMG logo drop-in.
@@ -122,3 +134,26 @@
 ## Files that matter
 - tasks/plan.md — full curriculum + architecture + phases.
 - (site files to come in Phase 0/1.)
+
+## 2026-08-10 — Code-quality refactor (uncommitted)
+
+**Nothing is committed. `git status` will show a large diff.** Build passes, 53 pages.
+
+Done:
+- New `src/layouts/DeliverableLayout.astro` + `src/components/examples/PreviewFrame.astro` deduplicate the two
+  deliverable pages and the two previews.
+- `ValueCreationMatrix.astro` and `PortcoPulseShowcase.astro` split into `vcm-data.ts` / `pp-data.ts` plus
+  per-view components. Both were over 1,100 lines, together 30 percent of the codebase.
+- `index.astro` derives its curriculum from `nav.ts`. Two homepage links are pinned by `coreEntryTitles`,
+  which throws at build time if a nav title stops matching — the first refactor pass silently relinked
+  "Prompting" to Welcome, so the guard exists for a reason.
+- `--space-5` / `--space-10` added; KPMG blue removed from `ClaudeSidebar.astro`; `content.config.ts`
+  `section` is a `z.enum`.
+- New `CLAUDE.md` and `tasks/standards.md` for this project.
+
+Not done, written up in `tasks/plan.md`: 54 hardcoded hex colors, the non-deterministic `PromptCard` uid, and
+the Astro 6 markdown-plugin deprecation that the base-path link rewriter sits on.
+
+Process note: roughly half this session went into a build-comparison harness that was wrong on its first
+version and caused a refactor pass to accomplish almost nothing. The harness is deleted. Do not rebuild it —
+diff the built HTML directly if a check is needed.

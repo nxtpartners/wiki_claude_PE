@@ -100,3 +100,39 @@ UI UX Pro Max (style direction) → taste-skill / frontend-design (build quality
 ## Open Decisions
 - Hosting target: default GitHub Pages; confirm if KPMG internal is required.
 - Whether to grant Chrome access for screenshot/mockup accuracy (recommended).
+
+
+## Open code-quality work (opened 2026-08-10)
+
+Moved out of `tasks/standards.md` `## Exceptions`, which is for accepted deviations, not a backlog. Each item
+below is a real violation of `rules.md` that is scheduled rather than accepted.
+
+1. **54 hardcoded hex colors** across `src/components/` and `src/pages/`. Some literally duplicate existing
+   tokens (`index.astro:396` `#f0eee6` is `--c-panel`; `:434` `#be5d3a` is `--c-clay`). `#001f57` appears in
+   three places with no token at all. Breaks Seam 1's "restyle from one directory" test. Fix: add the missing
+   tokens to `global.css`, then replace call sites.
+2. **`src/components/PromptCard.astro:19` makes the build non-deterministic** —
+   `const uid = 'pc-' + Math.random().toString(36).slice(2, 9)` emits different HTML on every build across 29
+   pages. Fix: derive the id from a stable input (the prompt title, or an incrementing per-page counter).
+3. **Astro 6 deprecates `markdown.remarkPlugins` / `rehypePlugins` / `remarkRehype`** in `astro.config.mjs`.
+   That is the exact config path the base-path prose-link rewriter in `src/plugins/` depends on, so this
+   becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
+
+4. **The four `Pp*View.astro` components repeat ~330 lines of CSS and one markup block.** Raised as a
+   blocker by `reuse-auditor` 2026-08-10. Identical rules in all four: `.pp-head/.pp-eyebrow/.pp-title/.pp-fy`
+   (39 lines), `.pp-view` + `.pp-view.active` (7), `.pp-panel*` (24); plus `.pp-badge` and the three
+   `.st-*` status modifiers duplicated across `PpDataView` and `PpSettingsView` (12). The `.pp-head` markup
+   block (7 lines) is byte-identical in all four. Cause: Astro scopes `<style>` per file, so the split forced
+   copies. Fix: a `PpViewHeader.astro` for the markup, and one shared stylesheet or `:global()` rules on
+   `PortcoPulseShowcase` for the CSS.
+5. **`PpSettingsView.astro:44` hardcodes `FY2026`**, which is `fiscalYear` in `pp-data.ts:6`. The other three
+   views import it correctly.
+
+### Done 2026-08-10
+- Extracted `src/layouts/DeliverableLayout.astro` and `src/components/examples/PreviewFrame.astro`; the two
+  deliverable pages went 277 shared lines to 36, the two previews 603 to 330.
+- Split `ValueCreationMatrix.astro` (1265 to 493) and `PortcoPulseShowcase.astro` (1126 to 299) into data
+  modules plus per-view components.
+- `index.astro` now derives its curriculum from `nav.ts` instead of parallel arrays.
+- Added `--space-5` and `--space-10`; fixed KPMG blue inside `ClaudeSidebar.astro`; `content.config.ts`
+  `section` is now a `z.enum`.
