@@ -7,7 +7,25 @@ const docs = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     order: z.number().default(0),
-    section: z.string(),
+    // Closed set, not a free string: a typo here would otherwise pass validation
+    // and produce a page that renders but never appears in any nav section.
+    section: z.enum([
+      'Best Practices',
+      'Claude Code Welcome',
+      'Context',
+      'Examples',
+      'First Sessions',
+      'Foundations',
+      'Getting Started',
+      'Good Habits',
+      'PE Playbooks',
+      'PE Recipes',
+      'Power Features',
+      'Projects',
+      'Resources',
+      'Start Here',
+      'Worked Example',
+    ]),
     draft: z.boolean().default(false),
   }),
 });
