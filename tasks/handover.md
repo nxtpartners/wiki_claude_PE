@@ -138,7 +138,7 @@ Seven commits (`0014b72`..`9db5be6`), written up 2026-08-10 from git. `git log` 
 ## 2026-08-10 — Code-quality refactor
 
 **Committed in three commits: `9c6d1e4` refactor, `5c0dc1b` fix, `5245f78` docs.** Net 265 insertions,
-2,226 deletions. Build passes, 53 pages.
+2,226 deletions. Build was green at 53 pages at that point. See the section below for the current count.
 
 Done:
 - New `src/layouts/DeliverableLayout.astro` + `src/components/examples/PreviewFrame.astro` deduplicate the two
@@ -158,3 +158,23 @@ the Astro 6 markdown-plugin deprecation that the base-path link rewriter sits on
 Process note: roughly half this session went into a build-comparison harness that was wrong on its first
 version and caused a refactor pass to accomplish almost nothing. The harness is deleted. Do not rebuild it —
 diff the built HTML directly if a check is needed.
+
+## 2026-08-10 (later): Two new Claude Code pages
+
+**Pushed as `44b2500`. Build green at 55 pages, tree clean.**
+
+- `claude-code/organizing-deals.mdx`: group folders by kind of job first, client second. Method CLAUDE.md
+  plus a reusable `template.md` in `projects/due-diligence/`, client facts one level down.
+- `claude-code/requirements-brief.mdx`: the other road, for when the output is a tool not a document.
+  Carries its own full template producing a `brief.md`. Hands off to `deploy.mdx`.
+- Both registered in `nav.ts` between `claude-md` and `good-habits`.
+- `install-vs-code.mdx` gained a 3-row prerequisites table. Three of the user's six rows were dropped; the
+  Anthropic account row contradicted the KPMG single sign-on instruction at `sign-in.mdx:78`.
+
+Gate: all three PASS. One warn left in place, the Node.js row at `install-vs-code.mdx:28` repeats the
+`npm not found` diagnostic at `sign-in.mdx:66`.
+
+Two things to carry forward. **`order:` frontmatter is decorative**, only `nav.ts` decides order. And a
+python heredoc destroyed `tasks/standards.md` this session because `s.index('## Exceptions')` matched that
+string in the file's own prose, not the heading; it was untracked and had to be recovered from the session
+transcript. Anchor heading matches with `re.search(r'^## X\s*$', s, re.M)`.
