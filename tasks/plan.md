@@ -119,7 +119,7 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
    becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
 
 4. **The four `Pp*View.astro` components repeat ~330 lines of CSS and one markup block.** Raised as a
-   blocker by `reuse-auditor` 2026-08-10. Identical rules in all four: `.pp-head/.pp-eyebrow/.pp-title/.pp-fy`
+   blocker by the duplication audit 2026-08-10 (now the `review` role). Identical rules in all four: `.pp-head/.pp-eyebrow/.pp-title/.pp-fy`
    (39 lines), `.pp-view` + `.pp-view.active` (7), `.pp-panel*` (24); plus `.pp-badge` and the three
    `.st-*` status modifiers duplicated across `PpDataView` and `PpSettingsView` (12). The `.pp-head` markup
    block (7 lines) is byte-identical in all four. Cause: Astro scopes `<style>` per file, so the split forced

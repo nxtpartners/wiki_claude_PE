@@ -1,7 +1,7 @@
 # Standards — wiki_claude_PE
 
 Written 2026-08-10 from an `architect` survey of the actual code, not from an ideal. Where the code breaks a
-rule below, the real state is recorded under `## Exceptions` rather than hidden. `standards-reviewer` returns
+rule below, the real state is recorded under `## Exceptions` rather than hidden. The `review` role returns
 PASS/FAIL against `## Checklist` only.
 
 ## Seams
@@ -136,5 +136,5 @@ copied as precedent for new code. **Work that is scheduled lives in `tasks/plan.
   re-raise it.
 - **[2026-08-10] The four `Pp*View.astro` components repeat about 330 lines of CSS and one markup block.**
   Astro scopes `<style>` per file, so carving four views out of one component forced the shared header,
-  panel and view-state rules to be copied. `reuse-auditor` rates this a blocker and it is logged as work in
+  panel and view-state rules to be copied. `review` rates this a blocker and it is logged as work in
   `tasks/plan.md`, not accepted here. Listed only so the next audit knows it is already on the list.

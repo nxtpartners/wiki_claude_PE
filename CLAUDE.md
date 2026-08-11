@@ -92,11 +92,12 @@ wrong page" or "I did something wrong". The rule is stated at `src/styles/global
 
 - **I push, the user deploys.** Push code only. Never run `gh workflow run`, never touch `gh api ... /pages`,
   never change Pages settings. Reading run status for diagnosis (`gh run list/view/watch`) is fine.
-- **"Add X to the handover" means edit the document, not do the work.** Confirm before dispatching agents,
+- **"Add X to the handover" means edit the document, not do the work.** Confirm before dispatching roles,
   builds, or passes.
 
 ## Project files
 
 `tasks/standards.md` is the enforceable checklist and the map of where each Seam lives. `tasks/context.md` is
-dated incident history. `tasks/handover.md` is state between sessions. `tasks/agents.md` and `tasks/skills.md`
-do not exist yet and should be created the first time this project actually delegates or invokes a skill.
+dated incident history. `tasks/handover.md` is state between sessions. `tasks/plan.md` is the work queue.
+**Those four are the whole set** — `tasks/agents.md` and `tasks/skills.md` were abolished on 2026-08-11 and
+must not be created.
