@@ -135,9 +135,10 @@ Seven commits (`0014b72`..`9db5be6`), written up 2026-08-10 from git. `git log` 
 - tasks/plan.md — full curriculum + architecture + phases.
 - (site files to come in Phase 0/1.)
 
-## 2026-08-10 — Code-quality refactor (uncommitted)
+## 2026-08-10 — Code-quality refactor
 
-**Nothing is committed. `git status` will show a large diff.** Build passes, 53 pages.
+**Committed in three commits: `9c6d1e4` refactor, `5c0dc1b` fix, `5245f78` docs.** Net 265 insertions,
+2,226 deletions. Build passes, 53 pages.
 
 Done:
 - New `src/layouts/DeliverableLayout.astro` + `src/components/examples/PreviewFrame.astro` deduplicate the two

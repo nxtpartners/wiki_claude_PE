@@ -1,0 +1,303 @@
+---
+title: "Starting Something Bigger: Write the Brief First"
+description: "When the thing you want is a tool rather than a document, the first session should produce a written brief, not code. Here is why, and a template that writes one with you."
+section: Good Habits
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+import PromptCard from '../../../components/PromptCard.astro';
+
+Most of what you will ask Claude Code for is a document. A summary, a memo, a set of findings, a cleaned-up table. The [folder structure on the previous page](/claude-code/organizing-deals) is built for exactly that, and for that work you can open a session and start.
+
+Occasionally you want something else. Not a document but a small tool: a screen that other people open, filter, sort, and come back to next quarter. The [AI Value Creation Matrix](/claude-code/example-value-creation) and the [PortCo Pulse Dashboard](/claude-code/example-portco-pulse) in the Examples section are both this kind of thing. So is anything you would describe as a dashboard, a tracker, or an internal tool.
+
+That work starts differently, and starting it the same way as a memo is the most common reason it goes wrong.
+
+## Why a tool is not a long document
+
+A document has one shape. You read it top to bottom, and if a paragraph is wrong you fix the paragraph.
+
+A tool has behavior. Someone opens it, and what they see depends on who they are, what they click, and what data is loaded that week. There is no single top-to-bottom reading. That means the questions that decide whether it is any good are settled before anything is built, not after.
+
+The practical difference is the cost of a misunderstanding. If Claude misreads what you wanted in a memo, you rewrite a paragraph. If Claude misreads what you wanted in a tool, it has already built the wrong thing four different ways, and each of those ways depends on the others. Unpicking that costs more than the original build.
+
+So the first session on a tool should produce **a written brief and no code at all**.
+
+## What a brief is
+
+In software this document has a name, a product requirements document, usually shortened to PRD. The name is worth knowing because your engineering colleagues will use it. Everything after this paragraph calls it a brief, because that is what it is.
+
+A brief is short, plain, and answers a specific set of questions. Not how to build the thing, which is Claude's job, but what the thing is:
+
+| The question | Why it decides something |
+| --- | --- |
+| Who opens this, and how often? | A tool a partner opens twice a year and a tool an associate opens daily are not the same tool. |
+| What is the first thing they see? | Forces you to name the one number or view that matters most. Most weak tools failed here. |
+| What can they do to it? | Filter, sort, search, export, edit. Each one is real work, and half of them are usually unnecessary. |
+| Where does the data come from? | A file you paste in, a spreadsheet that gets updated, or something live. These are three very different builds. |
+| What must it never do? | Show one portfolio company's figures to another team, send anything outside the firm, let anyone edit the source. |
+| Where will it live when it is finished? | Your machine, a shared drive, or an internal site. Answered now, this is a small decision. Answered later, it is a rebuild. |
+
+Six questions. Most briefs are under a page. The point is not length, it is that every one of these has an answer written down before anything is built, so you and Claude are looking at the same thing.
+
+## Where the brief lives
+
+Keep it in the project folder as its own file, next to the CLAUDE.md, and point the rulebook at it.
+
+<CodeWindow
+  filename="projects/tools/portco-tracker/CLAUDE.md"
+  ariaLabel="A file rail showing a projects folder containing a tools folder, which holds a portco-tracker folder with a CLAUDE.md, a brief.md, a data folder and a build folder. The editor shows a short CLAUDE.md that points at brief.md as the source of truth."
+  caption="The brief is a file, not a message. It survives the session, and the rulebook points at it."
+>
+  <ul slot="tree">
+    <li>projects/</li>
+    <li>└ tools/</li>
+    <li>&nbsp;&nbsp;└ portco-tracker/</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;├ CLAUDE.md</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;├ brief.md</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;├ data/</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;└ build/</li>
+  </ul>
+  <pre slot="editor">{`portco-tracker/CLAUDE.md
+
+What this is:
+An internal tracker for the eight
+portfolio companies in Fund III.
+
+brief.md is the agreed scope. Read it
+before proposing any change, and tell
+me if I ask for something it rules out.`}</pre>
+</CodeWindow>
+
+That last line matters more than it looks. Once the brief is a file Claude reads at the start of every session, it becomes something you can be held to. Ask for a feature the brief rules out and Claude says so, which is a conversation worth having in week three rather than a surprise in week six.
+
+## The template
+
+This is a structured prompt in the same shape as everything in [From Prompt to Template](/resources/from-prompt-to-template): it leaves its inputs blank on purpose, interviews you for them, shows you what it understood, and waits for you to confirm before writing anything.
+
+Paste it into a session started in your new project folder. It will ask you questions, most of which you will be able to answer immediately and one or two of which will make you think. That thinking is the point. The output is `brief.md`.
+
+<PromptCard title="Project brief (for a tool, not a document)" collapse="clamp" prompt={`##############################################
+# PROJECT BRIEF: PROMPT TEMPLATE
+# Version: 1.0
+# Modes: INTAKE > CONFIRM > WRITE
+##############################################
+
+<how_to_use>
+Paste this entire template into a Claude Code session started in the folder where
+the project will live. It produces one file, brief.md, and nothing else. No code
+is written in this session.
+
+The AI will check whether the fields in <inputs> are populated:
+
+- If fields are BLANK or partially filled: it enters INTAKE mode and runs the
+  interview in <intake_protocol>.
+- If fields are FULLY POPULATED: it skips intake, runs <pre_draft_check>, and
+  waits.
+
+In both paths it must wait for an explicit "go" before writing brief.md.
+</how_to_use>
+
+<inputs>
+[Leave blank to trigger intake. Populate to skip intake.]
+
+- Model in use:
+- Working name for the tool:
+- One sentence on what it is for:
+- Primary user, and how often they open it:
+- Other people who will open it:
+- The first thing the user should see on opening it:
+- What the user can do to it (filter, sort, search, export, edit):
+- Where the data comes from, and how often it changes:
+- Roughly how much data (rows, companies, periods):
+- Things it must never do:
+- Where it will live when finished:
+- Who has to approve it before anyone else sees it:
+- Deadline or first review date:
+</inputs>
+
+<intake_protocol>
+Trigger: any field in <inputs> is blank or ambiguous.
+
+1. ONE-SHOT QUESTIONNAIRE
+   Send a single structured message containing every question needed to populate
+   <inputs>. Group the questions by category. Number them. Mark anything that
+   blocks the brief with [BLOCKING].
+
+   Required coverage:
+   a) Purpose: working name, the one sentence, what problem it removes today.
+   b) People: primary user and frequency, secondary viewers, who approves.
+   c) Behavior: the opening view, the actions available, what a typical
+      five-minute session with it looks like.
+   d) Data: source, format, update frequency, rough volume, who owns it.
+   e) Limits: what it must never do, what is explicitly out of scope for
+      version one, where it will be hosted.
+
+   Do not attempt to self-identify the model. Ask the user.
+
+   Ask the user to describe the opening view in words rather than choosing from
+   options. If they cannot, that is a finding, and it goes in the brief as an
+   open question rather than being resolved by a guess.
+
+   End the message with: "Answer in any format. I will run one follow-up round
+   if needed, then show you the assembled inputs for sign-off before writing
+   brief.md."
+
+2. WAIT FOR USER RESPONSE.
+
+3. ONE FOLLOW-UP ROUND (conditional)
+   Scan the answers for unanswered [BLOCKING] items, contradictions, and any
+   answer vague enough to change what gets built. Ask only about those, in one
+   message, capped at five questions. Do not open a third round.
+
+4. ASSEMBLED INPUTS FOR SIGN-OFF
+   Restate every field with the value you now hold. Mark anything still missing
+   as [ASSUMED: ...] or [OPEN QUESTION]. Then stop and ask for an explicit "go".
+
+5. WAIT. Acknowledgement is not confirmation. "Thanks" and "ok" are not a go.
+</intake_protocol>
+
+<pre_draft_check>
+Before writing brief.md, confirm in one short message:
+- Every [BLOCKING] field has a value or a stated assumption.
+- The three decisions you consider highest risk, in one line each.
+- Anything the user asked for that you believe should be out of scope for
+  version one, with your reason.
+
+Then stop and wait for "go".
+</pre_draft_check>
+
+<tone>
+Plain English written for someone who does not build software. No technical
+vocabulary unless it is unavoidable, and where it is unavoidable, define it in
+the same sentence. Short declarative sentences. Write it as if the reader will
+have to defend every line of it to a colleague, because they might.
+</tone>
+
+<task_description>
+Write one file, brief.md, in this order:
+
+1. In one sentence
+   What the tool is and who it is for. If this sentence needs an "and", the
+   scope is probably too wide, and say so.
+
+2. Who uses it
+   Primary user and how often. Secondary viewers. Who approves it before it is
+   shared. One line each.
+
+3. What they see first
+   The opening view, described in words. Name the single most important number
+   or list on it. If there are two, say which wins when space is short.
+
+4. What they can do
+   A numbered list of actions, most important first. For each one, one line on
+   why it is needed. Mark anything the user was unsure about as [VERSION TWO].
+
+5. Where the data comes from
+   Source, format, who owns it, how often it changes, and what happens when it
+   changes. State the rough volume.
+
+6. What it must never do
+   Hard limits. Confidentiality boundaries, editing rights, anything that must
+   not leave the firm. Be specific about which data and which people.
+
+7. Where it will live
+   The intended home when finished, and who needs to be involved to put it
+   there. If this is undecided, say so plainly and mark it as the first open
+   question.
+
+8. Out of scope for version one
+   An explicit list. This section is what protects the project, so do not
+   leave it thin.
+
+9. Open questions
+   Everything still unresolved, each with who can answer it. If there are none,
+   write "None", but check twice before you do.
+
+Out of scope for this session:
+- Do not write any code, and do not create any file other than brief.md.
+- Do not propose a technology, framework, or library.
+- Do not estimate effort or timelines.
+- Do not design the visual appearance beyond the opening view described in
+  section 3.
+</task_description>
+
+<examples>
+Example of a good "in one sentence":
+"A single screen showing the eight Fund III portfolio companies with their
+latest quarter revenue, EBITDA, and headcount, for the deal partner to check
+before a monthly board call."
+
+Example of one that is too vague, and why:
+"A dashboard for portfolio monitoring." Nobody is named, no number is named,
+and no moment of use is named. Nothing in it rules anything out, so it cannot
+be used to settle an argument later, which is most of what a brief is for.
+
+Example of a good "what they can do" line:
+"1. Filter by fund and by quarter. Needed because the partner covers two funds
+and always compares the current quarter to the same quarter last year."
+
+Example of a good "must never do" line:
+"Must never show Fund II companies to anyone on the Fund III team. The two
+teams share the building and not the data."
+
+Example of a good open question:
+"Whether the quarterly figures come from the finance team's existing workbook
+or are re-entered by hand. Ask the fund controller. This changes the build."
+</examples>
+
+<constraints>
+- No em dashes and no en dashes anywhere in the output.
+- Under 700 words total. A brief nobody reads protects nothing.
+- Every section from <task_description> must appear, even if the answer is
+  "None" or "Undecided". A missing section reads as an answered question.
+- Never invent an answer the user did not give. Unknown goes in section 9.
+- Do not soften a limit. If the user said something must never happen, write it
+  as never.
+- No technology names, no framework names, no library names.
+- No effort estimates and no dates other than the ones the user supplied.
+- If a [BLOCKING] question is still unanswered, do not write the file.
+</constraints>
+
+<output_format>
+Sequence of outputs:
+
+INTAKE PATH:
+1. One-shot questionnaire, grouped a to e, numbered, [BLOCKING] marked.
+2. [WAIT]
+3. Optional follow-up, maximum five questions.
+4. [WAIT if a follow-up was sent]
+5. Assembled inputs with a confirmation request.
+6. [WAIT for explicit confirmation]
+7. Pre-draft check.
+8. [WAIT for "go"]
+9. Write brief.md.
+
+DIRECT PATH (inputs pre-populated):
+1. Pre-draft check.
+2. [WAIT for "go"]
+3. Write brief.md.
+
+brief.md format: markdown, nine numbered H2 sections in the order given, titled
+exactly as in <task_description>. Sections 2, 4, 8 and 9 as lists. Everything
+else as short prose. No cover note, no summary, no appendix. After writing the
+file, print nothing except its path and a one-line note of anything in section 9
+that should be resolved before building starts.
+</output_format>
+`} />
+
+## After the brief
+
+With `brief.md` written and agreed, the build is ordinary Claude Code work, and the habits from the rest of this track apply unchanged. Two things are worth doing differently.
+
+**Build it in slices, not layers.** Ask for the opening view with three companies of made-up data, working end to end, before asking for anything else. A thin version of the whole thing tells you within a session whether the shape is right. A perfect data layer with no screen tells you nothing, and it is the more tempting order.
+
+**Reread the brief when you want to add something.** The moment you find yourself asking for a feature is the moment to check section 8. Sometimes the brief is wrong and you change it deliberately, which is fine. What is not fine is the version where nobody notices it changed.
+
+<Callout type="confidential" title="Build against made-up data">
+While you are getting the shape right, use invented figures for invented companies. It is faster, because you can change them freely, and it means the half-finished versions sitting in your folder carry nothing confidential. Connect the real data once the tool works and the [Confidentiality Decision Tree](/best-practices/confidentiality) says the source is permitted.
+</Callout>
+
+When the thing works and you want other people to open it, that is a separate step with its own considerations, most of which involve your IT colleagues. It has its own page: [Going Live](/claude-code/deploy).

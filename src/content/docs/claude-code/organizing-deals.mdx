@@ -1,0 +1,106 @@
+---
+title: "Organizing Many Deals: Folders That Stack"
+description: "One rulebook works for one deal. Across five, folders let your method live in one place and each client's details in another, with Claude reading both."
+section: Good Habits
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+
+A single CLAUDE.md works beautifully for one piece of work. The strain shows on the second. You start a new deal, copy the last CLAUDE.md across, and edit the parts that differ. By the fifth deal you have five rulebooks that were identical when they were born and have quietly drifted apart since. A correction you made in March exists in two of them.
+
+The fix is not a better file. It is a folder structure, and Claude Code is built to reward it.
+
+## The shape of it
+
+Group your work by the **kind of job** first, and by the client second.
+
+<CodeWindow
+  filename="projects/due-diligence/project-atlas/CLAUDE.md"
+  ariaLabel="A file rail showing a projects folder containing a due-diligence folder. The due-diligence folder holds a CLAUDE.md and a template file, and beneath it sit two client folders, project-atlas and project-borden, each with its own CLAUDE.md and working files. The terminal shows a session loading three rulebooks."
+  caption="Method lives in the due-diligence folder. Client facts live one level down. Claude Code reads both."
+>
+  <ul slot="tree">
+    <li>~/.claude/</li>
+    <li>└ CLAUDE.md   general</li>
+    <li>projects/</li>
+    <li>└ due-diligence/</li>
+    <li>&nbsp;&nbsp;├ CLAUDE.md   how we do DD</li>
+    <li>&nbsp;&nbsp;├ template.md</li>
+    <li>&nbsp;&nbsp;├ project-atlas/</li>
+    <li>&nbsp;&nbsp;│ ├ CLAUDE.md</li>
+    <li>&nbsp;&nbsp;│ └ cim.pdf</li>
+    <li>&nbsp;&nbsp;└ project-borden/</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;├ CLAUDE.md</li>
+    <li>&nbsp;&nbsp;&nbsp;&nbsp;└ data.csv</li>
+  </ul>
+  <pre slot="editor">{`project-atlas/CLAUDE.md
+
+What this deal is:
+Field-service software for HVAC and
+plumbing contractors. Revenue about $60m,
+per-seat subscriptions, NRR above 110%.
+
+The seller's model is in cim.pdf.`}</pre>
+  <pre slot="terminal">{`$ cd projects/due-diligence/project-atlas
+$ claude
+
+Claude Code
+Loaded your rules for this session:
+  ~/.claude/CLAUDE.md            general
+  due-diligence/CLAUDE.md        method
+  project-atlas/CLAUDE.md        this deal
+
+> `}</pre>
+</CodeWindow>
+
+## Why the folders do the work
+
+When Claude Code starts, it does not read only the folder you are standing in. It walks up the tree, picking up every CLAUDE.md it passes on the way, and reads them from the outermost inward. Nothing overrides anything; they are added together.
+
+So starting Claude in the Atlas folder loads three rulebooks in order: your personal one, the due diligence one, and Atlas's own. You did not configure that and there is no setting to switch on. It follows from where the files sit.
+
+That is what makes the structure worth the five minutes it takes to set up. Each rule gets written once, at the level where it is actually true.
+
+| Level | What belongs there | Example |
+| --- | --- | --- |
+| `~/.claude/CLAUDE.md` | Rules true of everything you do, in any folder | House tone, US spelling, never paste secrets |
+| `due-diligence/CLAUDE.md` | How your team does this kind of job, on every deal | The diligence checklist order, how findings are phrased, what always gets flagged to IC |
+| `project-atlas/CLAUDE.md` | Facts about this one deal | The sector, the revenue figure, which file is the model, what the seller has not yet provided |
+
+The test for where a rule goes is a single question: is this still true on the next deal? If yes, it belongs one level up. If it names a company, a number, or a date, it belongs in the client folder.
+
+## The rulebook and the template are different things
+
+Notice the `template.md` sitting next to the due diligence rulebook. It is easy to assume it should just go inside CLAUDE.md, and that is the one thing worth being careful about here.
+
+A CLAUDE.md is **standing context**. It loads at the start of every session and stays in front of Claude the whole time. It should be short, because everything in it is present whether this session needs it or not.
+
+A template is a **structured prompt you invoke for one task**, of the kind set out in [From Prompt to Template](/resources/from-prompt-to-template). It interviews you for its inputs, holds worked examples, and produces one artifact in a fixed shape. It is long by design, and it is only relevant when you are doing that particular job.
+
+Put it in CLAUDE.md and you pay for that length in every session, including the ones where you only wanted to ask a quick question. Keep it as its own file and you point Claude at it when you want it:
+
+```bash
+Use the template in ../template.md to draft the diligence summary for Atlas.
+```
+
+The rule of thumb: if it describes **how we work**, it goes in CLAUDE.md. If it produces **a specific deliverable**, it is a template file.
+
+<Callout type="confidential" title="The method folder holds no client data">
+The due diligence folder is the part you share with your team and reuse for years, so nothing confidential to a single deal ever goes in it. Checklists, phrasing, and templates belong there. The CIM, the model, and the figures belong one level down, inside that client's folder, and they stay there. That separation is what lets the method travel freely while the facts do not.
+</Callout>
+
+## The mistake worth avoiding
+
+The tempting shortcut is one folder called `deals` with everything in it: three live processes, last year's dead one, and your templates. It feels simpler and it undoes the whole arrangement. Claude Code reads what is in front of it, so a stray figure from one process can end up in a paragraph about another. Keeping one folder per deal is not filing discipline for its own sake. It is the thing that makes cross-contamination impossible rather than unlikely.
+
+<Callout type="note" title="Start with one kind of job">
+You do not need to map out every folder before you begin. Take the job you do most often, make one folder for it, write a short CLAUDE.md describing how your team does it, and move your next deal underneath. The structure earns its keep on the second deal and pays properly from the third.
+</Callout>
+
+## When the output is not a document
+
+Everything above assumes the work produces documents: summaries, memos, findings. Most of it does.
+
+Sometimes it does not. Occasionally what you want is a small tool, something with a screen that other people open and use, like the [AI Value Creation Matrix](/claude-code/example-value-creation) in the Examples section. That work starts differently, and starting it the same way as a memo is the usual reason it goes wrong. The next page covers it: [Starting Something Bigger](/claude-code/requirements-brief).
