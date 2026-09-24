@@ -38,6 +38,7 @@ Here is the structure as a blank template. Copy it, fill in the bracketed guidan
 <PromptCard title="Master prompt (blank)" collapse="clamp" prompt={`##############################################
 # [TASK NAME]: PROMPT TEMPLATE
 # Version: 1.0
+# Tested on: [model name], [month and year]
 # Modes: INTAKE > CONFIRM > EXECUTE
 ##############################################
 
@@ -170,8 +171,8 @@ table, write out the column headers.]
 
 This connects directly to the four-part shape taught in [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt). It is the same idea carried further: `tone` is the role, `task_description` is the task, `output_format` is the format, and `constraints` is the scrutiny.
 
-<Callout type="note" title="Keep the template current with the model">
-These templates were written for Claude Opus 4.7. When a new model is released and you switch to it, run the template once, note where the output changed, adjust the wording, and save the updated version. Prompts are tuned to the model that was current when they were written. A template nobody has revisited in three model releases will quietly underperform, and the drift is easy to miss because the output still looks reasonable.
+<Callout type="note" title="Templates are tuned to a model">
+These templates were written for Claude Opus 4.7. When the model changes, a template needs checking. [Keeping a template current with the model](#keeping-a-template-current-with-the-model), at the end of this page, shows how.
 </Callout>
 
 ## The intake pattern
@@ -894,6 +895,33 @@ When the same task comes round for the third time, stop rewriting the prompt fro
 4. **Write the constraints down.** Word limits, banned words, what to do when a figure is missing, what is out of scope. Everything you found yourself correcting by hand.
 5. **Blank the inputs and add the intake.** Ask the model to interview you for what is missing and wait for your confirmation before drafting.
 6. **Run it on a real job and fix what breaks.** Repeat until it stops surprising you.
+
+## Keeping a template current with the model
+
+A template is tuned to the model it was tested on. A new model reads instructions a little differently, and an old template's output still looks reasonable, so the drift is easy to miss. You can see which model you are running in the model pill, explained in [Thinking & Effort](/power-features/thinking-effort).
+
+**You can ask Claude to update it.** It makes a good first draft, but treat it as a proposal: a model knows little about what changed in its own version, and asked to "optimize" it tends to cut the examples and constraints that do most of the work. The prompt below guards against that.
+
+<PromptCard title="Update a template for the current model" prompt={`Here is a prompt template written for [previous model]. Update it so you, [current model], follow it reliably.
+
+- Keep every section, including all examples and constraints. You may reword them.
+- Do not change the deliverable, output format, or scope.
+- Leave anything that already works for you alone.
+
+Return a table of your changes (section, change, why), then the full updated template.
+
+[paste the template]`} />
+
+**Prove it with a test.** Keep one reusable input with each template and the output you accepted from it. Run the old and new versions on the same input and keep whichever comes closer.
+
+**Label what it was tested on.** Add a line to the header, as the master prompt above does:
+
+```
+# Version: 2.1
+# Tested on: Claude [model name], [month and year], by [your name]
+```
+
+That line is the proof a template fits a model: a record of a test someone ran, not the model's own claim. If it names a different model from the one in your pill, run the test before relying on it.
 
 <Callout type="confidential" title="Before you paste in a document">
 These templates are written to be filled with live engagement material. Confirm the document is permitted for processing in the KPMG Enterprise or Team workspace before you attach anything, using the [Confidentiality Decision Tree](/best-practices/confidentiality). And verify the output against the source before it reaches a deliverable, as [Verify Everything](/best-practices/verify-everything) explains.
