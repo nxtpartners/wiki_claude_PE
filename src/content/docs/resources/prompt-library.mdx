@@ -5,120 +5,183 @@ section: Resources
 order: 1
 ---
 
-import Callout from '../../../components/Callout.astro';
 import PromptCard from '../../../components/PromptCard.astro';
 
 When a teaser lands at 6pm and a partner wants a read by morning, you do not want to be composing a prompt from scratch. This is the page to bookmark for exactly those moments. Below is a working collection of prompts for the tasks you do most often, each built on the four-part shape (**Role, Task, Format, Scrutiny**) from [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt). They are starting points, not scripts. Paste one in, adjust the specifics to your situation, attach the relevant document, and refine from there.
 
-<Callout type="confidential" title="Check before you upload">
-Every prompt here assumes you are in the KPMG Enterprise or Team workspace and that the document you are attaching is permitted for processing. Make that call first using the [Confidentiality Decision Tree](/best-practices/confidentiality). And whatever the prompt produces, verify it against the source before it reaches a deliverable, as [Verify Everything](/best-practices/verify-everything) explains.
-</Callout>
+Each part sits in its own labeled section, such as `<task>`. The labels help Claude keep the instructions, the format, and the checks apart. They are plain text, not code: type over anything inside them.
 
 ## Reading and summarizing documents
 
 The bread and butter: turning a long document into something you can act on quickly, without losing the things that matter.
 
-<PromptCard collapse="closed" title="One-page CIM or teaser summary">
-You are assisting a KPMG private equity associate. I have attached an information pack for Project Atlas, a mid-market B2B field-service software business.
+<PromptCard collapse="peek" title="Screen a CIM or teaser: summary and key figures" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-Summarize it for an initial screen using these headings:
-1. Business overview: what they do and how they make money
-2. Financial highlights: revenue, EBITDA, growth, margins
-3. Investment thesis: why this could be attractive
-4. Key risks and open questions
+<role>
+You are assisting a KPMG private equity associate with an initial screen of Project Atlas, a mid-market B2B field-service software business. The attached information pack is your only source.
+</role>
 
-Use bullets under each heading and keep it to one page. Flag anything the document is vague about, and call out anything that looks unusual or that I should press management on.
-</PromptCard>
+<task>
+Produce two things from the attached document, in this order:
 
-<PromptCard collapse="closed" title="Extract the key financial figures">
-You are assisting a KPMG private equity associate. From the attached document, pull out the headline financials into a single table: revenue, gross margin, EBITDA, EBITDA margin, year-on-year growth, and net debt, for each year shown.
+1. A one-page screening summary under these headings:
+   - Business overview: what the company does and how it makes money
+   - Financial highlights: revenue, EBITDA, growth, and margins
+   - Investment thesis: why this could be attractive
+   - Key risks and open questions
 
-For every figure, note the page or section it came from. If a figure is not stated, write "not stated" rather than estimating. After the table, flag any number that looks inconsistent with the others or that depends on an assumption I should check.
-</PromptCard>
+2. A table of the headline financials for each year shown: revenue, gross margin, EBITDA, EBITDA margin, year-on-year growth, and net debt, with a column citing the page or section each figure came from.
+</task>
+
+<format>
+Bullets under each summary heading, one page at most. The table follows the summary under its own heading.
+</format>
+
+<scrutiny>
+Use only what the document states. Where a figure is missing, write "not stated" rather than estimating, because these numbers may be carried into later analysis. After the table, flag any figure that looks inconsistent with the others or rests on an assumption I should check, and list anything the document is vague about that I should press management on.
+</scrutiny>`} />
 
 ## Risk and due diligence
 
 Surfacing what could go wrong, and turning a data room into a focused list of things to chase.
 
-<PromptCard collapse="closed" title="Extract and rank the risks">
-You are assisting a KPMG private equity associate reviewing Project Atlas. From the attached document, identify the material risks to this investment.
+<PromptCard collapse="peek" title="Risks and the diligence questions they raise" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-Group them under: commercial, financial, operational, and legal/regulatory. Under each, give the risk in one line, then a one-line "so what" explaining why it would matter to the investment case. Rank the whole list so the most deal-relevant risks come first. If the document hints at a risk without stating it plainly, flag that as something to confirm rather than as fact.
-</PromptCard>
+<role>
+You are assisting a KPMG private equity associate on due diligence for Project Atlas, a mid-market B2B field-service software business. Work from the attached document.
+</role>
 
-<PromptCard collapse="closed" title="Build a due-diligence question list">
-You are assisting a KPMG private equity associate. Based on the attached document for Project Atlas, draft the due-diligence questions I should put to the seller and to management.
+<task>
+1. Identify the material risks to this investment. Group them under commercial, financial, operational, and legal/regulatory. For each, give the risk in one line and a one-line "so what" explaining why it matters to the investment case. Rank the full list so the most deal-relevant risks come first.
 
-Organize them by workstream (commercial, financial, technology, people, legal). For each question, add a short note on why it matters and what a concerning answer would look like. Prioritize the questions that could change the thesis. Mark any question that arises because the document is silent or unclear on a point.
-</PromptCard>
+2. Turn those risks into the due-diligence questions I should put to the seller and management, organized by workstream: commercial, financial, technology, people, legal. For each question, note which risk it tests, why it matters, and what a concerning answer would look like.
+</task>
+
+<format>
+Part 1 as a ranked list grouped by category. Part 2 as one table per workstream with the columns: question, risk it tests, why it matters, concerning answer. Within each workstream, put the questions that could change the thesis first.
+</format>
+
+<scrutiny>
+Base every risk on the document. If the document hints at a risk without stating it plainly, label it "to confirm" rather than presenting it as fact. Mark any question that exists because the document is silent or unclear on a point, since those gaps are often where diligence finds the real issues.
+</scrutiny>`} />
 
 ## Market and competitive work
 
 Framing the market and the competitive picture, kept honest about what is established fact versus general knowledge.
 
-<PromptCard collapse="closed" title="Market sizing and framing">
-You are assisting a KPMG private equity associate. I am assessing the market for Project Atlas, a B2B field-service software business serving mid-market customers.
+<PromptCard collapse="peek" title="Market framing and competitive comparison" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-Lay out how to think about the market size and growth: the relevant segments, the main demand drivers, and the structural trends that would support or undermine a thesis here. Be explicit about what is general industry knowledge versus what would need primary data to confirm. Do not invent specific market-size figures. End with the three data points I would most want before relying on any sizing.
-</PromptCard>
+<role>
+You are assisting a KPMG private equity associate assessing the market for Project Atlas, a B2B field-service software business serving mid-market customers.
+</role>
 
-<PromptCard collapse="closed" title="Competitive comparison table">
-You are assisting a KPMG private equity associate. Compare Project Atlas against two or three typical competitors in mid-market field-service software.
+<task>
+1. Frame the market: the relevant segments, the main demand drivers, and the structural trends that would support or undermine an investment thesis here.
 
-Present it as a table with these rows: target customer, product breadth, pricing model, apparent strengths, apparent weaknesses, and the main competitive risk to Atlas. Where you are reasoning from general sector knowledge rather than the attached document, say so clearly. Write "not stated" for anything the materials do not cover.
-</PromptCard>
+2. Compare Atlas with two or three typical competitors in mid-market field-service software, on: target customer, product breadth, pricing model, apparent strengths, apparent weaknesses, and the main competitive risk to Atlas.
+
+3. Name the three data points I would most want before relying on any market sizing.
+</task>
+
+<format>
+Part 1 as short headed sections. Part 2 as a table with Atlas and each competitor as columns and the dimensions above as rows. Part 3 as a numbered list.
+</format>
+
+<scrutiny>
+Label each point as coming from the attached materials or from general sector knowledge, because the two carry different weight in a committee paper. Give no specific market-size figures; say what data would be needed instead. Write "not stated" wherever the materials do not cover a dimension.
+</scrutiny>`} />
 
 ## Management and process
 
 Sharpening the questions you put to people, and preparing for the conversations that decide a deal.
 
-<PromptCard collapse="closed" title="Management meeting questions">
-You are assisting a KPMG private equity associate preparing for a management meeting on Project Atlas. Based on the attached materials, draft the questions I should ask.
+<PromptCard collapse="peek" title="Management meeting questions" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-Group them by theme (growth and pipeline, unit economics, customer retention, team and key-person risk, the plan for the next three years). For each, add the one-line reason it matters and what answer would reassure me versus concern me. Put the must-ask questions first. Flag any question prompted by a gap or inconsistency in the materials.
-</PromptCard>
+<role>
+You are assisting a KPMG private equity associate preparing for a management meeting on Project Atlas. Work from the attached materials.
+</role>
+
+<task>
+Draft the questions I should ask, grouped by theme: growth and pipeline, unit economics, customer retention, team and key-person risk, and the plan for the next three years. For each question, add the one-line reason it matters and what answer would reassure me versus concern me.
+</task>
+
+<format>
+One short list per theme, with the must-ask questions first in each.
+</format>
+
+<scrutiny>
+Flag any question prompted by a gap or inconsistency in the materials, since those are the ones management will be least prepared for.
+</scrutiny>`} />
 
 ## Writing and drafting
 
 Turning analysis into the documents that carry it forward, in the right register.
 
-<PromptCard collapse="closed" title="Investment memo section">
-You are assisting a KPMG private equity associate drafting an investment committee paper on Project Atlas. Using the attached analysis, write the investment thesis section.
+<PromptCard collapse="peek" title="Investment thesis and executive summary" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-Constraints: measured and specific tone suitable for an investment committee, no marketing language or superlatives, around 300 words, structured as thesis, value-creation angle, and the main risk to the thesis. Base every claim on the attached material; if something important is missing, list it separately below rather than inventing it.
-</PromptCard>
+<role>
+You are assisting a KPMG private equity associate drafting an investment committee paper on Project Atlas. Work only from the attached analysis.
+</role>
 
-<PromptCard collapse="closed" title="Executive summary from a longer document">
-You are assisting a KPMG private equity associate. Read the attached document and write a tight executive summary for a busy partner.
+<task>
+Write two pieces for the paper:
 
-No more than 200 words, three short paragraphs (what it is, why it could be attractive, the main concern). Plain, confident, no filler. If the document leaves a key question open, name it in a single line at the end under "Open questions".
-</PromptCard>
+1. An executive summary for a busy partner: no more than 200 words, in three short paragraphs covering what the business is, why it could be attractive, and the main concern.
+
+2. The investment thesis section: about 300 words, structured as the thesis, the value-creation angle, and the main risk to the thesis.
+</task>
+
+<format>
+The executive summary first, then the thesis section, each under its own heading. Write in a measured, specific register suited to an investment committee: plain and confident, with no marketing language or superlatives. Close with a short "Open questions" list.
+</format>
+
+<scrutiny>
+Base every claim on the attached analysis. Where something important is missing, add it to "Open questions" instead of filling the gap, because the committee will read every sentence as supported.
+</scrutiny>`} />
 
 ## Reshaping and refining
 
 The smaller moves that save time once you already have a draft.
 
-<PromptCard collapse="closed" title="Rewrite in a different tone">
-Take the text below and rewrite it for an investment committee audience: measured, precise, and free of marketing language, while keeping every substantive point intact. Do not add new claims or figures. If a sentence currently makes a claim that the underlying material would not support, flag it rather than rewriting around it.
+<PromptCard collapse="peek" title="Refine a draft, or compare two versions" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
 
-[paste the text here]
-</PromptCard>
+<role>
+You are helping a KPMG private equity associate refine material for an investment committee audience.
+</role>
 
-<PromptCard collapse="closed" title="Compare two versions or options">
-You are assisting a KPMG private equity associate. Compare the two options below and help me decide.
+<task>
+The material below is either one draft or two versions or options, labeled A and B.
 
-Lay it out as a table: the dimensions that matter, how each option performs on each, and a final row with your one-line read on the trade-off. Be explicit about which dimensions are most decision-relevant. Where you are inferring rather than working from stated facts, label it.
+If it is one draft: rewrite it for an investment committee, measured, precise, and free of marketing language, keeping every substantive point intact.
 
-Option A: [describe]
-Option B: [describe]
-</PromptCard>
+If it is A and B: compare them, then give your one-line read on the trade-off and say which dimensions are most decision-relevant. If A and B are two drafts of the same text, finish by rewriting the stronger one as above.
+</task>
+
+<format>
+For a comparison, a table with the dimensions that matter as rows and A and B as columns, then your read. Any rewrite follows under its own heading.
+</format>
+
+<scrutiny>
+Add no new claims or figures. If a sentence makes a claim the underlying material would not support, flag it rather than rewriting around it. Where you are inferring rather than working from stated facts, label it.
+</scrutiny>
+
+<material>
+[paste one draft, or label two versions or options "A:" and "B:"]
+</material>`} />
 
 ## How to use these well
 
-Three habits make the difference between a prompt that helps and one that hinders.
+Four habits make the difference between a prompt that helps and one that hinders.
 
 - **Adapt the specifics.** Swap Project Atlas for your situation, and make the role line match the real task.
-- **Always keep the scrutiny instruction.** The "flag what is vague" and "not stated" lines are what keep the output honest. Do not delete them to make a prompt shorter.
+- **Always keep the scrutiny section.** The "not stated" and "flag it" lines are what keep the output honest. Do not delete them to make a prompt shorter.
+- **Fill in the header once you have tested it.** The `Tested on` line records which model a prompt was checked on. Run it on a real job, then add the model, the date, and your name, as [From Prompt to Template](/resources/from-prompt-to-template#keeping-a-template-current-with-the-model) explains.
 - **Refine in place.** A first answer that is 80 percent right is normal. Correct the rest with a follow-up rather than starting over, as [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt) describes.
 
 A single prompt gets you a fast, useful answer. A playbook strings several of them into a full workflow, from first screen to committee paper. When you are ready to go end to end, see [CIM Analysis](/playbooks/cim-analysis), [Due Diligence](/playbooks/due-diligence), [Market Research](/playbooks/market-research), [Financial Review](/playbooks/financial-review), and [Investment Memo](/playbooks/investment-memo). If a term in any prompt is unfamiliar, the [Glossary](/resources/glossary) has it in plain English.

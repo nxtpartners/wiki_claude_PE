@@ -10,9 +10,9 @@ interface Props {
   // How much of the prompt to hide behind a toggle. Omit and the prompt renders
   // in full, exactly as before.
   //   'clamp'  — long templates cut to a readable height, with a "show full" toggle.
-  //   'closed' — body hidden entirely; the card reads as a title you click open.
-  //              Used on reference pages where the titles are the index.
-  collapse?: 'clamp' | 'closed';
+  //   'peek'   — short prompts show their first few lines, so the reader sees
+  //              what the prompt is before opening it. Used on reference pages.
+  collapse?: 'clamp' | 'peek';
 }
 const { prompt, label = 'Prompt', title, collapse } = Astro.props;
 
@@ -22,7 +22,7 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
 // single definition and the script stays mode-agnostic.
 const TOGGLE_TEXT = {
   clamp: { shut: 'Show full template', open: 'Show less' },
-  closed: { shut: 'Show prompt', open: 'Hide prompt' },
+  peek: { shut: 'Show full prompt', open: 'Show less' },
 } as const;
 const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
 ---
@@ -45,7 +45,7 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
     </button>
   </figcaption>
   <div
-    class:list={['pc-wrap', collapse === 'clamp' && 'pc-clamp', collapse === 'closed' && 'pc-closed']}
+    class:list={['pc-wrap', collapse === 'clamp' && 'pc-clamp', collapse === 'peek' && 'pc-peek']}
     data-prompt-wrap
   >
     <pre class="pc-body" id={uid} data-prompt-text>{prompt ? prompt : <slot />}</pre>
@@ -131,39 +131,39 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
   .pc-wrap {
     position: relative;
   }
-  .pc-clamp .pc-body {
-    max-height: 26rem;
+  /* Both collapse modes clip the body rather than removing it, so the Copy
+     button still copies the whole prompt. They differ only in how much shows. */
+  .pc-clamp {
+    --pc-visible: 26rem;
+    --pc-fade: 5rem;
+  }
+  .pc-peek {
+    --pc-visible: 19rem;
+    --pc-fade: 3.5rem;
+  }
+  .pc-clamp .pc-body,
+  .pc-peek .pc-body {
+    max-height: var(--pc-visible);
     overflow: hidden;
   }
-  .pc-clamp.open .pc-body {
+  .pc-clamp.open .pc-body,
+  .pc-peek.open .pc-body {
     max-height: none;
   }
   /* Fade the clipped edge so it reads as "continues below", not "ends here". */
-  .pc-clamp::after {
+  .pc-clamp::after,
+  .pc-peek::after {
     content: '';
     position: absolute;
     inset-inline: 0;
     bottom: 0;
-    height: 5rem;
+    height: var(--pc-fade);
     background: linear-gradient(to bottom, transparent, var(--bg-code));
     pointer-events: none;
   }
-  .pc-clamp.open::after {
+  .pc-clamp.open::after,
+  .pc-peek.open::after {
     display: none;
-  }
-
-  /* Fully closed: collapse the body rather than removing it, so the Copy button
-     can still read its text while the prompt is hidden. */
-  .pc-closed .pc-body {
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    overflow: hidden;
-  }
-  .pc-closed.open .pc-body {
-    max-height: none;
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-6);
   }
 
   .pc-toggle {
