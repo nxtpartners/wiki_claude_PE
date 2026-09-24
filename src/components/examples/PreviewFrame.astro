@@ -1,6 +1,6 @@
 ---
 // Shared frame for example preview components: the browser window chrome,
-// hover overlay with CTA, and caption. Each variant provides its body content
+// always-visible CTA, and caption. Each variant provides its body content
 // via the default slot and keeps only its body-specific CSS (parent scoped
 // styles do not reach slotted children in Astro).
 import { withBase } from '../../utils/withBase';
@@ -32,7 +32,6 @@ const ctaContent = `\n${ctaText}\n`;
     <div class="pf-chrome">
       <span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span>
       <span class="pf-url">{urlLabel}</span>
-      <span class="pf-tag">example</span>
     </div>
 
     <div class="pf-body" aria-hidden="true">
@@ -100,16 +99,6 @@ const ctaContent = `\n${ctaText}\n`;
     font-size: 0.7rem;
     color: var(--ink-muted);
   }
-  .pf-tag {
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--kpmg-cobalt);
-    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
-    border-radius: 999px;
-    padding: 2px 9px;
-  }
 
   /* Body slot wrapper */
   .pf-body {
@@ -118,7 +107,8 @@ const ctaContent = `\n${ctaText}\n`;
       linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
   }
 
-  /* Hover overlay CTA */
+  /* The CTA is always visible, so the reader knows the preview opens the real
+     thing. Hover or focus only adds the shade behind it. */
   .pf-overlay {
     position: absolute;
     inset: 0;
@@ -126,15 +116,21 @@ const ctaContent = `\n${ctaText}\n`;
     align-items: flex-end;
     justify-content: center;
     padding: var(--space-6);
+  }
+  .pf-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: linear-gradient(180deg, transparent 55%, rgba(0, 31, 87, 0.72) 100%);
     opacity: 0;
     transition: opacity 0.2s ease;
   }
-  .pf:hover .pf-overlay,
-  .pf:focus-visible .pf-overlay {
+  .pf:hover .pf-overlay::before,
+  .pf:focus-visible .pf-overlay::before {
     opacity: 1;
   }
   .pf-cta {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -163,19 +159,20 @@ const ctaContent = `\n${ctaText}\n`;
 
   @media (prefers-reduced-motion: reduce) {
     .pf-window,
-    .pf-overlay,
+    .pf-overlay::before,
     .pf-arrow {
       transition: none;
     }
   }
 
   @media (max-width: 520px) {
-    /* On small screens the overlay CTA is always visible, since there is no hover. */
+    /* On small screens the CTA sits below the preview instead of over it. */
     .pf-overlay {
-      opacity: 1;
       position: static;
-      background: none;
       padding: var(--space-4) 0 0;
+    }
+    .pf-overlay::before {
+      display: none;
     }
   }
 </style>

@@ -167,8 +167,7 @@ export const navAdvanced: NavSection[] = [
     label: 'Getting Started',
     items: [
       { title: 'Claude Code vs claude.ai', slug: 'claude-code/vs-claude-ai' },
-      { title: 'Installing VS Code', slug: 'claude-code/install-vs-code' },
-      { title: 'Installing & Signing In', slug: 'claude-code/sign-in' },
+      { title: 'Before you Start', slug: 'claude-code/install-vs-code' },
     ],
   },
   {
@@ -199,9 +198,14 @@ export const navAdvanced: NavSection[] = [
     ],
   },
   {
-    label: 'Examples',
+    label: 'AI Value Creation Matrix',
     items: [
       { title: 'AI Value Creation Matrix', slug: 'claude-code/example-value-creation' },
+    ],
+  },
+  {
+    label: 'Worked Example',
+    items: [
       { title: 'PortCo Pulse Dashboard', slug: 'claude-code/example-portco-pulse' },
     ],
   },

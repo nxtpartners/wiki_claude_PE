@@ -10,10 +10,10 @@ const docs = defineCollection({
     // Closed set, not a free string: a typo here would otherwise pass validation
     // and produce a page that renders but never appears in any nav section.
     section: z.enum([
+      'AI Value Creation Matrix',
       'Best Practices',
       'Claude Code Welcome',
       'Context',
-      'Examples',
       'First Sessions',
       'Foundations',
       'Getting Started',

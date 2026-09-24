@@ -1,6 +1,7 @@
 ---
 // Standalone full-width deliverable: the AI Value Creation Matrix.
-// This is the "finished artifact" that Example 1 walks you through building.
+// A tool built with Claude Code. Its guide page explains what it shows about
+// what private equity professionals can build.
 import DeliverableLayout from '../../layouts/DeliverableLayout.astro';
 import ValueCreationMatrix from '../../components/examples/ValueCreationMatrix.astro';
 import { withBase } from '../../utils/withBase';
@@ -12,7 +13,8 @@ const walkthroughHref = '/claude-code/example-value-creation';
   title="AI Value Creation Matrix"
   description="A filterable matrix of AI value-creation use cases across five private equity value levers, with hold-phase, fund-tier, and KPMG service views."
   walkthroughHref={walkthroughHref}
-  subtitle={`A structured, filterable inventory of AI value-creation use cases across five private equity value levers. Filter by hold phase, fund tier, and KPMG service line to see where each use case fits. This is the finished deliverable that the <a href="${withBase(walkthroughHref)}">Example 1 walkthrough</a> shows you how to assemble with Claude.`}
+  walkthroughLabel="the guide page"
+  subtitle={`A structured, filterable inventory of AI value-creation use cases across five private equity value levers. Filter by hold phase, fund tier, and KPMG service line to see where each use case fits. It was built with Claude Code; the <a href="${withBase(walkthroughHref)}">guide page</a> explains what it shows about what you can build.`}
 >
   <ValueCreationMatrix />
 </DeliverableLayout>
