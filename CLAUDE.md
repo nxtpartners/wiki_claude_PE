@@ -75,8 +75,8 @@ about **$60m**, US field-service software for HVAC/plumbing contractors, growth 
   equity teams" or "private equity professionals".
 - **Education first, never salesy.** This is a guide, not an ad. No "fastest analyst on your deal team".
 - **VS Code is required at KPMG, recommended everywhere else** (user, 2026-09-24): KPMG works only in VS Code,
-  so Before you Start lists it as "Required at KPMG". In general Claude Code runs in any terminal, so saying
-  that is correct; just never imply a KPMG reader can use a different setup.
+  so Before you Start lists it simply as "Required". The "recommended elsewhere" nuance is internal context only,
+  never page copy; just never imply a KPMG reader can use a different setup.
 - **A page must teach the concept in its own title.** A page called "Thinking & Effort" that never explains
   what thinking is has failed, regardless of how good the prose is.
 
