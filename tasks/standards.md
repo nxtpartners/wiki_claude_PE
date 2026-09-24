@@ -116,6 +116,7 @@ depends upward.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
 - [ ] Claude Code is never described as requiring VS Code (alt text describing the mockups is exempt).
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
+- [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 
 ## Exceptions
 

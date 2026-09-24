@@ -181,6 +181,7 @@ export const navAdvanced: NavSection[] = [
     label: 'Good Habits',
     items: [
       { title: 'CLAUDE.md Rulebook', slug: 'claude-code/claude-md' },
+      { title: 'Skills', slug: 'claude-code/skills' },
       { title: 'Organizing Many Deals', slug: 'claude-code/organizing-deals' },
       { title: 'Starting Something Bigger', slug: 'claude-code/requirements-brief' },
       { title: 'Habits That Keep You Safe', slug: 'claude-code/good-habits' },

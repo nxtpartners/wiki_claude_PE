@@ -38,7 +38,7 @@ Here is the structure as a blank template. Copy it, fill in the bracketed guidan
 <PromptCard title="Master prompt (blank)" collapse="clamp" prompt={`##############################################
 # [TASK NAME]: PROMPT TEMPLATE
 # Version: 1.0
-# Tested on: [model name], [month and year]
+# Tested on: Claude [model name], [month and year], by [your name]
 # Modes: INTAKE > CONFIRM > EXECUTE
 ##############################################
 
@@ -200,6 +200,7 @@ Use this at the start of a project to produce a fast, factual background on the 
 <PromptCard title="Opportunity Background" collapse="clamp" prompt={`##############################################
 # OPPORTUNITY BACKGROUND: PROMPT TEMPLATE
 # Version: 2.0
+# Tested on: Claude [model name], [month and year], by [your name]
 # Modes: INTAKE > CONFIRM > EXECUTE
 ##############################################
 
@@ -493,7 +494,10 @@ Commissioning expert interviews is routine on a strategy engagement. You send a 
 
 This template scores every candidate against a weighted 50-point framework and returns a ranked table. You paste in whatever the network sent you, unedited. The output tells you who to interview and why, and flags anyone whose rate or availability is a problem.
 
-<PromptCard title="Expert Interview Scorecard" collapse="clamp" prompt={`<context>
+<PromptCard title="Expert Interview Scorecard" collapse="clamp" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
+
+<context>
 I am a [Manager/Senior Associate] at KPMG Deal Advisory & Strategy conducting operational due diligence on [Target Company] in the [industry] sector for [PE Sponsor]. We need to identify and prioritize expert interview candidates across multiple functional areas to validate operational improvement hypotheses. This scoring framework ensures we select experts with the most relevant, recent, and specific experience to provide actionable insights for our value creation plan.
 </context>
 
@@ -620,7 +624,10 @@ Use this to turn dense source material, a vendor due diligence report or a CIM, 
 
 Each section opens with a broad question to set the stage, then narrows to specific probes. That ordering matters in a live meeting: leading with a granular question puts people on the defensive before you have the context to interpret the answer.
 
-<PromptCard title="Kickoff Agenda" collapse="clamp" prompt={`# Role
+<PromptCard title="Kickoff Agenda" collapse="clamp" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
+
+# Role
 You ARE a Principal Diligence Analyst at a top-tier M&A advisory firm. You are an expert at rapidly consuming dense source material (VDD reports, CIMs) and synthesizing it into a list of sharp, data-driven diligence questions. Your value is twofold: 1) identifying critical points for questioning within documents, and 2) organizing these points into a logical, professional agenda that flows from high-level context to specific detail.
 
 # Task
@@ -705,7 +712,10 @@ The companion to the kickoff agenda, and designed to run after it. Where the kic
 
 Its second intake question asks what came out of the kickoff call, so the deep dive builds on what you already learned instead of repeating it. Run the two in sequence.
 
-<PromptCard title="Functional Diligence Agenda" collapse="clamp" prompt={`# Role
+<PromptCard title="Functional Diligence Agenda" collapse="clamp" prompt={`# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
+
+# Role
 You ARE a Lead Functional Diligence Consultant at a top-tier M&A advisory firm. You are an expert in a specific business function (e.g., Finance, IT, HR) and excel at connecting deep operational details to the overarching M&A strategy. Your primary value is your ability to analyze function-specific documents and context to generate a precise, probing agenda that uncovers risks, dependencies, and standalone requirements.
 
 # Task
@@ -790,7 +800,10 @@ The main use case for Copilot is that you can create an agent linked to the Micr
 
 It is worth being explicit about why a Copilot agent appears in a Claude guide. The structure on this page is not specific to one assistant. A named role, stated inputs, an intake step, explicit constraints, and a defined output format behave the same way in Copilot as they do in Claude, and the instructions below deliberately push users back towards that same shape. Learn the structure once and it travels with you.
 
-<PromptCard title="Project Brain agent instructions" collapse="clamp" prompt={`# Project Brain Agent Instructions
+<PromptCard title="Project Brain agent instructions" collapse="clamp" prompt={`# Version: 1.0
+# Tested on: [assistant and model name], [month and year], by [your name]
+
+# Project Brain Agent Instructions
 
 ## Purpose
 - Serve as your all-in-one project brain for deep analysis, idea development, and creation of project work products.

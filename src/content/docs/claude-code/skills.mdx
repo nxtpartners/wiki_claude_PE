@@ -1,0 +1,53 @@
+---
+title: "Skills: Procedures Claude Uses on Demand"
+description: "A skill is your team's way of doing a recurring private equity task, saved once so Claude Code applies it every time."
+section: Good Habits
+order: 2
+---
+
+import PromptCard from '../../../components/PromptCard.astro';
+
+CLAUDE.md holds the rules that are always true. A skill holds how you do one recurring job: pulling KPIs from a monthly pack, screening a CIM, building a diligence question list. Write it once, and Claude Code follows your team's method every time the job comes up.
+
+## How it works
+
+A skill is a folder with a plain-text file called `SKILL.md`: a one-line description of when to use it, then the steps in plain English. Claude Code uses it on its own when a request matches the description, or when you type its name, such as `/kpi-pack-extractor`. Save it in the project's `.claude/skills` folder and everyone working in that project gets it.
+
+## Skills worth having
+
+- **KPI pack extraction:** pull the standard KPIs from a portfolio company's monthly pack, checked against plan.
+- **CIM first screen:** your fund's screening questions, applied the same way to every teaser and CIM.
+- **Diligence question list:** turn a data room index into questions by workstream.
+- **IC memo section:** draft in your committee's house structure and tone.
+- **Expert call notes:** summarize every call in the same format, ready to compare.
+
+## An example
+
+<PromptCard collapse="peek" title="kpi-pack-extractor/SKILL.md" label="Template">{`---
+# Version: 1.0
+# Tested on: Claude [model name], [month and year], by [your name]
+description: Pulls the standard KPIs from a portfolio company's monthly management pack and checks them against plan. Use when someone attaches or mentions a monthly pack, P&L, or KPI submission.
+---
+
+1. Find revenue, gross margin, EBITDA, headcount, and cash in the pack. Note the sheet or page each came from.
+2. If a KPI appears twice with different values, show both and ask which is right.
+3. If a KPI is missing, write "not in pack" and ask for it. Never estimate.
+4. Compare each figure with plan.xlsx in this folder and give the variance as a percentage.
+5. Output one table: KPI, actual, plan, variance, source.`}</PromptCard>
+
+The Submit view of the [PortCo Pulse Dashboard](/claude-code/example-portco-pulse) shows this procedure in action.
+
+## Making your own
+
+Do the task once with Claude Code until it is right, then ask Claude to save it. A skill holds method, never a client's facts.
+
+<PromptCard title="Turn a finished task into a skill">{`Turn the procedure we just followed into a skill called kpi-pack-extractor in this project's .claude/skills folder. Write the description in the words people will use to ask for it, keep every check we added, add a Version and Tested on line as comments at the top of the frontmatter, and show me the SKILL.md before saving.`}</PromptCard>
+
+## Use one that already exists
+
+You do not always have to write one. Skills others have built come packaged in plugins, and plugins are listed in catalogs called marketplaces.
+
+1. **Find where they are.** Browse Anthropic's catalog at [claude.com/plugins](https://claude.com/plugins). Inside Claude Code, type `/plugin` and open the **Marketplaces** tab to see which catalogs you have. If Anthropic's official one is missing, add it with `/plugin marketplace add anthropics/claude-plugins-official`. KPMG may also publish its own library of approved plugins.
+2. **Install one.** In `/plugin`, open the **Discover** tab, pick a plugin, and install it for yourself or for the whole project. Its skills are then ready to use.
+
+Much of the official catalog is aimed at software work, and a plugin can run software on your computer, so install only what KPMG has approved, and ask IT if you are unsure.
