@@ -22,7 +22,8 @@ const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
 // single definition and the script stays mode-agnostic.
 const TOGGLE_TEXT = {
   clamp: { shut: 'Show full template', open: 'Show less' },
-  peek: { shut: 'Show full prompt', open: 'Show less' },
+  // Names what the card holds, so a "Template" card offers the full template.
+  peek: { shut: `Show full ${label.toLowerCase()}`, open: 'Show less' },
 } as const;
 const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
 ---

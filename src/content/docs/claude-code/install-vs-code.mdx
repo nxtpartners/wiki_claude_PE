@@ -1,35 +1,32 @@
 ---
-title: Installing VS Code
-description: "VS Code is a free Microsoft editor and the recommended way to use Claude Code. Here is how to install it, with a plain tour of what you see."
+title: Before you Start
+description: "The software Claude Code needs, how to install VS Code and Claude Code, and how to sign in with your KPMG account."
 section: Getting Started
 order: 1
 ---
 
 import Callout from '../../../components/Callout.astro';
+import Collapsible from '../../../components/Collapsible.astro';
 import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
+import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import ccStaysLocal from '../../../assets/diagrams/cc-stays-local.png';
 
-Claude Code runs in a terminal, and this can be VS Code's built-in terminal or any other terminal on your computer. VS Code is a free editor made by Microsoft, and it is one of the most widely used pieces of software in the world. We recommend it because it puts your files, your editor, and the terminal Claude Code needs all in one window. The name looks technical, and it is often used by developers, but you do not need to know how to code to use it.
-
-<Callout type="note" title="Already have a terminal you prefer?">
-If you are comfortable working in your own terminal, you can skip this page. Install Claude Code using the steps on the next page, start it in any folder, and the rest of this track still applies. VS Code is the most efficient setup, not the only one.
+<Callout type="note" title="How KPMG sets this up today">
+This page assumes KPMG's process will move toward the setup shown below. Today, once your access to Claude Code is approved, Claude Code and VS Code are installed for you automatically on a virtual desktop, so you should only need to [Start Claude Code](#installing-and-signing-in).
 </Callout>
 
-<Callout type="warning" title="Involve IT first">
-Use your KPMG-managed device and follow your IT policy for installing software. If you are unsure whether you are allowed to install VS Code, or how, ask IT before you begin.
-</Callout>
-
-## Before you start
-
-VS Code is the only thing you install on this page, but it is not the only thing the track needs. The full list is below so you can raise it with IT once, rather than going back three times.
+Claude Code needs a few pieces of software on your computer. The full list is below so you can raise it with IT once, rather than going back three times.
 
 | Software | Required? | What it is for |
 | --- | --- | --- |
-| Node.js (includes npm) | Required | The free runtime that installs and runs Claude Code. If the install command on the next page reports that `npm` is not found, this is what is missing. |
+| VS Code | Required | The free Microsoft editor you work in. It puts your files, an editor, and the terminal Claude Code runs in, all in one window. |
+| Node.js (includes npm) | Required | The free runtime that installs and runs Claude Code. If the Claude Code install command below reports that `npm` is not found, this is what is missing. |
 | Git | Recommended | Version control on your own machine. Git is the program you install; GitHub and Azure DevOps are separate online services that store code. The two are easy to confuse. |
 | GitHub or Azure DevOps account | Only for code stored online | Needed to open or contribute to work hosted online. Not needed if you are working with files on your own machine, which is the common case. |
 
-## Installing it, step by step
+<Collapsible title="Installing VS Code, step by step" hint="Only if VS Code is not already on your desktop.">
 
 <Steps>
   <Step title="Download VS Code">
@@ -52,6 +49,86 @@ VS Code is the only thing you install on this page, but it is not the only thing
 
 That is the whole setup for VS Code. You do not need to learn its many features. Knowing where the file explorer, the editor, and the terminal are is enough to get started.
 
+</Collapsible>
+
 <Callout type="note" title="VS Code is ready, Claude Code is next">
-Installing VS Code does not install Claude Code. VS Code gives you the workspace; Claude Code is what you add to it. Adding Claude Code, and signing in with your KPMG account, is the next page: [Installing & Signing In to Claude Code](/claude-code/sign-in).
+Installing VS Code does not install Claude Code. VS Code gives you the workspace; Claude Code is what you add to it, in the steps below.
 </Callout>
+
+## Opening the terminal
+
+The terminal is where you talk to Claude Code, and where you install it in the first place. In VS Code, if you cannot see it at the bottom of the window, open it from the menu: **View -> Terminal**. A panel appears with a blinking cursor, waiting for you to type. That is all a terminal is: a place to type one instruction at a time and press enter.
+
+Here is the whole window, so you can see where each part sits. Your files are in the rail on the left, a file is open in the editor in the middle, and the terminal runs along the bottom. The three commands below are exactly what you will type next.
+
+<CodeWindow
+  filename="deal-screen"
+  ariaLabel="Recreated VS Code window. The file rail on the left lists a project folder, a file is open in the editor, and the terminal at the bottom shows Claude Code being installed, started, and signed in with a KPMG account."
+  caption="Installing and signing in, shown in the VS Code terminal."
+>
+  <ul slot="tree">
+    <li>deal-screen/</li>
+    <li>data.csv</li>
+    <li>notes.txt</li>
+    <li>CLAUDE.md</li>
+  </ul>
+  <pre slot="editor">{`CLAUDE.md
+
+What this project is:
+A private equity deal screen. Review the
+source files and draft clear summaries.`}</pre>
+  <pre slot="terminal">{`you@kpmg deal-screen %
+
+$ npm install -g @anthropic-ai/claude-code
+added 1 package in 4s
+
+$ claude
+Opening your browser to sign in...
+Signed in as you@kpmg.com
+
+Welcome to Claude Code. What would you like to do?
+> `}</pre>
+</CodeWindow>
+
+## Installing and signing in
+
+<Steps>
+  <Step title="Install Claude Code">
+    In the terminal, type the install command exactly as written below and press enter. This downloads Claude Code and makes it available on your machine. It runs once; you will not need to repeat it.
+
+    ```bash
+    npm install -g @anthropic-ai/claude-code
+    ```
+
+    If the terminal reports that `npm` is not found, Node.js is not installed yet. Node.js is the free runtime this command needs. Ask IT to install it, or to run this step for you, rather than downloading it yourself on a managed device.
+  </Step>
+  <Step title="Start Claude Code">
+    Still in the terminal, type the command below and press enter. This starts Claude Code in whatever folder you have open.
+
+    ```bash
+    claude
+    ```
+
+    The first time you run it, Claude Code will offer to sign you in and open your browser to do so.
+  </Step>
+  <Step title="Sign in with your KPMG account">
+    In the browser window that opens, sign in using your KPMG account through single sign-on, the same login you already use for firm systems. There is no separate password to create and no personal account to set up. If you are ever signed out later, type `/login` in the terminal to sign in again.
+  </Step>
+  <Step title="Confirm it is connected">
+    Once you are signed in, the browser hands you back to the terminal and Claude Code shows a ready prompt. That prompt is the sign that everything is connected. You can now type an instruction in plain English and begin.
+  </Step>
+</Steps>
+
+That ready prompt at the end, the `>` waiting for you, is the sign that everything is connected. From here on, you type in plain English and Claude Code replies.
+
+<Callout type="confidential" title="Use your KPMG account">
+Sign in only with your KPMG account, never a personal one: that is what puts your work under the firm's plan. Before you open any real deal material, read [Keeping Deal Data Safe](/claude-code/confidentiality).
+</Callout>
+
+## You stay in control
+
+The most reassuring thing about Claude Code is how it behaves once it is running. It does not change your files behind your back. Before it edits anything, it shows you a plan in plain English and waits for you to approve it. Nothing happens until you say yes. If the plan is not what you wanted, you say no and adjust the instruction. This approval step is not an obstacle; it is the safety rail that lets you work confidently, because you always see what is about to happen before it happens.
+
+<DiagramFigure image={ccStaysLocal} alt="A boundary around your machine holds your files inside, labeled your files stay here. Only your prompt and the context it needs cross the boundary out to Claude. Claude proposes changes back to you, and you approve before anything changes. A closing line reads: nothing goes live until you choose." caption="Claude proposes changes, you approve them, and nothing goes live until you choose." maxWidth={640} />
+
+Once you are signed in and comfortable with the approval model, you are ready to do real work in your files. The approval step will quickly become second nature: read the plan, say yes, and watch it done.

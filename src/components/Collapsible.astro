@@ -1,0 +1,90 @@
+---
+// A section of page content the reader can open and close. Native <details>
+// keeps it keyboard-accessible and working without JavaScript, and the
+// content stays in the page for search and screen readers while closed.
+
+interface Props {
+  title: string;
+  // One line under the title saying who needs to open it.
+  hint?: string;
+  open?: boolean;
+}
+const { title, hint, open = false } = Astro.props;
+---
+
+<details class="collapsible" open={open}>
+  <summary class="collapsible-summary">
+    <span class="collapsible-text">
+      <span class="collapsible-title">{title}</span>
+      {hint && <span class="collapsible-hint">{hint}</span>}
+    </span>
+    <svg class="collapsible-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+      <path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </summary>
+  <div class="collapsible-body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .collapsible {
+    margin: var(--space-8) 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    box-shadow: var(--shadow-sm);
+  }
+  .collapsible-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--radius-lg);
+  }
+  .collapsible-summary::-webkit-details-marker {
+    display: none;
+  }
+  .collapsible-summary:focus-visible {
+    outline: 2px solid var(--kpmg-blue);
+    outline-offset: 2px;
+  }
+  .collapsible-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .collapsible-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .collapsible-summary:hover .collapsible-title {
+    color: var(--kpmg-blue);
+  }
+  .collapsible-hint {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+  }
+  .collapsible-chevron {
+    flex: 0 0 auto;
+    color: var(--ink-muted);
+    transition: transform 0.18s ease;
+  }
+  .collapsible[open] .collapsible-chevron {
+    transform: rotate(180deg);
+  }
+  .collapsible-body {
+    padding: 0 var(--space-6) var(--space-2);
+    border-top: 1px solid var(--line);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .collapsible-chevron {
+      transition: none;
+    }
+  }
+</style>
