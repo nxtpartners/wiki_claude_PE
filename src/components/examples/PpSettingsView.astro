@@ -1,17 +1,11 @@
 ---
 // Settings view for the PortCo Pulse showcase.
 import { fiscalYear } from './pp-data';
+import PpViewHeader from './PpViewHeader.astro';
 ---
 
 <div class="pp-view" data-view="settings">
-  <!-- Settings header -->
-  <div class="pp-head">
-    <div>
-      <p class="pp-eyebrow">Configuration</p>
-      <h3 class="pp-title">Settings</h3>
-    </div>
-    <span class="pp-fy">{fiscalYear} plan</span>
-  </div>
+  <PpViewHeader eyebrow="Configuration" title="Settings" />
 
   <!-- RAG thresholds -->
   <div class="pp-panel">
@@ -41,7 +35,7 @@ import { fiscalYear } from './pp-data';
     </div>
     <div class="pp-setting-row">
       <span class="pp-setting-label">Fiscal year</span>
-      <span class="pp-setting-value">FY2026</span>
+      <span class="pp-setting-value">{fiscalYear}</span>
     </div>
     <div class="pp-setting-row">
       <span class="pp-setting-label">Reporting cadence</span>
@@ -51,80 +45,6 @@ import { fiscalYear } from './pp-data';
 </div>
 
 <style>
-  /* ---- View header (duplicated per Astro scoping) ---- */
-  .pp-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-  .pp-eyebrow {
-    margin: 0 0 2px;
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--kpmg-cobalt);
-  }
-  .pp-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-  .pp-fy {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 4px 10px;
-  }
-
-  /* ---- Switchable views ---- */
-  .pp-view {
-    display: none;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-  .pp-view.active {
-    display: flex;
-  }
-
-  /* ---- Panels ---- */
-  .pp-panel {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-  }
-  .pp-panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--line);
-  }
-  .pp-panel-title {
-    margin: 0;
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--kpmg-blue);
-  }
-  .pp-panel-note {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-  }
-
   /* ---- Settings rows ---- */
   .pp-setting-row {
     display: flex;
@@ -148,21 +68,4 @@ import { fiscalYear } from './pp-data';
     color: var(--ink-muted);
   }
 
-  /* ---- Status badges (duplicated per Astro scoping) ---- */
-  .pp-badge {
-    display: inline-block;
-    padding: 2px 9px;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.03em;
-    font-weight: 500;
-    white-space: nowrap;
-    background: color-mix(in srgb, var(--c) 12%, var(--bg));
-    color: var(--c);
-    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
-  }
-  .st-ontrack { --c: var(--kpmg-teal); }
-  .st-atrisk { --c: var(--warning); }
-  .st-offtrack { --c: var(--confidential); }
 </style>

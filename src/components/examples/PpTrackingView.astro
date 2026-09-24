@@ -1,17 +1,11 @@
 ---
 // Submission tracking view for the PortCo Pulse showcase.
-import { trackingRows, docLabels, period, fiscalYear } from './pp-data';
+import { trackingRows, docLabels, docStateLabels, period } from './pp-data';
+import PpViewHeader from './PpViewHeader.astro';
 ---
 
 <div class="pp-view" data-view="tracking">
-  <!-- Tracking header -->
-  <div class="pp-head">
-    <div>
-      <p class="pp-eyebrow">Submissions</p>
-      <h3 class="pp-title">Submission Tracking</h3>
-    </div>
-    <span class="pp-fy">{fiscalYear} plan</span>
-  </div>
+  <PpViewHeader eyebrow="Submissions" title="Submission Tracking" />
 
   <!-- Submission tracking -->
   <div class="pp-panel">
@@ -25,13 +19,13 @@ import { trackingRows, docLabels, period, fiscalYear } from './pp-data';
         {docLabels.map((d) => <span class="pp-track-doc">{d}</span>)}
       </div>
       {
-        trackingRows.map((row) => (
+        trackingRows.map((row, ri) => (
           <div class="pp-track-row">
             <span class="pp-track-co">{row.name}</span>
             {row.docs.map((state, i) => (
               <span class="pp-track-cell">
                 <span class="pp-track-doclabel" aria-hidden="true">{docLabels[i]}</span>
-                <span class:list={['pp-chip', `chip-${state}`]} aria-label={docLabels[i] + ' ' + (state === 'in' ? 'submitted' : state === 'out' ? 'missing' : 'not required')}>
+                <span class:list={['pp-chip', `chip-${state}`]} style={`--i:${ri * docLabels.length + i}`} aria-label={docLabels[i] + ' ' + docStateLabels[state]}>
                   {state === 'in' && (
                     <svg viewBox="0 0 24 24" width="13" height="13" fill="none" aria-hidden="true">
                       <path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
@@ -58,86 +52,12 @@ import { trackingRows, docLabels, period, fiscalYear } from './pp-data';
       <span class="pp-track-stat"><span class="dot dot-in" aria-hidden="true"></span>6 complete</span>
       <span class="pp-track-stat"><span class="dot dot-part" aria-hidden="true"></span>1 partial</span>
       <span class="pp-track-stat"><span class="dot dot-out" aria-hidden="true"></span>1 missing</span>
-      <span class="pp-track-pct">86% complete</span>
+      <span class="pp-track-pct" data-pp-count="1000">86% complete</span>
     </div>
   </div>
 </div>
 
 <style>
-  /* ---- View header (duplicated per Astro scoping) ---- */
-  .pp-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-  .pp-eyebrow {
-    margin: 0 0 2px;
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--kpmg-cobalt);
-  }
-  .pp-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-  .pp-fy {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 4px 10px;
-  }
-
-  /* ---- Switchable views ---- */
-  .pp-view {
-    display: none;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-  .pp-view.active {
-    display: flex;
-  }
-
-  /* ---- Panels ---- */
-  .pp-panel {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-  }
-  .pp-panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--line);
-  }
-  .pp-panel-title {
-    margin: 0;
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--kpmg-blue);
-  }
-  .pp-panel-note {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-  }
-
   /* ---- Submission tracking ---- */
   .pp-track {
     border: 1px solid var(--line);
@@ -274,5 +194,29 @@ import { trackingRows, docLabels, period, fiscalYear } from './pp-data';
       display: inline-block;
       justify-self: start;
     }
+  }
+
+  /* ---- Entrance (runs only while the showcase helper sets .pp-enter) ----
+     Submissions fill in cell by cell, row by row. Missing and not-required
+     cells are there from the start, so the gaps stay visibly empty while the
+     rest fills, then the missing ones get one ring. The completion figure
+     counts up alongside. */
+  .pp-view {
+    --t-cell: 35ms;
+    --t-summary: 950ms;
+    --t-flag: 1100ms;
+  }
+  .pp-enter .chip-in {
+    animation: pp-pop var(--pp-pop) var(--pp-ease) both;
+    animation-delay: calc(var(--t-cell) * var(--i));
+  }
+  .pp-enter .chip-out {
+    --flag-c: var(--c);
+    animation: pp-ring var(--pp-flag) ease-out;
+    animation-delay: var(--t-flag);
+  }
+  .pp-enter .pp-track-summary {
+    animation: pp-rise var(--pp-rise) var(--pp-ease) both;
+    animation-delay: var(--t-summary);
   }
 </style>

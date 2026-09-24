@@ -1,23 +1,17 @@
 ---
 // Data (KPI table) view for the PortCo Pulse showcase.
-import { kpiRows, fiscalYear } from './pp-data';
+import { kpiRows, kpiCompany } from './pp-data';
+import PpViewHeader from './PpViewHeader.astro';
 ---
 
 <div class="pp-view" data-view="data">
-  <!-- Data header -->
-  <div class="pp-head">
-    <div>
-      <p class="pp-eyebrow">Company Analytics</p>
-      <h3 class="pp-title">Veridian Software</h3>
-    </div>
-    <span class="pp-fy">{fiscalYear} plan</span>
-  </div>
+  <PpViewHeader eyebrow="Company Analytics" title={kpiCompany} />
 
   <!-- Company analytics KPI table -->
   <div class="pp-panel">
     <div class="pp-panel-head">
       <h4 class="pp-panel-title">Company Analytics</h4>
-      <span class="pp-panel-note">Veridian Software</span>
+      <span class="pp-panel-note">{kpiCompany}</span>
     </div>
     <div class="pp-table-wrap">
       <table class="pp-table">
@@ -32,8 +26,8 @@ import { kpiRows, fiscalYear } from './pp-data';
         </thead>
         <tbody>
           {
-            kpiRows.map((r) => (
-              <tr>
+            kpiRows.map((r, i) => (
+              <tr style={`--i:${i}`}>
                 <td class="pp-td-kpi" data-label="KPI">{r.kpi}</td>
                 <td class="pp-td-num" data-label="Actual">{r.actual}</td>
                 <td class="pp-td-num" data-label="Plan">{r.plan}</td>
@@ -51,80 +45,6 @@ import { kpiRows, fiscalYear } from './pp-data';
 </div>
 
 <style>
-  /* ---- View header (duplicated per Astro scoping) ---- */
-  .pp-head {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-  .pp-eyebrow {
-    margin: 0 0 2px;
-    font-family: var(--font-mono);
-    font-size: 0.64rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--kpmg-cobalt);
-  }
-  .pp-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    color: var(--ink);
-  }
-  .pp-fy {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 4px 10px;
-  }
-
-  /* ---- Switchable views ---- */
-  .pp-view {
-    display: none;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-  .pp-view.active {
-    display: flex;
-  }
-
-  /* ---- Panels ---- */
-  .pp-panel {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: var(--space-6);
-  }
-  .pp-panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--line);
-  }
-  .pp-panel-title {
-    margin: 0;
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: var(--kpmg-blue);
-  }
-  .pp-panel-note {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-muted);
-  }
-
   /* ---- KPI table ---- */
   .pp-table-wrap {
     overflow-x: auto;
@@ -172,24 +92,6 @@ import { kpiRows, fiscalYear } from './pp-data';
     font-size: 0.76rem;
     color: var(--ink);
   }
-
-  /* ---- Status badges (tints derived from tokens) ---- */
-  .pp-badge {
-    display: inline-block;
-    padding: 2px 9px;
-    border-radius: var(--radius-sm);
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    letter-spacing: 0.03em;
-    font-weight: 500;
-    white-space: nowrap;
-    background: color-mix(in srgb, var(--c) 12%, var(--bg));
-    color: var(--c);
-    border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
-  }
-  .st-ontrack { --c: var(--kpmg-teal); }
-  .st-atrisk { --c: var(--warning); }
-  .st-offtrack { --c: var(--confidential); }
 
   /* ---- Mobile: KPI table collapses to stacked cards ---- */
   @media (max-width: 720px) {
@@ -249,5 +151,32 @@ import { kpiRows, fiscalYear } from './pp-data';
       text-transform: uppercase;
       color: var(--ink-muted);
     }
+  }
+
+  /* ---- Entrance (runs only while the showcase helper sets .pp-enter) ----
+     Each KPI row arrives with its actual and plan, and the RAG badges settle
+     last, so the reader's eye ends on variance against plan. Anything not On
+     Track gets one ring. */
+  .pp-view {
+    --t-badges: 650ms;
+    --t-flag: 1300ms;
+  }
+  .pp-enter .pp-table tbody td {
+    animation: pp-rise var(--pp-rise) var(--pp-ease) both;
+    animation-delay: calc(var(--i) * var(--pp-step));
+  }
+  .pp-enter .pp-table .pp-badge {
+    animation: pp-pop var(--pp-pop) var(--pp-ease) both;
+    animation-delay: calc(var(--t-badges) + var(--i) * var(--pp-step));
+  }
+  .pp-enter .pp-table .pp-badge.st-atrisk,
+  .pp-enter .pp-table .pp-badge.st-offtrack {
+    --flag-c: var(--c);
+    animation:
+      pp-pop var(--pp-pop) var(--pp-ease) both,
+      pp-ring var(--pp-flag) ease-out;
+    animation-delay:
+      calc(var(--t-badges) + var(--i) * var(--pp-step)),
+      var(--t-flag);
   }
 </style>

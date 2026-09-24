@@ -1,0 +1,54 @@
+---
+// The header every PortCo Pulse view opens with: eyebrow, title, and the
+// plan-year chip. One component so the markup and its CSS exist once.
+import { fiscalYear } from './pp-data';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+}
+const { eyebrow, title } = Astro.props;
+---
+
+<div class="pp-head">
+  <div>
+    <p class="pp-eyebrow">{eyebrow}</p>
+    <h3 class="pp-title">{title}</h3>
+  </div>
+  <span class="pp-fy">{fiscalYear} plan</span>
+</div>
+
+<style>
+  .pp-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+  }
+  .pp-eyebrow {
+    margin: 0 0 2px;
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--kpmg-cobalt);
+  }
+  .pp-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .pp-fy {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+  }
+</style>
