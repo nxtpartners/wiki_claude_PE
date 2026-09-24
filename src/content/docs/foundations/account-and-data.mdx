@@ -7,6 +7,10 @@ order: 3
 
 import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
+import Steps from '../../../components/Steps.astro';
+import Step from '../../../components/Step.astro';
+import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
+import confidentiality from '../../../assets/diagrams/confidentiality.png';
 
 The first honest question any private equity professional asks is simple: *"Is it safe to put confidential material into this?"* You should know the answer before you upload a single page. This guidance is operational, not legal advice; KPMG's own policies and the specific deal's NDA always govern.
 
@@ -46,9 +50,53 @@ The training guarantee handles one risk. It does not handle all of them. Confide
 - **Workspace and Projects.** Keep each live deal's material inside its own dedicated Project. That separation is how you stop one engagement's documents from drifting into another, and it keeps context clean. The [Setting Up a Deal Project](/projects/deal-setup) page walks through doing this properly.
 - **What the NDA permits.** An NDA may restrict where material can be processed or who may view it. The plan's properties do not override those terms; you do.
 
-<Callout type="confidential" title="Enterprise/Team is not a substitute for an NDA">
-The plan means your data is not used for training. It does **not** override an NDA, a confidentiality agreement, or KPMG's data-handling rules. Before uploading anything tied to a live deal, confirm the document is permitted to be processed this way. When you are unsure, do not upload, and check first. The [Confidentiality Decision Tree](/best-practices/confidentiality) gives you a clear path through that judgment.
+## Before you upload: the decision
+
+The plan keeps your material out of training, but a document can still be one you should not put in, because of an NDA, a client restriction, or KPMG's own rules. On a live mandate you might handle a signed teaser, a data-room extract, and a public annual report in the same afternoon, and each has a different answer. Work down these checks in order. The first "no", or any doubt, stops you.
+
+<DiagramFigure image={confidentiality} alt="Confidentiality decision flow: five checks that must all be yes before a document can go into Claude, otherwise do not upload and ask first." caption="Work down the gates in order. The first no, or any doubt, stops you. Clear all five and it is safe to upload." maxWidth={560} />
+
+<Steps>
+  <Step title="Are you in the KPMG workspace?">
+    Open Claude and confirm KPMG is named at the top of the menu. If you do not see KPMG, you may be in a personal account where uploads can be used for training. Stop, sign into the right account, and only then continue. No confidential document goes into a consumer plan, ever.
+  </Step>
+  <Step title="Is the document public?">
+    If the material is already public (a published annual report, a press release, a company's own marketing site, a regulator's filing), it is low-risk by nature and almost always fine to use. Public information stays public. If yes, you can proceed. If no, keep going down the tree.
+  </Step>
+  <Step title="Is it under an NDA, and what does that NDA permit?">
+    For anything tied to a live deal, the NDA governs. Some agreements restrict where material may be processed, which third-party tools are allowed, or who may see it. The plan's training guarantee does not override those terms. If the NDA permits processing in approved tools and Claude qualifies under KPMG's guidance, continue. If it restricts processing, or you genuinely do not know what it permits, do not upload: ask first.
+  </Step>
+  <Step title="Are there client-specific restrictions?">
+    Beyond the NDA, a client may have its own rules: named-individual access only, no cloud processing of certain categories, or specific data that must never leave a defined system. Honor those. They sit on top of everything else and are not yours to waive.
+  </Step>
+  <Step title="Does KPMG's own policy allow it?">
+    KPMG's data-handling and risk policies are the final gate and they always apply. If internal policy says a category of material cannot go into a tool like this, that decision stands regardless of what the NDA or the plan would otherwise allow.
+  </Step>
+  <Step title="Still unsure? Then the answer is no, for now.">
+    If you have reached this point and any gate is uncertain, treat the document as not-yet-permitted and check before uploading. "Ask first" is not a failure. It is the correct outcome whenever the answer is not clearly yes.
+  </Step>
+</Steps>
+
+<Callout type="confidential" title="When in doubt, do not upload">
+The cost of pausing to confirm is a few minutes. The cost of putting a restricted document somewhere it should not be can be a breached NDA or a damaged client relationship. If any gate above is unclear, keep the file out of Claude until you have a clear yes from the right person. Uncertainty is a reason to stop, not a reason to proceed carefully.
 </Callout>
+
+## Common cases
+
+Most documents fall into a few recognizable buckets. This is how the checks above usually resolve, not a substitute for them.
+
+<ComparisonTable title="How the common cases usually land" caption="Always defer to the NDA, the client's restrictions, and KPMG policy. This shows the typical outcome, not a guarantee.">
+
+| Document | Typical outcome | Why |
+| --- | --- | --- |
+| A target's published annual report | Generally fine | Already public |
+| A press release or company marketing site | Generally fine | Already public |
+| A teaser or CIM under a signed NDA | Usually fine if the NDA permits it | Covered by the plan and the agreement |
+| A data-room document on a live deal | Check the NDA and client terms first | Restrictions may apply to where it is processed |
+| Personal data (named individuals, HR records) | Pause and confirm | Data-protection rules apply on top |
+| Anything you cannot place against an NDA | Do not upload, ask first | If you cannot trace the permission, assume there isn't one |
+
+</ComparisonTable>
 
 ## Controls that are set above you
 
@@ -65,8 +113,8 @@ You do not need to manage any of this yourself. The benefit of a managed plan is
 Put the picture together and the working stance is straightforward:
 
 - On Enterprise/Team, your prompts and files are **not used for training**, so the plan is appropriate for professional work.
-- That guarantee does **not** replace an NDA or KPMG's data rules. Confirm a document is permitted before it goes in.
+- That guarantee does **not** replace an NDA or KPMG's data rules. Run the checks in [Before you upload](#before-you-upload-the-decision) before a document goes in.
 - Keep each deal in its **own Project** so material stays separated and access stays clean.
 - Connectors, retention, and membership are handled by **KPMG IT and administrators**, not by you.
 
-Used this way, Claude is a safe and capable partner for confidential deal work. The remaining judgment, deciding whether a specific document belongs in a specific Project, is the one thing the technology cannot make for you. For that, work through the [Confidentiality Decision Tree](/best-practices/confidentiality), and when you are ready to start a live engagement, see [Setting Up a Deal Project](/projects/deal-setup). If any term here is unfamiliar, the [Glossary](/resources/glossary) keeps the plain-English definitions in one place.
+Used this way, Claude is a safe and capable partner for confidential deal work. The one judgment the technology cannot make for you is whether a specific document belongs in a specific Project: run the checks above every time. When you are ready to start a live engagement, see [Setting Up a Deal Project](/projects/deal-setup). If any term here is unfamiliar, the [Glossary](/resources/glossary) keeps the plain-English definitions in one place.

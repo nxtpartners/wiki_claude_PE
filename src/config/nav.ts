@@ -145,7 +145,6 @@ export const navCore: NavSection[] = [
         startClosed: true,
         items: [
           { title: 'Verify Everything', slug: 'best-practices/verify-everything' },
-          { title: 'Confidentiality Decision Tree', slug: 'best-practices/confidentiality' },
           { title: 'What Not to Do', slug: 'best-practices/what-not-to-do' },
           { title: 'Cheat Sheet', slug: 'best-practices/cheat-sheet' },
         ],
