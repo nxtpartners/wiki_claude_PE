@@ -74,8 +74,8 @@ about **$60m**, US field-service software for HVAC/plumbing contractors, growth 
 - **Never call the audience "deal teams".** It is KPMG **Private Equity**, which is broader. Write "private
   equity teams" or "private equity professionals".
 - **Education first, never salesy.** This is a guide, not an ad. No "fastest analyst on your deal team".
-- **Claude Code is a CLI that runs in any terminal.** VS Code is the recommended setup and the worked example,
-  **never a prerequisite**. Alt text describing the VS Code mockups is exempt — it describes the image.
+- **VS Code is Required for the Claude Code track** (user decision, 2026-09-24): Before you Start lists it as
+  Required. Some older pages still call it recommended or optional; aligning them is in `tasks/plan.md`.
 - **A page must teach the concept in its own title.** A page called "Thinking & Effort" that never explains
   what thinking is has failed, regardless of how good the prose is.
 

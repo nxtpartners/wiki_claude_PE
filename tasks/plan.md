@@ -117,22 +117,11 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
 3. **Astro 6 deprecates `markdown.remarkPlugins` / `rehypePlugins` / `remarkRehype`** in `astro.config.mjs`.
    That is the exact config path the base-path prose-link rewriter in `src/plugins/` depends on, so this
    becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
-
-4. **The four `Pp*View.astro` components repeat ~330 lines of CSS and one markup block.** Raised as a
-   blocker by the duplication audit 2026-08-10 (now the `review` role). Identical rules in all four: `.pp-head/.pp-eyebrow/.pp-title/.pp-fy`
-   (39 lines), `.pp-view` + `.pp-view.active` (7), `.pp-panel*` (24); plus `.pp-badge` and the three
-   `.st-*` status modifiers duplicated across `PpDataView` and `PpSettingsView` (12). The `.pp-head` markup
-   block (7 lines) is byte-identical in all four. Cause: Astro scopes `<style>` per file, so the split forced
-   copies. Fix: a `PpViewHeader.astro` for the markup, and one shared stylesheet or `:global()` rules on
-   `PortcoPulseShowcase` for the CSS.
-5. **`PpSettingsView.astro:44` hardcodes `FY2026`**, which is `fiscalYear` in `pp-data.ts:6`. The other three
-   views import it correctly.
-
-### Done 2026-08-10
-- Extracted `src/layouts/DeliverableLayout.astro` and `src/components/examples/PreviewFrame.astro`; the two
-  deliverable pages went 277 shared lines to 36, the two previews 603 to 330.
-- Split `ValueCreationMatrix.astro` (1265 to 493) and `PortcoPulseShowcase.astro` (1126 to 299) into data
-  modules plus per-view components.
-- `index.astro` now derives its curriculum from `nav.ts` instead of parallel arrays.
-- Added `--space-5` and `--space-10`; fixed KPMG blue inside `ClaudeSidebar.astro`; `content.config.ts`
-  `section` is now a `z.enum`.
+4. **Align VS Code wording with "Required".** Before you Start lists VS Code as Required (user decision
+   2026-09-24), but older pages still call it recommended or say Claude Code runs in any terminal, including
+   both glossaries. Grep `recommended\|any terminal` in `src/content/docs` and align with the user.
+5. **Regenerate the homepage hero diagram.** `home-two-paths.png` still has "Core Track" and "Advanced Track"
+   in its pixels. The prompt in `diagrams_home/diagrams_prompts/01-two-paths.md` is already updated; the user
+   generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.
+6. **Em dashes in component code comments** (`global.css`, `PromptCard`, `Sidebar`, `CodeWindow`) break the
+   house rule. Pre-existing; fix when those files are next touched.

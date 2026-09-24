@@ -18,8 +18,7 @@ There is **no single constants file and that is correct** — a CSS custom prope
 module and still cascade. The test that matters holds: you can restyle the product by editing `global.css`
 alone.
 
-**Spacing steps that exist are 1, 2, 3, 4, 6, 8, 12, 16, 24.** There is no `--space-5`, `-7`, `-9`, `-10`, or
-`-11`. An undefined custom property is dropped silently by the browser and collapses to zero, so this fails as
+**Spacing steps that exist are 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 24.** There is no `--space-7`, `-9`, or `-11`. An undefined custom property is dropped silently by the browser and collapses to zero, so this fails as
 invisible layout damage rather than as an error. See Exceptions.
 
 **2 · Enums.** Closed sets are TypeScript string-literal unions on the component's `Props`, not free strings:
@@ -32,9 +31,9 @@ invisible layout damage rather than as an error. See Exceptions.
 
 - `applyBase()` in `basePath.ts` is the **only** place the base-path rule is expressed, and it is idempotent —
   applying it twice is safe.
-- `existingDocSlugs()` answers "does this nav slug have real content". All four consumers (Sidebar, Footer,
-  PrevNext, index) import it. It exists because that two-line `getCollection` + `Set` lookup had been
-  copy-pasted into all four.
+- `existingDocSlugs()` answers "does this nav slug have real content". Every component that needs that answer
+  imports it. It exists because that two-line `getCollection` + `Set` lookup had once been copy-pasted into
+  four components.
 - **Nav-derived chrome reads the registry and never re-states it.** Footer derives via `walkSections()` +
   `navForTrack()`. A parallel array of section labels is the specific bug this rule exists to prevent: a
   rename in `nav.ts` silently dropped a footer link with no build failure.
@@ -114,7 +113,8 @@ depends upward.
 - [ ] `welcome.mdx`, `first-15-minutes.mdx`, and `Header.astro` unchanged unless the change is additive and
       content-preserving.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
-- [ ] Claude Code is never described as requiring VS Code (alt text describing the mockups is exempt).
+- [ ] VS Code is presented as required setup for the Claude Code track, consistent with Before you Start
+      (`claude-code/install-vs-code`). User decision 2026-09-24.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 
