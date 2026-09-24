@@ -5,7 +5,6 @@ section: Projects
 order: 4
 ---
 
-import Callout from '../../../components/Callout.astro';
 import PromptCard from '../../../components/PromptCard.astro';
 import Steps from '../../../components/Steps.astro';
 import Step from '../../../components/Step.astro';
@@ -13,7 +12,7 @@ import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
 import ClaudeProject from '../../../components/claude-ui/ClaudeProject.astro';
 import FileChip from '../../../components/claude-ui/FileChip.astro';
 
-This is where a real CIM, live financials, and NDA-bound diligence actually go. A deal project is the workbench layer from the [two-layer system](/projects/two-layer-system): one project, one live opportunity, fully siloed. This page walks through standing one up properly, using **Project Atlas**, a mid-market field-service software target, as the worked example. The discipline here matters more than anywhere else in this guide, because this is where confidential material lives.
+This is where a real CIM, live financials, and NDA-bound diligence actually go. A deal project is the workbench layer from the [two-layer system](/projects/two-layer-system): one project, one live opportunity, fully siloed. This page walks through standing one up properly, using **Project Atlas**, a mid-market field-service software target, as the worked example.
 
 ## Standing up the Atlas project
 
@@ -22,7 +21,7 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
     Open <strong>Projects</strong>, choose <strong>New project</strong>, and name it for this opportunity alone, for example <strong>Project Atlas</strong>. One opportunity, one project. Never reuse an existing deal project for a different target, and never combine two opportunities in one place.
   </Step>
   <Step title="Confirm what is permitted before anything goes in">
-    Before uploading a single file, check what the opportunity's NDA and KPMG's data-handling rules allow into a tool like this. This is a confirmation step, not a formality. If a document is not cleared, it does not go in. Work this out first, while the project is still empty.
+    Before uploading a single file, check that the opportunity's NDA and KPMG's data-handling rules allow it into Claude; if a document is not cleared, it does not go in. The checks to run are in [Your Account & Confidential Data](/foundations/account-and-data#before-you-upload-the-decision).
   </Step>
   <Step title="Add the cleared data room files">
     Upload the permitted materials into the project's knowledge base: the CIM, the financials, the management deck, and any cleared diligence documents. These become the shared context every chat in the project can read, so you never re-attach them.
@@ -34,7 +33,7 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
     All Atlas work happens in the Atlas project. Do not paste Atlas figures into a chat in another project, and do not pull another opportunity's files in here. The silo only holds if you respect it in daily use.
   </Step>
   <Step title="Archive or delete on close">
-    When the opportunity closes, completes, or dies, archive or delete the project according to KPMG's retention rules. A deal project is temporary by design: it should not linger with live confidential data once the work is done.
+    When the opportunity closes, completes, or dies, archive or delete the project according to KPMG's retention rules. A deal project is temporary by design.
   </Step>
 </Steps>
 
@@ -49,10 +48,6 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
     <FileChip name="Atlas_diligence_QA.docx" kind="doc" />
   </ClaudeProject>
 </ClaudeWindow>
-
-<Callout type="confidential" title="The silo and the NDA check are non-negotiable">
-Two rules protect every live opportunity. First, the silo: Atlas materials stay in the Atlas project and nothing from another opportunity ever enters it, so one opportunity's information can never surface in another's work. Second, the NDA check: confirm a document is permitted before it is uploaded, every time, with no exceptions. Enterprise and Team plans keep your data out of model training, but that does not override an NDA or KPMG's data-handling rules. When in doubt, do not upload, and check first.
-</Callout>
 
 ## The custom instructions to start with
 
@@ -76,6 +71,6 @@ Reminder: this is live, confidential material. Treat every figure as something I
 
 ## After the opportunity closes
 
-A deal project is not meant to outlive its opportunity. Once Atlas closes or is passed on, archive or delete the project in line with KPMG's retention policy. The methodology you used lives safely in your reusable function projects, so nothing of lasting value is lost by clearing down the confidential workbench.
+A deal project is not meant to outlive its opportunity. Once Atlas closes or is passed on, archive or delete the project in line with KPMG's retention policy. The methodology you used lives safely in your reusable function projects, so nothing of lasting value is lost by clearing down the workbench.
 
-To see this deal project carried through a full opportunity, from first screen to investment committee, follow the [Project Atlas](/worked-example/project-atlas) walkthrough. For the wider rules on what may go in and how to handle sensitive material, see the [Confidentiality Decision Tree](/best-practices/confidentiality) and [Your Account & Confidential Data](/foundations/account-and-data).
+To see this deal project carried through a full opportunity, from first screen to investment committee, follow the [Project Atlas](/worked-example/project-atlas) walkthrough.

@@ -31,14 +31,14 @@ So where does a folder go when it goes live? It goes onto a host, a service whos
 
 Notice what both have in common: they start from the Git repository you already set up. That is why saving your work with Git comes first. Going live is really just connecting that repository to a host, which then turns your latest save into a live link. You do not manage any servers yourself; the host does that part.
 
-The plain-English shape of it is: your files live in a Git repository, you push that repository to a service like GitHub, and a host like GitHub Pages or Cloudflare Pages serves it at a shareable address. Claude Code can walk you through each of those moves, but the decision of where to host, and whether the content is cleared to be public, belongs with IT and security.
+The plain-English shape of it is: your files live in a Git repository, you push that repository to a service like GitHub, and a host like GitHub Pages or Cloudflare Pages serves it at a shareable address. Claude Code can walk you through each of those moves, but the decision of where to host belongs with IT and security.
 
 ## The order of operations
 
 The simplest way to think about it is in three moves. First, you build and test the project on your own computer until it does what you want. Second, you ask Claude Code to help you prepare and tidy the files. Third, you involve IT or engineering to take it live in a safe, approved way. Keeping these steps separate keeps you out of trouble.
 
-<Callout type="warning" title="Check with IT and security first">
-Never publish anything that contains firm data or deal data without clearance. A live link is, by definition, reachable by others, and once something is online you cannot assume it stays private. Before you deploy anything, confirm with your IT and security colleagues that the content is cleared to go live and that it is hosted in an approved place. When in doubt, ask before you publish, not after.
+<Callout type="confidential" title="Check with IT and security first">
+A live link is reachable by others, so never publish anything containing firm or deal data until IT and security have confirmed it is cleared to go live in an approved place. For what may go where, see [Keeping Deal Data Safe](/claude-code/confidentiality).
 </Callout>
 
 The takeaway is a comfortable one. Deployment is not something you have to figure out alone, and it is not a wall you need to scale on your own. Understand the concept, let Claude Code help you prepare, and bring in the right people to take it the last step of the way.

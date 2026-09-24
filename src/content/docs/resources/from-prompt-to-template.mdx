@@ -790,8 +790,6 @@ The main use case for Copilot is that you can create an agent linked to the Micr
 
 It is worth being explicit about why a Copilot agent appears in a Claude guide. The structure on this page is not specific to one assistant. A named role, stated inputs, an intake step, explicit constraints, and a defined output format behave the same way in Copilot as they do in Claude, and the instructions below deliberately push users back towards that same shape. Learn the structure once and it travels with you.
 
-One caution, and it is a real one. An agent with standing access to project files is only as safe as the sources it is pointed at. Everything in the [Confidentiality Decision Tree](/best-practices/confidentiality) applies, and it applies to the whole connected source rather than to one document at a time.
-
 <PromptCard title="Project Brain agent instructions" collapse="clamp" prompt={`# Project Brain Agent Instructions
 
 ## Purpose
@@ -924,7 +922,7 @@ Return a table of your changes (section, change, why), then the full updated tem
 That line is the proof a template fits a model: a record of a test someone ran, not the model's own claim. If it names a different model from the one in your pill, run the test before relying on it.
 
 <Callout type="confidential" title="Before you paste in a document">
-These templates are written to be filled with live engagement material. Confirm the document is permitted for processing in the KPMG Enterprise or Team workspace before you attach anything, using the [Confidentiality Decision Tree](/best-practices/confidentiality). And verify the output against the source before it reaches a deliverable, as [Verify Everything](/best-practices/verify-everything) explains.
+These templates are filled with live engagement material, so confirm a document is cleared for Claude before you attach it. The checks are in [Your Account & Confidential Data](/foundations/account-and-data#before-you-upload-the-decision).
 </Callout>
 
 For shorter, single-task prompts covering everyday deal work, see the [Prompt Library](/resources/prompt-library). For the reasoning behind the structure, and the patterns that stack on top of it, start with [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).

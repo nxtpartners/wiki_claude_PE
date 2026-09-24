@@ -81,15 +81,15 @@ The flip side matters too: because context accumulates, a chat that has drifted 
 
 ## How to supply context
 
-If context is everything, the next question is purely practical: how do you actually get your material in front of Claude? There are three routes, and most PE work uses the first two every day. The sections below walk through each, when to reach for it, and the one habit that keeps confidential material safe.
+If context is everything, the next question is purely practical: how do you actually get your material in front of Claude? There are three routes, and most PE work uses the first two every day. The sections below walk through each and when to reach for it.
 
 <ComparisonTable title="Attach, paste, or connect" caption="Most PE work lives in the first two rows. Connectors are an optional accelerator your IT team enables.">
 
 | Method | When to use it | Strengths | Watch-outs |
 | --- | --- | --- | --- |
-| **Attach a file** | A teaser, CIM, model, or deck already saved on your machine | Reads whole documents (PDF, Word, Excel) in full; the everyday default | Confirm the file is permitted before uploading |
+| **Attach a file** | A teaser, CIM, model, or deck already saved on your machine | Reads whole documents (PDF, Word, Excel) in full; the everyday default | Wait for the file to finish attaching before you send |
 | **Paste text directly** | A few paragraphs, an email, a table, or notes with no file | Fast; no upload step; good for snippets | Long pastes get unwieldy; a file is cleaner past a page |
-| **Connect a live source** | A large or frequently updated library (for example Google Drive) | Pulls live, large sources without re-uploading | Must be enabled by IT; always check the permissions on what you pull |
+| **Connect a live source** | A large or frequently updated library (for example Google Drive) | Pulls live, large sources without re-uploading | Must be enabled by IT |
 
 </ComparisonTable>
 
@@ -115,7 +115,11 @@ Sometimes there is no file, just a chunk of text: a paragraph from an email, a s
 
 ### Connect a live source
 
-Connectors let Claude reach an external system, such as a shared drive, without you downloading and re-uploading files by hand. They shine when the source is large or changes often. Two things to know up front: a connector has to be **switched on by your IT or workspace administrator** before it appears, and when you pull from it you should **check the permissions** on what you are accessing, exactly as you would on the underlying system. Connectors are an accelerator, not a requirement; the [Connectors](/power-features/connectors) page covers them in full.
+Connectors let Claude reach an external system, such as a shared drive, without you downloading and re-uploading files by hand. They shine when the source is large or changes often. One thing to know up front: a connector has to be **switched on by your IT or workspace administrator** before it appears. Connectors are an accelerator, not a requirement; the [Connectors](/power-features/connectors) page covers them in full.
+
+<Callout type="confidential" title="Before you add live deal material">
+Before you attach, paste, or connect anything tied to a live deal, run it through the checks in [Your Account & Confidential Data](/foundations/account-and-data#before-you-upload-the-decision). Enterprise and Team keep it out of model training, but an NDA or KPMG's data-handling rules still decide what may go in.
+</Callout>
 
 ## Asking across several documents
 
@@ -133,14 +137,6 @@ Use a short table for the comparison. If a number appears in one file but not th
 </PromptCard>
 
 That single prompt does work that would otherwise mean flipping between two documents line by line, and it tells Claude to flag mismatches instead of papering over them.
-
-## Confirm before you upload
-
-Every method above puts your material into Claude, so the discipline is the same regardless of route: be deliberate about what goes in.
-
-<Callout type="confidential" title="Confirm a file is permitted before you upload it">
-On KPMG's Enterprise and Team plan your uploads are not used to train Anthropic's models, but that does not override an NDA or KPMG's data-handling rules. Before attaching anything tied to a live deal, confirm it is permitted, use the right workspace, and keep each deal's material inside its own dedicated Project. The full rules are in [Your Account & Confidential Data](/foundations/account-and-data).
-</Callout>
 
 ## The takeaway
 

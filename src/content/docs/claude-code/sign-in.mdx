@@ -15,7 +15,7 @@ import ccStaysLocal from '../../../assets/diagrams/cc-stays-local.png';
 With a terminal ready, the last step is to add Claude Code itself and sign in. This is a one-time setup, and it happens in the terminal (in VS Code, the panel at the bottom of the window; otherwise, whichever terminal you prefer). Do not worry: it is three short lines you type once, and Claude Code is then ready whenever you open a terminal.
 
 <Callout type="warning" title="Involve IT first">
-The steps below install software and connect it to your KPMG account. On a managed device, IT may need to run them for you, or provide an approved route. Confirm with IT before you begin, and use only your KPMG-managed device for any firm or client work.
+The steps below install software and connect it to your KPMG account. On a managed device, IT may need to run them for you, or provide an approved route. Confirm with IT before you begin, and use only your KPMG-managed device.
 </Callout>
 
 ## Opening the terminal
@@ -27,7 +27,7 @@ Here is the whole window, so you can see where each part sits. Your files are in
 <CodeWindow
   filename="deal-screen"
   ariaLabel="Recreated VS Code window. The file rail on the left lists a project folder, a file is open in the editor, and the terminal at the bottom shows Claude Code being installed, started, and signed in with a KPMG account."
-  caption="Installing and signing in, shown in the VS Code terminal. Your files stay on your machine."
+  caption="Installing and signing in, shown in the VS Code terminal."
 >
   <ul slot="tree">
     <li>deal-screen/</li>
@@ -84,18 +84,14 @@ Welcome to Claude Code. What would you like to do?
 
 That ready prompt at the end, the `>` waiting for you, is the sign that everything is connected. From here on, you type in plain English and Claude Code replies.
 
+<Callout type="confidential" title="Use your KPMG account">
+Sign in only with your KPMG account, never a personal one: that is what puts your work under the firm's plan. Before you open any real deal material, read [Keeping Deal Data Safe](/claude-code/confidentiality).
+</Callout>
+
 ## You stay in control
 
 The most reassuring thing about Claude Code is how it behaves once it is running. It does not change your files behind your back. Before it edits anything, it shows you a plan in plain English and waits for you to approve it. Nothing happens until you say yes. If the plan is not what you wanted, you say no and adjust the instruction. This approval step is not an obstacle; it is the safety rail that lets you work confidently, because you always see what is about to happen before it happens.
 
-<DiagramFigure image={ccStaysLocal} alt="A boundary around your machine holds your files inside, labeled your files stay here. Only your prompt and the context it needs cross the boundary out to Claude. Claude proposes changes back to you, and you approve before anything changes. A closing line reads: nothing goes live until you choose." caption="Your files stay on your machine. Only your prompt and the context it needs leave, and nothing goes live until you choose." maxWidth={640} />
-
-<Callout type="confidential" title="What stays local">
-Your files stay on your machine. Claude Code reads and edits them locally, on your computer, not on some distant server. The only thing that reaches Claude is what you actually send in a prompt. Because this touches firm and client data, involve IT before your first use on any real work, and follow their guidance on what may be used with the tool.
-</Callout>
-
-<Callout type="warning">
-Never paste passwords, secrets, or API keys into a prompt, and never place them in files you ask Claude Code to read. Follow the firm's data policy on what may be shared. If you are unsure whether something is safe to include, leave it out and check first.
-</Callout>
+<DiagramFigure image={ccStaysLocal} alt="A boundary around your machine holds your files inside, labeled your files stay here. Only your prompt and the context it needs cross the boundary out to Claude. Claude proposes changes back to you, and you approve before anything changes. A closing line reads: nothing goes live until you choose." caption="Claude proposes changes, you approve them, and nothing goes live until you choose." maxWidth={640} />
 
 Once you are signed in and comfortable with the approval model, you are ready to do real work in your files. The approval step will quickly become second nature: read the plan, say yes, and watch it done.

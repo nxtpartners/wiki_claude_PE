@@ -1,6 +1,6 @@
 ---
 title: Connectors
-description: "How connectors let Claude pull files straight from sources like Google Drive, and the confidentiality rules to apply before you switch one on."
+description: "How connectors let Claude pull files straight from sources like Google Drive, and when one saves you a step."
 section: Power Features
 order: 2
 ---
@@ -45,7 +45,7 @@ A connector earns its place when a file already lives in an approved source and 
 
 - **Pulling from a shared drive.** Reach the current version of a model or deck without saving a local copy.
 - **Working from the live document.** You always get the latest file, so there is no risk of analyzing a stale download.
-- **Fewer files on your laptop.** Sensitive material stays in its managed home rather than scattering across your downloads folder.
+- **Fewer files on your laptop.** Documents stay in their managed home rather than scattering across your downloads folder.
 
 ## Using a connector, step by step
 
@@ -78,16 +78,10 @@ Once attached, a connected file behaves like any other. The chip sits above your
   </div>
 </ClaudeWindow>
 
-## The confidentiality question to ask first
-
-A connector is a convenience, not a change to the rules. The same discipline that governs which documents you put into Claude governs which ones you pull through a connector.
-
 <Callout type="confidential" title="A connector does not relax your NDA">
-Pulling a file through a connector is the same act as uploading it: the document goes into Claude. On KPMG's Enterprise or Team plan your data is not used for model training, but NDA terms and internal data rules still apply in full. Before you pull a confidential file, run the same check you would for an upload, in the [Confidentiality Decision Tree](/best-practices/confidentiality).
+Pulling a file through a connector is the same act as uploading it, so run the same [upload checks](/foundations/account-and-data#before-you-upload-the-decision) first. Because a connector can reach a whole drive, confirm you are pulling the specific file you intend, not a broader folder that should stay where it is.
 </Callout>
-
-One extra habit is worth keeping. Because a connector can reach a whole drive, pause to confirm you are pulling the specific file you intend, not a broader folder of material that should stay where it is. Precision here is part of good confidentiality practice, covered in [Your Account & Confidential Data](/foundations/account-and-data).
 
 ## What to take from this
 
-Connectors save you a download-then-upload step by letting Claude pull a file straight from an approved source like a shared drive. They are a convenience layered on top of the normal attach flow, and the file behaves identically once attached. Treat a connected file exactly as you would an upload: brief Claude well, and apply the same confidentiality judgment before the document ever reaches the message box. To see a connected file feed straight into real deal work, follow the [Project Atlas walkthrough](/worked-example/project-atlas).
+Connectors save you a download-then-upload step by letting Claude pull a file straight from an approved source like a shared drive. They are a convenience layered on top of the normal attach flow, and the file behaves identically once attached. Treat a connected file exactly as you would an upload, and brief Claude well. To see a connected file feed straight into real deal work, follow the [Project Atlas walkthrough](/worked-example/project-atlas).

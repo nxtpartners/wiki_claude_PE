@@ -5,7 +5,6 @@ section: Good Habits
 order: 3
 ---
 
-import Callout from '../../../components/Callout.astro';
 import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
 import PromptCard from '../../../components/PromptCard.astro';
 
@@ -295,9 +294,5 @@ With `brief.md` written and agreed, the build is ordinary Claude Code work, and 
 **Build it in slices, not layers.** Ask for the opening view with three companies of made-up data, working end to end, before asking for anything else. A thin version of the whole thing tells you within a session whether the shape is right. A perfect data layer with no screen tells you nothing, and it is the more tempting order.
 
 **Reread the brief when you want to add something.** The moment you find yourself asking for a feature is the moment to check section 8. Sometimes the brief is wrong and you change it deliberately, which is fine. What is not fine is the version where nobody notices it changed.
-
-<Callout type="confidential" title="Build against made-up data">
-While you are getting the shape right, use invented figures for invented companies. It is faster, because you can change them freely, and it means the half-finished versions sitting in your folder carry nothing confidential. Connect the real data once the tool works and the [Confidentiality Decision Tree](/best-practices/confidentiality) says the source is permitted.
-</Callout>
 
 When the thing works and you want other people to open it, that is a separate step with its own considerations, most of which involve your IT colleagues. It has its own page: [Going Live](/claude-code/deploy).

@@ -53,7 +53,7 @@ If Claude Code reports that Git is not installed, or the first command cannot be
 
 A `.gitignore` is a short list of files and folders that Git must ignore. Anything named in it is never saved into your history and never pushed anywhere. You write it once, and from then on Git simply pretends those files are not there when it saves your work.
 
-This matters more in private equity than in most work. Deal models, data-room exports, and secrets belong on your machine, not in a save-history that can travel. The risk is quiet: once a file is committed it becomes part of the record, and if that record is later pushed to a service like GitHub, the file can go public by accident. A `.gitignore` is the guardrail that stops confidential files from ever entering the history in the first place.
+Once a file is committed it becomes part of the record, and if that record is later pushed to a service like GitHub, the file travels with it. A `.gitignore` stops files such as deal models, data-room exports, and secrets from ever entering the history in the first place.
 
 Here is a simple example. Each comment sits on its own line, because in a `.gitignore` a `#` only starts a comment at the beginning of a line, not partway through one.
 
@@ -77,7 +77,7 @@ Please add a .gitignore to this folder that keeps data exports, spreadsheets, PD
 </PromptCard>
 
 <Callout type="confidential">
-A `.gitignore` only protects files that are not already saved. Before your first push, ask Claude Code to show you exactly what is currently tracked, and confirm nothing confidential is in that list. For the full logic on what may go where, see [Keeping Deal Data Safe](/claude-code/confidentiality).
+A `.gitignore` only protects files that are not already saved, so before your first push, ask Claude Code to show you exactly what is currently tracked and confirm nothing confidential is in that list. For what may go where, see [Keeping Deal Data Safe](/claude-code/confidentiality).
 </Callout>
 
 ## How Claude Code helps

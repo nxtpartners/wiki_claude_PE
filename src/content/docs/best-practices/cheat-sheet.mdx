@@ -1,11 +1,10 @@
 ---
 title: Cheat Sheet
-description: "A dense one-page reference: the core loop, the prompt shape, the do's and don'ts, and the confidentiality rule in one line."
+description: "A dense one-page reference: the core loop, the prompt shape, and the do's and don'ts."
 section: Best Practices
 order: 5
 ---
 
-import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
 import CardGrid from '../../../components/CardGrid.astro';
 import Card from '../../../components/Card.astro';
@@ -46,7 +45,7 @@ Every strong prompt says four things. Skip one and you feel the gap.
 | Do | Don't |
 | --- | --- |
 | Verify every number against the source | Trust fluent output you have not checked |
-| Make the confidentiality call before uploading | Drag a document in and start working |
+| Make the confidentiality call before uploading ([the checks](/foundations/account-and-data#before-you-upload-the-decision)) | Drag a document in and start working |
 | Brief precisely with role, task, format, scrutiny | Send a vague one-line request |
 | Keep each deal in its own Project | Mix several deals in one conversation |
 | Refine a good draft with a follow-up | Restart from scratch every time |
@@ -59,16 +58,10 @@ Every strong prompt says four things. Skip one and you feel the gap.
 A quick rule: if you will return to the same material more than once, use a Project rather than a loose chat.
 
 - **Use a Project** for a live deal (its own siloed space, its documents loaded once) and for a repeated function you do across deals (a standing setup with reusable instructions).
-- **Use a plain chat** for a quick, throwaway question that needs no saved context and no confidential files.
-- One engagement, one Project: it keeps context clean and confidentiality separated.
+- **Use a plain chat** for a quick, throwaway question that needs no saved context.
+- One engagement, one Project: it keeps context clean.
 
 See [What Projects Are](/projects/what-projects-are) and [Setting Up a Deal Project](/projects/deal-setup) for the detail.
-
-## Confidentiality, in one line
-
-<Callout type="confidential" title="The one-line rule">
-Confirm you are in the KPMG workspace, confirm the NDA and client rules permit the document, and when any part of that is unclear, do not upload: ask first. The full version is the [Confidentiality Decision Tree](/best-practices/confidentiality).
-</Callout>
 
 ## Verification, in three checks
 
@@ -92,9 +85,8 @@ Full versions in [Anatomy of a Good Prompt](/foundations/anatomy-of-a-prompt).
 
 ## Where to go next
 
-<CardGrid columns={2}>
+<CardGrid columns={3}>
   <Card title="Prompt Library" href="/resources/prompt-library" eyebrow="Resources">Ready-made prompts for the tasks you do every week, grouped and copyable.</Card>
   <Card title="Glossary" href="/resources/glossary" eyebrow="Resources">Plain-language definitions for every term in this wiki.</Card>
   <Card title="Verify Everything" href="/best-practices/verify-everything" eyebrow="Best Practices">The full verification routine and why it matters.</Card>
-  <Card title="Confidentiality Decision Tree" href="/best-practices/confidentiality" eyebrow="Best Practices">The full walkthrough for deciding what can go in.</Card>
 </CardGrid>

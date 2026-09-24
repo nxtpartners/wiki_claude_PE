@@ -1,6 +1,6 @@
 ---
 title: Web Search
-description: "How Claude can search the live web for current information, when that helps a screen, and the confidentiality rules that govern what you type."
+description: "How Claude can search the live web for current information, and when that helps a screen."
 section: Power Features
 order: 5
 ---
@@ -30,15 +30,15 @@ Without web search, Claude reasons from what it learned during training, which i
 
 ## When it helps a screen
 
-Web search is most useful at the framing stage of a target, when you want to understand the landscape around it rather than the target's own confidential numbers.
+Web search is most useful at the framing stage of a target, when you want to understand the landscape around it rather than the target's own numbers.
 
 - **Sizing a market** and finding recent commentary on its direction.
 - **Mapping the competitive set**, the named players a target sits among.
 - **Recent events**, such as a competitor's funding round, acquisition, or product launch.
 - **Public context** on a sector's regulation, pricing trends, or consolidation.
 
-<Callout type="note" title="Public landscape, not the target's secrets">
-Web search shines on the outside-in view: the market, the comparables, the recent news. It cannot tell you anything about the target's private financials, which is exactly why you pair it with the CIM and model you have under NDA.
+<Callout type="note" title="Public landscape, not the target's financials">
+Web search shines on the outside-in view: the market, the comparables, the recent news. It cannot tell you anything about the target's own financials, which is exactly why you pair it with the CIM and the model.
 </Callout>
 
 ## What it looks like
@@ -70,18 +70,12 @@ Using current web sources, give me:
 Cite a source for each significant claim. Flag where the public information is thin or where sources disagree.
 </PromptCard>
 
-Notice what this prompt does not contain: the target's name, its financials, or anything from the CIM. That is deliberate, and it is the heart of using web search safely.
+Notice what this prompt does not contain: the target's name, its financials, or anything from the CIM. What you type becomes a query to the public web, so phrase searches by category rather than by deal and keep every NDA-bound fact out of them, as set out in [Your Account & Confidential Data](/foundations/account-and-data).
 
-## The confidentiality line
+## Check your sources
 
-Web search reads from the public internet, but a search begins with what you type, and what you type is a query. The rule is simple and strict.
-
-<Callout type="confidential" title="Never put confidential detail into a search">
-A web query is not the place for the target's name, its figures, or any NDA-bound fact. Search the public landscape (the market, the named competitors, the sector news) and keep the target's private information for the documents you have under NDA. Phrase searches generically, by category rather than by deal. The full reasoning is in the [Confidentiality Decision Tree](/best-practices/confidentiality) and [Your Account & Confidential Data](/foundations/account-and-data).
-</Callout>
-
-There is a second habit worth keeping. Web sources vary in quality, so treat what comes back as a lead, not a fact. Open the links, judge the source, and confirm anything material before it shapes a view, just as you would with any research, per [Verify Everything](/best-practices/verify-everything).
+Web sources vary in quality, so treat what comes back as a lead, not a fact. Open the links, judge the source, and confirm anything material before it shapes a view, just as you would with any research, per [Verify Everything](/best-practices/verify-everything).
 
 ## What to take from this
 
-Web search gives Claude reach into current information, which is what the outside-in part of a screen needs: market size, the competitive set, and recent events, all returned with sources you can open. Use it for the public landscape and keep the target's confidential detail out of your queries entirely. Pair the market picture it builds with the NDA-bound documents you hold, verify every source, and you have a fast, safe way to frame a target before you go deep. See exactly this scan run against a live screen in the [Project Atlas walkthrough](/worked-example/project-atlas).
+Web search gives Claude reach into current information, which is what the outside-in part of a screen needs: market size, the competitive set, and recent events, all returned with sources you can open. Use it for the public landscape, pair the market picture it builds with the documents you hold, verify every source, and you have a fast way to frame a target before you go deep. See exactly this scan run against a live screen in the [Project Atlas walkthrough](/worked-example/project-atlas).

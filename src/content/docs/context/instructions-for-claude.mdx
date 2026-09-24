@@ -5,7 +5,6 @@ section: Context
 order: 3.5
 ---
 
-import Callout from '../../../components/Callout.astro';
 import ComparisonTable from '../../../components/ComparisonTable.astro';
 import ClaudeWindow from '../../../components/claude-ui/ClaudeWindow.astro';
 import ClaudeSettings from '../../../components/claude-ui/ClaudeSettings.astro';
@@ -63,19 +62,13 @@ Open claude.ai, go to Settings, and find the "Instructions for Claude" section. 
 
 Notice what this block does and does not contain. It states your role, your spelling, your tone, and your standing rules on rigor. It names no company, no target, no figure, and no live piece of work. That restraint is deliberate, and the next section explains why it matters so much.
 
-## A caution on confidentiality
+## Why deal specifics stay out
 
-Account-level instructions apply to every chat, including the ones that have nothing to do with Private Equity: a holiday plan, a note to a colleague, a question about a spreadsheet formula. Because they are always present, they must never carry anything confidential or specific to a live opportunity.
-
-<Callout type="confidential" title="Never put deal specifics in account instructions">
-The "Instructions for Claude" field is the wrong home for the name of a target, a counterparty, a deal value, or any figure from a data room. It sits in the background of every conversation you have, so anything written there could surface in a chat that has nothing to do with that opportunity. Deal specifics belong in a single, siloed deal Project, never in your account settings. When in doubt about whether something can be shared at all, walk it through the [Confidentiality Decision Tree](/best-practices/confidentiality) first.
-</Callout>
-
-The rule is simple to remember: the account layer describes you, and Project instructions describe a workstream, but only a siloed deal Project should ever hold the confidential facts of a live opportunity. Keeping the layers honest is what lets you set durable preferences once without ever risking a leak between unrelated conversations.
+Account-level instructions apply to every chat, including the ones that have nothing to do with Private Equity: a holiday plan, a note to a colleague, a question about a spreadsheet formula. Because they are always present, they must never carry anything confidential or specific to a live opportunity. The name of a target, a deal value, or any figure from a data room belongs in that deal's own Project, never in your account settings.
 
 ## Good versus less good
 
-A useful test for any line you are about to save: would it still be true, and still be safe, six months and ten opportunities from now? If yes, it is a good standing instruction. If it is tied to one piece of work or one moment, keep it in the chat or the deal Project instead.
+A useful test for any line you are about to save: would it still be true six months and ten opportunities from now? If yes, it is a good standing instruction. If it is tied to one piece of work or one moment, keep it in the chat or the deal Project instead.
 
 <ComparisonTable title="What belongs at the account level" caption="Durable preferences about how you work belong here. Anything deal-specific or time-bound does not.">
 
@@ -92,4 +85,4 @@ The left-hand lines describe a way of working that holds across everything. The 
 
 ## The takeaway
 
-Set "Instructions for Claude" once with the handful of preferences that are always true of how you work: your role, your spelling, your tone, and your standing rules on assumptions and rounding. Then let the hierarchy do the rest, with a Project adding the method for a given workstream and a chat adding the detail of a single task. Keep every confidential fact out of the account layer and inside a siloed deal Project. For the craft of writing the instructions themselves, see [Writing Effective Instructions](/context/writing-instructions).
+Set "Instructions for Claude" once with the handful of preferences that are always true of how you work: your role, your spelling, your tone, and your standing rules on assumptions and rounding. Then let the hierarchy do the rest, with a Project adding the method for a given workstream and a chat adding the detail of a single task. For the craft of writing the instructions themselves, see [Writing Effective Instructions](/context/writing-instructions).
