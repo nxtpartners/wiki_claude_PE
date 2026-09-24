@@ -31,7 +31,6 @@ const other = TRACKS[otherTrack];
         </svg>
         <span>Home</span>
       </a>
-      <p class="track-eyebrow">{current.tagline}</p>
       <p class="track-name">{current.name}</p>
       <a class="track-switch" href={withBase('/' + other.homeSlug)}>
         <span>Switch to {other.name}</span>
@@ -194,17 +193,8 @@ const other = TRACKS[otherTrack];
     color: var(--kpmg-blue);
     text-decoration: none;
   }
-  .track-eyebrow {
-    margin: var(--space-3) 0 0;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--kpmg-cobalt);
-  }
   .track-name {
-    margin: 2px 0 var(--space-3);
+    margin: var(--space-3) 0;
     font-size: 1.05rem;
     font-weight: 800;
     letter-spacing: -0.02em;

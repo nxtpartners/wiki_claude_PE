@@ -1,10 +1,10 @@
 // Single source of truth for navigation order.
 //
-// The wiki ships two self-contained tracks: the Core track (claude.ai) and the
-// Advanced track (Claude Code). Each track owns its own sidebar, prev/next, and
+// The wiki ships two self-contained tracks: claude.ai and Claude Code.
+// Each track owns its own sidebar, prev/next, and
 // numbering; a reader in one track never sees the other track's sections.
 //
-// The Core track is ordered advanced-first: readers arrive already familiar with
+// The claude.ai track is ordered advanced-first: readers arrive already familiar with
 // AI assistants, so prompting opens the sequence rather than orientation material.
 // An optional group at the bottom ("New to Claude?") exists for anyone who has
 // never used Claude before.
@@ -54,7 +54,7 @@ export function sectionHoldsSlug(section: NavSection, slug: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
-// Core track: claude.ai (the web app most people use every day).
+// claude.ai track (the web app most people use every day).
 // ---------------------------------------------------------------------------
 export const navCore: NavSection[] = [
   {
@@ -154,7 +154,7 @@ export const navCore: NavSection[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Advanced track: Claude Code (Claude in your own files, for hands-on work).
+// Claude Code track (Claude in your own files, for hands-on work).
 // ---------------------------------------------------------------------------
 export const navAdvanced: NavSection[] = [
   {
@@ -224,8 +224,8 @@ export const flatNavAdvanced: NavItem[] = [...walkSections(navAdvanced)].flatMap
 export type Track = 'core' | 'advanced';
 
 export const TRACKS = {
-  core: { id: 'core', name: 'claude.ai', tagline: 'Core Track', homeSlug: 'welcome' },
-  advanced: { id: 'advanced', name: 'Claude Code', tagline: 'Advanced Track', homeSlug: 'claude-code/welcome' },
+  core: { id: 'core', name: 'claude.ai', homeSlug: 'welcome' },
+  advanced: { id: 'advanced', name: 'Claude Code', homeSlug: 'claude-code/welcome' },
 } as const;
 
 const advancedSlugs = new Set(flatNavAdvanced.map((i) => i.slug));

@@ -24,7 +24,7 @@ The single most important idea to land, expressed clearly somewhere: it is one C
 - The two names, verbatim: "claude.ai" and "Claude Code".
 - The one-line descriptions, verbatim: "Chat in your browser" and "Works in your files on your computer".
 - The best-for lines, verbatim: "Best for questions, analysis, drafting" and "Best for hands-on, file-heavy work".
-- The track and sequence cues, verbatim: "Core Track, start here" (with claude.ai) and "Advanced Track, add next" (with Claude Code).
+- The track and sequence cues, verbatim: "Start here" (with claude.ai) and "Add next" (with Claude Code). Do not label the paths "Core Track" or "Advanced Track": the tracks are called claude.ai and Claude Code.
 - The shared destination, verbatim: "Confident, verified output" and "Confidential by design".
 
 Keep labels short and let some be optional supporting notes if the composition is cleaner with fewer words, but the two names, the two descriptions, the unifying line, and the shared destination must all be present and legible.

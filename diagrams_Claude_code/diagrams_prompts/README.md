@@ -1,6 +1,6 @@
 # Diagram prompts
 
-Image-generation prompts (for Gemini, ChatGPT, or nano-banana) for the four concept diagrams in the Claude Code (Advanced Track) section of the KPMG x Claude for Private Equity wiki. One file per diagram, each self-contained so it can be pasted straight into a generator and the outputs compared side by side.
+Image-generation prompts (for Gemini, ChatGPT, or nano-banana) for the four concept diagrams in the Claude Code section of the KPMG x Claude for Private Equity wiki. One file per diagram, each self-contained so it can be pasted straight into a generator and the outputs compared side by side.
 
 - `01-where-claude-code-fits.md` : Claude Code vs claude.ai, the same Claude two ways to work (output `cc-where-it-fits.png`)
 - `02-what-stays-local.md` : what stays on your machine, the data boundary (output `cc-stays-local.png`)
