@@ -113,8 +113,8 @@ depends upward.
 - [ ] `welcome.mdx`, `first-15-minutes.mdx`, and `Header.astro` unchanged unless the change is additive and
       content-preserving.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
-- [ ] VS Code is presented as required setup for the Claude Code track, consistent with Before you Start
-      (`claude-code/install-vs-code`). User decision 2026-09-24.
+- [ ] VS Code is described as required at KPMG and recommended in general. Never tell a KPMG reader another
+      terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 

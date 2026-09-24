@@ -117,9 +117,9 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
 3. **Astro 6 deprecates `markdown.remarkPlugins` / `rehypePlugins` / `remarkRehype`** in `astro.config.mjs`.
    That is the exact config path the base-path prose-link rewriter in `src/plugins/` depends on, so this
    becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
-4. **Align VS Code wording with "Required".** Before you Start lists VS Code as Required (user decision
-   2026-09-24), but older pages still call it recommended or say Claude Code runs in any terminal, including
-   both glossaries. Grep `recommended\|any terminal` in `src/content/docs` and align with the user.
+4. **Add the KPMG context to VS Code wording.** VS Code is required at KPMG and recommended in general (user,
+   2026-09-24). Pages that say "recommended" or "any terminal", including both glossaries, are correct in
+   general but should add that KPMG uses VS Code. Grep `recommended\|any terminal` in `src/content/docs`.
 5. **Regenerate the homepage hero diagram.** `home-two-paths.png` still has "Core Track" and "Advanced Track"
    in its pixels. The prompt in `diagrams_home/diagrams_prompts/01-two-paths.md` is already updated; the user
    generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.

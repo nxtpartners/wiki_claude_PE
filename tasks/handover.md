@@ -13,7 +13,7 @@ Waiting on:  The user to regenerate the homepage hero diagram (plan item 5).
   upload checks) and "Keeping Deal Data Safe" (Claude Code). Other pages get at most one short mention, only
   where data moves. Do not re-add reminders or recreate the deleted Decision Tree page.
 - Tracks are called "claude.ai" and "Claude Code", never "Core" or "Advanced". Internal ids stay `core`/`advanced`.
-- VS Code is Required (user decision; see `CLAUDE.md`). Do not revert it to "recommended".
+- VS Code is required at KPMG, recommended in general (user decision; see `CLAUDE.md`).
 - PortCo Pulse animations loop with no Replay or pause control, by user decision (see `tasks/context.md`).
 - Every reusable template carries a `# Version` / `# Tested on` header with placeholders, never an invented
   model or date. `tasks/standards.md` enforces it; this was missed twice in one session.
