@@ -168,20 +168,15 @@ export const navAdvanced: NavSection[] = [
     items: [
       { title: 'Claude Code vs claude.ai', slug: 'claude-code/vs-claude-ai' },
       { title: 'Before you Start', slug: 'claude-code/install-vs-code' },
-    ],
-  },
-  {
-    label: 'First Sessions',
-    items: [
       { title: 'Your First Session', slug: 'claude-code/first-session' },
       { title: 'Approving Changes', slug: 'claude-code/approving-changes' },
     ],
   },
   {
-    label: 'Good Habits',
+    label: 'Executing at Scale',
     items: [
       { title: 'CLAUDE.md Rulebook', slug: 'claude-code/claude-md' },
-      { title: 'Skills', slug: 'claude-code/skills' },
+      { title: 'Leveraging Skills', slug: 'claude-code/skills' },
       { title: 'Organizing Many Deals', slug: 'claude-code/organizing-deals' },
       { title: 'Starting Something Bigger', slug: 'claude-code/requirements-brief' },
       { title: 'Habits That Keep You Safe', slug: 'claude-code/good-habits' },
