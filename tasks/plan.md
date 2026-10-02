@@ -125,3 +125,10 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
    generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.
 6. **Em dashes in component code comments** (`global.css`, `PromptCard`, `Sidebar`, `CodeWindow`) break the
    house rule. Pre-existing; fix when those files are next touched.
+
+## In progress (2026-10-02): PE Use Cases as an interactive library
+
+Client: the AI Value Creation Matrix is "what is possible to create with Claude Code", a use case library for PE
+value creation; PortCo Pulse is a supporting example of one use case built out. User chose: a lever x phase grid
+on the PE Use Cases page, chips open a detail panel, tier and service filters; **no new per-row content**. The
+full matrix page and its table stay. The High-fit row links to PortCo Pulse ("See it built").

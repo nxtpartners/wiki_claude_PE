@@ -1,7 +1,7 @@
 ---
-title: "AI Value Creation Matrix"
-description: "What private equity professionals at KPMG can build with Claude Code, shown through an interactive matrix of 19 AI value-creation use cases."
-section: AI Value Creation Matrix
+title: "PE Use Cases"
+description: "What private equity professionals can build with Claude Code, shown as a filterable library of 19 AI value-creation use cases."
+section: PE Use Cases
 order: 1
 ---
 
@@ -13,50 +13,38 @@ import CardGrid from '../../../components/CardGrid.astro';
 import Card from '../../../components/Card.astro';
 import MatrixPreview from '../../../components/examples/MatrixPreview.astro';
 
-Claude Code does more than edit documents. It lets someone with no coding background build a working tool: an interactive page, a tracker, a dashboard, a clean dataset. Work like that used to need a developer or a long wait. For KPMG's private equity group, it means the material you already hold, such as research notes, data packs, and diligence findings, can become something a colleague explores rather than scrolls through.
+Claude Code does more than edit documents. It lets someone with no coding background build a working tool: an interactive page, a tracker, a dashboard, a clean dataset. This section is a library of what that makes possible for private equity value creation.
 
-The AI Value Creation Matrix is one of those tools. It was built with Claude Code from a set of research notes, and it shows the kind of result that is within reach.
+The library is the AI Value Creation Matrix below. Open it to see what can be built, and where each use case fits in a hold.
 
 <MatrixPreview />
 
-## What the matrix shows
+## What the library covers
 
-The matrix organizes 19 AI use cases under the five value levers a private equity fund pulls during a hold: operational efficiency, working-capital balance, revenue growth, margin expansion, and inorganic growth. Each use case carries the same fields: the hold phase it fits, the fund tier it suits, the role AI plays, a real-world anchor, complexity, time to value, and the KPMG service line that would deliver it. Because every row shares that shape, the whole thing is filterable. Pick a phase or a service line and the view narrows to what matters.
+19 use cases, organized under the five value levers a private equity fund pulls during a hold: operational efficiency, working-capital balance, revenue growth, margin expansion, and inorganic growth. Each use case carries the same fields: the hold phase it fits, the fund tier it suits, the role AI plays, a real-world anchor, complexity, time to value, and the KPMG service line that would deliver it. Pick a phase or a service line and the view narrows to what matters for the company in front of you.
 
-That structure is the hard part, and it is exactly the kind of work Claude Code is good at. You bring the raw material and the judgment; Claude does the patient job of pulling it into a consistent shape and building the page around it.
+## How to build one
 
-## How a tool like this gets built
-
-The matrix took five steps, and they carry over to the other tools below.
+Every use case in the library starts the same way.
 
 <Steps>
-  <Step title="Gather the raw material in one folder">
-    Start with what you already have: research notes, a longlist of use cases, a rough spreadsheet, a few memos. Put them in a single folder and start Claude Code there so it can see everything at once.
+  <Step title="Put the material in one folder">
+    The exports, reports, or documents the use case starts from. Start Claude Code in that folder so it can see all of it.
   </Step>
-  <Step title="Agree the structure first">
-    Before any building, decide the fields every row must carry. Ask Claude Code to propose a schema from your notes, then refine it. A shared structure is what makes the final artifact filterable rather than just a long list.
+  <Step title="Agree the structure before anything is built">
+    Ask Claude Code to propose the columns or fields first. A shared structure is what makes the result comparable and filterable rather than a long list.
 
-    <PromptCard title="Ask Claude Code to propose a structure" label="Prompt">
-    Look at the notes in this folder. Propose a consistent set of fields that every AI use case should be described by, so I can compare them side by side. Suggest the columns and explain why each one earns its place. Do not write the full matrix yet, just the structure.
+    <PromptCard title="Example: cross-portfolio vendor overlap" label="Prompt">
+    The payables extracts in this folder come from four portfolio companies. Before building anything, propose a consistent structure for matching vendors across them: the fields, how you would match vendor names that are spelled differently, and what you would flag for me to check. Do not build the analysis yet.
     </PromptCard>
   </Step>
-  <Step title="Populate the rows from your notes">
-    With the structure agreed, ask Claude Code to work through the notes and fill in each row. Tell it to leave a field blank and flag it rather than invent anything it cannot find in your source material.
-
-    <PromptCard title="Ask Claude Code to fill in the matrix" label="Prompt">
-    Using the structure we agreed, turn my notes into one row per use case. Fill every field only from what is in the notes. Where a field is not covered, leave it blank and add it to a short list of gaps for me to fill. Do not guess figures or invent anchors.
-    </PromptCard>
-  </Step>
-  <Step title="Build the interactive view">
-    Once the content is clean, ask Claude Code to turn it into a filterable page: a table grouped by lever, with buttons to filter by phase, tier, and service. Claude Code writes the markup, styling, and the small amount of code that makes the filters work.
-  </Step>
-  <Step title="Review, correct, and save">
-    Read every row against your source before you trust it. Fix what is off, fill the gaps it flagged, then save your work with Git so you have a clean point to return to.
+  <Step title="Build it, then check it against the source">
+    Ask Claude Code to build it, and to leave blanks and flag them rather than guess. Read the result against your source material before anyone else sees it.
   </Step>
 </Steps>
 
 <Callout type="warning">
-Claude Code assembles structure quickly, but it cannot supply judgment. Check every figure, anchor, and claim against your own source material before this goes in front of anyone. The matrix is a starting point for a conversation, not a finished verdict.
+Claude Code assembles structure quickly, but it cannot supply judgment. Check every figure and claim against your own source material before it goes in front of anyone.
 </Callout>
 
 ## What else you can build
@@ -65,8 +53,8 @@ The same approach works on other material. A few kinds of tool that fit private 
 
 - **Filterable reference tools.** A matrix of precedents, value-creation levers, or diligence findings that a colleague can filter by sector, phase, or service line instead of scrolling a spreadsheet.
 - **Portfolio dashboards.** One view of KPIs across portfolio companies, with plan-versus-actual variance and flags on what is off track. See [PortCo Pulse Dashboard](/claude-code/example-portco-pulse).
-- **Clean data from messy inputs.** Tidying a data pack into a consistent shape, or running a quick sanity check on a model. See [Data Packs & Model Checks](/claude-code/recipes-data).
-- **Consistent summaries at scale.** A folder of memos turned into one clean summary, or a set of documents brought to the same standard. See [Memos into Summaries](/claude-code/recipes-docs).
+- **Clean data from messy inputs.** Tidying a data pack into a consistent shape, or running a quick sanity check on a model.
+- **Consistent summaries at scale.** A folder of memos turned into one clean summary, or a set of documents brought to the same standard.
 - **Small working tools.** A diligence request tracker or an expert-call log: something with a screen and a few buttons, shaped around how your team works. See [Starting Something Bigger](/claude-code/requirements-brief).
 
 What these share: the inputs are material you already have, the output has a consistent structure, and a person checks it before anyone relies on it. Anything meant for people beyond your own team goes through [Going Live](/claude-code/deploy).

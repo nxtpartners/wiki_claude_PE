@@ -192,16 +192,9 @@ export const navAdvanced: NavSection[] = [
     ],
   },
   {
-    label: 'PE Recipes',
+    label: 'PE Use Cases',
     items: [
-      { title: 'Data Packs & Model Checks', slug: 'claude-code/recipes-data' },
-      { title: 'Memos into Summaries', slug: 'claude-code/recipes-docs' },
-    ],
-  },
-  {
-    label: 'AI Value Creation Matrix',
-    items: [
-      { title: 'AI Value Creation Matrix', slug: 'claude-code/example-value-creation' },
+      { title: 'PE Use Cases', slug: 'claude-code/example-value-creation' },
     ],
   },
   {
