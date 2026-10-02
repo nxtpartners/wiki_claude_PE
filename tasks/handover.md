@@ -4,9 +4,7 @@
 Next:        Ask the user for the next piece of client feedback; open work is items 1 to 8 in `tasks/plan.md`.
 In progress: Nothing half-applied. Everything is committed and pushed to `main`.
 State:       `npm run build` green at 52 pages. Pushing `main` triggers the Pages deploy workflow.
-Waiting on:  - The user: should the Claude Code welcome list's "Saving and Shipping" bullet (no such section
-               exists; Git and Going Live sit in Executing at Scale) fold into the Executing at Scale bullet?
-             - The user to regenerate the homepage hero diagram (plan item 5).
+Waiting on:  The user to regenerate the homepage hero diagram (plan item 5).
 
 ## What to avoid
 - `welcome.mdx`, `first-15-minutes.mdx` and `Header.astro` stay locked (see `CLAUDE.md`).
