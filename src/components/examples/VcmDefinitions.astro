@@ -1,0 +1,82 @@
+---
+// What two of the matrix's fields mean: Time to Value vs. Project Duration, and
+// PortCo Pulse Fit with its High / Medium / Low key. Rendered under VcmGrid,
+// inside its .vcm root, so the badge styles come from vcm-shared.css.
+---
+
+<div class="vcm-footnote">
+  <p>
+    <strong>Time to Value vs. Project Duration:</strong> Time to Value is when the AI layer
+    starts producing a usable signal: the first automated alert, the first scored pipeline report, the
+    first anomaly flag. It is intentionally earlier than full deployment. Project Duration is the
+    realistic end-to-end engagement length, from scoping through change management to a stable, adopted
+    system. Both numbers matter: Time to Value anchors the sponsor conversation on early wins; Project
+    Duration drives the fee engagement.
+  </p>
+  <p>
+    <strong>PortCo Pulse Fit:</strong> PortCo Pulse is a portfolio monitoring platform that
+    uses conversational AI to collect KPI submissions from CFOs and controllers across a fund's portcos,
+    normalize data, surface variance against plan, and alert the fund team to threshold breaches,
+    automating the monitoring function that is the prerequisite for every other hold-period AI
+    application. The fit rating reflects how directly a given use case is addressed by or benefits from
+    PortCo Pulse infrastructure.
+  </p>
+  <div class="vcm-fn-row">
+    <div class="vcm-fn-item">
+      <span class="badge pp-high">High</span>
+      <span class="vcm-fn-desc">
+        PortCo Pulse directly addresses this use case: the KPI collection, monitoring, and alerting
+        workflow is the core product.
+      </span>
+    </div>
+    <div class="vcm-fn-item">
+      <span class="badge pp-med">Medium</span>
+      <span class="vcm-fn-desc">
+        PortCo Pulse provides the upstream data layer or output tracking that makes this use case more
+        effective; a separate tool handles the analytical or predictive work.
+      </span>
+    </div>
+    <div class="vcm-fn-item">
+      <span class="badge pp-low">Low</span>
+      <span class="vcm-fn-desc">
+        Use case operates on a data type (operational, HR, IoT, contract) that is outside PortCo Pulse's
+        financial KPI scope.
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .vcm-footnote {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+  .vcm-footnote p {
+    margin: 0 0 var(--space-4);
+  }
+  .vcm-footnote strong {
+    color: var(--ink);
+  }
+  .vcm-fn-row {
+    display: flex;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+  .vcm-fn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    flex: 1 1 220px;
+  }
+  .vcm-fn-desc {
+    font-size: 0.76rem;
+    color: var(--ink-muted);
+  }
+</style>

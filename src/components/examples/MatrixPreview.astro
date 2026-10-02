@@ -1,185 +1,174 @@
 ---
-// A styled "mock preview" of the AI Value Creation Matrix, framed as a browser
-// window. It is pure CSS (no screenshot asset), so it stays crisp at any size
-// and on any display, and it links through to the full standalone deliverable.
-// Every colour is a wiki design token; the faux rows only hint at the real
-// matrix, which lives on its own page.
+// A miniature of the AI Value Creation Matrix, framed as a browser window, that
+// links through to the full page. It is drawn from the real data (vcm-data.ts),
+// so the shape it shows, which lever x phase cells hold how many use cases and
+// which one is built, always matches the page it opens. Pure CSS, no
+// screenshot; lever colors and badges come from vcm-shared.css.
 import PreviewFrame from './PreviewFrame.astro';
+import { levers, phaseMeta } from './vcm-data';
+import './vcm-shared.css';
 
 interface Props {
   href?: string;
 }
 const { href } = Astro.props;
 
-// A few representative levers to tint the faux rows, straight from the matrix's
-// own lever token map so the preview stays on-palette with the real thing.
-const previewRows = [
-  { lever: 'efficiency', name: 'SG&A Benchmarking & Anomaly Detection', phase: '100-Day' },
-  { lever: 'revenue', name: 'Churn Prediction & Retention Signals', phase: 'Mid-Hold' },
-  { lever: 'margin', name: 'AI-Assisted Dynamic Pricing', phase: 'Mid-Hold' },
-  { lever: 'inorganic', name: 'Cross-Portfolio Spend Consolidation', phase: 'Exit Prep' },
-];
+const phases = Object.keys(phaseMeta);
+const total = levers.reduce((n, l) => n + l.rows.length, 0);
+// Same rule as VcmGrid: a High PortCo Pulse fit is the use case shown built.
+const BUILT_FIT = 'High';
 ---
 
 <PreviewFrame
   href={href}
   defaultHref="/claude-code/value-creation-matrix"
-  ariaLabel="Open the full AI Value Creation Matrix"
+  ariaLabel="Open the AI Value Creation Matrix, the full PE use case library"
   urlLabel="claude · ai-value-creation-matrix"
-  ctaText="Open the full matrix"
-  caption="Interactive · Filter by phase, fund tier, and KPMG service line."
+  ctaText="Open the matrix"
+  caption="Interactive · Every use case by value lever and hold phase. Select one for its detail."
 >
-      <div class="mp-filters">
-        <span class="mp-chip mp-chip-on">All phases</span>
-        <span class="mp-chip">100-Day</span>
-        <span class="mp-chip">Mid-Hold</span>
-        <span class="mp-chip">Exit Prep</span>
-        <span class="mp-count">19 use cases</span>
-      </div>
-
-      <div class="mp-table">
-        <div class="mp-thead">
-          <span>Use case</span>
-          <span>Phase</span>
-          <span>Fit</span>
+      <div class="vcm mp">
+        <div class="mp-top">
+          <span class="mp-chip mp-chip-on">All tiers</span>
+          <span class="mp-chip">Mid-Market</span>
+          <span class="mp-chip">Large-Cap</span>
+          <span class="mp-count">{total} use cases</span>
         </div>
-        {
-          previewRows.map((r) => (
-            <div class="mp-row">
-              <span class="mp-cell mp-usecase">
-                <span class:list={['mp-dot', `mp-dot-${r.lever}`]} />
-                {r.name}
-              </span>
-              <span class="mp-cell mp-badge">{r.phase}</span>
-              <span class="mp-cell mp-bar"><i /></span>
-            </div>
-          ))
-        }
+
+        <div class="mp-grid">
+          <span />
+          {phases.map((p) => <span class:list={['badge', 'mp-phase', phaseMeta[p].cls]}>{phaseMeta[p].label}</span>)}
+          {
+            levers.map((lever) => (
+              <>
+                <span class="mp-lever">
+                  <span class:list={['vcm-dot', `dot-${lever.key}`]} />
+                  {lever.title}
+                </span>
+                {phases.map((p) => (
+                  <span class="mp-cell">
+                    {lever.rows
+                      .filter((r) => r.phase === p)
+                      .map((r) => (
+                        <i class:list={['mp-bar', `lv-${lever.key}`, { 'is-built': r.fit === BUILT_FIT }]} />
+                      ))}
+                  </span>
+                ))}
+              </>
+            ))
+          }
+        </div>
       </div>
 </PreviewFrame>
 
 <style>
   /* Body-specific styles for the matrix preview. Frame, chrome, overlay, CTA,
      caption, hover states, and responsive breakpoints live in PreviewFrame. */
-  .mp-filters {
+  .mp {
+    container: mp / inline-size;
+  }
+  .mp-top {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 6px;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--space-3);
   }
   .mp-chip {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 500;
     color: var(--ink-muted);
     background: var(--bg);
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
-    padding: 3px 10px;
+    padding: 2px 9px;
   }
   .mp-chip-on {
     background: var(--kpmg-blue);
     border-color: var(--kpmg-blue);
-    color: #fff;
+    color: var(--bg);
     font-weight: 600;
   }
   .mp-count {
     margin-left: auto;
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     color: var(--ink-muted);
   }
 
-  .mp-table {
+  .mp-grid {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 0.8fr) repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--line);
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     overflow: hidden;
   }
-  .mp-thead {
-    display: grid;
-    grid-template-columns: 1fr 90px 70px;
-    gap: var(--space-3);
-    padding: 8px 12px;
-    background: var(--kpmg-blue);
+  .mp-grid > * {
+    background: var(--bg);
   }
-  .mp-thead span {
-    font-family: var(--font-mono);
-    font-size: 0.58rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.82);
+  .mp-grid > :nth-child(-n + 5) {
+    background: var(--bg-soft);
   }
-  .mp-row {
-    display: grid;
-    grid-template-columns: 1fr 90px 70px;
-    gap: var(--space-3);
-    align-items: center;
-    padding: 9px 12px;
-    border-top: 1px solid var(--line);
+  .mp-phase {
+    justify-self: start;
+    align-self: center;
+    margin: 6px 8px;
+    font-size: 0.56rem;
   }
-  .mp-cell {
-    min-width: 0;
-  }
-  .mp-usecase {
+  .mp-lever {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.78rem;
-    font-weight: 600;
+    gap: 6px;
+    padding: 6px 8px;
+    font-size: 0.66rem;
+    font-weight: 700;
+    line-height: 1.2;
     color: var(--kpmg-blue);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    background: var(--bg-soft);
   }
-  .mp-dot {
-    flex: 0 0 8px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
+  /* The bars already carry the lever color, so the dot only appears when the
+     narrow layout hides the lever names and it becomes the row's only label. */
+  .mp-lever .vcm-dot {
+    display: none;
+    width: 7px;
+    height: 7px;
   }
-  .mp-dot-efficiency {
-    background: var(--kpmg-blue);
-  }
-  .mp-dot-revenue {
-    background: var(--kpmg-teal);
-  }
-  .mp-dot-margin {
-    background: var(--kpmg-cobalt);
-  }
-  .mp-dot-inorganic {
-    background: var(--confidential);
-  }
-  .mp-badge {
-    font-family: var(--font-mono);
-    font-size: 0.62rem;
-    color: var(--kpmg-cobalt);
-    background: color-mix(in srgb, var(--kpmg-cobalt) 12%, var(--bg));
-    border: 1px solid color-mix(in srgb, var(--kpmg-cobalt) 30%, var(--bg));
-    border-radius: var(--radius-sm);
-    padding: 2px 7px;
-    justify-self: start;
+  .mp-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px;
   }
   .mp-bar {
-    height: 6px;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--kpmg-teal) 18%, var(--bg));
-    overflow: hidden;
-  }
-  .mp-bar i {
     display: block;
-    height: 100%;
-    width: 72%;
-    background: var(--kpmg-teal);
+    height: 9px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--c) 30%, var(--bg));
+  }
+  .mp-bar.is-built {
+    background: color-mix(in srgb, var(--kpmg-teal) 30%, var(--bg));
+    box-shadow: 0 0 0 1px var(--kpmg-teal);
   }
 
-  @media (max-width: 520px) {
-    .mp-thead,
-    .mp-row {
-      grid-template-columns: 1fr 70px 48px;
+  /* Narrow frames: drop the lever names to dots so the cells keep their room. */
+  @container mp (max-width: 26rem) {
+    .mp-grid {
+      grid-template-columns: 1.4rem repeat(4, minmax(0, 1fr));
     }
-    .mp-usecase {
-      font-size: 0.72rem;
+    .mp-lever .vcm-dot {
+      display: block;
+    }
+    .mp-lever {
+      font-size: 0;
+      justify-content: center;
+      padding: 6px 0;
+    }
+    .mp-phase {
+      margin: 6px 4px;
+      font-size: 0.5rem;
+      padding: 1px 4px;
     }
   }
 </style>

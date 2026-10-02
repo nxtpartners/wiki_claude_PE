@@ -1,7 +1,7 @@
 ---
-// Filter controls for the AI Value Creation Matrix.
-// Rendered inside ValueCreationMatrix.astro's [data-vcm] section, so the
-// parent's filter <script> can query these buttons by data attribute.
+// Filter controls for the AI Value Creation Matrix. Rendered inside VcmGrid's
+// [data-vcg] section, so its script can query these buttons by data attribute.
+// There is no phase filter: hold phases are the grid's columns.
 
 interface Props {
   totalUseCases: number;
@@ -12,30 +12,22 @@ const { totalUseCases } = Astro.props;
 
 <div class="vcm-controls">
   <div class="vcm-group">
-    <span class="vcm-group-label">Phase</span>
-    <button type="button" class="vcm-filter active" data-group="phase" data-filter="__all">All</button>
-    <button type="button" class="vcm-filter" data-group="phase" data-filter="100-Day">100-Day</button>
-    <button type="button" class="vcm-filter" data-group="phase" data-filter="Mid-Hold">Mid-Hold</button>
-    <button type="button" class="vcm-filter" data-group="phase" data-filter="Exit Prep">Exit Prep</button>
-    <button type="button" class="vcm-filter" data-group="phase" data-filter="All Phases">Continuous</button>
-  </div>
-  <div class="vcm-group">
     <span class="vcm-group-label">Tier</span>
-    <button type="button" class="vcm-filter active" data-group="tier" data-filter="__all">All</button>
-    <button type="button" class="vcm-filter" data-group="tier" data-filter="Mid-Market">Mid-Market</button>
-    <button type="button" class="vcm-filter" data-group="tier" data-filter="Large-Cap">Large-Cap</button>
-    <button type="button" class="vcm-filter" data-group="tier" data-filter="Both">Both</button>
+    <button type="button" class="vcm-filter active" aria-pressed="true" data-group="tier" data-filter="__all">All</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="tier" data-filter="Mid-Market">Mid-Market</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="tier" data-filter="Large-Cap">Large-Cap</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="tier" data-filter="Both">Both</button>
   </div>
   <div class="vcm-group">
     <span class="vcm-group-label">Service</span>
-    <button type="button" class="vcm-filter active" data-group="service" data-filter="__all">All</button>
-    <button type="button" class="vcm-filter" data-group="service" data-filter="strategy">Strategy & Advisory</button>
-    <button type="button" class="vcm-filter" data-group="service" data-filter="platform">Platform Build</button>
-    <button type="button" class="vcm-filter" data-group="service" data-filter="impl">Implementation</button>
-    <button type="button" class="vcm-filter" data-group="service" data-filter="managed">Managed Service</button>
-    <button type="button" class="vcm-filter" data-group="service" data-filter="vc">Portfolio VC</button>
+    <button type="button" class="vcm-filter active" aria-pressed="true" data-group="service" data-filter="__all">All</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="service" data-filter="strategy">Strategy & Advisory</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="service" data-filter="platform">Platform Build</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="service" data-filter="impl">Implementation</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="service" data-filter="managed">Managed Service</button>
+    <button type="button" class="vcm-filter" aria-pressed="false" data-group="service" data-filter="vc">Portfolio VC</button>
   </div>
-  <span class="vcm-count" data-count>{totalUseCases} use cases</span>
+  <span class="vcm-count" data-count aria-live="polite">{totalUseCases} use cases</span>
 </div>
 
 <style>

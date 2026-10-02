@@ -1,20 +1,22 @@
 ---
-// Standalone full-width deliverable: the AI Value Creation Matrix.
-// A tool built with Claude Code. Its guide page explains what it shows about
-// what private equity professionals can build.
+// Standalone full-width view of the AI Value Creation Matrix: the PE use case
+// library as a lever x phase grid, with the strategic summary below it.
+// PE Use Cases is its guide page and links here through MatrixPreview.
 import DeliverableLayout from '../../layouts/DeliverableLayout.astro';
-import ValueCreationMatrix from '../../components/examples/ValueCreationMatrix.astro';
-import { withBase } from '../../utils/withBase';
+import VcmGrid from '../../components/examples/VcmGrid.astro';
+import VcmFootnote from '../../components/examples/VcmFootnote.astro';
 
 const walkthroughHref = '/claude-code/example-value-creation';
 ---
 
 <DeliverableLayout
   title="AI Value Creation Matrix"
-  description="A filterable matrix of AI value-creation use cases across five private equity value levers, with hold-phase, fund-tier, and KPMG service views."
+  description="The PE use case library: what is possible to create with Claude Code, laid out by value lever and hold phase."
   walkthroughHref={walkthroughHref}
-  walkthroughLabel="the guide page"
-  subtitle={`A structured, filterable inventory of AI value-creation use cases across five private equity value levers. Filter by hold phase, fund tier, and KPMG service line to see where each use case fits. It was built with Claude Code; the <a href="${withBase(walkthroughHref)}">guide page</a> explains what it shows about what you can build.`}
+  walkthroughLabel="PE Use Cases"
+  subtitle="The PE use case library: what is possible to create with Claude Code across the five value levers a private equity fund pulls during a hold. Each use case sits under the lever it pulls and the hold phase it fits. Select one for its detail, or filter by fund tier and KPMG service line."
 >
-  <ValueCreationMatrix />
+  <VcmGrid>
+    <VcmFootnote />
+  </VcmGrid>
 </DeliverableLayout>

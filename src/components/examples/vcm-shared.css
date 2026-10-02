@@ -1,0 +1,165 @@
+/* Lever colors and badges for the AI Value Creation Matrix. Shared by VcmGrid,
+   the components rendered inside it (VcmDefinitions, VcmFootnote), and the
+   MatrixPreview miniature, because Astro scopes <style> per file. Everything is
+   nested under .vcm so these generic class names cannot leak into the rest of
+   the wiki. */
+
+/* Token map: every hue below derives from a wiki design
+   token, so nothing is hardcoded. Badge tints are built with color-mix. */
+.vcm {
+  --lv-efficiency: var(--kpmg-blue);
+  --lv-balance: var(--warning);
+  --lv-revenue: var(--kpmg-teal);
+  --lv-margin: var(--kpmg-cobalt);
+  --lv-inorganic: var(--confidential);
+
+  font-family: var(--font-sans);
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.vcm .vcm-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.vcm .dot-efficiency {
+  background: var(--lv-efficiency);
+}
+.vcm .dot-balance {
+  background: var(--lv-balance);
+}
+.vcm .dot-revenue {
+  background: var(--lv-revenue);
+}
+.vcm .dot-margin {
+  background: var(--lv-margin);
+}
+.vcm .dot-inorganic {
+  background: var(--lv-inorganic);
+}
+
+/* Lever as a --c value, for anything tinted by its lever (grid chips, preview). */
+.vcm .lv-efficiency {
+  --c: var(--lv-efficiency);
+}
+.vcm .lv-balance {
+  --c: var(--lv-balance);
+}
+.vcm .lv-revenue {
+  --c: var(--lv-revenue);
+}
+.vcm .lv-margin {
+  --c: var(--lv-margin);
+}
+.vcm .lv-inorganic {
+  --c: var(--lv-inorganic);
+}
+
+/* ---- Badges (tints derived from tokens) ---- */
+.vcm .badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 1px 2px 1px 0;
+  background: color-mix(in srgb, var(--c) 12%, var(--bg));
+  color: var(--c);
+  border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+}
+.vcm .phase-100 {
+  --c: var(--kpmg-cobalt);
+}
+.vcm .phase-mid {
+  --c: var(--kpmg-blue);
+}
+.vcm .phase-exit {
+  --c: var(--warning);
+}
+.vcm .phase-all {
+  --c: var(--kpmg-teal);
+}
+.vcm .tier-mm {
+  --c: var(--warning);
+}
+.vcm .tier-lc {
+  --c: var(--kpmg-cobalt);
+}
+.vcm .tier-both {
+  --c: var(--kpmg-blue);
+}
+.vcm .pp-high {
+  --c: var(--kpmg-teal);
+}
+.vcm .pp-med {
+  --c: var(--warning);
+}
+.vcm .pp-low {
+  --c: var(--ink-muted);
+}
+
+/* Service badges */
+.vcm .svc {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  white-space: nowrap;
+  margin: 2px 2px 2px 0;
+  background: color-mix(in srgb, var(--c) 12%, var(--bg));
+  color: var(--c);
+  border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
+}
+.vcm .svc-strategy {
+  --c: var(--kpmg-blue);
+}
+.vcm .svc-platform {
+  --c: var(--kpmg-cobalt);
+}
+.vcm .svc-impl {
+  --c: var(--warning);
+}
+.vcm .svc-managed {
+  --c: var(--kpmg-teal);
+}
+.vcm .svc-vc {
+  --c: var(--confidential);
+}
+
+/* Complexity + entry: text-only tokens */
+.vcm .cx {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.vcm .cx-low {
+  color: var(--kpmg-teal);
+}
+.vcm .cx-med {
+  color: var(--warning);
+}
+.vcm .cx-high {
+  color: var(--confidential);
+}
+.vcm .entry {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.vcm .entry-build {
+  color: var(--kpmg-cobalt);
+}
+.vcm .entry-buy {
+  color: var(--kpmg-teal);
+}
+.vcm .entry-partner {
+  color: var(--kpmg-blue);
+}

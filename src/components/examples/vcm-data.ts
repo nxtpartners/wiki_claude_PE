@@ -1,6 +1,5 @@
-// Data and type definitions for the AI Value Creation Matrix.
-// Extracted from ValueCreationMatrix.astro so the component file holds only
-// markup, CSS, and the filter script.
+// Data and type definitions for the AI Value Creation Matrix (the PE use
+// case library), rendered by VcmGrid and previewed by MatrixPreview.
 
 export const serviceLabels: Record<string, string> = {
   strategy: 'Strategy & Advisory',
@@ -420,20 +419,4 @@ export const levers: Lever[] = [
       },
     ],
   },
-];
-
-export const columns = [
-  'Sub-Lever',
-  'Use Case',
-  'Phase',
-  'Tier',
-  'AI Role',
-  'Real-World Anchor',
-  'PortCo Pulse Fit \u2460',
-  'Complexity',
-  'Time to Value \u2461',
-  'Project Duration \u2461',
-  'Key Dependencies',
-  'Entry Point',
-  'KPMG Services',
 ];

@@ -1,0 +1,640 @@
+---
+// The AI Value Creation Matrix: the PE use case library, laid out as a true
+// matrix. Value levers down the side, hold phases across the top, one chip per
+// use case (data in vcm-data.ts). Rendered full width on its own page.
+// A chip opens a <dialog> holding that use case's full row. The tier and
+// service filters dim chips rather than remove them, so the shape of the
+// matrix stays readable while filtering.
+//
+// Colors come only from wiki tokens, via the lever map in vcm-shared.css.
+// Layout adapts to its own width (container query), not the viewport.
+// Anything passed as children renders inside the .vcm root, after the notes.
+
+import { levers, phaseMeta, tierMeta, fitMeta, cxMeta, entryMeta, serviceLabels } from './vcm-data';
+import VcmControls from './VcmControls.astro';
+import VcmDefinitions from './VcmDefinitions.astro';
+import { withBase } from '../../utils/withBase';
+import './vcm-shared.css';
+
+// Column order is the phaseMeta key order: 100-Day, Mid-Hold, Exit Prep, Continuous.
+const phases = Object.keys(phaseMeta);
+const total = levers.reduce((n, l) => n + l.rows.length, 0);
+
+// A High PortCo Pulse fit means PortCo Pulse directly addresses the use case
+// (see the fit key in VcmDefinitions), so the dashboard is that use case built out.
+const BUILT_FIT = 'High';
+const builtHref = withBase('/claude-code/example-portco-pulse');
+
+const items = levers.flatMap((lever) =>
+  lever.rows.map((row, i) => ({ lever, row, id: `vcg-${lever.key}-${i}` })),
+);
+---
+
+<section class="vcm vcg" data-vcg aria-label="PE use case library">
+  <VcmControls totalUseCases={total} />
+
+  <div class="vcg-grid">
+    <div class="vcg-head" aria-hidden="true">
+      <span class="vcg-corner">Value lever</span>
+      {phases.map((p) => <span class:list={['badge', phaseMeta[p].cls]}>{phaseMeta[p].label}</span>)}
+    </div>
+
+    {
+      levers.map((lever) => (
+        <div class="vcg-row">
+          <div class="vcg-lever">
+            <h2 class="vcg-lever-title">{lever.title}</h2>
+            <span class="vcg-lever-count" data-lever-count={lever.key} />
+          </div>
+          {phases.map((p) => {
+            const cell = items.filter((it) => it.lever === lever && it.row.phase === p);
+            return (
+              <div class:list={['vcg-cell', { 'is-empty': cell.length === 0 }]}>
+                <span class="vcg-cell-phase visually-hidden">{phaseMeta[p].label}</span>
+                {cell.length > 0 && (
+                  <ul class="vcg-chips">
+                    {cell.map(({ row, id }) => (
+                      <li>
+                        <button
+                          type="button"
+                          class:list={['vcg-chip', `lv-${lever.key}`]}
+                          aria-haspopup="dialog"
+                          data-item
+                          data-open={id}
+                          data-lever={lever.key}
+                          data-phase={row.phase}
+                          data-tier={row.tier}
+                          data-services={row.filterServices}
+                        >
+                          <span class="vcg-chip-name">{row.usecase}</span>
+                          <span class="visually-hidden" data-dim-note hidden>(filtered out)</span>
+                          {row.fit === BUILT_FIT && <span class="badge pp-high vcg-built">Built</span>}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="vcg-legend">
+    <span class="badge pp-high vcg-built">Built</span>
+    <span>
+      Shown end to end in the <a href={builtHref}>PortCo Pulse Dashboard</a>.
+    </span>
+  </p>
+
+  <VcmDefinitions />
+
+  <slot />
+
+  {
+    items.map(({ lever, row, id }) => (
+      <dialog id={id} class="vcg-dialog" aria-labelledby={`${id}-title`}>
+        <div class="vcg-sheet">
+          <button type="button" class="vcg-close" data-close aria-label="Close" autofocus>
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <header class="vcg-sheet-head">
+            <p class="vcg-eyebrow">
+              {lever.title} · {row.sublever}
+            </p>
+            <h2 id={`${id}-title`} class="vcg-title">{row.usecase}</h2>
+            <div class="vcg-badges">
+              <span class:list={['badge', phaseMeta[row.phase].cls]}>{phaseMeta[row.phase].label}</span>
+              <span class:list={['badge', tierMeta[row.tier]]}>{row.tier}</span>
+            </div>
+          </header>
+
+          {row.fit === BUILT_FIT && (
+            <a class="vcg-built-link" href={builtHref}>
+              <span class="badge pp-high vcg-built">Built</span>
+              <span>See it built: PortCo Pulse Dashboard</span>
+              <span aria-hidden="true">→</span>
+            </a>
+          )}
+
+          <section>
+            <h3 class="vcg-label">AI Role</h3>
+            <p class="vcg-text">{row.airole}</p>
+          </section>
+
+          <section>
+            <h3 class="vcg-label">Real-World Anchor</h3>
+            <p class="vcg-text vcg-anchor">{row.anchor}</p>
+          </section>
+
+          <dl class="vcg-facts">
+            <div>
+              <dt class="vcg-label">Complexity</dt>
+              <dd class:list={['cx', cxMeta[row.complexity]]}>{row.complexity}</dd>
+            </div>
+            <div>
+              <dt class="vcg-label">PortCo Pulse Fit</dt>
+              <dd><span class:list={['badge', fitMeta[row.fit]]}>{row.fit}</span></dd>
+            </div>
+            <div>
+              <dt class="vcg-label">Time to Value</dt>
+              <dd class="vcg-mono">{row.ttv}</dd>
+            </div>
+            <div>
+              <dt class="vcg-label">Project Duration</dt>
+              <dd class="vcg-mono">{row.duration}</dd>
+            </div>
+          </dl>
+
+          <section>
+            <h3 class="vcg-label">Key Dependencies</h3>
+            <p class="vcg-text">{row.deps}</p>
+          </section>
+
+          <section class="vcg-delivery">
+            <div>
+              <h3 class="vcg-label">Entry Point</h3>
+              <span class:list={['entry', entryMeta[row.entry.type]]}>{row.entry.label}</span>
+            </div>
+            <div>
+              <h3 class="vcg-label">KPMG Services</h3>
+              <div class="vcg-badges">
+                {row.services.map((s) => <span class:list={['svc', `svc-${s}`]}>{serviceLabels[s]}</span>)}
+              </div>
+            </div>
+          </section>
+        </div>
+      </dialog>
+    ))
+  }
+</section>
+
+<style>
+  .vcg {
+    container: vcg / inline-size;
+  }
+
+  /* ---- The matrix ---- */
+  .vcg-grid {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.7fr) repeat(4, minmax(0, 1fr));
+    margin-top: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .vcg-head,
+  .vcg-row {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
+  }
+  .vcg-head {
+    background: var(--bg-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .vcg-head > * {
+    justify-self: start;
+    align-self: center;
+    margin: var(--space-3);
+  }
+  .vcg-corner {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .vcg-row + .vcg-row {
+    border-top: 1px solid var(--line);
+  }
+
+  .vcg-lever {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-3);
+    background: var(--bg-soft);
+  }
+  .vcg-lever-title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--kpmg-blue);
+  }
+  .vcg-lever-count {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--ink-muted);
+  }
+
+  .vcg-cell {
+    padding: var(--space-2);
+    border-left: 1px solid var(--line);
+  }
+  .vcg-cell.is-empty {
+    background: repeating-linear-gradient(
+      135deg,
+      transparent 0 6px,
+      color-mix(in srgb, var(--line) 45%, transparent) 6px 7px
+    );
+  }
+  .vcg-chips {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .vcg-chips li {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ---- Chips (lever tint --c comes from .lv-* in vcm-shared.css) ---- */
+  .vcg-chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+    width: 100%;
+    padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--c) 6%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--c) 24%, var(--bg));
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      box-shadow 0.15s ease,
+      transform 0.15s ease,
+      color 0.2s ease;
+  }
+  .vcg-chip:hover {
+    background: color-mix(in srgb, var(--c) 13%, var(--bg));
+    border-color: color-mix(in srgb, var(--c) 45%, var(--bg));
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+  /* Filtered out: still operable, so it is muted with colors that keep text
+     contrast, never with opacity (which would also fade the focus ring). */
+  .vcg-chip.is-dim {
+    color: var(--ink-muted);
+    font-weight: 500;
+    background: var(--bg);
+    border-color: var(--line);
+  }
+  .vcg-chip.is-dim:hover {
+    background: var(--bg-soft);
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Tint comes from .badge.pp-high (vcm-shared.css); only size and case are local. */
+  .vcg-built {
+    margin: 0;
+    padding: 1px 6px;
+    font-size: 0.56rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .vcg-legend {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin: var(--space-3) 0 0;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+
+  /* ---- Narrow column: one lever per block, phase shown on each cell ---- */
+  @container vcg (max-width: 44rem) {
+    .vcg-grid {
+      grid-template-columns: 1fr;
+    }
+    .vcg-head {
+      display: none;
+    }
+    .vcg-row {
+      display: block;
+    }
+    .vcg-lever {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-3);
+      border-bottom: 1px solid var(--line);
+    }
+    .vcg-lever-count {
+      margin-left: auto;
+    }
+    .vcg-cell {
+      border-left: none;
+      padding: var(--space-3) var(--space-4);
+    }
+    .vcg-cell.is-empty {
+      display: none;
+    }
+    /* The phase label is read out in every cell (.visually-hidden), and shown
+       once the grid collapses and the column headers are gone. */
+    .vcg-cell-phase {
+      position: static;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+      display: block;
+      margin-bottom: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+  }
+
+  /* ---- Detail sheet ---- */
+  .vcg-dialog {
+    margin: 0 0 0 auto;
+    padding: 0;
+    width: min(34rem, 100vw);
+    max-width: 100vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    border: none;
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: var(--shadow-lg);
+  }
+  .vcg-dialog::backdrop {
+    background: color-mix(in srgb, var(--kpmg-blue) 26%, transparent);
+    backdrop-filter: blur(2px);
+  }
+  .vcg-dialog[open] {
+    animation: vcg-slide-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes vcg-slide-in {
+    from {
+      transform: translateX(2rem);
+      opacity: 0;
+    }
+  }
+
+  .vcg-sheet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    height: 100%;
+    overflow-y: auto;
+    padding: var(--space-8) var(--space-6);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .vcg-close {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    font: inherit;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--ink-muted);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+  .vcg-close:hover {
+    color: var(--kpmg-blue);
+    background: var(--bg-soft);
+  }
+
+  .vcg-sheet-head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-right: var(--space-10);
+  }
+  .vcg-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .vcg-title {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--kpmg-blue);
+  }
+  .vcg-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .vcg-built-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    font-weight: 600;
+    color: var(--kpmg-blue);
+    text-decoration: none;
+    background: color-mix(in srgb, var(--kpmg-teal) 8%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--kpmg-teal) 30%, var(--bg));
+    border-radius: var(--radius-md);
+    transition: background 0.15s ease;
+  }
+  .vcg-built-link:hover {
+    background: color-mix(in srgb, var(--kpmg-teal) 15%, var(--bg));
+  }
+  .vcg-built-link > :last-child {
+    margin-left: auto;
+  }
+
+  .vcg-label {
+    margin: 0 0 var(--space-1);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .vcg-text {
+    margin: 0;
+    color: var(--ink);
+  }
+  .vcg-anchor {
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+  .vcg-mono {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+
+  .vcg-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin: 0;
+  }
+  .vcg-facts > div {
+    padding: var(--space-3);
+    background: var(--bg-soft);
+    border-radius: var(--radius-md);
+  }
+  .vcg-facts dd {
+    margin: 0;
+  }
+
+  .vcg-delivery {
+    display: grid;
+    gap: var(--space-4);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--line);
+  }
+
+  /* Phones: the sheet rises from the bottom instead of sliding in from the side. */
+  @media (max-width: 640px) {
+    .vcg-dialog {
+      margin: auto 0 0;
+      width: 100vw;
+      height: auto;
+      max-height: 88dvh;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .vcg-dialog[open] {
+      animation-name: vcg-rise;
+    }
+    .vcg-sheet {
+      max-height: 88dvh;
+      padding: var(--space-6) var(--space-5);
+    }
+  }
+  @keyframes vcg-rise {
+    from {
+      transform: translateY(2rem);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vcg-chip,
+    .vcg-built-link {
+      transition: none;
+    }
+    .vcg-chip:hover {
+      transform: none;
+    }
+    .vcg-dialog[open] {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  // Multi-select filtering plus the detail sheets, scoped per grid instance.
+  // An empty filter group means "no filter"; within a group any value matches,
+  // across groups all must match. Filtering dims chips rather than hiding them.
+  document.querySelectorAll<HTMLElement>('[data-vcg]').forEach((root) => {
+    const state: Record<string, Set<string>> = { tier: new Set(), service: new Set() };
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-item]'));
+    const countEl = root.querySelector<HTMLElement>('[data-count]');
+    const leverCounts = Array.from(root.querySelectorAll<HTMLElement>('[data-lever-count]'));
+    const label = (n: number) => n + ' use case' + (n !== 1 ? 's' : '');
+
+    function apply() {
+      const per: Record<string, number> = {};
+      let total = 0;
+
+      chips.forEach((chip) => {
+        const services = (chip.dataset.services || '').split(' ');
+        const show =
+          (state.tier.size === 0 || state.tier.has(chip.dataset.tier || '')) &&
+          (state.service.size === 0 || services.some((v) => state.service.has(v)));
+        chip.classList.toggle('is-dim', !show);
+        chip.querySelector<HTMLElement>('[data-dim-note]')?.toggleAttribute('hidden', show);
+        if (show) {
+          total++;
+          const lv = chip.dataset.lever || '';
+          per[lv] = (per[lv] || 0) + 1;
+        }
+      });
+
+      leverCounts.forEach((el) => {
+        el.textContent = label(per[el.dataset.leverCount || ''] || 0);
+      });
+      if (countEl) countEl.textContent = label(total);
+    }
+
+    root.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const group = btn.dataset.group || '';
+        const value = btn.dataset.filter || '';
+        const set = state[group];
+        if (!set) return;
+
+        if (value === '__all') set.clear();
+        else if (set.has(value)) set.delete(value);
+        else set.add(value);
+
+        // "All" is active only while its group is empty.
+        root.querySelectorAll<HTMLButtonElement>(`[data-group="${group}"]`).forEach((b) => {
+          const v = b.dataset.filter || '';
+          const on = v === '__all' ? set.size === 0 : set.has(v);
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+
+        apply();
+      });
+    });
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const dialog = document.getElementById(chip.dataset.open || '');
+        if (dialog instanceof HTMLDialogElement) dialog.showModal();
+      });
+    });
+
+    root.querySelectorAll<HTMLDialogElement>('dialog').forEach((dialog) => {
+      dialog.querySelector('[data-close]')?.addEventListener('click', () => dialog.close());
+      // The sheet fills the dialog, so a click landing on the dialog itself is a backdrop click.
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) dialog.close();
+      });
+    });
+
+    apply();
+  });
+</script>
