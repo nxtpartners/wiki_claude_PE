@@ -1,28 +1,30 @@
-# Handover — KPMG × Claude for PE Wiki   ·   2026-09-24
+# Handover — KPMG × Claude for PE Wiki   ·   2026-10-02
 
 ## Where to take over from
-Next:        Ask the user for the next piece of client feedback; open work is items 1 to 6 in `tasks/plan.md`.
+Next:        Ask the user for the next piece of client feedback; open work is items 1 to 8 in `tasks/plan.md`.
 In progress: Nothing half-applied. Everything is committed and pushed to `main`.
-State:       `npm run build` green at 54 pages. Pushing `main` triggers the Pages deploy workflow.
-Waiting on:  The user to regenerate the homepage hero diagram (plan item 5).
+State:       `npm run build` green at 52 pages. Pushing `main` triggers the Pages deploy workflow.
+Waiting on:  - The user: should the Claude Code welcome list's "Saving and Shipping" bullet (no such section
+               exists; Git and Going Live sit in Executing at Scale) fold into the Executing at Scale bullet?
+             - The user to regenerate the homepage hero diagram (plan item 5).
 
 ## What to avoid
-- `welcome.mdx`, `first-15-minutes.mdx` and `Header.astro` stay locked. The user approved one exception on
-  2026-09-24: trimming confidentiality text only.
-- Confidentiality has one home per track: "Your Account & Confidential Data" (claude.ai, which now holds the
-  upload checks) and "Keeping Deal Data Safe" (Claude Code). Other pages get at most one short mention, only
-  where data moves. Do not re-add reminders or recreate the deleted Decision Tree page.
-- Tracks are called "claude.ai" and "Claude Code", never "Core" or "Advanced". Internal ids stay `core`/`advanced`.
-- VS Code is required at KPMG, recommended in general (user decision; see `CLAUDE.md`).
-- PortCo Pulse animations loop with no Replay or pause control, by user decision (see `tasks/context.md`).
-- Every reusable template carries a `# Version` / `# Tested on` header with placeholders, never an invented
-  model or date. `tasks/standards.md` enforces it; this was missed twice in one session.
-- The user wants short, PE-focused pages ("short and sweet! focus on PE") and quick visible iteration.
+- `welcome.mdx`, `first-15-minutes.mdx` and `Header.astro` stay locked (see `CLAUDE.md`).
+- The AI Value Creation Matrix is the PE use case library. It lives only on the full page
+  (`/claude-code/value-creation-matrix`, `VcmGrid`); PE Use Cases links to it through `MatrixPreview`. Do not
+  embed the grid on PE Use Cases again, do not bring back the old table, and keep the Strategic Summary off
+  the PE Use Cases page (user decisions).
+- No per-use-case content was added to the matrix by user choice; do not invent "what you build" lines.
+- PortCo Pulse is the library's one "Built" use case (the row with PortCo Pulse fit High).
+- "The section" means the nav section and its page, not the matrix tool. Never remove a component, link or
+  preview the user did not name. Never repeat on a page what the page already shows (now a checklist rule).
+- Claude Code track sections are now: Claude Code Welcome, Getting Started (4 pages), Executing at Scale,
+  PE Use Cases, Worked Example, Resources. PE Recipes was deleted (recoverable from git).
+- After renaming a section, restart `npm run dev`: a stale content store shows the pages as "soon".
 - `gh` is logged in as `dorian014`; Pages settings and deploy triggers belong to the user.
 
 ## What we did
-Worked through client feedback: the landing page is now just the hero; confidentiality mentions cut from 27
-callouts to 9; the Prompt Library merged to one optimized prompt per section with previews; the Claude Code
-install and sign-in pages merged into Before you Start; the AI Value Creation Matrix got its own section;
-PortCo Pulse gained an animated chat Submit view and view animations; a new Skills page. Nothing was deleted
-outside git: the Decision Tree and sign-in pages are recoverable from history.
+Worked through client feedback on the Claude Code track: the matrix section became "PE Use Cases" and the
+matrix itself an interactive lever x phase use case library with detail sheets; PE Recipes was removed; First
+Sessions folded into Getting Started; Good Habits renamed Executing at Scale; Skills renamed Leveraging Skills.
+Deleted, recoverable from git only: `recipes-data.mdx`, `recipes-docs.mdx`, `ValueCreationMatrix.astro`.

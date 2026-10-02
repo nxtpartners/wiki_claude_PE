@@ -22,7 +22,7 @@ alone.
 invisible layout damage rather than as an error. See Exceptions.
 
 **2 · Enums.** Closed sets are TypeScript string-literal unions on the component's `Props`, not free strings:
-`Track` (`nav.ts:223`), `Callout` variant (`Callout.astro:2`), `PromptCard` collapse (`:15`),
+`Track` (`nav.ts`), `Callout` variant (`Callout.astro:2`), `PromptCard` collapse (`:15`),
 `ClaudeSidebar` active (`:12`), `FileChip` kind (`:12`), `ClaudeMessage` role (`:9`), `CardGrid` columns
 (`:3`). A new closed set follows that pattern.
 
@@ -60,8 +60,10 @@ gateway.
     src/
       pages/          routes; [...slug].astro renders the collection
       layouts/        BaseLayout (head, noindex, fonts) → DocLayout (doc grid, sidebar, TOC)
-      components/     chrome; claude-ui/ = product mockups; examples/ = preview widgets
-      content/docs/   the 50 MDX pages
+      components/     chrome; claude-ui/ = product mockups; examples/ = the matrix and PortCo Pulse
+                      deliverables plus their previews (examples/*-shared.css = styles shared across
+                      one deliverable's components, since Astro scopes <style> per file)
+      content/docs/   the MDX pages, one per nav slug
       config/nav.ts   the route + label registry
       utils/          basePath, withBase, existingDocs
       plugins/        rehype: rewrites prose links at build time
@@ -117,6 +119,13 @@ depends upward.
       terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
+- [ ] Nothing on a page restates what the page already shows: no legend, key, footnote, card set, or
+      decorative marker (dot, stripe, icon) that repeats information the main view carries. When a view
+      changes, re-check every supporting block around it. (Corrected three times on 2026-10-02.)
+- [ ] No colored left-border accent stripe on cards, chips, or callouts. Signal a category with a soft
+      tint or with position. (User, 2026-10-02: "that is super AI".)
+- [ ] A control that is filtered out or dimmed but still operable keeps text contrast of 4.5:1 and its focus
+      ring: mute it with color tokens, never with `opacity`. (Caught by review, 2026-10-02.)
 
 ## Exceptions
 

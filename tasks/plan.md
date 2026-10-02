@@ -120,15 +120,15 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
 4. **Add the KPMG context to VS Code wording.** VS Code is required at KPMG and recommended in general (user,
    2026-09-24). Pages that say "recommended" or "any terminal", including both glossaries, are correct in
    general but should add that KPMG uses VS Code. Grep `recommended\|any terminal` in `src/content/docs`.
+   (The Claude Code welcome list was fixed 2026-10-02.)
 5. **Regenerate the homepage hero diagram.** `home-two-paths.png` still has "Core Track" and "Advanced Track"
    in its pixels. The prompt in `diagrams_home/diagrams_prompts/01-two-paths.md` is already updated; the user
    generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.
 6. **Em dashes in component code comments** (`global.css`, `PromptCard`, `Sidebar`, `CodeWindow`) break the
    house rule. Pre-existing; fix when those files are next touched.
-
-## In progress (2026-10-02): PE Use Cases as an interactive library
-
-Client: the AI Value Creation Matrix is "what is possible to create with Claude Code", a use case library for PE
-value creation; PortCo Pulse is a supporting example of one use case built out. User chose: a lever x phase grid
-on the PE Use Cases page, chips open a detail panel, tier and service filters; **no new per-row content**. The
-full matrix page and its table stay. The High-fit row links to PortCo Pulse ("See it built").
+7. **The four `Pp*View.astro` components repeat about 330 lines of CSS and one markup block** (see the
+   `standards.md` exception). Fix: move the shared header, panel and view-state rules into one stylesheet
+   imported by all four, the way `vcm-shared.css` serves the matrix components.
+8. **The section enum in `src/content.config.ts` is a hand-kept copy of the nav labels in `src/config/nav.ts`.**
+   Every section rename needs both edits, and a half-done rename makes the dev server drop that section's
+   pages (2026-10-02, see `context.md`). Fix: build the `z.enum` from the labels exported by `nav.ts`.
