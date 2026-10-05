@@ -20,19 +20,22 @@ think they have broken something.
 | Images | `astro:assets` — diagrams are imported, never referenced by URL |
 | Fonts | Inter variable + JetBrains Mono, self-hosted via Fontsource |
 | Build | `npm run build` · `npm run dev` · `npm run preview` |
-| Node | **>= 22.12**. Astro 6 refuses to build on Node 20. CI pins `node-version: 22`. |
+| Node | **>= 22.12**. Astro 6 refuses to build on Node 20. `.node-version` pins 22 for Cloudflare; the GitHub workflow pins `node-version: 22`. |
 
 Dependencies are pinned on purpose: `astro-pagefind@2` supports Astro **≤ 6**. Do not upgrade to Astro 7 or
 `@astrojs/mdx@7` — npm install fails on a peer-dep conflict.
 
 ## Hosting — the rule that breaks the most builds
 
-The site is served from a **GitHub Pages project subpath**, `nxtpartners.github.io/wiki_claude_PE/`. The base
-is env-driven in `astro.config.mjs` (`process.env.SITE_BASE ?? '/wiki_claude_PE/'`).
+The site lives at **`wiki.nxtpartners.ai`**, built and deployed by Cloudflare Pages (user, 2026-10-05) with
+`SITE_BASE=/` set in the Cloudflare project. The GitHub workflow still deploys a copy to the project subpath
+`nxtpartners.github.io/wiki_claude_PE/`, the default when `SITE_BASE` is unset (`astro.config.mjs`). Both
+must keep working, so the base stays env-driven.
 
 **Every internal link and asset must go through `src/utils/withBase.ts` or `import.meta.env.BASE_URL`.** A
 root-absolute `href="/foo"`, `/favicon.svg`, or `/pagefind/...` 404s in production while working perfectly in
-`dev`. That asymmetry is why this keeps recurring. Building with `SITE_BASE=/` targets a root host.
+`dev`, and on the root-served Cloudflare domain, but 404s on the GitHub subpath copy. That asymmetry is why
+this keeps recurring.
 
 Prose links inside markdown are rewritten at build time by the rehype plugin in `src/plugins/`, so authors
 write plain `[text](/foo)`. **JSX inside MDX is deliberately not rewritten** — those must call `withBase()`
