@@ -1,13 +1,13 @@
 # Handover — Claude for Private Equity (NXT Partners AI)   ·   2026-10-05
 
 ## Where to take over from
-Next:        Ask the user for the next piece of feedback; open work is in `tasks/plan.md` (items 9 and 10 first).
+Next:        Confirm the user submitted the sitemap to Search Console (plan item 13), then items 9 and 10.
 In progress: Nothing half-applied. Everything is committed and pushed to `main`.
 State:       `npm run build` green. Live at https://wiki.nxtpartners.ai (Cloudflare Pages, `SITE_BASE=/`);
              pushing `main` also still deploys the GitHub Pages copy under `/wiki_claude_PE/`.
-Waiting on:  Whether to retire the GitHub Pages workflow; whether to add visible calls to action
-             (declined for now: machine-facing only); user OK to fix the logo's blinking cursor at its source in `nxt-pe` (plan item 9); the
-             homepage hero diagram regeneration (plan item 5).
+Waiting on:  Whether to retire the GitHub Pages workflow (item 15); whether to add visible calls to
+             action (declined for now: machine-facing only); OK to fix the logo's blinking cursor in
+             `nxt-pe` (item 9); the hero diagram regeneration (item 5).
 
 ## What to avoid
 - The site names no client. KPMG is gone everywhere except the diagrams' blue palette (accepted). "Big 4"
