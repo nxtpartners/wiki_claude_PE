@@ -12,7 +12,7 @@ import twoPaths from '../assets/diagrams/home-two-paths.png';
 <BaseLayout title="Home">
   <Header />
 
-  <main id="main">
+  <main id="main" class="home">
     <!-- ===================== HERO ===================== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
@@ -62,6 +62,11 @@ import twoPaths from '../assets/diagrams/home-two-paths.png';
   }
 
   /* ---------- HERO ---------- */
+  /* The footer keeps a gap above it for doc pages; here the hero already ends the
+     page, so that gap would be an empty white band. */
+  .home + :global(.site-footer) {
+    margin-top: 0;
+  }
   .hero {
     position: relative;
     min-height: calc(100svh - var(--header-h));
