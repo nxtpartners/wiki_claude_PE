@@ -1,26 +1,15 @@
 ---
-// A link that leaves the wiki. It opens in a new tab, so the reader keeps their
-// place, and says so twice: an arrow for the eye, hidden text for a screen
-// reader. Rest props are spread so a parent's scoped styles reach the anchor.
+// A link that leaves the wiki for another NXT site. It opens in the same tab
+// (user, 2026-10-05): the wiki and pe.nxtpartners.ai are one family and link to
+// each other the same way, so leaving one for the other is ordinary navigation.
+// Every such link goes through here, so how they behave is decided once.
+// Rest props are spread so a parent's scoped styles reach the anchor.
 interface Props {
   href: string;
   class?: string;
-  // The header logo is an image link; an arrow beside it would read as clutter.
-  arrow?: boolean;
   [key: string]: unknown;
 }
-const { href, class: className, arrow = true, ...rest } = Astro.props;
+const { href, class: className, ...rest } = Astro.props;
 ---
 
-<a href={href} class:list={['ext-link', className]} target="_blank" rel="noopener" {...rest}
-  ><slot />{arrow && <span class="ext-arrow" aria-hidden="true">↗</span>}<span class="visually-hidden"
-    > (opens in a new tab)</span
-  ></a
->
-
-<style>
-  .ext-arrow {
-    margin-inline-start: 0.25em;
-    font-size: 0.9em;
-  }
-</style>
+<a href={href} class:list={['ext-link', className]} {...rest}><slot /></a>

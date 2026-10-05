@@ -63,7 +63,7 @@ gateway.
 - **NXT brand.** The logo is not copied: `NxtLogo.astro` embeds NXT's finished asset from
   `NXT_SITE.logoDark` (pe.nxtpartners.ai, source `nxt-pe/public/logo/logo-dark.html`) as a scaled iframe,
   the way `nxt-pe`'s `NXTLogo.tsx` does. Every NXT URL lives in `NXT_SITE` in `nav.ts`, and every link
-  out of the wiki goes through `ExternalLink.astro`. The tab and home-screen icons (`public/favicon-16x16.png`,
+  out of the wiki goes through `ExternalLink.astro`, which opens it in the same tab (user, 2026-10-05). The tab and home-screen icons (`public/favicon-16x16.png`,
   `favicon-32x32.png`, `apple-touch-icon.png`) are byte-identical copies of `nxt-pe/public/` (user, 2026-10-05):
   replace them from there, never edit or redraw them; `cmp` each pair to check. Brand colors are hand-copied from
   `nxt-pe/src/theme/tokens.ts` into `global.css`; a brand change goes into `tokens.ts` first.
