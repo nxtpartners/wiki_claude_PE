@@ -44,7 +44,7 @@ exactly two places: `src/pages/[...slug].astro:6` and `src/utils/existingDocs.ts
 through `existingDocSlugs()`. If a runtime data source is ever added, this seam becomes real and needs a
 gateway.
 
-**5 · Cross-boundary sync.** Two boundaries:
+**5 · Cross-boundary sync.** Three boundaries:
 
 - **Base path.** Declared once at `astro.config.mjs:10` and crosses into two consumers that cannot share a
   module: the rehype plugin receives it as a parameter at `:25`; browser-side code reads
@@ -54,6 +54,11 @@ gateway.
   `src/assets/diagrams/` holds the copies the site actually imports through `astro:assets`, under different
   filenames (`approval-loop.png` → `cc-approval-loop.png`). Nothing generates one from the other. See
   Exceptions.
+- **NXT brand.** The logo is not copied: `NxtLogo.astro` embeds NXT's finished asset from
+  `NXT_SITE.logoDark` (pe.nxtpartners.ai, source `nxt-pe/public/logo/logo-dark.html`) as a scaled iframe,
+  the way `nxt-pe`'s `NXTLogo.tsx` does. Every NXT URL lives in `NXT_SITE` in `nav.ts`, and every link
+  out of the wiki goes through `ExternalLink.astro`. Brand colors are hand-copied from
+  `nxt-pe/src/theme/tokens.ts` into `global.css`; a brand change goes into `tokens.ts` first.
 
 ## Layout
 
@@ -123,6 +128,8 @@ depends upward.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
 - [ ] VS Code is described as required. Never tell a reader another terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
+- [ ] No redrawn or copied NXT logo; use `NxtLogo.astro`. No external URL outside `NXT_SITE`, and every
+      link that leaves the wiki uses `ExternalLink.astro`.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 - [ ] Nothing on a page restates what the page already shows: no legend, key, footnote, card set, or
       decorative marker (dot, stripe, icon) that repeats information the main view carries. When a view

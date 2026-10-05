@@ -12,7 +12,7 @@ A polished, professional teaching wiki that takes private equity professionals f
 - **Palette (2026-10-05):** NXT Partners AI. Navy chrome (#0e0a20) for header and footer; white hero; light reading pages; purple accent (#7B61FF, text uses #6248E5 for contrast); cyan secondary. Source: `nxt-pe/src/theme/tokens.ts`. No gradients, no glow.
 - **Typography (2026-10-05):** Space Grotesk headings, Inter body, JetBrains Mono for small mono accents (eyebrows, labels). No serif.
 - **Motion (GSAP):** restrained and premium — hero animation, scroll reveals, smooth transitions, copy-button micro-interactions, reading-progress indicator.
-- **Logo:** NXT Partners inline SVG lockup (`NxtLogo.astro`).
+- **Logo:** NXT's own logo, embedded from pe.nxtpartners.ai (`NxtLogo.astro`). Header logo links out to pe.nxtpartners.ai; a Home button and the wordmark go home.
 
 ## Tech Stack
 - **Astro** (content-first, static, minimal JS) with a fully custom design (no docs-template look — explicitly NOT Docusaurus).
@@ -116,15 +116,22 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
 3. **Astro 6 deprecates `markdown.remarkPlugins` / `rehypePlugins` / `remarkRehype`** in `astro.config.mjs`.
    That is the exact config path the base-path prose-link rewriter in `src/plugins/` depends on, so this
    becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
-4. ~~VS Code KPMG wording~~ Moot after the 2026-10-05 rebrand: VS Code is simply "required".
 5. **Regenerate the homepage hero diagram.** `home-two-paths.png` still has "Core Track" and "Advanced Track"
    in its pixels. The prompt in `diagrams_home/diagrams_prompts/01-two-paths.md` is already updated; the user
    generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.
-6. **Em dashes in component code comments** (`global.css`, `PromptCard`, `Sidebar`, `CodeWindow`) break the
-   house rule. Pre-existing; fix when those files are next touched.
 7. **The four `Pp*View.astro` components repeat about 330 lines of CSS and one markup block** (see the
    `standards.md` exception). Fix: move the shared header, panel and view-state rules into one stylesheet
    imported by all four, the way `vcm-shared.css` serves the matrix components.
 8. **The section enum in `src/content.config.ts` is a hand-kept copy of the nav labels in `src/config/nav.ts`.**
    Every section rename needs both edits, and a half-done rename makes the dev server drop that section's
    pages (2026-10-02, see `context.md`). Fix: build the `z.enum` from the labels exported by `nav.ts`.
+9. **The NXT logo's cursor blinks forever**, ignoring reduced motion (rules.md: honour reduced-motion). The
+   wiki cannot reach inside the iframe. Fix at the source, with the user's OK: add
+   `@media (prefers-reduced-motion: reduce) { .chevron-mark::after { animation: none; } }` to
+   `nxt-pe/public/logo/logo-dark.html` (and `logo-light.html`), then deploy nxt-pe.
+10. **Verify the header at phone width** with DevTools device emulation: logo, wordmark, Home and Search
+   in one row at 390px. Never checked (see `context.md` 2026-10-05).
+11. **Optional: trim the gap after the header logo.** NXT's logo frame (308 wide) is wider than its
+   artwork, leaving extra space before "· Claude". Crop the wrapper width in `NxtLogo.astro`, not the asset.
+12. **`VcmControls.astro` hand-copies the service labels** that `serviceLabels` in `vcm-data.ts` already
+   holds. Derive the filter buttons from `vcm-data.ts`.
