@@ -59,7 +59,9 @@ gateway.
 - **NXT brand.** The logo is not copied: `NxtLogo.astro` embeds NXT's finished asset from
   `NXT_SITE.logoDark` (pe.nxtpartners.ai, source `nxt-pe/public/logo/logo-dark.html`) as a scaled iframe,
   the way `nxt-pe`'s `NXTLogo.tsx` does. Every NXT URL lives in `NXT_SITE` in `nav.ts`, and every link
-  out of the wiki goes through `ExternalLink.astro`. Brand colors are hand-copied from
+  out of the wiki goes through `ExternalLink.astro`. The tab and home-screen icons (`public/favicon-16x16.png`,
+  `favicon-32x32.png`, `apple-touch-icon.png`) are byte-identical copies of `nxt-pe/public/` (user, 2026-10-05):
+  replace them from there, never edit or redraw them; `cmp` each pair to check. Brand colors are hand-copied from
   `nxt-pe/src/theme/tokens.ts` into `global.css`; a brand change goes into `tokens.ts` first.
 
 ## Layout
@@ -132,7 +134,7 @@ depends upward.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
 - [ ] VS Code is described as required. Never tell a reader another terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
-- [ ] No redrawn or copied NXT logo or icon; use `NxtLogo.astro` and the `NXT_SITE.icons` links. No external URL outside `NXT_SITE`, and every
+- [ ] No redrawn NXT logo or icon: the logo is `NxtLogo.astro`, the icons are the copies from `nxt-pe/public/`. No external URL outside `NXT_SITE`, and every
       link that leaves the wiki uses `ExternalLink.astro`.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 - [ ] Nothing on a page restates what the page already shows: no legend, key, footnote, card set, or

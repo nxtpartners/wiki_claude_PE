@@ -12,7 +12,7 @@ Waiting on:  Whether to retire the GitHub Pages workflow and whether to drop `no
 ## What to avoid
 - The site names no client. KPMG is gone everywhere except the diagrams' blue palette (accepted). "Big 4"
   appears only in the hero line. Rules in `CLAUDE.md` and `tasks/standards.md`.
-- The NXT logo and tab icons are linked from pe.nxtpartners.ai, never redrawn ("We have the object for the
+- The NXT logo is embedded from pe.nxtpartners.ai and the tab icons are copied from `nxt-pe/public/`; never redrawn ("We have the object for the
   logo completed, why you did not take that one?"; then the same for the tab icon). Its styles are inline on purpose (`context.md`).
 - The hero stays white ("keep the hero in white"); only header and footer are navy.
 - The header's Confidential chip, "Built by" text and the footer confidentiality line were removed by
