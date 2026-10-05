@@ -46,7 +46,7 @@ exactly two places: `src/pages/[...slug].astro:6` and `src/utils/existingDocs.ts
 through `existingDocSlugs()`. If a runtime data source is ever added, this seam becomes real and needs a
 gateway.
 
-**5 · Cross-boundary sync.** Three boundaries:
+**5 · Cross-boundary sync.** Four boundaries:
 
 - **Base path.** Declared once at `astro.config.mjs:10` and crosses into two consumers that cannot share a
   module: the rehype plugin receives it as a parameter at `:25`; browser-side code reads
@@ -56,6 +56,10 @@ gateway.
   `src/assets/diagrams/` holds the copies the site actually imports through `astro:assets`, under different
   filenames (`approval-loop.png` → `cc-approval-loop.png`). Nothing generates one from the other. See
   Exceptions.
+- **Search and AI agents.** `src/pages/llms.txt.ts` and `src/pages/robots.txt.ts` are generated from `nav.ts`,
+  the docs' descriptions and `site` in `astro.config.mjs`; `@astrojs/sitemap` lists every built page, root
+  build only. A new page appears in all three with no edit. Never add a static `llms.txt`, `robots.txt` or
+  sitemap to `public/`. `NXT_SITE.description` is machine-facing only and never goes into page copy.
 - **NXT brand.** The logo is not copied: `NxtLogo.astro` embeds NXT's finished asset from
   `NXT_SITE.logoDark` (pe.nxtpartners.ai, source `nxt-pe/public/logo/logo-dark.html`) as a scaled iframe,
   the way `nxt-pe`'s `NXTLogo.tsx` does. Every NXT URL lives in `NXT_SITE` in `nav.ts`, and every link

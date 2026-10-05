@@ -5,8 +5,8 @@ Next:        Ask the user for the next piece of feedback; open work is in `tasks
 In progress: Nothing half-applied. Everything is committed and pushed to `main`.
 State:       `npm run build` green. Live at https://wiki.nxtpartners.ai (Cloudflare Pages, `SITE_BASE=/`);
              pushing `main` also still deploys the GitHub Pages copy under `/wiki_claude_PE/`.
-Waiting on:  Whether to retire the GitHub Pages workflow and whether to drop `noindex` on the new
-             domain; user OK to fix the logo's blinking cursor at its source in `nxt-pe` (plan item 9); the
+Waiting on:  Whether to retire the GitHub Pages workflow; whether to add visible calls to action
+             (declined for now: machine-facing only); user OK to fix the logo's blinking cursor at its source in `nxt-pe` (plan item 9); the
              homepage hero diagram regeneration (plan item 5).
 
 ## What to avoid
@@ -25,5 +25,6 @@ Waiting on:  Whether to retire the GitHub Pages workflow and whether to drop `no
 Rebranded the wiki from KPMG to NXT Partners AI (colors, Space Grotesk, logo, copy, matrix made
 advisor-neutral), linked out to pe.nxtpartners.ai from the logo, hero line and footer, added a Home
 button, made every prompt card collapse to 10 lines, moved the site to wiki.nxtpartners.ai on Cloudflare,
-used NXT's own tab icons, added a 404 page, and gave internal links trailing slashes. The user relabeled `confidentiality.png`.
+used NXT's own tab icons, added a 404 page, gave internal links trailing slashes, and opened the site
+to search and AI agents (llms.txt, robots.txt, sitemap, canonical, JSON-LD) to bring PE firms to NXT. The user relabeled `confidentiality.png`.
 Pre-rebrand state is tag `before-kpmg-changes` (pushed); `public/kpmg-logo.png` was deleted, recoverable there.

@@ -41,9 +41,10 @@ Prose links inside markdown are rewritten at build time by the rehype plugin in 
 write plain `[text](/foo)`. **JSX inside MDX is deliberately not rewritten** — those must call `withBase()`
 themselves.
 
-The repo is public and the content is confidential, so pages carry `<meta name="robots" content="noindex,
-nofollow">` from `BaseLayout.astro`. A `public/robots.txt` would land at `/wiki_claude_PE/robots.txt`, which
-no crawler reads.
+The site is meant to be found (user, 2026-10-05): pages are `index, follow` with a canonical URL on
+wiki.nxtpartners.ai, so the GitHub copy points search engines there. Only the 404 page is `noindex`.
+`robots.txt`, `llms.txt` and the sitemap (root build only) are generated at build time; see
+`tasks/standards.md`.
 
 ## Authoring content
 
@@ -81,6 +82,9 @@ about **$60m**, US field-service software for HVAC/plumbing contractors, growth 
   "your work account". The single exception is the homepage hero eyebrow, "Developed by NXT Partners AI in
   collaboration with a Big 4 firm."; "Big 4" appears nowhere else.
 - **Education first, never salesy.** This is a guide, not an ad. No "fastest analyst on your deal team".
+  The wiki also exists to bring private equity firms to NXT for bespoke builds (user, 2026-10-05). That is
+  served only through machine-facing text (`NXT_SITE.description` in `llms.txt` and JSON-LD), never page copy,
+  until the user asks for visible calls to action.
 - **VS Code is required** (user, 2026-09-24): Before you Start lists it simply as "Required". Never imply a
   reader can use a different setup.
 - **A page must teach the concept in its own title.** A page called "Thinking & Effort" that never explains

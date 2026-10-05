@@ -27,7 +27,7 @@ const path = prefix && Astro.url.pathname.startsWith(prefix) ? Astro.url.pathnam
 const canonical = new URL(applyBase('', path), Astro.site).href;
 const home = new URL('/', Astro.site).href;
 
-const publisher = { '@type': 'Organization', name: NXT_SITE.name, url: NXT_SITE.url };
+const publisher = { '@type': 'Organization', name: NXT_SITE.name, url: NXT_SITE.url, description: NXT_SITE.description };
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [

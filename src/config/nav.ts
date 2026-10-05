@@ -221,6 +221,10 @@ export type Track = 'core' | 'advanced';
 export const NXT_SITE = {
   name: 'NXT Partners AI',
   url: 'https://pe.nxtpartners.ai',
+  // Who NXT is, for machines only (llms.txt, JSON-LD), never page copy: the wiki stays education
+  // first. Adapted from pe.nxtpartners.ai's meta description in nxt-pe/index.html.
+  description:
+    'NXT Partners AI builds bespoke AI platforms for private equity firms, scoped to each fund and covering the full deal lifecycle: deal origination, due diligence, portfolio monitoring, KPI collection, plan vs. actual tracking, LP reporting and exit preparation.',
   // NXT's own finished logo (chevrons, cursor, wordmark), served by pe.nxtpartners.ai
   // from nxt-pe/public/logo/. Embedded, never copied, so it cannot drift.
   logoDark: 'https://pe.nxtpartners.ai/logo/logo-dark',
