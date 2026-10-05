@@ -71,7 +71,7 @@ const ctaContent = `\n${ctaText}\n`;
   .pf:hover .pf-window {
     transform: translateY(-3px);
     box-shadow: var(--shadow-lg);
-    border-color: color-mix(in srgb, var(--kpmg-cobalt) 40%, var(--line));
+    border-color: color-mix(in srgb, var(--brand-purple) 40%, var(--line));
   }
 
   /* Chrome */
@@ -121,7 +121,7 @@ const ctaContent = `\n${ctaText}\n`;
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, transparent 55%, rgba(0, 31, 87, 0.72) 100%);
+    background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--chrome-bg) 72%, transparent) 100%);
     opacity: 0;
     transition: opacity 0.2s ease;
   }
@@ -135,8 +135,8 @@ const ctaContent = `\n${ctaText}\n`;
     align-items: center;
     gap: 8px;
     font-weight: 700;
-    color: #fff;
-    background: var(--kpmg-blue);
+    color: var(--on-dark);
+    background: var(--brand-ink);
     border-radius: var(--radius-md);
     padding: 0.65em 1.2em;
     box-shadow: var(--shadow-md);

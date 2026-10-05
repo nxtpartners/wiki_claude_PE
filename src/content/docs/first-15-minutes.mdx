@@ -42,7 +42,7 @@ For this first run, choose something useful but not highly sensitive: a public t
 
 <Steps>
   <Step title="Open Claude and start a new chat">
-    Go to <strong>claude.ai</strong> and sign in with your KPMG account. You'll land on a chat screen with a single message box. That box is the whole interface: you simply type, or attach a file, and press send.
+    Go to <strong>claude.ai</strong> and sign in with your work account. You'll land on a chat screen with a single message box. That box is the whole interface: you simply type, or attach a file, and press send.
   </Step>
   <Step title="Attach a document">
     Click the attachment (paperclip) icon and upload a PDF, Word doc, or Excel file. Claude reads the entire file: a 60-page CIM is no problem. Wait for the file to finish attaching before you send.
@@ -60,7 +60,7 @@ For this first run, choose something useful but not highly sensitive: a public t
 
 <div style={{ margin: '28px 0' }}>
 <ClaudeWindow caption="A document attached, with clear instructions typed in. The send arrow turns active once there is something to send." ariaLabel="Recreated Claude composer showing an attached PDF and a typed prompt.">
-  <ClaudeComposer value="You are assisting a Private Equity associate at KPMG. I have attached a teaser. Give me a one-page summary using clear headings.">
+  <ClaudeComposer value="You are assisting a Private Equity associate. I have attached a teaser. Give me a one-page summary using clear headings.">
     <FileChip slot="files" name="Project Atlas Teaser.pdf" kind="pdf" meta="12 pages" />
   </ClaudeComposer>
 </ClaudeWindow>
@@ -69,7 +69,7 @@ For this first run, choose something useful but not highly sensitive: a public t
 ## The prompt to start with
 
 <PromptCard title="One-page summary of any deal document">
-You are assisting a Private Equity associate at KPMG. I've attached a document for a potential opportunity.
+You are assisting a Private Equity associate. I've attached a document for a potential opportunity.
 
 Give me a one-page summary using these headings:
 1. Business overview: what they do and how they make money
@@ -87,7 +87,7 @@ Notice what made that prompt work: it set a **role** ("assisting a PE associate"
   <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
     <ClaudeMessage role="user">
       <FileChip name="Project Atlas Teaser.pdf" kind="pdf" meta="12 pages" />
-      <p>You are assisting a Private Equity associate at KPMG. Give me a one-page summary of the attached teaser using these headings: business overview, financial highlights, why it could be attractive, key risks.</p>
+      <p>You are assisting a Private Equity associate. Give me a one-page summary of the attached teaser using these headings: business overview, financial highlights, why it could be attractive, key risks.</p>
     </ClaudeMessage>
     <ClaudeMessage role="claude">
       <p><strong>Business overview.</strong> Project Atlas is a mid-market field-service software provider for HVAC and plumbing contractors across the US, monetized through per-seat subscriptions.</p>

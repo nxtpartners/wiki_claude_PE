@@ -90,4 +90,14 @@ const who = name ?? (role === 'user' ? 'You' : 'Claude');
   .cm-bubble :global(li) {
     margin-bottom: 4px;
   }
+  /* Pin inherited wiki styles to the mockup palette, so no brand color leaks in. */
+  .cm-bubble :global(li::marker) {
+    color: var(--c-muted);
+  }
+  .cm-bubble :global(strong) {
+    color: var(--c-heading);
+  }
+  .cm-bubble :global(code) {
+    color: var(--c-heading);
+  }
 </style>

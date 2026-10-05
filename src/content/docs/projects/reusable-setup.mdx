@@ -27,7 +27,7 @@ The key thing to hold in mind: this project holds *how you screen*, not any one 
     Call it <strong>Screening</strong> (or "Initial Screen"). The name should describe the repeatable task, because you will use it across many different targets. Avoid any opportunity-specific name: this project is permanent and shared.
   </Step>
   <Step title="Write the custom instructions">
-    This is where the methodology lives. Set the role (a KPMG private equity analyst running an initial screen), the scope (work only from the attached document for the target in question), and the output format (the headings and structure you want every screen to follow). The template below is a ready-to-paste starting point.
+    This is where the methodology lives. Set the role (a private equity analyst running an initial screen), the scope (work only from the attached document for the target in question), and the output format (the headings and structure you want every screen to follow). The template below is a ready-to-paste starting point.
   </Step>
   <Step title="Add evergreen knowledge">
     Upload the reference material that applies to every screen, never a single target. Good candidates: your screening checklist, your investment committee criteria, and a sample memo structure that shows Claude the shape of a finished output. These files teach Claude your house style once, for good.
@@ -41,7 +41,7 @@ The key thing to hold in mind: this project holds *how you screen*, not any one 
 
 <ClaudeWindow caption="A reusable function project holds methodology and templates, never one target's data." url="claude.ai · Projects">
   <ClaudeProject name="Screening" kind="Reusable project" capacity="9% of knowledge used" capacityPct={9}>
-    <p slot="instructions">You are a KPMG private equity analyst running an initial screen. Work only from the target document I attach in each chat. Produce the screen using our standard headings, cite the source for every figure, score the target against our investment committee criteria, and end with the three questions to ask management first.</p>
+    <p slot="instructions">You are a private equity analyst running an initial screen. Work only from the target document I attach in each chat. Produce the screen using our standard headings, cite the source for every figure, score the target against our investment committee criteria, and end with the three questions to ask management first.</p>
     <FileChip name="Screening_checklist.pdf" kind="pdf" />
     <FileChip name="IC_criteria.docx" kind="doc" />
     <FileChip name="Sample_memo_structure.docx" kind="doc" />
@@ -54,8 +54,8 @@ Notice what is *not* in the knowledge base: no CIM, no financial model, nothing 
 
 Paste this into the project's custom instructions and adapt the headings and criteria to match your team's house style.
 
-<PromptCard collapse="peek" title="Custom instructions for a Screening project">
-You are a KPMG private equity analyst running an initial screen on a potential acquisition. In each chat I will attach one target's document (a teaser, CIM, or deck). Work only from that attached document plus the checklists in this project's knowledge.
+<PromptCard title="Custom instructions for a Screening project">
+You are a private equity analyst running an initial screen on a potential acquisition. In each chat I will attach one target's document (a teaser, CIM, or deck). Work only from that attached document plus the checklists in this project's knowledge.
 
 For every target, produce the screen using these headings:
 1. Business overview: what they do and how they make money

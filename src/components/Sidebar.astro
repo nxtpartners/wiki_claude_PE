@@ -87,8 +87,8 @@ const other = TRACKS[otherTrack];
             </>
           );
 
-          // A folded section still opens when the reader is inside it — or
-          // inside anything nested under it — so the current page is never
+          // A folded section still opens when the reader is inside it, or
+          // inside anything nested under it, so the current page is never
           // hidden from its own navigation.
           if (section.collapsible) {
             const holdsCurrent = sectionHoldsSlug(section, currentSlug);
@@ -150,7 +150,7 @@ const other = TRACKS[otherTrack];
     padding-top: 0;
   }
   /* A nested section sits inside its parent's disclosure, so it carries no
-     divider of its own — the indent is what signals the relationship. */
+     divider of its own; the indent is what signals the relationship. */
   .nav-section.nested,
   .nav-section.optional.nested {
     margin-top: var(--space-4);
@@ -190,7 +190,7 @@ const other = TRACKS[otherTrack];
     transition: color 0.15s ease;
   }
   .track-home:hover {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     text-decoration: none;
   }
   .track-name {
@@ -206,7 +206,7 @@ const other = TRACKS[otherTrack];
     gap: 6px;
     font-size: 0.76rem;
     font-weight: 600;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     transition: gap 0.15s ease;
   }
   .track-switch:hover {
@@ -238,10 +238,10 @@ const other = TRACKS[otherTrack];
     display: none;
   }
   .nav-summary:hover {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
   .nav-summary:focus-visible {
-    outline: 2px solid var(--kpmg-blue);
+    outline: 2px solid var(--brand-purple);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
   }
@@ -255,7 +255,7 @@ const other = TRACKS[otherTrack];
     transform: rotate(180deg);
   }
   .nav-summary:hover .nav-chevron {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
 
   .nav-list {
@@ -297,12 +297,12 @@ const other = TRACKS[otherTrack];
     transition: color 0.15s ease;
   }
   .nav-link.active {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     font-weight: 650;
-    background: rgba(0, 51, 141, 0.05);
+    background: var(--brand-tint);
   }
   .nav-link.active .nav-num {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
   a.nav-link:hover .nav-num {
     color: var(--ink-muted);

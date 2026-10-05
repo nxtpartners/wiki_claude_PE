@@ -4,9 +4,9 @@
 //
 // Props:
 //   - active:    highlight one primary item ('new' | 'chats' | 'projects' | 'artifacts')
-//   - workspace: org name shown at the top (default "KPMG")
+//   - workspace: org name shown at the top (default "Your firm")
 //   - recents:   optional list of recent chat titles (use fictional PE names only)
-//   - user:      footer name (default "KPMG user")
+//   - user:      footer name (default "You")
 
 interface Props {
   active?: 'new' | 'chats' | 'projects' | 'artifacts';
@@ -16,9 +16,9 @@ interface Props {
 }
 const {
   active = 'new',
-  workspace = 'KPMG',
+  workspace = 'Your firm',
   recents = ['Project Atlas screen', 'Sector map: field services', 'IC memo draft'],
-  user = 'KPMG user',
+  user = 'You',
 } = Astro.props;
 
 const nav = [
@@ -82,7 +82,7 @@ const nav = [
   </ul>
 
   <div class="cs-foot">
-    <span class="cs-avatar" aria-hidden="true">K</span>
+    <span class="cs-avatar" aria-hidden="true">{user.charAt(0)}</span>
     <span class="cs-foot-text">
       <span class="cs-foot-name">{user}</span>
       <span class="cs-foot-plan">Team plan</span>

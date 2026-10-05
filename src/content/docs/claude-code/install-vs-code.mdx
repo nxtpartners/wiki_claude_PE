@@ -1,6 +1,6 @@
 ---
 title: Before you Start
-description: "The software Claude Code needs, how to install VS Code and Claude Code, and how to sign in with your KPMG account."
+description: "The software Claude Code needs, how to install VS Code and Claude Code, and how to sign in with your work account."
 section: Getting Started
 order: 1
 ---
@@ -13,8 +13,8 @@ import CodeWindow from '../../../components/claude-ui/CodeWindow.astro';
 import DiagramFigure from '../../../components/diagrams/DiagramFigure.astro';
 import ccStaysLocal from '../../../assets/diagrams/cc-stays-local.png';
 
-<Callout type="note" title="How KPMG sets this up today">
-This page assumes KPMG's process will move toward the setup shown below. Today, once your access to Claude Code is approved, Claude Code and VS Code are installed for you automatically on a virtual desktop, so you should only need to [Start Claude Code](#installing-and-signing-in).
+<Callout type="note" title="Your firm may set this up for you">
+Once your access to Claude Code is approved, your firm's IT team may install Claude Code and VS Code for you, for example on a virtual desktop. If so, you should only need to [Start Claude Code](#installing-and-signing-in).
 </Callout>
 
 Claude Code needs a few pieces of software on your computer. The full list is below so you can raise it with IT once, rather than going back three times.
@@ -63,7 +63,7 @@ Here is the whole window, so you can see where each part sits. Your files are in
 
 <CodeWindow
   filename="deal-screen"
-  ariaLabel="Recreated VS Code window. The file rail on the left lists a project folder, a file is open in the editor, and the terminal at the bottom shows Claude Code being installed, started, and signed in with a KPMG account."
+  ariaLabel="Recreated VS Code window. The file rail on the left lists a project folder, a file is open in the editor, and the terminal at the bottom shows Claude Code being installed, started, and signed in with a work account."
   caption="Installing and signing in, shown in the VS Code terminal."
 >
   <ul slot="tree">
@@ -77,14 +77,14 @@ Here is the whole window, so you can see where each part sits. Your files are in
 What this project is:
 A private equity deal screen. Review the
 source files and draft clear summaries.`}</pre>
-  <pre slot="terminal">{`you@kpmg deal-screen %
+  <pre slot="terminal">{`you@laptop deal-screen %
 
 $ npm install -g @anthropic-ai/claude-code
 added 1 package in 4s
 
 $ claude
 Opening your browser to sign in...
-Signed in as you@kpmg.com
+Signed in as you@yourfirm.com
 
 Welcome to Claude Code. What would you like to do?
 > `}</pre>
@@ -111,8 +111,8 @@ Welcome to Claude Code. What would you like to do?
 
     The first time you run it, Claude Code will offer to sign you in and open your browser to do so.
   </Step>
-  <Step title="Sign in with your KPMG account">
-    In the browser window that opens, sign in using your KPMG account through single sign-on, the same login you already use for firm systems. There is no separate password to create and no personal account to set up. If you are ever signed out later, type `/login` in the terminal to sign in again.
+  <Step title="Sign in with your work account">
+    In the browser window that opens, sign in using your work account through single sign-on, the same login you already use for firm systems. There is no separate password to create and no personal account to set up. If you are ever signed out later, type `/login` in the terminal to sign in again.
   </Step>
   <Step title="Confirm it is connected">
     Once you are signed in, the browser hands you back to the terminal and Claude Code shows a ready prompt. That prompt is the sign that everything is connected. You can now type an instruction in plain English and begin.
@@ -121,8 +121,8 @@ Welcome to Claude Code. What would you like to do?
 
 That ready prompt at the end, the `>` waiting for you, is the sign that everything is connected. From here on, you type in plain English and Claude Code replies.
 
-<Callout type="confidential" title="Use your KPMG account">
-Sign in only with your KPMG account, never a personal one: that is what puts your work under the firm's plan. Before you open any real deal material, read [Keeping Deal Data Safe](/claude-code/confidentiality).
+<Callout type="confidential" title="Use your work account">
+Sign in only with your work account, never a personal one: that is what puts your work under the firm's plan. Before you open any real deal material, read [Keeping Deal Data Safe](/claude-code/confidentiality).
 </Callout>
 
 ## You stay in control

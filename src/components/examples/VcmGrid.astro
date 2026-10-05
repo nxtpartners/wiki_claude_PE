@@ -160,7 +160,7 @@ const items = levers.flatMap((lever) =>
               <span class:list={['entry', entryMeta[row.entry.type]]}>{row.entry.label}</span>
             </div>
             <div>
-              <h3 class="vcg-label">KPMG Services</h3>
+              <h3 class="vcg-label">Services</h3>
               <div class="vcg-badges">
                 {row.services.map((s) => <span class:list={['svc', `svc-${s}`]}>{serviceLabels[s]}</span>)}
               </div>
@@ -227,7 +227,7 @@ const items = levers.flatMap((lever) =>
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.01em;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
   .vcg-lever-count {
     font-family: var(--font-mono);
@@ -383,7 +383,7 @@ const items = levers.flatMap((lever) =>
     box-shadow: var(--shadow-lg);
   }
   .vcg-dialog::backdrop {
-    background: color-mix(in srgb, var(--kpmg-blue) 26%, transparent);
+    background: color-mix(in srgb, var(--chrome-bg) 26%, transparent);
     backdrop-filter: blur(2px);
   }
   .vcg-dialog[open] {
@@ -425,7 +425,7 @@ const items = levers.flatMap((lever) =>
     cursor: pointer;
   }
   .vcg-close:hover {
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     background: var(--bg-soft);
   }
 
@@ -452,7 +452,7 @@ const items = levers.flatMap((lever) =>
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: -0.015em;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
   .vcg-badges {
     display: flex;
@@ -466,15 +466,15 @@ const items = levers.flatMap((lever) =>
     gap: var(--space-3);
     padding: var(--space-3) var(--space-4);
     font-weight: 600;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     text-decoration: none;
-    background: color-mix(in srgb, var(--kpmg-teal) 8%, var(--bg));
-    border: 1px solid color-mix(in srgb, var(--kpmg-teal) 30%, var(--bg));
+    background: color-mix(in srgb, var(--brand-cyan-ink) 8%, var(--bg));
+    border: 1px solid color-mix(in srgb, var(--brand-cyan-ink) 30%, var(--bg));
     border-radius: var(--radius-md);
     transition: background 0.15s ease;
   }
   .vcg-built-link:hover {
-    background: color-mix(in srgb, var(--kpmg-teal) 15%, var(--bg));
+    background: color-mix(in srgb, var(--brand-cyan-ink) 15%, var(--bg));
   }
   .vcg-built-link > :last-child {
     margin-left: auto;

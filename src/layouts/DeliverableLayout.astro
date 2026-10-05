@@ -61,9 +61,7 @@ const returnText = ` Return to ${walkthroughLabel}\n`;
   }
   .dl-head {
     border-bottom: 1px solid var(--line);
-    background:
-      radial-gradient(ellipse 60% 80% at 90% 0%, rgba(30, 73, 226, 0.06), transparent 60%),
-      var(--bg);
+    background: var(--bg);
   }
   .dl-head-inner {
     width: var(--dl-maxw);
@@ -77,18 +75,18 @@ const returnText = ` Return to ${walkthroughLabel}\n`;
     font-family: var(--font-mono);
     font-size: 0.74rem;
     letter-spacing: 0.04em;
-    color: var(--kpmg-cobalt);
+    color: var(--brand-ink);
     margin-bottom: var(--space-6);
   }
   .dl-back:hover {
     text-decoration: none;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink-strong);
   }
   .dl-title {
     margin: 0 0 var(--space-4);
     font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -0.035em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     line-height: 1.05;
     color: var(--ink);
   }
@@ -115,7 +113,7 @@ const returnText = ` Return to ${walkthroughLabel}\n`;
     align-items: center;
     gap: 8px;
     font-weight: 600;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
     border: 1px solid var(--line);
     border-radius: var(--radius-md);
     padding: 0.7em 1.2em;
@@ -126,7 +124,7 @@ const returnText = ` Return to ${walkthroughLabel}\n`;
   .dl-return:hover {
     text-decoration: none;
     background: var(--bg-soft);
-    border-color: var(--kpmg-cobalt);
+    border-color: var(--brand-purple);
   }
 
   @media (max-width: 720px) {

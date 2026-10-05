@@ -4,29 +4,26 @@
 
 **An enablement program that takes investment professionals from first prompt to confident daily use.**
 
-Designed and built by [**NXT Partners AI**](https://pe.nxtpartners.ai) for **KPMG**.
+Designed and built by [**NXT Partners AI**](https://pe.nxtpartners.ai).
 
-[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro%206-0B1B33?style=flat-square)](https://astro.build)
-[![Search by Pagefind](https://img.shields.io/badge/Search-Pagefind-00338D?style=flat-square)](https://pagefind.app)
-[![Motion by GSAP](https://img.shields.io/badge/Motion-GSAP-1E49E2?style=flat-square)](https://gsap.com)
-![Status](https://img.shields.io/badge/Status-In%20development-1E49E2?style=flat-square)
-![Confidential](https://img.shields.io/badge/Confidential-Internal%20KPMG%20use-9A3030?style=flat-square)
+[![Built with Astro](https://img.shields.io/badge/Built%20with-Astro%206-0E0A20?style=flat-square)](https://astro.build)
+[![Search by Pagefind](https://img.shields.io/badge/Search-Pagefind-7B61FF?style=flat-square)](https://pagefind.app)
+[![Motion by GSAP](https://img.shields.io/badge/Motion-GSAP-00B8D4?style=flat-square)](https://gsap.com)
+![Status](https://img.shields.io/badge/Status-In%20development-7B61FF?style=flat-square)
 
 </div>
 
 ---
 
-> **Confidential.** For internal KPMG use only. Not for distribution.
-
 ## Overview
 
-Claude for Private Equity is a self-paced learning experience for KPMG investment professionals using the **Claude.ai web app** on **Enterprise and Team** accounts. It assumes no prior AI experience and moves deliberately from the fundamentals to copy-paste playbooks for real deal work: screening a CIM, reviewing a data room, drafting an investment memo, and pressure-testing a model.
+Claude for Private Equity is a self-paced learning experience for private equity professionals using the **Claude.ai web app** on **Enterprise and Team** accounts. It assumes no prior AI experience and moves deliberately from the fundamentals to copy-paste playbooks for real deal work: screening a CIM, reviewing a data room, drafting an investment memo, and pressure-testing a model.
 
 The program is delivered as a fast, static, fully custom site. The priority throughout is clarity, trust, and rigor appropriate to investment work, with confidentiality treated as a first principle rather than an afterthought.
 
 ## Highlights
 
-- **Purpose-built design system.** KPMG palette, Inter typography, generous whitespace, and a calm institutional tone. No template look.
+- **Purpose-built design system.** NXT Partners palette, Space Grotesk and Inter typography, generous whitespace, and a calm institutional tone. No template look.
 - **Learn by recognition.** Claude.ai interface mockups are recreated faithfully so the guidance always matches what the reader sees on screen.
 - **Built for the work.** Practical playbooks mapped to the PE deal lifecycle, each with setup, example prompts, and guardrails.
 - **Confidential by design.** Clear data rules, an internal classification marking, and a confidentiality decision tree.
@@ -40,8 +37,8 @@ The program is delivered as a fast, static, fully custom site. The priority thro
 | Content | Markdown and MDX via the Astro content layer (glob loader) |
 | Search | Pagefind (`astro-pagefind`), indexed at build time |
 | Motion | GSAP 3 with ScrollTrigger |
-| Typography | Inter Variable and JetBrains Mono, self-hosted via Fontsource |
-| Hosting | GitHub Pages, portable to KPMG internal infrastructure |
+| Typography | Space Grotesk (headings), Inter (body) and JetBrains Mono, self-hosted via Fontsource |
+| Hosting | GitHub Pages, portable to any static host |
 
 Astro 6 and `@astrojs/mdx` 6 are pinned deliberately. `astro-pagefind` 2 supports Astro 6 or lower, so moving to Astro 7 breaks installation.
 
@@ -117,9 +114,9 @@ Components available to content: `Callout` (tip, note, warning, confidential), `
 These standards keep the program consistent and on brand.
 
 - **No em dashes or en dashes** anywhere, including content, interface text, and code comments. Use commas, colons, parentheses, or shorter sentences.
-- **The audience is KPMG Private Equity**, broadly. Do not narrow it to "deal teams".
+- **The audience is private equity professionals**, broadly. Do not narrow it to "deal teams".
 - **Education first, never marketing.** Copy stays clear, precise, and free of hype.
-- **Claude.ai mockups reflect the real product** (warm background, clay accent), never KPMG blue. KPMG blue is reserved for the wiki chrome.
+- **Claude.ai mockups reflect the real product** (warm background, clay accent), never the wiki brand colors. NXT navy and purple are reserved for the wiki chrome and accents.
 - **Brand values live in `src/styles/global.css`.** Color and font values are not scattered through components.
 
 ## Deployment
@@ -142,6 +139,5 @@ The site is fully static, so `npm run build` produces a deployable `dist/`.
 
 Designed and built by [**NXT Partners AI**](https://pe.nxtpartners.ai)
 
-<sub>Confidential material prepared for KPMG. Not for external distribution.</sub>
 
 </div>

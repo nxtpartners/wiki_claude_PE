@@ -23,7 +23,7 @@ A skill is a folder with a plain-text file called `SKILL.md`: a one-line descrip
 
 ## An example
 
-<PromptCard collapse="peek" title="kpi-pack-extractor/SKILL.md" label="Template">{`---
+<PromptCard title="kpi-pack-extractor/SKILL.md" label="Template">{`---
 # Version: 1.0
 # Tested on: Claude [model name], [month and year], by [your name]
 description: Pulls the standard KPIs from a portfolio company's monthly management pack and checks them against plan. Use when someone attaches or mentions a monthly pack, P&L, or KPI submission.
@@ -47,7 +47,7 @@ Do the task once with Claude Code until it is right, then ask Claude to save it.
 
 You do not always have to write one. Skills others have built come packaged in plugins, and plugins are listed in catalogs called marketplaces.
 
-1. **Find where they are.** Browse Anthropic's catalog at [claude.com/plugins](https://claude.com/plugins). Inside Claude Code, type `/plugin` and open the **Marketplaces** tab to see which catalogs you have. If Anthropic's official one is missing, add it with `/plugin marketplace add anthropics/claude-plugins-official`. KPMG may also publish its own library of approved plugins.
+1. **Find where they are.** Browse Anthropic's catalog at [claude.com/plugins](https://claude.com/plugins). Inside Claude Code, type `/plugin` and open the **Marketplaces** tab to see which catalogs you have. If Anthropic's official one is missing, add it with `/plugin marketplace add anthropics/claude-plugins-official`. Your firm may also publish its own library of approved plugins.
 2. **Install one.** In `/plugin`, open the **Discover** tab, pick a plugin, and install it for yourself or for the whole project. Its skills are then ready to use.
 
-Much of the official catalog is aimed at software work, and a plugin can run software on your computer, so install only what KPMG has approved, and ask IT if you are unsure.
+Much of the official catalog is aimed at software work, and a plugin can run software on your computer, so install only what your firm has approved, and ask IT if you are unsure.

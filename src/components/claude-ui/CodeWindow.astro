@@ -1,12 +1,12 @@
 ---
-// CodeWindow: the dark sibling of ClaudeWindow — a recreated VS Code / terminal
-// screen running Claude Code. Uses a VS Code Dark+ palette (never KPMG blue).
+// CodeWindow: the dark sibling of ClaudeWindow: a recreated VS Code / terminal
+// screen running Claude Code. Uses a VS Code Dark+ palette (never the wiki brand color).
 //
 // Layout:
 //   A title bar (traffic-light dots + filename) sits above a two-column shell:
 //     - left  "tree"     slot: the file-tree rail
 //     - right "editor"   slot (top) + "terminal" slot (bottom) stacked in a pane
-//   The terminal is the teaching surface — it holds the Claude Code exchange.
+//   The terminal is the teaching surface: it holds the Claude Code exchange.
 //
 // Named slots:
 //   - "tree"      (optional) left file-tree rail
@@ -173,7 +173,7 @@ const hasTerminal = Astro.slots.has('terminal');
     color: var(--ink-muted);
   }
 
-  /* ---------- Slotted content (dark, mono, wrap — never page scroll) ---------- */
+  /* ---------- Slotted content (dark, mono, wrap, never page scroll) ---------- */
   .vw-tree :global(ul),
   .vw-tree :global(ol) {
     list-style: none;

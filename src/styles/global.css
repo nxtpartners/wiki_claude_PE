@@ -1,38 +1,54 @@
 /* ============================================================
-   KPMG × Claude for Private Equity: Design System
-   Sans-only (Inter). KPMG deep blue. Editorial, institutional.
+   NXT Partners AI x Claude for Private Equity: Design System
+   Dark chrome (header, footer), light reading surfaces.
+   Space Grotesk headings, Inter body, JetBrains Mono code.
    ============================================================ */
 
 @import '@fontsource-variable/inter';
+@import '@fontsource-variable/space-grotesk';
 @import '@fontsource/jetbrains-mono/400.css';
 @import '@fontsource/jetbrains-mono/500.css';
 @import '@fontsource/jetbrains-mono/700.css';
 
 /* ---------- Design tokens ---------- */
 :root {
-  /* Brand palette */
-  --kpmg-blue: #00338d; /* primary deep blue */
-  --kpmg-cobalt: #1e49e2; /* vivid accent blue */
-  --kpmg-sky: #aceaff; /* light accent */
-  --kpmg-teal: #00a3a1; /* secondary accent (tips) */
+  /* Brand palette (NXT Partners AI) */
+  --brand-ink: #6248e5; /* purple for TEXT on light and filled bg under white text (5.87:1 on white) */
+  --brand-ink-strong: #5b41df; /* hover / pressed for --brand-ink fills */
+  --brand-purple: #7b61ff; /* NON-TEXT only: borders, outlines, focus rings, fills without text */
+  --brand-cyan: #00b8d4; /* accent on dark only, never text on light */
+  --brand-cyan-ink: #006e7d; /* teal for text and accents on light (5.95:1 on white, 5.0:1 on its own 12% tint) */
+  --brand-tint: color-mix(in srgb, var(--brand-purple) 7%, transparent); /* soft active background */
+  --brand-on-dark: #a594ff; /* small purple text on navy */
+
+  /* Dark chrome: header and footer (the homepage hero stays light) */
+  --chrome-bg: #0e0a20; /* paired with theme-color meta in BaseLayout.astro */
+  --chrome-surface: #16123a;
+  --chrome-elevated: #1e1852;
+  --chrome-line: rgba(255, 255, 255, 0.1);
+  --chrome-fill: rgba(255, 255, 255, 0.06); /* subtle control fill / hover on navy */
+  --chrome-scrim: rgba(14, 10, 32, 0.5); /* modal backdrop over the page */
+  --on-dark: #ffffff;
+  --on-dark-muted: rgba(255, 255, 255, 0.62);
 
   /* Ink + surfaces */
-  --ink: #0b1b33; /* near-black navy text */
-  --ink-muted: #5a6678; /* secondary text */
-  --line: #e3e8ef; /* borders */
+  --ink: #111111; /* body text */
+  --ink-muted: #5f5f6b; /* secondary text */
+  --ink-subtle: #6e6e7a; /* tertiary text, still 4.5:1 on white */
+  --line: #ebebef; /* borders */
   --bg: #ffffff;
-  --bg-soft: #f5f7fa; /* soft gray-blue surfaces */
-  --bg-code: #0b1b33; /* dark surface for prompt/code blocks */
+  --bg-soft: #f5f5f7; /* soft neutral surfaces */
+  --bg-code: #16123a; /* dark surface for prompt/code blocks */
 
   /* Semantic (callouts) */
-  --tip: var(--kpmg-teal);
-  --note: var(--kpmg-cobalt);
+  --tip: var(--brand-cyan-ink);
+  --note: var(--brand-ink);
   --warning: #b7791f; /* amber */
   --confidential: #b42318; /* red */
 
   /* Tinted callout backgrounds */
-  --tip-bg: #e6f7f7;
-  --note-bg: #eef1fe;
+  --tip-bg: #e6f8fb;
+  --note-bg: #f1eeff;
   --warning-bg: #fdf6e9;
   --confidential-bg: #fdeceb;
 
@@ -55,13 +71,14 @@
   --radius-lg: 16px;
 
   /* Elevation */
-  --shadow-xs: 0 1px 2px rgba(11, 27, 51, 0.06);
-  --shadow-sm: 0 2px 6px rgba(11, 27, 51, 0.07), 0 1px 2px rgba(11, 27, 51, 0.05);
-  --shadow-md: 0 8px 24px rgba(11, 27, 51, 0.09), 0 2px 6px rgba(11, 27, 51, 0.05);
-  --shadow-lg: 0 18px 48px rgba(11, 27, 51, 0.12), 0 4px 12px rgba(11, 27, 51, 0.06);
+  --shadow-xs: 0 1px 2px rgba(14, 10, 32, 0.06);
+  --shadow-sm: 0 2px 6px rgba(14, 10, 32, 0.07), 0 1px 2px rgba(14, 10, 32, 0.05);
+  --shadow-md: 0 8px 24px rgba(14, 10, 32, 0.09), 0 2px 6px rgba(14, 10, 32, 0.05);
+  --shadow-lg: 0 18px 48px rgba(14, 10, 32, 0.12), 0 4px 12px rgba(14, 10, 32, 0.06);
 
   /* Type */
   --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Layout */
@@ -110,7 +127,7 @@ img {
 }
 
 a {
-  color: var(--kpmg-cobalt);
+  color: var(--brand-ink);
   text-decoration: none;
 }
 a:hover {
@@ -122,17 +139,18 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: var(--font-display);
   color: var(--ink);
   line-height: 1.18;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin: 0 0 var(--space-4);
   font-weight: 700;
 }
 
 h1 {
   font-size: clamp(2.1rem, 1.6rem + 2.2vw, 3rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 h2 {
   font-size: clamp(1.5rem, 1.3rem + 0.9vw, 1.85rem);
@@ -167,7 +185,7 @@ li {
   margin-bottom: var(--space-2);
 }
 li::marker {
-  color: var(--kpmg-cobalt);
+  color: var(--brand-ink);
 }
 
 blockquote {
@@ -191,7 +209,7 @@ code {
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   padding: 0.12em 0.4em;
-  color: var(--kpmg-blue);
+  color: var(--brand-ink);
 }
 
 pre {
@@ -217,7 +235,7 @@ pre code {
   font-weight: 650;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--kpmg-cobalt);
+  color: var(--brand-ink);
   margin: 0 0 var(--space-3);
 }
 
@@ -246,27 +264,27 @@ pre code {
   transform: translateY(-1px);
 }
 .btn-primary {
-  background: var(--kpmg-blue);
-  color: #fff;
+  background: var(--brand-ink);
+  color: var(--on-dark);
   box-shadow: var(--shadow-sm);
 }
 .btn-primary:hover {
-  background: #002a73;
+  background: var(--brand-ink-strong);
   box-shadow: var(--shadow-md);
 }
 .btn-secondary {
   background: var(--bg);
-  color: var(--kpmg-blue);
+  color: var(--brand-ink);
   border-color: var(--line);
 }
 .btn-secondary:hover {
-  border-color: var(--kpmg-cobalt);
+  border-color: var(--brand-purple);
   background: var(--bg-soft);
 }
 
 /* ---------- Focus states ---------- */
 :focus-visible {
-  outline: 3px solid var(--kpmg-cobalt);
+  outline: 3px solid var(--brand-purple);
   outline-offset: 2px;
   border-radius: 3px;
 }
@@ -340,7 +358,7 @@ pre code {
 /* ---------- Claude.ai mockup palette ----------
    These tokens recreate the REAL Claude product look (warm cream + clay).
    They are used ONLY inside ClaudeUI mockup components, never for wiki chrome.
-   Rule: never put KPMG blue inside a Claude mockup. */
+   Rule: never put the wiki brand color inside a Claude mockup. */
 :root {
   --c-bg: #faf9f5; /* app background, cream */
   --c-panel: #f0eee6; /* sidebar / user bubble */
@@ -353,7 +371,7 @@ pre code {
   --c-clay: #be5d3a; /* Claude accent (send, sparkle) */
   --c-clay-soft: #f4e8e1; /* clay tint background */
 
-  /* ---------- VS Code dark palette (Claude Code mockup ONLY — never KPMG blue) ---------- */
+  /* ---------- VS Code dark palette (Claude Code mockup ONLY, never the wiki brand color) ---------- */
   --vs-bg: #1e1e1e; /* window / editor background */
   --vs-editor-bg: #1e1e1e; /* code editor pane */
   --vs-sidebar-bg: #252526; /* file-tree rail + title bar */
@@ -370,7 +388,7 @@ pre code {
 /* ---------- Pagefind UI theming ---------- */
 :root {
   --pagefind-ui-scale: 0.85;
-  --pagefind-ui-primary: var(--kpmg-blue);
+  --pagefind-ui-primary: var(--brand-ink);
   --pagefind-ui-text: var(--ink);
   --pagefind-ui-background: var(--bg);
   --pagefind-ui-border: var(--line);

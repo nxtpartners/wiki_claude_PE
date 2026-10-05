@@ -6,10 +6,10 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Claude.ai for KPMG Private Equity professionals: from basics to confident daily use.' } =
+const { title, description = 'Claude.ai for private equity professionals: from basics to confident daily use.' } =
   Astro.props;
 
-const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT Partners AI' : `${title} · Claude for PE`;
+const fullTitle = title === 'Home' ? 'Claude for Private Equity · NXT Partners AI' : `${title} · Claude for PE`;
 ---
 
 <!doctype html>
@@ -24,7 +24,8 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT P
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#00338D" />
+    <!-- Paired with --chrome-bg in global.css (a meta tag cannot read a CSS variable). Change both together. -->
+    <meta name="theme-color" content="#0e0a20" />
     <link rel="icon" href={import.meta.env.BASE_URL + 'favicon.svg'} type="image/svg+xml" />
   </head>
   <body>
@@ -39,8 +40,8 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT P
     left: 16px;
     top: -48px;
     z-index: 1000;
-    background: var(--kpmg-blue);
-    color: #fff;
+    background: var(--brand-ink);
+    color: var(--on-dark);
     padding: 10px 16px;
     border-radius: var(--radius-md);
     transition: top 0.18s ease;
@@ -48,5 +49,10 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · KPMG × NXT P
   .skip-link:focus {
     top: 16px;
     text-decoration: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .skip-link {
+      transition: none;
+    }
   }
 </style>

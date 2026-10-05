@@ -21,7 +21,7 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
     Open <strong>Projects</strong>, choose <strong>New project</strong>, and name it for this opportunity alone, for example <strong>Project Atlas</strong>. One opportunity, one project. Never reuse an existing deal project for a different target, and never combine two opportunities in one place.
   </Step>
   <Step title="Confirm what is permitted before anything goes in">
-    Before uploading a single file, check that the opportunity's NDA and KPMG's data-handling rules allow it into Claude; if a document is not cleared, it does not go in. The checks to run are in [Your Account & Confidential Data](/foundations/account-and-data#before-you-upload-the-decision).
+    Before uploading a single file, check that the opportunity's NDA and your firm's data-handling rules allow it into Claude; if a document is not cleared, it does not go in. The checks to run are in [Your Account & Confidential Data](/foundations/account-and-data#before-you-upload-the-decision).
   </Step>
   <Step title="Add the cleared data room files">
     Upload the permitted materials into the project's knowledge base: the CIM, the financials, the management deck, and any cleared diligence documents. These become the shared context every chat in the project can read, so you never re-attach them.
@@ -33,7 +33,7 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
     All Atlas work happens in the Atlas project. Do not paste Atlas figures into a chat in another project, and do not pull another opportunity's files in here. The silo only holds if you respect it in daily use.
   </Step>
   <Step title="Archive or delete on close">
-    When the opportunity closes, completes, or dies, archive or delete the project according to KPMG's retention rules. A deal project is temporary by design.
+    When the opportunity closes, completes, or dies, archive or delete the project according to your firm's retention rules. A deal project is temporary by design.
   </Step>
 </Steps>
 
@@ -41,7 +41,7 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
 
 <ClaudeWindow caption="A deal project is siloed: one opportunity's cleared data room, and nothing from any other." url="claude.ai · Projects">
   <ClaudeProject name="Project Atlas" kind="Deal project" capacity="22% of knowledge used" capacityPct={22}>
-    <p slot="instructions">You are assisting a KPMG private equity team on Project Atlas, a mid-market field-service software target, at the diligence stage. Work only from the files in this project. Cite the source document and page for every figure, never invent numbers, and flag anything the data room leaves unclear.</p>
+    <p slot="instructions">You are assisting a private equity team on Project Atlas, a mid-market field-service software target, at the diligence stage. Work only from the files in this project. Cite the source document and page for every figure, never invent numbers, and flag anything the data room leaves unclear.</p>
     <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" />
     <FileChip name="Atlas_financials.xlsx" kind="xls" />
     <FileChip name="Management_deck.pdf" kind="pdf" />
@@ -53,8 +53,8 @@ This is where a real CIM, live financials, and NDA-bound diligence actually go. 
 
 Paste this into the Atlas project's custom instructions and adapt the target name and stage to your opportunity.
 
-<PromptCard collapse="peek" title="Custom instructions for a deal project">
-You are assisting a KPMG private equity team working on Project Atlas, a mid-market field-service software target. We are currently at the diligence stage.
+<PromptCard title="Custom instructions for a deal project">
+You are assisting a private equity team working on Project Atlas, a mid-market field-service software target. We are currently at the diligence stage.
 
 Scope:
 - Work only from the documents in this project's knowledge base. These are the cleared data room materials for Atlas.
@@ -71,6 +71,6 @@ Reminder: this is live, confidential material. Treat every figure as something I
 
 ## After the opportunity closes
 
-A deal project is not meant to outlive its opportunity. Once Atlas closes or is passed on, archive or delete the project in line with KPMG's retention policy. The methodology you used lives safely in your reusable function projects, so nothing of lasting value is lost by clearing down the workbench.
+A deal project is not meant to outlive its opportunity. Once Atlas closes or is passed on, archive or delete the project in line with your firm's retention policy. The methodology you used lives safely in your reusable function projects, so nothing of lasting value is lost by clearing down the workbench.
 
 To see this deal project carried through a full opportunity, from first screen to investment committee, follow the [Project Atlas](/worked-example/project-atlas) walkthrough.

@@ -3,7 +3,7 @@
 > **Read `/Users/dorianguzman/Work/repo/CLAUDE.md` and `/Users/dorianguzman/Work/repo/rules.md` first.** They bind here. This
 > file adds only what is true of *this* project. Where the two collide, the more specific one wins — this file.
 
-A static teaching wiki: **KPMG × Claude for Private Equity**. It teaches two tracks, the Claude.ai web app
+A static teaching wiki: **Claude for Private Equity**, by NXT Partners AI. It teaches two tracks, the Claude.ai web app
 (primary) and Claude Code (secondary). The API is out of scope.
 
 **The audience is non-technical private equity professionals.** That single fact drives most of the rules
@@ -57,7 +57,7 @@ no crawler reads.
 `welcome.mdx` and `first-15-minutes.mdx` are **client-approved**. Additive, content-preserving changes only
 (adding a mockup is fine; rewriting a paragraph is not).
 
-`Header.astro` — the nav wordmark and KPMG logo lockup — is also approved as-is. Note that on the homepage
+`Header.astro` — the NXT logo and wordmark — is also approved as-is (restyled for NXT on 2026-10-05). Note that on the homepage
 "the header" almost always means the **hero H1 in `index.astro`**, not the nav. Disambiguate before editing.
 
 ### Canonical figures — Project Atlas
@@ -71,23 +71,31 @@ about **$60m**, US field-service software for HVAC/plumbing contractors, growth 
   parentheses, or two sentences.
 - **US English and US dollars.** Never reintroduce £, UK geography, or British spellings (organise, summarise,
   behaviour, judgement, rigour, analyse, adviser, sceptical).
-- **Never call the audience "deal teams".** It is KPMG **Private Equity**, which is broader. Write "private
+- **Never call the audience "deal teams".** It is **private equity**, which is broader. Write "private
   equity teams" or "private equity professionals".
+- **No client names** (user, 2026-10-05). The site was rebranded from KPMG to NXT Partners AI. Never name KPMG,
+  or any client, anywhere: copy, mockups, sample emails, README, comments. Write "your firm", "your IT team",
+  "your work account". The single exception is the homepage hero eyebrow, "Developed by NXT Partners AI in
+  collaboration with a Big 4 firm."; "Big 4" appears nowhere else.
 - **Education first, never salesy.** This is a guide, not an ad. No "fastest analyst on your deal team".
-- **VS Code is required at KPMG, recommended everywhere else** (user, 2026-09-24): KPMG works only in VS Code,
-  so Before you Start lists it simply as "Required". The "recommended elsewhere" nuance is internal context only,
-  never page copy; just never imply a KPMG reader can use a different setup.
+- **VS Code is required** (user, 2026-09-24): Before you Start lists it simply as "Required". Never imply a
+  reader can use a different setup.
 - **A page must teach the concept in its own title.** A page called "Thinking & Effort" that never explains
   what thinking is has failed, regardless of how good the prose is.
 
 ## Two palettes, and never mixing them
 
-KPMG deep blue `#00338D` is the site's brand. **Claude.ai mockups must look like the real product** — warm
+NXT Partners AI is the site's brand: navy chrome (`--chrome-*`, header and footer only; the homepage hero stays white), purple accent
+(`--brand-*`), Space Grotesk headings, light reading pages. Source of truth is `nxt-pe/src/theme/tokens.ts`;
+no gradients, no glow, no floating pill nav. **Claude.ai mockups must look like the real product** — warm
 cream (`#FAF9F5` / `#F0EEE6`), clay accent (`#BE5D3A`), neutral message bubbles.
 
-**Never use KPMG blue inside a Claude UI mockup.** The audience reads an unfamiliar color as "I am on the
-wrong page" or "I did something wrong". The rule is stated at `src/styles/global.css:341`, and
-`tasks/standards.md` tracks a live violation of it.
+**Never use a brand token (`--brand-*`, `--chrome-*`, `--font-display`) inside a Claude UI mockup.** The
+audience reads an unfamiliar color as "I am on the wrong page" or "I did something wrong". The rule is stated
+in `src/styles/global.css` above the mockup palette.
+
+**NXT purple `#7B61FF` is never text on a light background** (4.2:1, fails AA). Text uses `--brand-ink`;
+`--brand-purple` is for borders, focus rings and fills.
 
 ## Working agreement
 

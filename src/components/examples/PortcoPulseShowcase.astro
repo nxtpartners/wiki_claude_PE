@@ -9,9 +9,9 @@
 //
 // Design rules followed here:
 //  - Never hardcode colors. Every hue is a wiki design token. The app's status
-//    colors map to tokens: On Track -> var(--kpmg-teal); At Risk -> var(--warning);
-//    Off Track -> var(--confidential). Chrome/headers -> var(--kpmg-blue);
-//    accents -> var(--kpmg-cobalt). Tints are derived with color-mix.
+//    colors map to tokens: On Track -> var(--brand-cyan-ink); At Risk -> var(--warning);
+//    Off Track -> var(--confidential). Chrome/headers -> var(--brand-ink);
+//    accents -> var(--brand-purple). Tints are derived with color-mix.
 //  - No external fonts: Inter for body, JetBrains Mono (--font-mono) for the
 //    micro-labels, badges, and numeric readouts.
 //  - No em/en dashes anywhere. Ranges use a hyphen; prose dashes are rewritten.
@@ -120,11 +120,11 @@ import PpSettingsView from './PpSettingsView.astro';
   /* Component-scoped token map: every hue derives from a wiki design token.
      App status colors map to tokens; tints are built with color-mix. */
   .pp {
-    --st-ontrack: var(--kpmg-teal);
+    --st-ontrack: var(--brand-cyan-ink);
     --st-atrisk: var(--warning);
     --st-offtrack: var(--confidential);
-    --chrome: var(--kpmg-blue);
-    --accent: var(--kpmg-cobalt);
+    --chrome: var(--brand-ink);
+    --accent: var(--brand-purple);
 
     /* Motion tokens for every view's entrance. */
     --pp-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -297,7 +297,7 @@ import PpSettingsView from './PpSettingsView.astro';
     font-size: 0.98rem;
     font-weight: 700;
     letter-spacing: -0.01em;
-    color: var(--kpmg-blue);
+    color: var(--brand-ink);
   }
   .pp :global(.pp-panel-note) {
     font-family: var(--font-mono);

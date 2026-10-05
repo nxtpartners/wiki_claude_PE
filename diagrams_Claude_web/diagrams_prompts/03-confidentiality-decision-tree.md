@@ -4,17 +4,17 @@ Diagram generation prompt (for Gemini or ChatGPT).
 
 ---
 
-Design a genuinely well made decision tree for a private equity teaching guide. It answers one question for the reader: can this document go into Claude? This is a client-facing concept graphic for KPMG Private Equity professionals, sitting inside a light, premium, institutional web page. Aim for world-class information design, the kind of decision exhibit a senior compliance team would hand to a partner. Calm, senior, precise, and clearly made on purpose.
+Design a genuinely well made decision tree for a private equity teaching guide. It answers one question for the reader: can this document go into Claude? This is a client-facing concept graphic for private equity professionals, sitting inside a light, premium, institutional web page. Aim for world-class information design, the kind of decision exhibit a senior compliance team would hand to a partner. Calm, senior, precise, and clearly made on purpose.
 
 **The decision to visualize:**
 
 The reader is deciding whether a document is safe to put into Claude. The rule is an AND-chain: ALL five of the checks below must be true to proceed. If any single one is a "no," or if the person is unsure about any of them, the answer is to stop and ask first. Only when every check is satisfied is the document safe to upload.
 
 **The five checks (in this order of consideration):**
-1. Inside your KPMG workspace?
+1. Inside your firm's workspace?
 2. Free of NDA limits on AI tools?
 3. No client-specific restriction?
-4. Allowed under KPMG policy?
+4. Allowed under your firm's policy?
 5. Confident it is appropriate?
 
 **The two outcomes:**

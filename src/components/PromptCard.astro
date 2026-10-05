@@ -7,25 +7,14 @@ interface Props {
   prompt?: string;
   label?: string;
   title?: string;
-  // How much of the prompt to hide behind a toggle. Omit and the prompt renders
-  // in full, exactly as before.
-  //   'clamp'  — long templates cut to a readable height, with a "show full" toggle.
-  //   'peek'   — short prompts show their first few lines, so the reader sees
-  //              what the prompt is before opening it. Used on reference pages.
-  collapse?: 'clamp' | 'peek';
 }
-const { prompt, label = 'Prompt', title, collapse } = Astro.props;
+const { prompt, label = 'Prompt', title } = Astro.props;
 
 const uid = 'pc-' + Math.random().toString(36).slice(2, 9);
 
-// Toggle wording lives here rather than in the script, so the two modes have a
-// single definition and the script stays mode-agnostic.
-const TOGGLE_TEXT = {
-  clamp: { shut: 'Show full template', open: 'Show less' },
-  // Names what the card holds, so a "Template" card offers the full template.
-  peek: { shut: `Show full ${label.toLowerCase()}`, open: 'Show less' },
-} as const;
-const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
+// Every card opens collapsed to its first few lines. The wording names what the
+// card holds, so a "Template" card offers the full template.
+const toggleText = { shut: `Show full ${label.toLowerCase()}`, open: 'Show less' };
 ---
 
 <figure class="prompt-card" data-prompt-card>
@@ -45,31 +34,27 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
       <span class="pc-copy-text">Copy</span>
     </button>
   </figcaption>
-  <div
-    class:list={['pc-wrap', collapse === 'clamp' && 'pc-clamp', collapse === 'peek' && 'pc-peek']}
-    data-prompt-wrap
-  >
+  <div class="pc-wrap" data-prompt-wrap>
     <pre class="pc-body" id={uid} data-prompt-text>{prompt ? prompt : <slot />}</pre>
   </div>
-  {
-    toggleText && (
-      <button
-        type="button"
-        class="pc-toggle"
-        data-toggle-btn
-        data-shut-label={toggleText.shut}
-        data-open-label={toggleText.open}
-        aria-controls={uid}
-        aria-expanded="false"
-      >
-        {toggleText.shut}
-      </button>
-    )
-  }
+  <button
+    type="button"
+    class="pc-toggle"
+    data-toggle-btn
+    data-shut-label={toggleText.shut}
+    data-open-label={toggleText.open}
+    aria-controls={uid}
+    aria-expanded="false"
+  >
+    {toggleText.shut}
+  </button>
 </figure>
 
 <style>
   .prompt-card {
+    /* Lines shown before "Show full". The script reads this too, so it is the
+       one place the number lives. */
+    --pc-lines: 10;
     margin: var(--space-6) 0;
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -81,7 +66,7 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
     align-items: center;
     justify-content: space-between;
     padding: 10px var(--space-4);
-    background: #122544;
+    background: var(--chrome-elevated);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .pc-label {
@@ -92,7 +77,7 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--kpmg-sky);
+    color: var(--brand-cyan);
   }
   .pc-title {
     color: rgba(255, 255, 255, 0.55);
@@ -124,46 +109,38 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
     color: #fff;
   }
   .pc-copy.copied {
-    background: rgba(0, 163, 161, 0.22);
-    border-color: rgba(0, 163, 161, 0.5);
+    background: color-mix(in srgb, var(--brand-cyan) 22%, transparent);
+    border-color: color-mix(in srgb, var(--brand-cyan) 50%, transparent);
     color: #d6fbfa;
   }
 
   .pc-wrap {
     position: relative;
   }
-  /* Both collapse modes clip the body rather than removing it, so the Copy
-     button still copies the whole prompt. They differ only in how much shows. */
-  .pc-clamp {
-    --pc-visible: 26rem;
-    --pc-fade: 5rem;
-  }
-  .pc-peek {
-    --pc-visible: 19rem;
-    --pc-fade: 3.5rem;
-  }
-  .pc-clamp .pc-body,
-  .pc-peek .pc-body {
-    max-height: var(--pc-visible);
+  /* The body is clipped, never removed, so Copy still copies the whole prompt.
+     A prompt that fits in --pc-lines gets .fits from the script: no clip, no
+     fade, no toggle. */
+  .pc-body {
+    max-height: calc(var(--space-6) + var(--pc-lines) * 1lh);
     overflow: hidden;
   }
-  .pc-clamp.open .pc-body,
-  .pc-peek.open .pc-body {
+  .pc-wrap.open .pc-body,
+  .prompt-card.fits .pc-body {
     max-height: none;
   }
   /* Fade the clipped edge so it reads as "continues below", not "ends here". */
-  .pc-clamp::after,
-  .pc-peek::after {
+  .pc-wrap::after {
     content: '';
     position: absolute;
     inset-inline: 0;
     bottom: 0;
-    height: var(--pc-fade);
+    height: 1.5lh;
     background: linear-gradient(to bottom, transparent, var(--bg-code));
     pointer-events: none;
   }
-  .pc-clamp.open::after,
-  .pc-peek.open::after {
+  .pc-wrap.open::after,
+  .prompt-card.fits .pc-wrap::after,
+  .prompt-card.fits .pc-toggle {
     display: none;
   }
 
@@ -175,7 +152,7 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
     font-size: 0.8rem;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.82);
-    background: #122544;
+    background: var(--chrome-elevated);
     border: none;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     cursor: pointer;
@@ -233,11 +210,21 @@ const toggleText = collapse ? TOGGLE_TEXT[collapse] : null;
       }, 1600);
     });
 
-    // Expand/collapse (only present when the card sets a collapse mode). The
-    // wording comes from the markup, so this works for every mode.
+    // Expand/collapse. A prompt no longer than --pc-lines needs neither, so it
+    // is marked .fits; re-checked on resize because wrapping changes the count.
     const toggle = card.querySelector<HTMLButtonElement>('[data-toggle-btn]');
     const wrap = card.querySelector<HTMLElement>('[data-prompt-wrap]');
     if (!toggle || !wrap) return;
+
+    const checkFit = () => {
+      const cs = getComputedStyle(body);
+      const lines = parseFloat(getComputedStyle(card).getPropertyValue('--pc-lines'));
+      const full = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom) + lines * parseFloat(cs.lineHeight);
+      card.classList.toggle('fits', body.scrollHeight <= full + 1);
+    };
+    checkFit();
+    document.fonts?.ready.then(checkFit);
+    new ResizeObserver(checkFit).observe(wrap);
 
     toggle.addEventListener('click', () => {
       const open = wrap.classList.toggle('open');

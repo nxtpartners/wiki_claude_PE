@@ -7,10 +7,10 @@
 /* Token map: every hue below derives from a wiki design
    token, so nothing is hardcoded. Badge tints are built with color-mix. */
 .vcm {
-  --lv-efficiency: var(--kpmg-blue);
+  --lv-efficiency: var(--brand-ink);
   --lv-balance: var(--warning);
-  --lv-revenue: var(--kpmg-teal);
-  --lv-margin: var(--kpmg-cobalt);
+  --lv-revenue: var(--brand-cyan-ink);
+  --lv-margin: var(--chrome-elevated);
   --lv-inorganic: var(--confidential);
 
   font-family: var(--font-sans);
@@ -74,28 +74,28 @@
   border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
 }
 .vcm .phase-100 {
-  --c: var(--kpmg-cobalt);
+  --c: var(--chrome-elevated);
 }
 .vcm .phase-mid {
-  --c: var(--kpmg-blue);
+  --c: var(--brand-ink);
 }
 .vcm .phase-exit {
   --c: var(--warning);
 }
 .vcm .phase-all {
-  --c: var(--kpmg-teal);
+  --c: var(--brand-cyan-ink);
 }
 .vcm .tier-mm {
   --c: var(--warning);
 }
 .vcm .tier-lc {
-  --c: var(--kpmg-cobalt);
+  --c: var(--chrome-elevated);
 }
 .vcm .tier-both {
-  --c: var(--kpmg-blue);
+  --c: var(--brand-ink);
 }
 .vcm .pp-high {
-  --c: var(--kpmg-teal);
+  --c: var(--brand-cyan-ink);
 }
 .vcm .pp-med {
   --c: var(--warning);
@@ -119,16 +119,16 @@
   border: 1px solid color-mix(in srgb, var(--c) 34%, var(--bg));
 }
 .vcm .svc-strategy {
-  --c: var(--kpmg-blue);
+  --c: var(--brand-ink);
 }
 .vcm .svc-platform {
-  --c: var(--kpmg-cobalt);
+  --c: var(--chrome-elevated);
 }
 .vcm .svc-impl {
   --c: var(--warning);
 }
 .vcm .svc-managed {
-  --c: var(--kpmg-teal);
+  --c: var(--brand-cyan-ink);
 }
 .vcm .svc-vc {
   --c: var(--confidential);
@@ -141,7 +141,7 @@
   font-weight: 600;
 }
 .vcm .cx-low {
-  color: var(--kpmg-teal);
+  color: var(--brand-cyan-ink);
 }
 .vcm .cx-med {
   color: var(--warning);
@@ -155,11 +155,11 @@
   font-weight: 600;
 }
 .vcm .entry-build {
-  color: var(--kpmg-cobalt);
+  color: var(--chrome-elevated);
 }
 .vcm .entry-buy {
-  color: var(--kpmg-teal);
+  color: var(--brand-cyan-ink);
 }
 .vcm .entry-partner {
-  color: var(--kpmg-blue);
+  color: var(--brand-ink);
 }

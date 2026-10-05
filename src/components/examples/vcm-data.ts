@@ -59,15 +59,15 @@ export const levers: Lever[] = [
         filterServices: 'strategy vc impl',
         services: ['strategy', 'vc', 'platform'],
         airole:
-          `KPMG's Value Navigator already contains the benchmark database and methodology. The current workflow requires significant manual reconciliation against trial balances to produce clean output, a process that is time-intensive and introduces error risk. AI automates the GL ingestion and reconciliation layer: classifying spend lines, resolving miscodings, and mapping actuals to benchmark categories without manual intervention. Because Value Navigator ingests census data covering fully loaded labor cost and headcount, the output spans both SG&A and direct labor on the COGS side, surfacing cost reduction opportunities across back-office and operational functions alike. The methodology stays intact; the bottleneck is removed.`,
+          `An existing value creation diagnostic already contains the benchmark database and methodology. The current workflow requires significant manual reconciliation against trial balances to produce clean output, a process that is time-intensive and introduces error risk. AI automates the GL ingestion and reconciliation layer: classifying spend lines, resolving miscodings, and mapping actuals to benchmark categories without manual intervention. Because the diagnostic ingests census data covering fully loaded labor cost and headcount, the output spans both SG&A and direct labor on the COGS side, surfacing cost reduction opportunities across back-office and operational functions alike. The methodology stays intact; the bottleneck is removed.`,
         anchor:
-          `KPMG Value Navigator (existing internal tool). AI augmentation of the reconciliation layer is the specific gap, not a net-new build.`,
+          `Existing value creation diagnostic (internal benchmarking tool). AI augmentation of the reconciliation layer is the specific gap, not a net-new build.`,
         fit: 'Medium',
         complexity: 'Medium',
         ttv: '4-6 wks',
         duration: '8-12 wks',
         deps: 'ERP GL export; 12+ months of actuals; vendor master list.',
-        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+        entry: { type: 'build', label: 'Build on a value creation diagnostic' },
       },
       {
         sublever: 'SG&A & COGS (Labor)',
@@ -77,15 +77,15 @@ export const levers: Lever[] = [
         filterServices: 'strategy vc impl',
         services: ['strategy', 'vc', 'platform'],
         airole:
-          `Value Navigator already holds the benchmark data for headcount and fully loaded labor cost by function, industry, and company size. The gap is the manual effort required to map census data and trial balances to the benchmark structure before any comparison is possible. AI automates that mapping, cleaning and reconciling inputs from payroll and GL exports without manual intervention. Because the analysis covers fully loaded cost and headcount across all functions, the output applies equally to SG&A roles and direct labor on the COGS side. The ranked opportunity set covers headcount reduction, offshoring candidates by function, outsourcing opportunities, and span and band optimization, across back-office and operational workforce alike.`,
+          `A value creation diagnostic already holds the benchmark data for headcount and fully loaded labor cost by function, industry, and company size. The gap is the manual effort required to map census data and trial balances to the benchmark structure before any comparison is possible. AI automates that mapping, cleaning and reconciling inputs from payroll and GL exports without manual intervention. Because the analysis covers fully loaded cost and headcount across all functions, the output applies equally to SG&A roles and direct labor on the COGS side. The ranked opportunity set covers headcount reduction, offshoring candidates by function, outsourcing opportunities, and span and band optimization, across back-office and operational workforce alike.`,
         anchor:
-          `KPMG Value Navigator (existing internal tool). Same reconciliation bottleneck as SG&A benchmarking; AI closes the same gap across a different data input.`,
+          `Existing value creation diagnostic (internal benchmarking tool). Same reconciliation bottleneck as SG&A benchmarking; AI closes the same gap across a different data input.`,
         fit: 'Low',
         complexity: 'Medium',
         ttv: '6-8 wks',
         duration: '10-14 wks',
         deps: 'HRIS/payroll export with reporting lines; compensation banding.',
-        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+        entry: { type: 'build', label: 'Build on a value creation diagnostic' },
       },
       {
         sublever: 'Supply Chain & Operations',
@@ -113,15 +113,15 @@ export const levers: Lever[] = [
         filterServices: 'vc impl',
         services: ['vc', 'platform'],
         airole:
-          `Value Navigator benchmarks spend by category and industry. The current process requires manually mapping AP and PO data to the benchmark taxonomy, reconciling against trial balances to get clean category-level spend before any comparison is possible. AI automates that classification and reconciliation, then surfaces consolidation opportunities: categories where spend is above benchmark, vendors appearing across multiple functions, and tail spend above an actionable threshold. Where labor-related costs appear in procurement data (e.g., contract labor, staffing agencies), the analysis connects to the same fully loaded cost benchmarks that drive the headcount and SG&A workstreams. Output is a prioritized renegotiation and consolidation target list grounded in benchmark data.`,
+          `A value creation diagnostic benchmarks spend by category and industry. The current process requires manually mapping AP and PO data to the benchmark taxonomy, reconciling against trial balances to get clean category-level spend before any comparison is possible. AI automates that classification and reconciliation, then surfaces consolidation opportunities: categories where spend is above benchmark, vendors appearing across multiple functions, and tail spend above an actionable threshold. Where labor-related costs appear in procurement data (e.g., contract labor, staffing agencies), the analysis connects to the same fully loaded cost benchmarks that drive the headcount and SG&A workstreams. Output is a prioritized renegotiation and consolidation target list grounded in benchmark data.`,
         anchor:
-          `KPMG Value Navigator (existing internal tool). Same census-to-trial-balance reconciliation bottleneck as SG&A and headcount; AI applies the same fix to procurement spend inputs.`,
+          `Existing value creation diagnostic (internal benchmarking tool). Same census-to-trial-balance reconciliation bottleneck as SG&A and headcount; AI applies the same fix to procurement spend inputs.`,
         fit: 'Low',
         complexity: 'Medium',
         ttv: '8-10 wks',
         duration: '14-20 wks',
         deps: 'AP/PO export with vendor names and line descriptions; $50M+ in addressable indirect spend.',
-        entry: { type: 'build', label: 'Build on KPMG Value Navigator' },
+        entry: { type: 'build', label: 'Build on a value creation diagnostic' },
       },
     ],
   },
@@ -193,7 +193,7 @@ export const levers: Lever[] = [
         airole:
           `LLM-assisted assembly of data room materials: structures financial data from ERP/BI exports, drafts management presentation narrative grounded in actual KPIs, identifies information gaps sophisticated buyers will flag, and generates Q&A preparation materials from prior deal patterns. Reduces a 6-8 week data room build by roughly 40%.`,
         anchor:
-          `DealRoom and Ansarada offer AI-assisted VDR features. Goldman and JPMorgan have internal LLM deal tools (analogous). KPMG deal advisory practice is building comparable internal capability.`,
+          `DealRoom and Ansarada offer AI-assisted VDR features. Goldman and JPMorgan have internal LLM deal tools (analogous). Deal advisory practices at large advisory firms are building comparable internal capability.`,
         fit: 'Medium',
         complexity: 'Medium',
         ttv: '3-4 wks post-data assembly',
@@ -391,7 +391,7 @@ export const levers: Lever[] = [
         airole:
           `AI classifies and normalizes vendor spend data across multiple portcos in a fund's portfolio, identifying where the same vendor or category appears across companies and where aggregated volume creates negotiating leverage. Generates a ranked consolidation list with estimated spend at risk. Requires fund-level data aggregation, which is exactly what PortCo Pulse enables as the collection layer.`,
         anchor:
-          `Coupa and Jaggaer for cross-entity spend at enterprise level. Bridgepoint, Advent International have run manual versions of this analysis (analogous). AI-automated fund-level version is emerging and a genuine KPMG differentiation opportunity.`,
+          `Coupa and Jaggaer for cross-entity spend at enterprise level. Bridgepoint, Advent International have run manual versions of this analysis (analogous). AI-automated fund-level version is emerging and a genuine differentiation opportunity for an advisory firm.`,
         fit: 'Medium',
         complexity: 'Medium',
         ttv: '8-12 wks post-collection',

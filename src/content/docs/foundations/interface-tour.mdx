@@ -23,8 +23,8 @@ The illustrations below recreate the real interface. Your own screen may differ 
 When you sign in you land on a new chat. A slim menu sits on the left, and the message box sits in the middle. That is the whole app.
 
 <ClaudeWindow ariaLabel="The Claude home screen: a left menu and a central message box.">
-  <ClaudeSidebar slot="sidebar" active="new" workspace="KPMG" />
-  <span slot="tag">KPMG workspace</span>
+  <ClaudeSidebar slot="sidebar" active="new" workspace="Your firm" />
+  <span slot="tag">Your firm's workspace</span>
   <div style={{ padding: '32px 20px 8px', textAlign: 'center' }}>
     <p style={{ margin: 0, fontSize: '1.25rem', fontWeight: 600, color: '#2a2722', letterSpacing: '-0.01em' }}>
       Good evening
@@ -43,8 +43,8 @@ When you sign in you land on a new chat. A slim menu sits on the left, and the m
 - **Projects** are dedicated workspaces that hold instructions and a set of files. This is where most serious deal work belongs, covered in the [Projects](/projects/what-projects-are) section.
 - **Artifacts** collects the standalone documents Claude builds for you, such as a memo or a model output.
 
-<Callout type="note" title="You are in a KPMG workspace">
-On Claude Enterprise and Team the top of the menu shows your organization, here labeled KPMG.
+<Callout type="note" title="You are in your firm's workspace">
+On Claude Enterprise and Team the top of the menu shows your organization, here labeled "Your firm".
 </Callout>
 
 ## The message box, up close
@@ -101,7 +101,7 @@ For anything beyond a quick question, you will work inside a **Project**. A Proj
 
 <ClaudeWindow caption="A Project pairs standing instructions with a knowledge base of files." url="claude.ai · Projects">
   <ClaudeProject name="Project Atlas" kind="Deal project" capacity="18% of knowledge used" capacityPct={18}>
-    <p slot="instructions">You are assisting a KPMG private equity team screening Project Atlas, a field-service software target. Be precise, cite the source document for figures, and flag anything the materials leave unclear.</p>
+    <p slot="instructions">You are assisting a private equity team screening Project Atlas, a field-service software target. Be precise, cite the source document for figures, and flag anything the materials leave unclear.</p>
     <FileChip name="Project_Atlas_CIM.pdf" kind="pdf" />
     <FileChip name="Atlas_financials.xlsx" kind="xls" />
     <FileChip name="Management_deck.pdf" kind="pdf" />

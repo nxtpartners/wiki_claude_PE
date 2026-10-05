@@ -1,0 +1,59 @@
+---
+// NXT Partners AI logo lockup: two chevrons + stacked "NXT" / "PARTNERS".
+// Geometry ported from nxt-pe/public/logo/logo-dark.html (chevron paths verbatim; the
+// text positions reproduce that file's flex layout, measured from Space Grotesk Bold
+// metrics). Dark-background variant only. No blinking cursor, so nothing to gate on
+// reduced motion. Decorative: the parent link carries the accessible name.
+interface Props {
+  /** Rendered height in px. Width follows the 251:100 viewBox. */
+  height?: number;
+  class?: string;
+}
+
+const { height = 32, class: className } = Astro.props;
+const VIEW_W = 251;
+const VIEW_H = 100;
+const width = Math.round((height * VIEW_W) / VIEW_H);
+---
+
+<svg
+  class:list={['nxt-logo', className]}
+  width={width}
+  height={height}
+  viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path class="nxt-chevron" d="M0,0 L50,50 L0,100 L0,68 L18,50 L0,32 Z"></path>
+  <path class="nxt-chevron" d="M40,0 L90,50 L40,100 L40,68 L58,50 L40,32 Z"></path>
+  <text class="nxt-word" x="118" y="60.9">NXT</text>
+  <text class="nxt-partners" x="121.1" y="92">PARTNERS</text>
+</svg>
+
+<style>
+  .nxt-logo {
+    display: block;
+    flex-shrink: 0;
+    overflow: visible;
+  }
+  .nxt-chevron {
+    fill: var(--brand-purple);
+  }
+  .nxt-word,
+  .nxt-partners {
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .nxt-word {
+    font-size: 72px;
+    letter-spacing: -0.021em;
+    fill: var(--on-dark);
+  }
+  .nxt-partners {
+    font-size: 24px;
+    letter-spacing: 0.042em;
+    fill: var(--on-dark-muted);
+  }
+</style>

@@ -10,7 +10,7 @@ PASS/FAIL against `## Checklist` only.
 
 | File | Owns |
 |---|---|
-| `src/styles/global.css` | Every presentation token — color, spacing, type, radius, motion. Two palettes in one file: wiki chrome in the first `:root` (12-71), the Claude.ai mockup palette in the second (342-366). |
+| `src/styles/global.css` | Every presentation token — color, spacing, type, radius, motion. Two palettes in one file: the NXT wiki brand (`--brand-*`, `--chrome-*`, `--on-dark*`, `--font-display`) in the first `:root`, the Claude.ai mockup palette (`--c-*`, `--vs-*`) in the second. |
 | `src/config/nav.ts` | Every route, slug, section label, track name, and their order. |
 | `src/content.config.ts` | The frontmatter schema every content page is validated against. |
 
@@ -100,7 +100,13 @@ depends upward.
 
 - [ ] No `var(--space-N)` where N is not one of 1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 24.
 - [ ] No new hardcoded hex color in a component or page; use a token from `global.css`.
-- [ ] No KPMG blue (`--kpmg-blue`, `#00338D`) inside anything under `src/components/claude-ui/`.
+- [ ] No brand token (`--brand-*`, `--chrome-*`, `--on-dark*`, `--font-display`) inside anything under
+      `src/components/claude-ui/`.
+- [ ] `--brand-purple` and `--brand-cyan` never set `color:` on a light background; text uses `--brand-ink`
+      (light) or `--brand-on-dark` (navy). `grep -rn "color: var(--brand-purple)\|color: var(--brand-cyan)" src`.
+- [ ] No client name. `grep -rni kpmg src public README.md` is empty, and "Big 4" appears only in the
+      `index.astro` hero eyebrow.
+- [ ] No gradient or radial glow on text or section backgrounds (NXT style).
 - [ ] No em dash or en dash in any added line, including code comments.
 - [ ] No British spelling and no `£`.
 - [ ] No root-absolute internal `href="/..."`, `src="/..."`, or `/pagefind/...`; base applied via `withBase()`
@@ -115,8 +121,7 @@ depends upward.
 - [ ] `welcome.mdx`, `first-15-minutes.mdx`, and `Header.astro` unchanged unless the change is additive and
       content-preserving.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
-- [ ] VS Code is described as required at KPMG and recommended in general. Never tell a KPMG reader another
-      terminal is an option for them.
+- [ ] VS Code is described as required. Never tell a reader another terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 - [ ] Nothing on a page restates what the page already shows: no legend, key, footnote, card set, or
@@ -148,3 +153,9 @@ copied as precedent for new code. **Work that is scheduled lives in `tasks/plan.
   Astro scopes `<style>` per file, so carving four views out of one component forced the shared header,
   panel and view-state rules to be copied. `review` rates this a blocker and it is logged as work in
   `tasks/plan.md`, not accepted here. Listed only so the next audit knows it is already on the list.
+- **[2026-10-05] The diagrams still use the KPMG palette** (blue, not NXT purple). The user chose to keep
+  them during the NXT rebrand. No image carries the KPMG name: `confidentiality.png` was edited by the user
+  the same day. Some `diagrams_prompts/*.md` still specify the KPMG palette. Do not re-raise it;
+  regenerating them is the user's call.
+- **[2026-10-05] `<meta name="theme-color">` in `BaseLayout.astro` is a raw hex.** A meta tag cannot read a
+  CSS variable, so it is hand-paired with `--chrome-bg`. Change both together.

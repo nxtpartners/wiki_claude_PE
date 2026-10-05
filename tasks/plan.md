@@ -1,25 +1,25 @@
-# KPMG × Claude for Private Equity — Project Plan
+# Claude for Private Equity (NXT Partners AI) — Project Plan
 
 ## Goal
-A polished, professional teaching wiki that takes KPMG Private Equity professionals from Claude.ai basics to confident mid-level use. Covers how to create context, how to structure Projects, practical PE playbooks, and the connectors/power features relevant to PE work. Built by NXT Partners AI for KPMG.
+A polished, professional teaching wiki that takes private equity professionals from Claude.ai basics to confident mid-level use. Covers how to create context, how to structure Projects, practical PE playbooks, and the connectors/power features relevant to PE work. Built by NXT Partners AI, in collaboration with a Big 4 firm (rebranded from KPMG on 2026-10-05).
 
 ## Audience
-- PE professionals at KPMG — sophisticated, busy, not necessarily AI-fluent.
+- Private equity professionals — sophisticated, busy, not necessarily AI-fluent.
 - Assume **Claude Enterprise/Team** accounts (data not used for training; admin controls).
 - Work primarily with **xls, pdf, docs**; connectors taught as an optional accelerator.
 
 ## Brand & Design Direction
-- **Palette:** KPMG deep blue (#00338D) primary; cobalt / light-blue accents; lots of whitespace; clean institutional feel. No NXT Partners colors or fonts.
-- **Typography:** Inter (sans-only) throughout, with JetBrains Mono for small mono accents (eyebrows, labels). Clean KPMG-aligned look, no serif. (Decided.)
+- **Palette (2026-10-05):** NXT Partners AI. Navy chrome (#0e0a20) for header and footer; white hero; light reading pages; purple accent (#7B61FF, text uses #6248E5 for contrast); cyan secondary. Source: `nxt-pe/src/theme/tokens.ts`. No gradients, no glow.
+- **Typography (2026-10-05):** Space Grotesk headings, Inter body, JetBrains Mono for small mono accents (eyebrows, labels). No serif.
 - **Motion (GSAP):** restrained and premium — hero animation, scroll reveals, smooth transitions, copy-button micro-interactions, reading-progress indicator.
-- **Logo:** none yet — clean header lockup placeholder to drop KPMG logo into later.
+- **Logo:** NXT Partners inline SVG lockup (`NxtLogo.astro`).
 
 ## Tech Stack
 - **Astro** (content-first, static, minimal JS) with a fully custom design (no docs-template look — explicitly NOT Docusaurus).
 - **GSAP** for motion; React islands only where genuinely interactive (e.g. prompt library copy, decision tree).
 - **Pagefind** for static search.
 - **Markdown/MDX** for content (easy for non-devs to edit).
-- **Deploy:** GitHub Pages, portable to KPMG internal. Repo: nxtpartners/wiki_claude_PE.
+- **Deploy:** GitHub Pages, portable to a client host. Repo: nxtpartners/wiki_claude_PE.
 
 ## Curriculum / Site Architecture
 1. **Start Here**
@@ -70,7 +70,7 @@ A polished, professional teaching wiki that takes KPMG Private Equity profession
 
 ## Build Phases
 - **Phase 0 — Scaffold:** repo skeleton + task files (this step); then Astro project, dependencies (GSAP, Pagefind, MDX).
-- **Phase 1 — Design system + layout shell:** theme tokens (KPMG palette, fonts), global styles; base layout (header, sidebar nav, on-this-page TOC, footer, prev/next); core components (callout/admonition, prompt card with copy, comparison table, step cards, decision tree, hero); GSAP motion baseline.
+- **Phase 1 — Design system + layout shell:** theme tokens (palette, fonts), global styles; base layout (header, sidebar nav, on-this-page TOC, footer, prev/next); core components (callout/admonition, prompt card with copy, comparison table, step cards, decision tree, hero); GSAP motion baseline.
 - **Phase 2 — Content:** author modules in value order — Start Here + Foundations → Context → Projects → Playbooks → Worked Example → Power Features → Best Practices → Resources.
 - **Phase 3 — Polish + deploy:** search (Pagefind), responsive, accessibility, final motion pass, GitHub Pages build config.
 
@@ -80,7 +80,7 @@ Visuals are a core teaching tool for a non-AI-fluent audience. Three formats, in
 **1. Recreated Claude.ai UI mockups (primary).** Reusable Astro components that look like the real product, styled to the warm Claude palette (see below), NOT raster screenshots. Chosen because they are confidential-safe (no real data in an image), on-brand, consistent, annotatable, crisp, and accessible (real text + alt). They also never go stale when Claude tweaks its UI.
   - **ClaudeUI component kit to build:** composer (with attach/paperclip), message exchange (user + Claude bubbles), file chip, left sidebar, Projects panel, project knowledge + custom-instructions panel.
   - **Annotation layer:** numbered hotspots / highlight ring / arrow callouts so steps can point at exact UI.
-  - **Claude palette (match real product):** bg cream `#FAF9F5`, panel `#F0EEE6`, borders `#EAE7DC` / `#E0DCCD`, text `#3D3B36` / heading `#2A2722`, clay accent `#BE5D3A`. (KPMG blue is for the wiki chrome only, never inside a Claude mockup.)
+  - **Claude palette (match real product):** bg cream `#FAF9F5`, panel `#F0EEE6`, borders `#EAE7DC` / `#E0DCCD`, text `#3D3B36` / heading `#2A2722`, clay accent `#BE5D3A`. (The wiki brand colors are for the chrome only, never inside a Claude mockup.)
   - **Usage:** each First 15 Minutes step gets one; reused across Interface Tour, Projects setup, and playbooks.
 
 **2. Real screenshots (secondary, curated).** Only where exact recognizability matters (finding the attach icon, the Projects button). Rules: dummy/throwaway document only, never real deal data; add a "your screen may differ slightly" note; provide alt text. Requires Chrome access (see workflow).
@@ -98,7 +98,6 @@ Visuals are a core teaching tool for a non-AI-fluent audience. Three formats, in
 UI UX Pro Max (style direction) → taste-skill / frontend-design (build quality, anti-slop) → GSAP motion. Claude hand-builds UI mockups + structural diagrams as Astro/SVG components; nano-banana-pro (or user's ChatGPT/Gemini) for illustrative imagery and any non-hand-coded diagrams.
 
 ## Open Decisions
-- Hosting target: default GitHub Pages; confirm if KPMG internal is required.
 - Whether to grant Chrome access for screenshot/mockup accuracy (recommended).
 
 
@@ -117,10 +116,7 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
 3. **Astro 6 deprecates `markdown.remarkPlugins` / `rehypePlugins` / `remarkRehype`** in `astro.config.mjs`.
    That is the exact config path the base-path prose-link rewriter in `src/plugins/` depends on, so this
    becomes a build break, not a warning, on the next major. Fix before any Astro upgrade.
-4. **Add the KPMG context to VS Code wording.** VS Code is required at KPMG and recommended in general (user,
-   2026-09-24). Pages that say "recommended" or "any terminal", including both glossaries, are correct in
-   general but should add that KPMG uses VS Code. Grep `recommended\|any terminal` in `src/content/docs`.
-   (The Claude Code welcome list was fixed 2026-10-02.)
+4. ~~VS Code KPMG wording~~ Moot after the 2026-10-05 rebrand: VS Code is simply "required".
 5. **Regenerate the homepage hero diagram.** `home-two-paths.png` still has "Core Track" and "Advanced Track"
    in its pixels. The prompt in `diagrams_home/diagrams_prompts/01-two-paths.md` is already updated; the user
    generates the image, then copy it to `src/assets/diagrams/home-two-paths.png`.
