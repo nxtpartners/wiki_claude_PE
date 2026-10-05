@@ -135,3 +135,11 @@ below is a real violation of `rules.md` that is scheduled rather than accepted.
    artwork, leaving extra space before "· Claude". Crop the wrapper width in `NxtLogo.astro`, not the asset.
 12. **`VcmControls.astro` hand-copies the service labels** that `serviceLabels` in `vcm-data.ts` already
    holds. Derive the filter buttons from `vcm-data.ts`.
+13. **Submit the sitemap to Google Search Console** (user): `https://wiki.nxtpartners.ai/sitemap-index.xml`,
+   and the same in Bing Webmaster Tools. Indexing then takes days instead of weeks.
+14. **Baseline AI-search visibility**: run `/geo audit https://wiki.nxtpartners.ai` once the site is indexed,
+   and keep the report under `seo/baseline/` (copy `others/seo-template.md` to `seo/plan.md` first).
+15. **Decide the GitHub Pages copy's future.** It still deploys on every push and its canonical tags point at
+   wiki.nxtpartners.ai. Retire `.github/workflows/deploy.yml` if the user agrees.
+16. **Share image.** Pages share as a text-only card (`twitter:card` summary). A 1200x630 `og:image` would
+   make links pasted in LinkedIn, Slack or email stand out. Needs an image from the user or a design pass.
