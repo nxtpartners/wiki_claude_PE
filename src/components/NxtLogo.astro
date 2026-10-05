@@ -1,59 +1,33 @@
 ---
-// NXT Partners AI logo lockup: two chevrons + stacked "NXT" / "PARTNERS".
-// Geometry ported from nxt-pe/public/logo/logo-dark.html (chevron paths verbatim; the
-// text positions reproduce that file's flex layout, measured from Space Grotesk Bold
-// metrics). Dark-background variant only. No blinking cursor, so nothing to gate on
-// reduced motion. Decorative: the parent link carries the accessible name.
+// The NXT Partners AI logo, embedded from NXT's own finished asset the same way
+// nxt-pe's NXTLogo.tsx does it: a 308x100 iframe scaled with transform (not zoom,
+// which leaves white boxes in Safari). Dark-background variant only. Decorative:
+// hidden from assistive tech and from clicks, so the parent link carries the name
+// and receives the click. Styles are inline, as in NXTLogo.tsx: the frame must be
+// sized before anything else loads, or it falls back to the browser's 300x150.
+import { NXT_SITE } from '../config/nav';
+
 interface Props {
-  /** Rendered height in px. Width follows the 251:100 viewBox. */
+  /** Rendered height in px. Width follows the asset's 308:100 frame. */
   height?: number;
-  class?: string;
 }
 
-const { height = 32, class: className } = Astro.props;
-const VIEW_W = 251;
-const VIEW_H = 100;
-const width = Math.round((height * VIEW_W) / VIEW_H);
+const { height = 32 } = Astro.props;
+const FRAME_W = 308;
+const FRAME_H = 100;
+const scale = height / FRAME_H;
 ---
 
-<svg
-  class:list={['nxt-logo', className]}
-  width={width}
-  height={height}
-  viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-hidden="true"
-  focusable="false"
+<span
+  class="nxt-logo"
+  style={`display:block;flex-shrink:0;overflow:hidden;width:${FRAME_W * scale}px;height:${height}px`}
 >
-  <path class="nxt-chevron" d="M0,0 L50,50 L0,100 L0,68 L18,50 L0,32 Z"></path>
-  <path class="nxt-chevron" d="M40,0 L90,50 L40,100 L40,68 L58,50 L40,32 Z"></path>
-  <text class="nxt-word" x="118" y="60.9">NXT</text>
-  <text class="nxt-partners" x="121.1" y="92">PARTNERS</text>
-</svg>
-
-<style>
-  .nxt-logo {
-    display: block;
-    flex-shrink: 0;
-    overflow: visible;
-  }
-  .nxt-chevron {
-    fill: var(--brand-purple);
-  }
-  .nxt-word,
-  .nxt-partners {
-    font-family: var(--font-display);
-    font-weight: 700;
-  }
-  .nxt-word {
-    font-size: 72px;
-    letter-spacing: -0.021em;
-    fill: var(--on-dark);
-  }
-  .nxt-partners {
-    font-size: 24px;
-    letter-spacing: 0.042em;
-    fill: var(--on-dark-muted);
-  }
-</style>
+  <iframe
+    src={NXT_SITE.logoDark}
+    title=""
+    aria-hidden="true"
+    tabindex="-1"
+    loading="eager"
+    style={`display:block;width:${FRAME_W}px;height:${FRAME_H}px;border:0;pointer-events:none;transform-origin:0 0;transform:scale(${scale})`}
+  ></iframe>
+</span>

@@ -1,8 +1,9 @@
 ---
 import type { Track } from '../config/nav';
-import { TRACKS, navForTrack, walkSections } from '../config/nav';
+import { NXT_SITE, TRACKS, navForTrack, walkSections } from '../config/nav';
 import { existingDocSlugs } from '../utils/existingDocs';
 import { withBase } from '../utils/withBase';
+import ExternalLink from './ExternalLink.astro';
 
 const existing = await existingDocSlugs();
 
@@ -39,7 +40,7 @@ const year = new Date().getFullYear();
   <div class="container footer-inner">
     <div class="footer-brand">
       <p class="footer-title">Claude for Private Equity</p>
-      <p class="footer-tagline">Internal enablement: from the basics to confident daily use.</p>
+      <p class="footer-tagline">From the basics to confident daily use.</p>
     </div>
 
     <nav class="footer-col footer-track" aria-label={TRACKS.core.name}>
@@ -75,7 +76,9 @@ const year = new Date().getFullYear();
 
   <div class="footer-bar">
     <div class="container footer-bar-inner">
-      <span>© {year} · Claude for Private Equity</span>
+      <span>
+        © {year} · Claude for Private Equity · Built by <ExternalLink href={NXT_SITE.url} class="footer-ext">{NXT_SITE.name}</ExternalLink>
+      </span>
     </div>
   </div>
 </footer>
@@ -174,6 +177,12 @@ const year = new Date().getFullYear();
     padding-bottom: var(--space-4);
     font-size: 0.84rem;
     color: var(--on-dark-muted);
+  }
+  .footer-ext {
+    color: var(--on-dark);
+  }
+  .footer-ext:hover {
+    color: var(--brand-on-dark);
   }
   .footer-bar-muted {
     color: var(--on-dark-muted);

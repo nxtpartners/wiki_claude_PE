@@ -216,6 +216,16 @@ export const flatNavAdvanced: NavItem[] = [...walkSections(navAdvanced)].flatMap
 // ---------------------------------------------------------------------------
 export type Track = 'core' | 'advanced';
 
+// The builder's own site. Linked from the header logo, the hero line and the
+// footer bar, always through ExternalLink.
+export const NXT_SITE = {
+  name: 'NXT Partners AI',
+  url: 'https://pe.nxtpartners.ai',
+  // NXT's own finished logo (chevrons, cursor, wordmark), served by pe.nxtpartners.ai
+  // from nxt-pe/public/logo/. Embedded, never copied, so it cannot drift.
+  logoDark: 'https://pe.nxtpartners.ai/logo/logo-dark',
+} as const;
+
 export const TRACKS = {
   core: { id: 'core', name: 'claude.ai', homeSlug: 'welcome' },
   advanced: { id: 'advanced', name: 'Claude Code', homeSlug: 'claude-code/welcome' },
