@@ -31,6 +31,8 @@ invisible layout damage rather than as an error. See Exceptions.
 
 - `applyBase()` in `basePath.ts` is the **only** place the base-path rule is expressed, and it is idempotent —
   applying it twice is safe.
+  It also gives page links their trailing slash (`/welcome` → `/welcome/`) because both hosts redirect the bare
+  form; files with an extension are left alone. The rehype plugin runs even at the root base for this reason.
 - `existingDocSlugs()` answers "does this nav slug have real content". Every component that needs that answer
   imports it. It exists because that two-line `getCollection` + `Set` lookup had once been copy-pasted into
   four components.
@@ -117,6 +119,8 @@ depends upward.
 - [ ] No root-absolute internal `href="/..."`, `src="/..."`, or `/pagefind/...`; base applied via `withBase()`
       or `import.meta.env.BASE_URL`.
 - [ ] `withBase()`/`applyBase()` called once per URL, never composed by hand.
+- [ ] Internal page links in built HTML end in `/`: after `npm run build`,
+      `grep -rhoE 'href="/[^"#?]*[^/"]"' dist --include='*.html' | grep -vE '\.[a-z0-9]+"$'` is empty.
 - [ ] No `getCollection('docs')` outside `[...slug].astro` and `existingDocs.ts`; use `existingDocSlugs()`.
 - [ ] No hand-maintained array of nav labels, slugs, or section names anywhere; derive from `nav.ts`.
 - [ ] Every new closed set of values is a string-literal union on `Props`, not `string`.

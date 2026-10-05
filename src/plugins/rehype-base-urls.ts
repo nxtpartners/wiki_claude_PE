@@ -16,9 +16,8 @@ import { applyBase, basePrefix } from '../utils/basePath';
 export function rehypeBaseUrls({ base = '/' }: { base?: string } = {}) {
   const prefix = basePrefix(base);
 
-  // Served from the root, so there is nothing to apply.
-  if (!prefix) return () => {};
-
+  // Runs at the root too: there is no base to add, but page links still get
+  // their trailing slash from applyBase().
   const walk = (node: any): void => {
     if (node.type === 'element' && node.tagName === 'a' && node.properties) {
       const href = node.properties.href;

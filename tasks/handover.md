@@ -3,15 +3,17 @@
 ## Where to take over from
 Next:        Ask the user for the next piece of feedback; open work is in `tasks/plan.md` (items 9 and 10 first).
 In progress: Nothing half-applied. Everything is committed and pushed to `main`.
-State:       `npm run build` green at 52 pages. Pushing `main` deploys to Pages.
-Waiting on:  User OK to fix the logo's blinking cursor at its source in `nxt-pe` (plan item 9); the
+State:       `npm run build` green. Live at https://wiki.nxtpartners.ai (Cloudflare Pages, `SITE_BASE=/`);
+             pushing `main` also still deploys the GitHub Pages copy under `/wiki_claude_PE/`.
+Waiting on:  Whether to retire the GitHub Pages workflow and whether to drop `noindex` on the new
+             domain; user OK to fix the logo's blinking cursor at its source in `nxt-pe` (plan item 9); the
              homepage hero diagram regeneration (plan item 5).
 
 ## What to avoid
 - The site names no client. KPMG is gone everywhere except the diagrams' blue palette (accepted). "Big 4"
   appears only in the hero line. Rules in `CLAUDE.md` and `tasks/standards.md`.
-- The NXT logo is embedded from pe.nxtpartners.ai, never redrawn ("We have the object for the logo
-  completed, why you did not take that one?"). Its styles are inline on purpose (`context.md`).
+- The NXT logo and tab icons are linked from pe.nxtpartners.ai, never redrawn ("We have the object for the
+  logo completed, why you did not take that one?"; then the same for the tab icon). Its styles are inline on purpose (`context.md`).
 - The hero stays white ("keep the hero in white"); only header and footer are navy.
 - The header's Confidential chip, "Built by" text and the footer confidentiality line were removed by
   the user. Do not bring them back.
@@ -22,5 +24,6 @@ Waiting on:  User OK to fix the logo's blinking cursor at its source in `nxt-pe`
 ## What we did
 Rebranded the wiki from KPMG to NXT Partners AI (colors, Space Grotesk, logo, copy, matrix made
 advisor-neutral), linked out to pe.nxtpartners.ai from the logo, hero line and footer, added a Home
-button, and made every prompt card collapse to 10 lines. The user relabeled `confidentiality.png`.
+button, made every prompt card collapse to 10 lines, moved the site to wiki.nxtpartners.ai on Cloudflare,
+used NXT's own tab icons, added a 404 page, and gave internal links trailing slashes. The user relabeled `confidentiality.png`.
 Pre-rebrand state is tag `before-kpmg-changes` (pushed); `public/kpmg-logo.png` was deleted, recoverable there.

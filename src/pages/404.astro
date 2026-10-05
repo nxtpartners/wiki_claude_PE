@@ -1,0 +1,44 @@
+---
+// Served by both hosts for any address that matches no page, so a mistyped or
+// stale link says so instead of silently showing the homepage.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { TRACKS } from '../config/nav';
+import { withBase } from '../utils/withBase';
+---
+
+<BaseLayout title="Page not found">
+  <Header />
+
+  <main id="main" class="nf">
+    <div class="container nf-inner">
+      <p class="eyebrow">Page not found</p>
+      <h1>This page does not exist</h1>
+      <p class="nf-lead">The link may be out of date, or the address may have a typo. Every page is one click from the start of its track.</p>
+      <div class="nf-actions">
+        <a class="btn btn-primary" href={withBase('/')}>Go to the homepage</a>
+        <a class="btn btn-secondary" href={withBase('/' + TRACKS.core.homeSlug)}>Start with {TRACKS.core.name}</a>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style>
+  .nf-inner {
+    padding-block: var(--space-24);
+    max-width: 44rem;
+  }
+  .nf-lead {
+    color: var(--ink-muted);
+    font-size: 1.1rem;
+    margin-bottom: var(--space-8);
+  }
+  .nf-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+</style>

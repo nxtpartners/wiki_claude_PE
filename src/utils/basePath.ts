@@ -11,6 +11,10 @@
  * Applying the base is **idempotent**: a path that already carries it is
  * returned unchanged. That is what makes it safe for a link to pass through
  * both callers, and it is why neither of them has to know what the other did.
+ *
+ * Page links also get a trailing slash, because both hosts serve each page as
+ * `<slug>/index.html` and answer `/<slug>` with a redirect. Files (anything
+ * whose last segment has an extension) are left as they are.
  */
 
 /** Schemes and fragments that address something other than a page of this site. */
@@ -26,9 +30,19 @@ export function applyBase(prefix: string, path = ''): string {
   // Protocol-relative URLs address another host, so they are left alone.
   if (path.startsWith('//')) return path;
 
-  const rooted = '/' + path.replace(/^\//, '');
-  if (prefix && (rooted === prefix || rooted.startsWith(prefix + '/'))) return rooted;
+  const rooted = withTrailingSlash('/' + path.replace(/^\//, ''));
+  if (prefix && (rooted === prefix + '/' || rooted.startsWith(prefix + '/'))) return rooted;
   return prefix + rooted;
+}
+
+/** `/foo` and `/foo#bar` become `/foo/` and `/foo/#bar`; `/a.css` and `/foo/` are unchanged. */
+function withTrailingSlash(url: string): string {
+  const cut = url.search(/[?#]/);
+  const path = cut === -1 ? url : url.slice(0, cut);
+  const rest = cut === -1 ? '' : url.slice(cut);
+  const last = path.slice(path.lastIndexOf('/') + 1);
+  if (path.endsWith('/') || last.includes('.')) return url;
+  return path + '/' + rest;
 }
 
 /** Normalizes a configured base (`'/wiki_claude_PE/'`, `'/'`) into a prefix. */
