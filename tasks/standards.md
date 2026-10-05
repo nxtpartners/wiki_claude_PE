@@ -128,7 +128,7 @@ depends upward.
 - [ ] Project Atlas figures match `first-15-minutes.mdx` ($60m, high 70s margin, NRR above 110 percent).
 - [ ] VS Code is described as required. Never tell a reader another terminal is an option for them.
 - [ ] Diagrams rendered through `astro:assets` from `src/assets/diagrams/`, never by URL.
-- [ ] No redrawn or copied NXT logo; use `NxtLogo.astro`. No external URL outside `NXT_SITE`, and every
+- [ ] No redrawn or copied NXT logo or icon; use `NxtLogo.astro` and the `NXT_SITE.icons` links. No external URL outside `NXT_SITE`, and every
       link that leaves the wiki uses `ExternalLink.astro`.
 - [ ] Every template meant to be saved and reused (prompt template, Project instructions, CLAUDE.md, SKILL.md, Prompt Library prompt) added or changed carries a `# Version:` and `# Tested on: Claude [model name], [month and year], by [your name]` header, with placeholders, never an invented model or date. In a `SKILL.md` the lines go inside the frontmatter as YAML comments.
 - [ ] Nothing on a page restates what the page already shows: no legend, key, footnote, card set, or

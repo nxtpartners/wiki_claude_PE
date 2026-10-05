@@ -224,6 +224,12 @@ export const NXT_SITE = {
   // NXT's own finished logo (chevrons, cursor, wordmark), served by pe.nxtpartners.ai
   // from nxt-pe/public/logo/. Embedded, never copied, so it cannot drift.
   logoDark: 'https://pe.nxtpartners.ai/logo/logo-dark',
+  // NXT's own tab and home-screen icons (nxt-pe/public/), linked the same way.
+  icons: {
+    png16: 'https://pe.nxtpartners.ai/favicon-16x16.png',
+    png32: 'https://pe.nxtpartners.ai/favicon-32x32.png',
+    apple: 'https://pe.nxtpartners.ai/apple-touch-icon.png',
+  },
 } as const;
 
 export const TRACKS = {
