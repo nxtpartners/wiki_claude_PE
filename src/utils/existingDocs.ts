@@ -13,6 +13,17 @@ import { getCollection } from 'astro:content';
  * a link, so the build can never point at a page that is not there.
  */
 export async function existingDocSlugs(): Promise<Set<string>> {
-  const docs = await getCollection('docs', ({ data }) => data.draft !== true);
-  return new Set(docs.map((d) => d.id));
+  return new Set((await publishedDocs()).map((d) => d.id));
+}
+
+/**
+ * Each published page's frontmatter description, keyed by slug. For anything
+ * that describes the site to a machine (llms.txt) rather than rendering a page.
+ */
+export async function docDescriptions(): Promise<Map<string, string>> {
+  return new Map((await publishedDocs()).map((d) => [d.id, d.data.description ?? '']));
+}
+
+function publishedDocs() {
+  return getCollection('docs', ({ data }) => data.draft !== true);
 }

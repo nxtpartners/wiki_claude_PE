@@ -1,15 +1,42 @@
 ---
 import '../styles/global.css';
+import { NXT_SITE } from '../config/nav';
+import { applyBase, basePrefix } from '../utils/basePath';
 
 interface Props {
   title: string;
   description?: string;
+  /** Keeps the page out of search results (the 404 page). */
+  noindex?: boolean;
 }
 
-const { title, description = 'Claude.ai for private equity professionals: from basics to confident daily use.' } =
-  Astro.props;
+const {
+  title,
+  description = 'Claude.ai for private equity professionals: from basics to confident daily use.',
+  noindex = false,
+} = Astro.props;
 
-const fullTitle = title === 'Home' ? 'Claude for Private Equity · NXT Partners AI' : `${title} · Claude for PE`;
+const SITE_NAME = 'Claude for Private Equity';
+const isHome = title === 'Home';
+const fullTitle = isHome ? `${SITE_NAME} · ${NXT_SITE.name}` : `${title} · Claude for PE`;
+
+// Canonical address on the real domain, with the GitHub Pages base stripped, so
+// the subpath copy points search engines at wiki.nxtpartners.ai.
+const prefix = basePrefix(import.meta.env.BASE_URL);
+const path = prefix && Astro.url.pathname.startsWith(prefix) ? Astro.url.pathname.slice(prefix.length) : Astro.url.pathname;
+const canonical = new URL(applyBase('', path), Astro.site).href;
+const home = new URL('/', Astro.site).href;
+
+const publisher = { '@type': 'Organization', name: NXT_SITE.name, url: NXT_SITE.url };
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${home}#website`, name: SITE_NAME, url: home, inLanguage: 'en-US', publisher },
+    ...(isHome
+      ? []
+      : [{ '@type': 'TechArticle', headline: title, description, url: canonical, inLanguage: 'en-US', isPartOf: { '@id': `${home}#website` }, publisher }]),
+  ],
+};
 ---
 
 <!doctype html>
@@ -17,13 +44,26 @@ const fullTitle = title === 'Home' ? 'Claude for Private Equity · NXT Partners 
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <meta name="generator" content={Astro.generator} />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={isHome ? 'website' : 'article'} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    {
+      !noindex && (
+        <>
+          <link rel="canonical" href={canonical} />
+          <meta property="og:url" content={canonical} />
+          <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+        </>
+      )
+    }
     <!-- Paired with --chrome-bg in global.css (a meta tag cannot read a CSS variable). Change both together. -->
     <meta name="theme-color" content="#0e0a20" />
     <!-- NXT's own icons, copied byte for byte from nxt-pe/public/ (see tasks/standards.md, Seam 5). -->
