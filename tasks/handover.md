@@ -14,6 +14,8 @@ Waiting on:  Whether to retire the GitHub Pages workflow (item 15); whether to a
   appears only in the hero line. Rules in `CLAUDE.md` and `tasks/standards.md`.
 - The NXT logo is embedded from pe.nxtpartners.ai and the tab icons are copied from `nxt-pe/public/`; never redrawn ("We have the object for the
   logo completed, why you did not take that one?"; then the same for the tab icon). Its styles are inline on purpose (`context.md`).
+- Links between the wiki and pe.nxtpartners.ai open in the same tab, both ways ("I want it to be open in the
+  current tab"). pe.nxtpartners.ai links here from its nav (Free resources, then Claude for PE).
 - The hero stays white ("keep the hero in white"); only header and footer are navy.
 - The header's Confidential chip, "Built by" text and the footer confidentiality line were removed by
   the user. Do not bring them back.
